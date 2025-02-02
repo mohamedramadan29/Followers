@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Traits\Message_Trait;
+use Illuminate\Http\Request;
 use App\Http\Traits\Slug_Trait;
+use App\Models\admin\SubCategory;
+use App\Http\Traits\Message_Trait;
 use App\Http\Traits\Upload_Images;
 use App\Models\admin\MainCategory;
-use App\Models\admin\SubCategory;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class SubCategoryController extends Controller
 {
@@ -45,7 +46,10 @@ class SubCategoryController extends Controller
                             'من فضلك يجب ان يكون نوع الصورة jpg,png,jpeg,webp',
                         'image.image' => 'من فضلك ادخل الصورة بشكل صحيح',
                     ];
-                    $this->validate($request, $rules, $customeMessage);
+                    $validator = Validator::make($alldata, $rules, $customeMessage);
+                    if ($validator->fails()) {
+                        return Redirect()->back()->withInput()->withErrors($validator);
+                    }
                     /// Upload Admin Photo
                     if ($request->hasFile('image')) {
                         $file_name = $this->saveImage($request->image, public_path('assets/uploads/Subcategory_images'));
@@ -92,7 +96,10 @@ class SubCategoryController extends Controller
                         'من فضلك يجب ان يكون نوع الصورة jpg,png,jpeg,webp',
                     'image.image' => 'من فضلك ادخل الصورة بشكل صحيح',
                 ];
-                $this->validate($request, $rules, $customeMessage);
+                $validator = Validator::make($alldata, $rules, $customeMessage);
+                if ($validator->fails()) {
+                    return Redirect()->back()->withInput()->withErrors($validator);
+                }
                 /// Upload Category Image
                 if ($request->hasFile('image')) {
                     ////// Delete Old Image

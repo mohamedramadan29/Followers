@@ -8,6 +8,8 @@ use App\Http\Traits\Slug_Trait;
 use App\Http\Traits\Upload_Images;
 use App\Models\admin\MainCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 
 class MainCategoryController extends Controller
 {
@@ -41,7 +43,11 @@ class MainCategoryController extends Controller
                             'من فضلك يجب ان يكون نوع الصورة jpg,png,jpeg,webp',
                         'image.image' => 'من فضلك ادخل الصورة بشكل صحيح',
                     ];
-                    $this->validate($request, $rules, $customeMessage);
+                    $validator = Validator::make($alldata, $rules, $customeMessage);
+                    if ($validator->fails()) {
+                        return Redirect()->back()->withInput()->withErrors($validator);
+                    }
+
                     /// Upload Admin Photo
                     if ($request->hasFile('image')) {
                         $file_name = $this->saveImage($request->image, public_path('assets/uploads/category_images'));
@@ -88,7 +94,10 @@ class MainCategoryController extends Controller
                         'من فضلك يجب ان يكون نوع الصورة jpg,png,jpeg,webp',
                     'image.image' => 'من فضلك ادخل الصورة بشكل صحيح',
                 ];
-                $this->validate($request, $rules, $customeMessage);
+                $validator = Validator::make($alldata, $rules, $customeMessage);
+                if ($validator->fails()) {
+                    return Redirect()->back()->withInput()->withErrors($validator);
+                }
                 /// Upload Category Image
                 if ($request->hasFile('image')) {
                     ////// Delete Old Image
