@@ -1,5 +1,4 @@
 <?php
-
 return [
     'admins'=>'  ادارة المسؤولين  ',
     'products' => ' ادارة الخدمات ',
@@ -10,4 +9,6 @@ return [
     'categories'=>'التصنيفات',
     'users'=>'المستخدمين ',
     'public_setting'=>'الاعدادات العامة ',
+    'support'=>'الدعم ',
+    'reviews'=>'التقيمات',
 ];

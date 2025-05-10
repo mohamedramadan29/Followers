@@ -11,15 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reviews', function (Blueprint $table) {
+        Schema::create('support_ticket_files', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
-            $table->string('name');
-            $table->text('description');
-            $table->integer('rate');
-            $table->string('image')->nullable();
-            $table->integer('order_id')->nullable();
-            $table->integer('service_id')->nullable();
+            $table->unsignedBigInteger('ticket_message_id');
+            $table->string('file');
+            $table->foreign('ticket_message_id')->references('id')->on('support_ticket_messages')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -29,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('reviews');
+        Schema::dropIfExists('support_ticket_files');
     }
 };

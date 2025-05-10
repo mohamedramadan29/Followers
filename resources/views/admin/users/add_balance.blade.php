@@ -9,12 +9,12 @@
             <form action="{{url('admin/user/addbalance/'.$user['id'])}}" method="post">
                 @csrf
                 <div class="modal-body">
-                    <label for="">  الرصيد  </label>
+                    <label for="">  الرصيد المراد إضافته  </label>
                     <input type="number" step="any" name="balance" class="form-control">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> رجوع</button>
                     <button type="submit" class="btn btn-primary"> اضافة  </button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> رجوع</button>
                 </div>
             </form>
         </div>

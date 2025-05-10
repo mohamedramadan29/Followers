@@ -19,16 +19,16 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->redirectGuestsTo(function () {
             if (request()->is('*/admin/*')) {
-                return route('admin_login');
+                return route('admin.admin_login');
             } else {
-                return route('admin_login');
+                return route('admin.admin_login');
             }
         });
         $middleware->redirectUsersTo(function () {
             if (Auth::guard('admin')->check()) {
-                return route('dashboard.welcome');
+                return route('admin.dashboard.welcome');
             } else {
-                return route('admin_login');
+                return route('admin.admin_login');
             }
         });
     })

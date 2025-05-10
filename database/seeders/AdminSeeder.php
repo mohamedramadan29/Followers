@@ -21,7 +21,8 @@ class AdminSeeder extends Seeder
             'password'=>Hash::make('11111111'),
             'phone'=>'1111111111',
             'account_type'=>'admin',
-            'status'=>1
+            'status'=>1,
+            'role_id'=>1
         ]);
     }
 }

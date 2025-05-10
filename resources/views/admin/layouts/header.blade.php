@@ -26,6 +26,7 @@
 
     <!-- App css (Require in all Page) -->
     <link href="{{ asset('assets/admin/css/app-rtl.min.css') }}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('assets/admin/css/custome.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Theme Config js (Require in all Page) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -59,13 +60,22 @@
                     </div>
 
                     <div class="gap-1 d-flex align-items-center">
-
                         <!-- Theme Color (Light/Dark) -->
-                        {{--                    <div class="topbar-item"> --}}
-                        {{--                        <button type="button" class="topbar-button" id="light-dark-mode"> --}}
-                        {{--                            <iconify-icon icon="solar:moon-bold-duotone" class="align-middle fs-24"></iconify-icon> --}}
-                        {{--                        </button> --}}
-                        {{--                    </div> --}}
+                        {{-- <div class="topbar-item">
+                            <button type="button" class="topbar-button" id="light-dark-mode">
+                                <iconify-icon icon="solar:moon-bold-duotone" class="align-middle fs-24"></iconify-icon>
+                            </button>
+                        </div> --}}
+                        <div class="topbar-item">
+                            <button type="button" class="topbar-button" style="background-color: #dddbdb">
+                               <img src="{{ asset('assets/admin/images/world.svg') }}" alt="">
+                            </button>
+                        </div>
+                        <div class="topbar-item">
+                            <button type="button" class="topbar-button" style="background-color: #dddbdb">
+                               <img src="{{ asset('assets/admin/images/dollar.svg') }}" alt="">
+                            </button>
+                        </div>
 
                         @php
 
@@ -75,11 +85,10 @@
 
                         <!-- Notification -->
                         <div class="dropdown topbar-item">
-                            <button type="button" class="topbar-button position-relative"
+                            <button type="button" class="topbar-button position-relative" style="background-color: #dddbdb"
                                 id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false">
-                                <iconify-icon icon="solar:bell-bing-bold-duotone"
-                                    class="align-middle fs-24"></iconify-icon>
+                                <img src="{{ asset('assets/admin/images/bell.svg') }}" alt="">
                                 <span
                                     class="position-absolute topbar-badge fs-10 translate-middle badge bg-danger rounded-pill">
                                     @if ($unreadNotificationsUsers->count() > 0)
@@ -141,6 +150,8 @@
                                     <img class="rounded-circle" width="32"
                                         src="{{ asset('assets/uploads/PublicSetting/' . $publicsetting['website_logo']) }}"
                                         alt="avatar-3">
+                                {{ \Illuminate\Support\Facades\Auth::guard('admin')->user()->name }} <i
+                                    class="align-middle bx bx-chevron-down fs-18 ms-1"></i>
                                 </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">

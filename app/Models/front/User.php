@@ -21,6 +21,19 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'phone',
+        'image',
+        'person_info',
+        'balance',
+        'balance_spent',
+        'order_balance_now',
+        'total_orders',
+        'sex',
+        'city',
+        'birthday',
+        'account_status',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -49,5 +62,9 @@ class User extends Authenticatable
         }else{
             return 'غير مفعل';
         }
+    }
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'user_id');
     }
 }

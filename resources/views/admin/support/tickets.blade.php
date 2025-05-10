@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title')
-    مزودي الخدمات
+    خدمة العملاء
 @endsection
 @section('css')
     {{--    <!-- DataTables CSS --> --}}
@@ -25,64 +25,73 @@
                         @endphp
                     @endforeach
                 @endif
+
+                 @if ($tickets->isEmpty())
+                <div class="empty-data">
+                    <div class="row">
+                        <div class="empty-image">
+                            <img src="{{ asset('assets/admin/images/empty.png') }}" alt="">
+                        </div>
+                        <div class="empty-info">
+                            <h4> لا توجد تذاكر في الوقت الحالي </h4>
+                            <p> هذه الصفحة لا تحتوي على أي تذاكر في الوقت الحالي، ولكننا نعمل على إثرائها بأفضل المحتوى
+                                قريبًا. </br> نحن نسعى لتقديم قائمة التذاكر مميزة ومفيدة تلبي اهتماماتك. ترقب جديدنا قريبًا
+                                ونتمنى لك تجربة ممتعة معنا! </p>
+                        </div>
+                    </div>
+                </div>
+                @else
                 <div class="col-xl-12">
                     <div class="card">
-                        <div class="gap-1 card-header d-flex justify-content-between align-items-center">
-                            <h4 class="card-title flex-grow-1"> مزودي الخدمات </h4>
-
-                            <a href="{{ url('admin/provider/add') }}" class="btn btn-sm btn-primary">
-                                اضافة مزود جديد <i class="ti ti-plus"></i>
-                            </a>
-                        </div>
                         <div>
                             <div class="table-responsive">
                                 <table id="table-search"
                                     class="table mb-0 align-middle table-bordered gridjs-table table-hover table-centered">
-                                    <thead class="bg-light-subtle">
+                                    <thead class="bg-light-subtle table-primary-custome">
                                         <tr>
                                             <th style="width: 20px;">
                                             </th>
-                                            <th> الاسم </th>
-                                            <th> api url </th>
-                                            <th> api key </th>
-                                            <th> حالة التفعيل </th>
-                                            <th> العمليات</th>
+                                            <th> رقم التذكرة </th>
+                                            <th> رقم الطلب </th>
+                                            <th> اسم العميل </th>
+                                            <th> تاريخ ووقت التذكرة </th>
+                                            <th> اخر تحديث </th>
+                                            <th> حالة التذكرة </th>
+                                            <th> التفاصيل </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($providers as $provider)
+                                        @foreach ($tickets as $ticket)
                                             <tr>
                                                 <td>
-                                                    {{ $loop->iteration }}
+                                                    {{ $ticket['id'] }}
                                                 </td>
-                                                <td> {{ $provider['name'] }} </td>
-                                                <td> {{ $provider['api_url']  }} </td>
-                                                <td> {{ $provider['api_key'] }} </td>
+                                                <td> {{ $ticket['id'] }} </td>
+                                                <td> {{ $ticket->user->name }} </td>
+                                                <td> {{ date('Y-M-D ai A', strtotime($ticket['created_at'])) }} </td>
+                                                <td> {{ date('Y-M-D ai A', strtotime($ticket['last_time_message'])) }} </td>
                                                 <td>
-                                                    @if($provider['status'] == 1)
-                                                        <span class="badge bg-success"> مفعل </span>
-                                                        @else
-                                                        <span class="badge bg-danger"> غير مفعل </span>
+                                                    @if ($ticket['status'] == 0)
+                                                        <span class="badge bg-danger"> لم يتم الرد </span>
+                                                    @elseif($ticket['status'] == 1)
+                                                        <span class="badge bg-success">تم الرد عليها</span>
+                                                    @elseif ($ticket['status'] == 2)
+                                                        <span class="badge bg-warning"> عادية </span>
+                                                    @elseif ($ticket['status'] == 3)
+                                                        <span class="badge bg-info"> عاجلة </span>
+                                                    @elseif ($ticket['status'] == 4)
+                                                        <span class="badge bg-info"> مغلقة </span>
                                                     @endif
                                                 </td>
                                                 <td>
                                                     <div class="gap-2 d-flex">
-                                                        <a href="{{ url('admin/provider/update/' . $provider['id']) }}"
-                                                            class="btn-sm color-success">
-                                                            <iconify-icon icon="solar:pen-2-broken"
-                                                                class="align-middle fs-18"></iconify-icon>
+                                                        <a href="{{ url('admin/support/ticket/' . $ticket['id']) }}"
+                                                            class="btn btn-success btn-sm">
+                                                            <i class="fa fa-eye"></i>
                                                         </a>
-                                                        <button type="button" class="btn-sm color-danger"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#delete_category_{{ $provider['id'] }}">
-                                                            <iconify-icon icon="solar:trash-bin-minimalistic-2-broken"
-                                                                class="align-middle fs-18"></iconify-icon>
-                                                        </button>
                                                     </div>
                                                 </td>
                                             </tr>
-                                            <!-- Modal -->
-                                            @include('admin.Providers.delete')
                                         @endforeach
 
                                     </tbody>
@@ -92,6 +101,8 @@
                         </div>
                     </div>
                 </div>
+                 @endif
+
             </div>
 
         </div>

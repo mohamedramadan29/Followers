@@ -22,7 +22,11 @@ return new class extends Migration
             $table->double('balance_spent',8,2)->nullable();
             $table->double('order_balance_now',8,2)->nullable();
             $table->tinyInteger('account_status')->default(0);
+            $table->tinyInteger('block_status')->default(0);
             $table->integer('total_orders')->default(0);
+            $table->date('birthday')->nullable();
+            $table->string('sex')->nullable();
+            $table->string('city')->nullable();
             $table->string('password');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();

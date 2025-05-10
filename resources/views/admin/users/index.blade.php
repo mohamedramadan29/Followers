@@ -25,71 +25,94 @@
                         @endphp
                     @endforeach
                 @endif
-                <div class="col-xl-12">
-                    <div class="card">
-                        <div class="card-header d-flex justify-content-between align-items-center gap-1">
-                            <h4 class="card-title flex-grow-1"> المستخدمين </h4>
-                        </div>
-                        <div>
-                            <div class="table-responsive">
-                                <table id="table-search"
-                                    class="table table-bordered gridjs-table align-middle mb-0 table-hover table-centered">
-                                    <thead class="bg-light-subtle">
-                                        <tr>
-                                            <th style="width: 20px;">
-                                            </th>
-                                            <th> الاسم </th>
-                                            <th> البريد الالكتروني </th>
-                                            <th> رقم الهاتف </th>
-                                            <th> الرصيد </th>
-                                            <th> عدد الطلبات </th>
-                                            <th> حالة الحساب </th>
-                                            <th> العمليات</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($users as $user)
-                                            <tr>
-                                                <td>
-                                                    {{ $loop->iteration }}
-                                                </td>
-                                                <td> {{ $user['name'] }} </td>
-                                                <td> {{ $user['email'] }} </td>
-                                                <td> {{ $user['phone'] }} </td>
-                                                <td> {{ $user['balance'] }} دولار </td>
-                                                <td> {{ $user['total_orders'] }} </td>
-                                                <td> {{ $user['account_status'] }} </td>
-                                                <td>
-                                                    <div class="d-flex gap-2">
-                                                        <a href="{{ url('admin/user/show/' . $user['id']) }}"
-                                                            class="btn btn-success btn-sm">
-                                                            <i class="fa fa-eye"></i>
-                                                        </a>
-                                                        <button type="button" class="btn btn-primary btn-sm"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#add_balance_{{ $user['id'] }}">
-                                                            <i class="fa fa-add"></i>
-                                                        </button>
-                                                        <button type="button" class="btn btn-danger btn-sm"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#delete_balance_{{ $user['id'] }}">
-                                                            <i class="fa fa-minus"></i>
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <!-- Modal -->
-                                            @include('admin.users.add_balance')
-                                            @include('admin.users.delete_balance')
-                                        @endforeach
 
-                                    </tbody>
-                                </table>
+                @if ($users->isEmpty())
+                    <div class="empty-data">
+                        <div class="row">
+                            <div class="empty-image">
+                                <img src="{{ asset('assets/admin/images/empty.png') }}" alt="">
                             </div>
-                            <!-- end table-responsive -->
+                            <div class="empty-info">
+                                <h4> لا توجد مستخدمين في الوقت الحالي </h4>
+                                <p> هذه الصفحة لا تحتوي على أي مستخدمين في الوقت الحالي، ولكننا نعمل على إثرائها بأفضل
+                                    المحتوى قريبًا. نحن نسعى لتقديم قائمة مستخدمين مميزة ومفيدة تلبي اهتماماتك. </br> ترقب
+                                    جديدنا قريبًا ونتمنى لك تجربة ممتعة معنا! </p>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @else
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div>
+                                <div class="table-responsive">
+                                    <table id="table-search"
+                                        class="table mb-0 align-middle table-bordered gridjs-table table-hover table-centered">
+                                        <thead class="bg-light-subtle table-primary-custome">
+                                            <tr>
+                                                <th style="width: 20px;">
+                                                </th>
+                                                <th> الاسم </th>
+                                                <th> البريد الالكتروني </th>
+                                                <th> رقم الهاتف </th>
+                                                <th> الرصيد الكلي</th>
+                                                <th> اجمالي المدفوعات </th>
+                                                <th> عدد الطلبات </th>
+                                                <th> حالة الحساب </th>
+                                                <th> العمليات</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($users as $user)
+                                                <tr>
+                                                    <td>
+                                                        {{ $loop->iteration }}
+                                                    </td>
+                                                    <td> {{ $user['name'] }} </td>
+                                                    <td> {{ $user['email'] }} </td>
+                                                    <td> {{ $user['phone'] }} </td>
+                                                    <td> {{ $user['balance'] }} دولار </td>
+                                                    <td> {{ $user['balance'] }} دولار </td>
+                                                    <td> {{ $user['total_orders'] }} </td>
+                                                    <td>
+                                                        @if ($user['account_status'] == 'مفعل')
+                                                            <span class="badge bg-success">مفعل</span>
+                                                        @else
+                                                            <span class="badge bg-danger">غير مفعل</span>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        <div class="gap-2 d-flex">
+                                                            <a href="{{ url('admin/user/show/' . $user['id']) }}"
+                                                                class="btn btn-success btn-sm">
+                                                                <i class="fa fa-eye"></i>
+                                                            </a>
+                                                            <button type="button" class="btn btn-primary btn-sm"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#add_balance_{{ $user['id'] }}">
+                                                                <i class="fa fa-add"></i>
+                                                            </button>
+                                                            <button type="button" class="btn btn-danger btn-sm"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#delete_balance_{{ $user['id'] }}">
+                                                                <i class="fa fa-minus"></i>
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <!-- Modal -->
+                                                @include('admin.users.add_balance')
+                                                @include('admin.users.delete_balance')
+                                            @endforeach
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- end table-responsive -->
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
             </div>
 
         </div>

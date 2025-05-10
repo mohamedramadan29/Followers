@@ -19,8 +19,9 @@ use App\Http\Controllers\admin\MainCategoryController;
 use App\Http\Controllers\admin\NotificationController;
 use \App\Http\Controllers\admin\BlogCategoryController;
 use App\Http\Controllers\admin\PublicSettingController;
+use App\Http\Controllers\admin\SupportTicketsController;
 
-Route::group(['prefix' => 'admin'], function () {
+Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     // Admin Login
 
     Route::controller(AdminController::class)->group(function () {
@@ -102,11 +103,13 @@ Route::group(['prefix' => 'admin'], function () {
         });
         //////////////// Start Reviews //////////////////////
         ///
-        Route::controller(ReviewController::class)->group(function () {
-            Route::get('reviews', 'index');
-            Route::match(['post', 'get'], 'review/store', 'store');
-            Route::match(['post', 'get'], 'review/update/{id}', 'update');
-            Route::post('review/delete/{id}', 'delete');
+        Route::group(['as' => 'reviews.', 'can' => 'reviews'], function () {
+            Route::controller(ReviewController::class)->group(function () {
+                Route::get('reviews', 'index');
+                Route::match(['post', 'get'], 'review/store', 'store');
+                Route::match(['post', 'get'], 'review/update/{id}', 'update');
+                Route::post('review/delete/{id}', 'delete');
+            });
         });
         ################################## Start Terms Pages ################
         Route::controller(TermsController::class)->group(function () {
@@ -135,9 +138,12 @@ Route::group(['prefix' => 'admin'], function () {
 
         Route::controller(UsersController::class)->group(function () {
             Route::get('users', 'index');
+            Route::match(['post', 'get'], 'user/add', 'store');
             Route::get('user/show/{id}', 'show');
             Route::post('user/addbalance/{id}', 'AddBalance');
             Route::post('user/deletebalance/{id}', 'DeleteBalance');
+            Route::match(['post', 'get'], 'user/ban/{id}', 'Ban')->name('user.ban');
+            Route::match(['post', 'get'], 'user/unban/{id}', 'Unban')->name('user.unban');
         });
         ####################### End User Controllers ##################
 
@@ -183,5 +189,14 @@ Route::group(['prefix' => 'admin'], function () {
             Route::match(['post', 'get'], 'notification/update/{id}', 'update');
             Route::post('notification/delete/{id}', 'delete');
         });
+        ################### Start Support Ticket Controller ################
+        Route::group(['prefix' => 'support', 'as' => 'support.', 'can' => 'support'], function () {
+            Route::controller(SupportTicketsController::class)->group(function () {
+                Route::get('tickets', 'index');
+                Route::get('ticket-show/{id}', 'showTicket');
+                Route::match(['post', 'get'], 'send-message/{id}', 'sendMessage');
+            });
+        });
+        ################### End Support Ticket Controller ##################
     });
 });

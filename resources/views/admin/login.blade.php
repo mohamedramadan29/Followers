@@ -1,6 +1,6 @@
 @extends('admin.layouts.login_master')
 @section('content')
-    <div class="d-flex flex-column h-100 p-3">
+    <div class="p-3 d-flex flex-column h-100">
         <div class="d-flex flex-column flex-grow-1">
             <div class="row h-100">
 
@@ -25,7 +25,7 @@
                                     $publicsetting = \App\Models\admin\PublicSetting::first();
 
                                 @endphp
-                                <div class="auth-logo mb-4">
+                                <div class="mb-4 auth-logo">
                                     <a href="{{ url('login') }}" class="logo-dark">
                                         <img src="{{ asset('assets/uploads/PublicSetting/' . $publicsetting['website_logo']) }}"
                                             width="75px" alt="logo dark">
@@ -39,11 +39,11 @@
 
                                 <h2 class="fw-bold fs-24"> تسجيل دخول </h2>
 
-                                <p class="text-muted mt-1 mb-4"> من فضلك ادخل البريد الالكتروني وكلمة المرور للدخول الي
+                                <p class="mt-1 mb-4 text-muted"> من فضلك ادخل البريد الالكتروني وكلمة المرور للدخول الي
                                     حسابك </p>
 
                                 <div class="mb-5">
-                                    <form method="post" action="{{ route('admin_login') }}" class="authentication-form">
+                                    <form method="post" action="{{ route('admin.admin_login') }}" class="authentication-form">
                                         @csrf
                                         <div class="mb-3">
                                             <label class="form-label" for="example-email"> البريد الالكتروني </label>
@@ -86,7 +86,7 @@
                     </div>
                 </div>
                 <div class="col-xxl-5 d-none d-xxl-flex">
-                    <div class="card h-100 mb-0 overflow-hidden" style="background: transparent;box-shadow: none">
+                    <div class="overflow-hidden mb-0 card h-100" style="background: transparent;box-shadow: none">
                         <div class="d-flex flex-column h-100">
                             <img src="{{ asset('assets/admin/images/social_login.svg') }}" alt=""
                                 class="w-100 h-100">
