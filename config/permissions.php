@@ -11,4 +11,5 @@ return [
     'public_setting'=>'الاعدادات العامة ',
     'support'=>'الدعم ',
     'reviews'=>'التقيمات',
+    'reports'=>'التقارير',
 ];

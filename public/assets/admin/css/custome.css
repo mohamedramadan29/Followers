@@ -122,11 +122,19 @@
     color: #21C55D;
     border: none;
     background: transparent;
+    font-size: 18px;
 }
 .color-danger{
     color: #FF0000;
     border: none;
     background: transparent;
+    font-size: 18px;
+}
+.color-primary{
+    color: var(--main-color);
+    border: none;
+    background: transparent;
+    font-size: 18px;
 }
 /************ Start Order Tabs ***********/
 

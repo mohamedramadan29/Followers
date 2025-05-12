@@ -19,6 +19,7 @@ use App\Http\Controllers\admin\MainCategoryController;
 use App\Http\Controllers\admin\NotificationController;
 use \App\Http\Controllers\admin\BlogCategoryController;
 use App\Http\Controllers\admin\PublicSettingController;
+use App\Http\Controllers\admin\ReportController;
 use App\Http\Controllers\admin\SupportTicketsController;
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
@@ -67,15 +68,16 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         });
 
         ////////////////////// Start Products ///////////////////////////////
-        Route::controller(ProductController::class)->group(function () {
-            Route::get('products', 'index');
-            Route::match(['post', 'get'], 'product/add', 'store');
-            Route::match(['post', 'get'], 'product/update/{slug}', 'update')->name('product.update');
-            Route::post('product/delete/{id}', 'delete');
-            Route::get('/get-attribute-values/{attributeId}', 'getAttributeValues');
-            Route::get('/get-subcategories', 'getSubCategories')->name('get.subcategories');
-
-            Route::match(['post', 'get'], 'follow', 'follow');
+        Route::group(['can' => 'products'], function () {
+            Route::controller(ProductController::class)->group(function () {
+                Route::get('products', 'index');
+                Route::match(['post', 'get'], 'product/add', 'store');
+                Route::match(['post', 'get'], 'product/update/{slug}', 'update')->name('product.update');
+                Route::post('product/delete/{id}', 'delete');
+                Route::get('/get-attribute-values/{attributeId}', 'getAttributeValues');
+                Route::get('/get-subcategories', 'getSubCategories')->name('get.subcategories');
+                Route::match(['post', 'get'], 'follow', 'follow');
+            });
         });
         //////////////// Start Faq Controller ////////////////////
         ///
@@ -198,5 +200,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
             });
         });
         ################### End Support Ticket Controller ##################
+        ################### Start Reports Controller #######################
+        Route::group(['prefix' => 'reports', 'as' => 'reports.', 'can' => 'reports'], function () {
+            Route::controller(ReportController::class)->group(function () {
+                Route::get('index', 'index');
+            });
+        });
+        ################### End Reports Controller #########################
     });
 });

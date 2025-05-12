@@ -73,32 +73,76 @@
                     </div>
                 </li>
                 @can('support')
-                <li class="nav-item">
-                    <a class="nav-link menu-arrow" href="#sidebarSupport" data-bs-toggle="collapse" role="button"
-                        aria-expanded="false" aria-controls="sidebarSupport">
-                        <span class="nav-icon">
-                            <i class="bi bi-people"></i>
-                        </span>
-                        <span class="nav-text"> خدمة العملاء </span>
-                    </a>
-                    <div class="collapse" id="sidebarSupport">
-                        <ul class="nav sub-navbar-nav">
-                            <li class="sub-nav-item">
-                                <a class="sub-nav-link" href="{{ url('admin/support/tickets') }}"> جميع التذاكر </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link menu-arrow" href="#sidebarSupport" data-bs-toggle="collapse" role="button"
+                            aria-expanded="false" aria-controls="sidebarSupport">
+                            <span class="nav-icon">
+                                <i class="bi bi-people"></i>
+                            </span>
+                            <span class="nav-text"> خدمة العملاء </span>
+                        </a>
+                        <div class="collapse" id="sidebarSupport">
+                            <ul class="nav sub-navbar-nav">
+                                <li class="sub-nav-item">
+                                    <a class="sub-nav-link" href="{{ url('admin/support/tickets') }}"> جميع التذاكر </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
                 @endcan
                 @can('reviews')
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('admin/reviews') }}">
-                        <span class="nav-icon">
-                            <i class="bi bi-person-raised-hand"></i>
-                        </span>
-                        <span class="nav-text"> التقيمات  </span>
-                    </a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('admin/reviews') }}">
+                            <span class="nav-icon">
+                                <i class="bi bi-person-raised-hand"></i>
+                            </span>
+                            <span class="nav-text"> التقيمات </span>
+                        </a>
+                    </li>
+                @endcan
+
+                @can('reports')
+                    <li class="nav-item">
+                        <a class="nav-link menu-arrow" href="#sidebarReports" data-bs-toggle="collapse" role="button"
+                            aria-expanded="false" aria-controls="sidebarReports">
+                            <span class="nav-icon">
+                                <i class="bi bi-bar-chart-line"></i>
+                            </span>
+                            <span class="nav-text"> التقارير </span>
+                        </a>
+                        <div class="collapse" id="sidebarReports">
+                            <ul class="nav sub-navbar-nav">
+                                <li class="sub-nav-item">
+                                    <a class="sub-nav-link" href="{{ url('admin/reports/index') }}"> جميع التقارير </a>
+                                </li>
+                                <li class="sub-nav-item">
+                                    <a class="sub-nav-link" href="{{ url('admin/reports/index') }}"> تقارير المنتجات </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                @endcan
+                @can('products')
+                    <li class="nav-item">
+                        <a class="nav-link menu-arrow" href="#sidebarProducts" data-bs-toggle="collapse" role="button"
+                            aria-expanded="false" aria-controls="sidebarProducts">
+                            <span class="nav-icon">
+                                <i class="bi bi-hdd-stack-fill"></i>
+                            </span>
+                            <span class="nav-text"> الخدمات </span>
+                        </a>
+                        <div class="collapse" id="sidebarProducts">
+                            <ul class="nav sub-navbar-nav">
+
+                                <li class="sub-nav-item">
+                                    <a class="sub-nav-link" href="{{ url('admin/products') }}"> جميع الخدمات </a>
+                                </li>
+                                <li class="sub-nav-item">
+                                    <a class="sub-nav-link" href="{{ url('admin/product/add') }}"> اضف خدمة جديدة </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
                 @endcan
 
                 <li class="nav-item">
@@ -121,26 +165,7 @@
                     </div>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link menu-arrow" href="#sidebarProducts" data-bs-toggle="collapse" role="button"
-                        aria-expanded="false" aria-controls="sidebarProducts">
-                        <span class="nav-icon">
-                            <i class="bi bi-hdd-stack-fill"></i>
-                        </span>
-                        <span class="nav-text"> الخدمات </span>
-                    </a>
-                    <div class="collapse" id="sidebarProducts">
-                        <ul class="nav sub-navbar-nav">
 
-                            <li class="sub-nav-item">
-                                <a class="sub-nav-link" href="{{ url('admin/products') }}"> جميع الخدمات </a>
-                            </li>
-                            <li class="sub-nav-item">
-                                <a class="sub-nav-link" href="{{ url('admin/product/add') }}"> اضف خدمة جديدة </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
 
 
                 <li class="nav-item">

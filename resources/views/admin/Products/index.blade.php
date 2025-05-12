@@ -25,10 +25,40 @@
                         @endphp
                     @endforeach
                 @endif
-                <div class="col-xl-12">
-                    <div class="card">
-                        <div class="card-header d-flex justify-content-between align-items-center gap-1">
-                            <h4 class="card-title flex-grow-1"> الخدمات </h4>
+                @if ($products->isEmpty())
+                <div class="empty-data">
+                    <div class="row">
+                        <div class="empty-image">
+                            <img src="{{ asset('assets/admin/images/empty.png') }}" alt="">
+                        </div>
+                        <div class="empty-info">
+                            <h4>  لا توجد خدمات جديدة في الوقت الحالي  </h4>
+                            <p>
+                                نعمل على تحديث الخدمات بشكل مستمر. تابعنا لتحصل على آخر التحديثات قريبًا! , "نحن نعد العدة لتقديم محتوى الخدمات مميز وشامل."
+                                <br>
+                                "ترقبوا آخر البيانات قريبًا!"
+                            </p>
+                            <a href="{{ url('admin/product/add') }}" class="btn btn-sm btn-primary">
+                                اضافة خدمة جديدة
+                                <i class="ti ti-plus"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                @else
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="gap-1 card-header d-flex justify-content-between align-items-center">
+                                <form action="#" method="get" class="d-flex" style="justify-content: space-between;align-items: center">
+                                    <ul class="list-unstyled orders-tabs" style="widows: 90%">
+                                        <li>
+                                            <a href="{{ url('admin/products') }}" class="all active"> جميع الخدمات </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ url('admin/main-categories') }}" class="categories"> التصنيفات  </a>
+                                        </li>
+                                    </ul>
+                                </form>
 
                             <a href="{{ url('admin/product/add') }}" class="btn btn-sm btn-primary">
                                 اضف خدمة جديدة <i class="ti ti-plus"></i>
@@ -39,54 +69,52 @@
                         <div>
                             <div class="table-responsive">
                                 <table id="table-search"
-                                    class="table table-bordered gridjs-table align-middle mb-0 table-hover table-centered">
-                                    <thead class="bg-light-subtle">
+                                    class="table mb-0 align-middle table-bordered gridjs-table table-hover table-centered">
+                                    <thead class="bg-light-subtle table-primary-custome">
                                         <tr>
                                             <th style="width: 20px;">
                                             </th>
-                                            <th> عنوان الخدمة </th>
-                                            <th> مزود الخدمة </th>
+                                            <th> الخدمة   </th>
+                                            <th> المزود  </th>
                                             <th> رقم الخدمة </th>
                                             <th> القسم الرئيسي </th>
                                             <th> القسم الفرعي </th>
                                             <th> نسبة الربح </th>
-                                            <th> الصورة </th>
-                                            <th> العمليات</th>
+                                            <th> إجراءات متقدمة </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @php
-                                            $i = 1;
-                                        @endphp
                                         @foreach ($products as $product)
                                             <tr>
                                                 <td>
-                                                    {{ $i++ }}
+                                                    {{ $loop->iteration }}
                                                 </td>
-                                                <td><a href="{{ url('admin/product/update/' . $product['slug']) }}"></a>
-                                                    {{ $product['name'] }} </td>
+                                                <td> <img class="img-fluid" style="margin-left: 10px"
+                                                    src="{{ asset('assets/uploads/product_images/' . $product['image']) }}"
+                                                    width="40" height="40px" alt="">
+                                                    <a href="{{ url('admin/product/update/' . $product['slug']) }}">
+                                                        {{ $product['name'] }}
+                                                    </a>
+                                                </td>
                                                 <td> {{ $product['provider']['name'] }} </td>
                                                 <td> {{ $product['service_id'] }} </td>
                                                 <td> {{ $product['Main_Category']['name'] }} </td>
                                                 <td> {{ $product['Sub_Category']['name'] }} </td>
-                                                <td> {{ $product['profit_percentage'] }}  % </td>
+                                                <td> {{ $product['profit_percentage'] }} % </td>
                                                 <td>
-                                                    <img class="img-thumbnail"
-                                                        src="{{ asset('assets/uploads/product_images/' . $product['image']) }}"
-                                                        width="80" height="80px" alt="">
-                                                </td>
-                                                <td>
-                                                    <div class="d-flex gap-2">
+                                                    <div class="gap-2 d-flex">
                                                         <a href="{{ url('admin/product/update/' . $product['slug']) }}"
-                                                            class="btn btn-success btn-sm">
-                                                            <iconify-icon icon="solar:pen-2-broken"
-                                                                class="align-middle fs-18"></iconify-icon>
+                                                            class="color-success">
+                                                            <i class="ti ti-eye"></i>
                                                         </a>
-                                                        <button type="button" class="btn btn-danger btn-sm"
+                                                        <a href="{{ url('admin/product/update/' . $product['slug']) }}"
+                                                            class="color-primary">
+                                                            <i class="ti ti-edit"></i>
+                                                        </a>
+                                                        <button type="button" class="color-danger"
                                                             data-bs-toggle="modal"
                                                             data-bs-target="#delete_category_{{ $product['id'] }}">
-                                                            <iconify-icon icon="solar:trash-bin-minimalistic-2-broken"
-                                                                class="align-middle fs-18"></iconify-icon>
+                                                            <i class="ti ti-trash"></i>
                                                         </button>
                                                     </div>
                                                 </td>
@@ -101,6 +129,7 @@
                             <!-- end table-responsive -->
                         </div>
                     </div>
+                    @endif
                 </div>
             </div>
 
