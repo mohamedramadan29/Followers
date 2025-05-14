@@ -27,17 +27,27 @@
                     @endforeach
                 @endif
                 <div class="col-xl-12">
-                    <div class="card">
-                        <div class="card-header d-flex justify-content-between align-items-center gap-1">
-                            <h4 class="card-title flex-grow-1"> الاقسام الرئيسية </h4>
 
-                            <a href="{{url('admin/main-category/add')}}" class="btn btn-sm btn-primary">
-                                اضف قسم جديد <i class="ti ti-plus"></i>
+                        <div class="card">
+                            <div class="gap-1 card-header d-flex justify-content-between align-items-center">
+                                <form action="#" method="get" class="d-flex" style="justify-content: space-between;align-items: center">
+                                    <ul class="list-unstyled orders-tabs" style="widows: 90%">
+                                        <li>
+                                            <a href="{{ url('admin/products') }}" class=""> جميع الخدمات </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ url('admin/main-categories') }}" class="categories all active"> التصنيفات  </a>
+                                        </li>
+                                    </ul>
+                                </form>
+
+                            <a href="{{ url('admin/main-category/add') }}" class="btn btn-sm btn-primary">
+                                اضافة تصنيف جديد  <i class="ti ti-plus"></i>
                             </a>
                         </div>
                         <div>
                             <div class="table-responsive">
-                                <table id="table-search" class="table table-bordered gridjs-table align-middle mb-0 table-hover table-centered">
+                                <table id="table-search" class="table mb-0 align-middle table-bordered gridjs-table table-hover table-centered">
                                     <thead class="bg-light-subtle">
                                     <tr>
                                         <th style="width: 20px;">
@@ -80,7 +90,7 @@
                                                 <img class="img-thumbnail" src="{{asset('assets/uploads/category_images/'.$category['image'])}}" width="80" height="80px" alt="">
                                             </td>
                                             <td>
-                                                <div class="d-flex gap-2">
+                                                <div class="gap-2 d-flex">
                                                     <a href="{{url('admin/sub-categories/'.$category['id'])}}" class="btn btn-primary btn-sm">
                                                           الاقسام الفرعية
                                                     </a>
@@ -103,7 +113,7 @@
                                 </table>
                             </div>
                             <!-- end table-responsive -->
-                        </div>
+
                     </div>
                 </div>
             </div>
