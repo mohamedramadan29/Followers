@@ -12,7 +12,7 @@
     <button class="robot-chat-button">
         اسالني سوالا <i class="bi bi-android2"></i>
     </button>
-    <div class="chat-body hidden">
+    <div class="hidden chat-body">
         <div class="chat-header">
             <h3>اسالني سوالا</h3>
             <button class="chat-close-button">
@@ -98,142 +98,162 @@
 
 @include('front.layouts.chat')
 
-<!--###################### End Chatt Faq #######################-->
-<!-- ==================== Footer Start Here ==================== -->
 @php
     use App\Models\admin\PublicSetting;
+
     $setting = PublicSetting::first();
+
 @endphp
 
-<footer class="footer-section ">
-    <img src="{{ asset('assets/front/') }}/images/shapes/pattern.png" alt="" class="bg-pattern">
-    <img src="{{ asset('assets/front/') }}/images/shapes/element1.png" alt="" class="element one">
-    <img src="{{ asset('assets/front/') }}/images/shapes/element2.png" alt="" class="element two">
-    <img src="{{ asset('assets/front/') }}/images/gradients/footer-gradient.png" alt="" class="bg--gradient">
-
+<!--###################### End Chatt Faq #######################-->
+<!-- ==================== Footer Start Here ==================== -->
+<footer class="footer-section custom-purple-footer">
     <div class="container container-two">
-        <div class="row gy-5">
-            <div class="col-xl-3 col-sm-6">
+        <div class="row gy-5 align-items-center">
+            <div class="text-center col-xl-4 col-sm-6">
                 <div class="footer-widget">
-                    <div class="footer-widget__logo">
-                        {{-- <a href="{{ url('/') }}"> متجر المتابعين </a> --}}
-                        <h5 class="footer-widget__title text-white"> متجر المتابعين </h5>
-                    </div>
-                    <p class="footer-widget__desc">
-                        نقدم لك خدمات التواصل الاجتماعي لتعزيز تواجدك بين منافسيك، أسهل وأبسط وأسرع خدمات سوشيال ميديا
-                        في العالم العربي
-                    </p>
 
-                </div>
-            </div>
-            <div class="col-xl-2 col-sm-6 col-xs-6">
-                <div class="footer-widget">
-                    <h5 class="footer-widget__title text-white"> روابط </h5>
-                    <ul class="footer-lists">
-                        <li class="footer-lists__item"><a href="{{ url('/') }}" class="footer-lists__link">
-                                الرئيسية
-                            </a></li>
-                        <li class="footer-lists__item"><a href="product-details.html" class="footer-lists__link">
-                                الاقسام </a></li>
-                        <li class="footer-lists__item"><a href="profile.html" class="footer-lists__link"> الخدمات </a>
-                        </li>
-                        <li class="footer-lists__item"><a href="{{ url('contact') }}" class="footer-lists__link">تواصل
-                                معنا
-                            </a>
-                        </li>
-                        <li class="footer-lists__item"><a href="{{ url('blog') }}" class="footer-lists__link"> المدونة
-                            </a>
-                        </li>
+                    <img src="{{ asset('assets/front/uploads/logo-login.svg') }}" alt="شعار منصة الأعمال السعودي"
+                        style="max-width: 120px; margin-bottom: 15px;">
+                    <p class="text-white footer-widget__desc" style="font-size: 15px;">
+                        متجر زيادة التفاعل خدمات سوشيال ميديا محترف في زيادة متابعين تيك توك ودعمها بمشاهدات ولايكات
+                        ومشاركات بجودة مضمونة. كما يوفر هذه الخدمة لمختلف المنصات مثل تيك توك، انستقرام، فيسبوك، بأفضل
+                        الأسعار.
+                    </p>
+                    <ul class="mt-3 footer-social-icons list-inline">
+                        @if ($setting['facebook'] != '')
+                            <li class="list-inline-item"><a href="{{ $setting['facebook'] }}" class="text-white"><i
+                                        class="fab fa-facebook-f"></i></a></li>
+                        @endif
+                        @if ($setting['instagram'] != '')
+                            <li class="list-inline-item"><a href="{{ $setting['instagram'] }}" class="text-white"><i
+                                        class="fab fa-instagram"></i></a></li>
+                        @endif
+                        @if ($setting['linkedin'] != '')
+                            <li class="list-inline-item"><a href="{{ $setting['linkedin'] }}" class="text-white"><i
+                                        class="fab fa-linkedin-in"></i></a></li>
+                        @endif
+                        @if ($setting['whatsapp'] != '')
+                            <li class="list-inline-item"><a href="{{ $setting['whatsapp'] }}" class="text-white"><i
+                                        class="fab fa-whatsapp"></i></a></li>
+                        @endif
+                        @if ($setting['twitter'] != '')
+                            <li class="list-inline-item"><a href="{{ $setting['twitter'] }}" class="text-white"><i
+                                        class="fab fa-twitter"></i></a></li>
+                        @endif
+                        @if ($setting['youtube'] != '')
+                            <li class="list-inline-item"><a href="{{ $setting['youtube'] }}" class="text-white"><i
+                                        class="fab fa-youtube"></i></a></li>
+                        @endif
                     </ul>
                 </div>
             </div>
-            <div class="col-xl-3 col-sm-6 col-xs-6 ps-xl-5">
+            <div class="mb-4 col-xl-3 col-sm-6 mb-xl-0">
                 <div class="footer-widget">
-                    <h5 class="footer-widget__title text-white"> تابعنا </h5>
-                    <div class="footer-widget__social">
-                        <ul class="social-icon-list">
-                            @if ($setting['facebook'] != '')
-                                <li class="social-icon-list__item">
-                                    <a href="{{ $setting['facebook'] }}" class="social-icon-list__link  flx-center"><i
-                                            class="fab fa-facebook-f"></i></a>
-                                </li>
-                            @endif
-
-                            @if ($setting['twitter'] != '')
-                                <li class="social-icon-list__item">
-                                    <a href="{{ $setting['twitter'] }}" class="social-icon-list__link  flx-center"> <i
-                                            class="fab fa-twitter"></i></a>
-                                </li>
-                            @endif
-
-                            @if ($setting['linkedin'] != '')
-                                <li class="social-icon-list__item">
-                                    <a href="{{ $setting['linkedin'] }}" class="social-icon-list__link  flx-center"> <i
-                                            class="fab fa-linkedin-in"></i></a>
-                                </li>
-                            @endif
-
-                            @if ($setting['pinterest'] != '')
-                                <li class="social-icon-list__item">
-                                    <a href="{{ $setting['pinterest'] }}" class="social-icon-list__link  flx-center">
-                                        <i class="fab fa-pinterest-p"></i></a>
-                                </li>
-                            @endif
-
-                            @if ($setting['youtube'] != '')
-                                <li class="social-icon-list__item">
-                                    <a href="{{ $setting['youtube'] }}" class="social-icon-list__link  flx-center"> <i
-                                            class="fab fa-youtube"></i></a>
-                                </li>
-                            @endif
-
-                            @if ($setting['instagram'] != '')
-                                <li class="social-icon-list__item">
-                                    <a href="{{ $setting['instagram'] }}" class="social-icon-list__link flx-center">
-                                        <i class="fab fa-instagram"></i></a>
-                                </li>
-                            @endif
-
-                            @if ($setting['whatsapp'] != '')
-                                <li class="social-icon-list__item">
-                                    <a href="{{ $setting['whatsapp'] }}" class="social-icon-list__link flx-center">
-                                        <i class="fab fa-whatsapp"></i></a>
-                                </li>
-                            @endif
-
-                        </ul>
-                    </div>
-
+                    <h5 class="text-white footer-widget__title">روابط تهمك</h5>
+                    <ul class="footer-lists">
+                        <li class="footer-lists__item">  <a href="{{ url('blog') }}"> المدونة </a> </li>
+                        <li class="footer-lists__item"> <a href="{{ url('terms') }}"> الشروط والأحكام </a> </li>
+                        <li class="footer-lists__item">سياسة الإرجاع</li>
+                        <li class="footer-lists__item">سياسة الإستخدام والخصوصية</li>
+                    </ul>
                 </div>
             </div>
-            <div class="col-xl-4 col-sm-6">
+            <div class="mb-4 col-xl-2 col-sm-6 mb-xl-0">
                 <div class="footer-widget">
-                    <h5 class="footer-widget__title text-white">اشترك معنا </h5>
-                    <p class="footer-widget__desc"> اشترك معنا الان للحصول علي افضل العروض </p>
-                    <form action="#" class="mt-4 subscribe-box d-flex align-items-center flex-column gap-2">
-                        <input type="text" class="form-control common-input pill text-white"
-                            placeholder=" ادخل البريد الالكتروني  ">
-                        <button type="submit" class="btn btn-main btn-lg w-100 pill"> اشترك الان </button>
-                    </form>
+                    <h5 class="text-white footer-widget__title">أخرى</h5>
+                    <ul class="footer-lists">
+                        <li class="footer-lists__item">عدد متابعين تيك توك</li>
+                        <li class="footer-lists__item">عدد متابعين انستقرام</li>
+                    </ul>
                 </div>
+            </div>
+
+            <div class="mb-4 text-center col-xl-3 col-sm-6 mb-xl-0">
+                <div class="footer-widget">
+                    <img src="{{ asset('assets/front/uploads/suadi.png') }}" alt="شعار منصة الأعمال السعودي"
+                        style="max-width: 120px; margin-bottom: 15px;">
+                    <h5 class="mt-3 text-white footer-widget__title">توثيق في منصة الأعمال السعودي</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr style="border-color: #fff2; margin: 30px 0 10px 0;">
+    <div class="container container-two">
+        <div class="row">
+            <div class="text-center col-12">
+                <p class="mb-1 text-white footer-copyright" style="font-size: 16px;">حقوق محفوظة متجر زيادة التفاعل ©
+                    2025</p>
             </div>
         </div>
     </div>
 </footer>
+<style>
+    .custom-purple-footer {
+        background: #595bb3;
+        color: #fff;
+        padding: 50px 0 0 0;
+        position: relative;
+        font-family: inherit;
+    }
 
-<!-- bottom Footer -->
-<div class="bottom-footer">
-    <div class="container container-two">
-        <div class="bottom-footer__inner flx-between gap-3">
-            <p class="bottom-footer__text font-14">جميع الحقوق محفوظة © 2024 أرخص موقع زيادة متابعين </p>
-            <div class="footer-links">
-                <a href="{{ url('terms') }}" class="footer-link font-14"> الشروط والاحكام </a>
-                <a href="{{ url('return-policy') }}" class="footer-link font-14"> سياسة الاستبدال و الاسترجاع </a>
-                <a href="{{ url('privacy-policy') }}" class="footer-link font-14"> سياسة الاستخدام والخصوصية </a>
-            </div>
-        </div>
-    </div>
-</div>
+    .custom-purple-footer .footer-widget__title {
+        font-size: 20px;
+        margin-bottom: 18px;
+        font-weight: bold;
+    }
+
+    .custom-purple-footer .footer-lists {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .custom-purple-footer .footer-lists__item {
+        color: #fff;
+        margin-bottom: 10px;
+        font-size: 16px;
+    }
+
+    .custom-purple-footer .footer-social-icons .list-inline-item {
+        margin: 0 7px;
+    }
+    .custom-purple-footer .footer-lists__item a{
+        color: #fff
+    }
+
+    .custom-purple-footer .footer-social-icons .list-inline-item a {
+        font-size: 22px;
+        color: #fff;
+        transition: color 0.2s;
+    }
+
+    .custom-purple-footer .footer-social-icons .list-inline-item a:hover {
+        color: #ffd700;
+    }
+
+    .custom-purple-footer hr {
+        border-top: 1px solid #fff2;
+    }
+
+    .custom-purple-footer .footer-copyright {
+        margin-bottom: 10px;
+    }
+
+    @media (max-width: 767px) {
+        .custom-purple-footer {
+            padding: 30px 0 0 0;
+        }
+
+        .custom-purple-footer .footer-widget__title {
+            font-size: 17px;
+        }
+
+        .custom-purple-footer .footer-lists__item {
+            font-size: 14px;
+        }
+    }
+</style>
 <!-- ==================== Footer End Here ==================== -->
 
 </main>
@@ -259,7 +279,7 @@
 <!-- main js -->
 <script src="{{ asset('assets/front/') }}/js/main.js"></script>
 @toastifyJs
-
+@yield('js')
 {!! NoCaptcha::renderJs() !!}
 </body>
 

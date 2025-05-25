@@ -2,7 +2,7 @@
 @section('title', 'المدونة ')
 @section('content')
     <!-- ======================== Breadcrumb Two Section Start ===================== -->
-    <section class="breadcrumb border-bottom p-0 d-block section-bg position-relative z-index-1">
+    <section class="p-0 breadcrumb border-bottom d-block section-bg position-relative z-index-1">
 
         <div class="breadcrumb-two">
             <img src="{{ asset('assets/front/') }}/images/gradients/breadcrumb-gradient-bg.png" alt=""
@@ -10,9 +10,9 @@
             <div class="container container-two">
                 <div class="row justify-content-center">
                     <div class="col-lg-12">
-                        <div class="breadcrumb-two-content text-center">
+                        <div class="text-center breadcrumb-two-content">
 
-                            <ul class="breadcrumb-list flx-align gap-2 mb-2 justify-content-center">
+                            <ul class="gap-2 mb-2 breadcrumb-list flx-align justify-content-center">
                                 <li class="breadcrumb-list__item font-14 text-body">
                                     <a href="{{ url('/') }}" class="breadcrumb-list__link text-body hover-text-main">
                                         الرئيسيــة
@@ -26,7 +26,7 @@
                                 </li>
                             </ul>
 
-                            <h3 class="breadcrumb-two-content__title mb-0 text-capitalize"> المدونـــة
+                            <h3 class="mb-0 breadcrumb-two-content__title text-capitalize"> المدونـــة
                             </h3>
                         </div>
                     </div>
@@ -37,9 +37,9 @@
     <!-- ======================== Breadcrumb Two Section End ===================== -->
 
     <!-- =========================== Blog Section Start ========================== -->
-    <section class="blog padding-y-120 section-bg position-relative z-index-1 overflow-hidden">
+    <section class="overflow-hidden blog padding-y-120 section-bg position-relative z-index-1">
         <img src="{{ asset('assets/front/') }}/images/shapes/pattern-five.png"
-            class="position-absolute end-0 top-0 z-index--1" alt="">
+            class="top-0 position-absolute end-0 z-index--1" alt="">
         <div class="container container-two">
             <div class="row gy-4">
                 @foreach ($blogs as $blog)
@@ -56,7 +56,7 @@
                                     <a href="{{ url('blog/' . $blog['slug']) }}"
                                         class="post-item__tag pill font-14 text-heading fw-500 hover-text-main">
                                         {{ $blog->category->name }} </a>
-                                    <div class="post-item__date font-14 flx-align gap-2 font-14 text-heading fw-500">
+                                    <div class="gap-2 post-item__date font-14 flx-align text-heading fw-500">
                                         <span class="icon">
                                             <img src="{{ asset('assets/front/') }}/images/icons/calendar.svg" alt=""
                                                 class="white-version">
@@ -103,7 +103,7 @@
                         {{-- زر "التالي" --}}
                         @if ($blogs->hasMorePages())
                             <li class="page-item">
-                                <a class="page-link flx-align gap-2 flex-nowrap" href="{{ $blogs->nextPageUrl() }}"
+                                <a class="gap-2 page-link flx-align flex-nowrap" href="{{ $blogs->nextPageUrl() }}"
                                     aria-label="التالي">
                                     التالــي <span class="icon line-height-1 font-20"><i
                                             class="las la-arrow-left"></i></span>
@@ -124,7 +124,7 @@
 
     <!-- ======================== Brand Section Start ========================= -->
     <div class="brand ">
-        <div class="container container">
+        <div class="container">
             <div class="brand-slider">
                 <div class="brand-item d-flex align-items-center justify-content-center">
                     <img src="{{ asset('assets/front/') }}/images/thumbs/brand-img1.png" alt=""

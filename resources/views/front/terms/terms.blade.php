@@ -3,7 +3,7 @@
 @section('content')
 
     <!-- ======================== Breadcrumb Two Section Start ===================== -->
-    <section class="breadcrumb border-bottom p-0 d-block section-bg position-relative z-index-1">
+    <section class="p-0 breadcrumb border-bottom d-block section-bg position-relative z-index-1">
 
         <div class="breadcrumb-two">
             <img src="{{ asset('assets/front/') }}/images/gradients/breadcrumb-gradient-bg.png" alt=""
@@ -11,9 +11,9 @@
             <div class="container container-two">
                 <div class="row justify-content-center">
                     <div class="col-lg-12">
-                        <div class="breadcrumb-two-content text-center">
+                        <div class="text-center breadcrumb-two-content">
 
-                            <ul class="breadcrumb-list flx-align gap-2 mb-2 justify-content-center">
+                            <ul class="gap-2 mb-2 breadcrumb-list flx-align justify-content-center">
                                 <li class="breadcrumb-list__item font-14 text-body">
                                     <a href="index.html" class="breadcrumb-list__link text-body hover-text-main">الرئيسية
                                     </a>
@@ -26,7 +26,7 @@
                                 </li>
                             </ul>
 
-                            <h3 class="breadcrumb-two-content__title mb-0 text-capitalize">  الشروط والاحكام</h3>
+                            <h3 class="mb-0 breadcrumb-two-content__title text-capitalize">  الشروط والاحكام</h3>
                         </div>
                     </div>
                 </div>
@@ -36,11 +36,11 @@
     <!-- ======================== Breadcrumb Two Section End ===================== -->
 
     <!-- =========================== Contact Section Start ========================== -->
-    <section class="contact padding-t-120 padding-b-60 section-bg position-relative z-index-1 overflow-hidden">
+    <section class="overflow-hidden contact padding-t-120 padding-b-60 section-bg position-relative z-index-1">
         <img src="{{ asset('assets/front/') }}/images/gradients/banner-two-gradient.png" alt=""
             class="bg--gradient">
         <img src="{{ asset('assets/front/') }}/images/shapes/pattern-five.png"
-            class="position-absolute end-0 top-0 z-index--1" alt="">
+            class="top-0 position-absolute end-0 z-index--1" alt="">
 
         <div class="container container-two">
             <div class="row gy-4">
