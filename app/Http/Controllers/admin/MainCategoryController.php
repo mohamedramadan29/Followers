@@ -30,11 +30,14 @@ class MainCategoryController extends Controller
             if ($request->isMethod('post')) {
                 try {
                     $alldata = $request->all();
+                   // dd($alldata);
                     // Make Validation
                     $rules = [
+
                         'name' => 'required',
                         'status' => 'required',
                         'image' => 'image|required|mimes:jpg,png,jpeg,webp',
+                        'meta_url_final' => 'required|string|max:255|unique:main_categories,meta_url',
                     ];
                     $customeMessage = [
                         'name.required' => 'من فضلك ادخل اسم القسم',
@@ -52,6 +55,7 @@ class MainCategoryController extends Controller
                     if ($request->hasFile('image')) {
                         $file_name = $this->saveImage($request->image, public_path('assets/uploads/category_images'));
                     }
+
                     $new_category = new MainCategory();
                     $new_category->name = $alldata['name'];
                     $new_category->slug = $this->CustomeSlug($alldata['name']);
@@ -59,6 +63,7 @@ class MainCategoryController extends Controller
                     $new_category->status = $alldata['status'];
                     $new_category->main_page = $alldata['main_page'];
                     $new_category->meta_title = $alldata['meta_title'];
+                    $new_category->meta_url = $alldata['meta_url_final'];
                     $new_category->meta_description = $alldata['meta_description'];
                     $new_category->meta_keywords = $alldata['meta_keywords'];
                     $new_category->image = $file_name;
@@ -83,6 +88,7 @@ class MainCategoryController extends Controller
                 $rules = [
                     'name' => 'required',
                     'status' => 'required',
+                    'meta_url_final' => 'required|string|max:255|unique:main_categories,meta_url,'.$id,
                 ];
                 if ($request->hasFile('image')) {
                     $rules['image'] = 'image|mimes:jpg,png,jpeg,webp';
@@ -119,6 +125,7 @@ class MainCategoryController extends Controller
                     "meta_title" => $alldata['meta_title'],
                     "meta_description" => $alldata['meta_description'],
                     "meta_keywords" => $alldata['meta_keywords'],
+                    "meta_url" => $alldata['meta_url_final'],
                 ]);
                 return $this->success_message(' تم تعديل القسم بنجاح  ');
             } catch (\Exception $e) {

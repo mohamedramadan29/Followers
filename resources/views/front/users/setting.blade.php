@@ -2,68 +2,81 @@
 @section('title', ' حسابي ')
 @section('content')
 
-
+<!-- ======================== Dashboard Cards Section Start ===================== -->
+    <section class="dashboard-cards-section">
+        <div class="dashboard-cards-row">
+            <div class="dashboard-card-item active">
+                <div class="">
+                    <img src="{{ asset('assets/front/uploads/balance-now.png') }}" alt="الرصيد الحالي"
+                        class="dashboard-card-img">
+                </div>
+                <div class="dashboard-card-info">
+                    <div class="dashboard-card-value">{{ number_format(Auth::user()->balance, 2) }} <img
+                            src="{{ asset('assets/front/images/icons/riyal-white.svg') }}" alt=""> </div>
+                    <div class="dashboard-card-label">رصيدك الآن</div>
+                    <i class="bi bi-arrow-left"></i>
+                </div>
+            </div>
+            <div class="dashboard-card-item">
+                <div class="">
+                    <img src="{{ asset('assets/front/uploads/current-used.png') }}" alt=" جار استخدامه "
+                        class="dashboard-card-img">
+                </div>
+                <div class="dashboard-card-info">
+                    <div class="dashboard-card-value">{{ number_format(Auth::user()->balance, 2) }} <img
+                            src="{{ asset('assets/front/images/icons/riyal-maincolor.svg') }}" alt=""> </div>
+                    <div class="dashboard-card-label"> جار استخدامه </div>
+                    <i class="bi bi-arrow-left"></i>
+                </div>
+            </div>
+            <div class="dashboard-card-item">
+                <div class="">
+                    <img src="{{ asset('assets/front/uploads/spend.png') }}" alt=" أنفقت معنا  "
+                        class="dashboard-card-img">
+                </div>
+                <div class="dashboard-card-info">
+                    <div class="dashboard-card-value">{{ number_format(Auth::user()->balance, 2) }} <img
+                            src="{{ asset('assets/front/images/icons/riyal-maincolor.svg') }}" alt=""> </div>
+                    <div class="dashboard-card-label"> أنفقت معنا </div>
+                    <i class="bi bi-arrow-left"></i>
+                </div>
+            </div>
+            <div class="dashboard-card-item">
+                <div class="">
+                    <img src="{{ asset('assets/front/uploads/add-balance.png') }}" alt=" شحن رصيد الآن  "
+                        class="dashboard-card-img">
+                </div>
+                <div class="dashboard-card-info">
+                    <i class="bi bi-plus"></i>
+                    <div class="dashboard-card-label"> شحن رصيد الآن </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ======================== Dashboard Cards Section End ===================== -->
     <!-- ======================== Breadcrumb Three Section Start ===================== -->
-    <section class="breadcrumb-three section-bg position-relative z-index-1 overflow-hidden">
-
-        <img src="{{ asset('assets/front/') }}/images/gradients/breadcrumb-gradient-bg.png" alt=""
-            class="bg--gradient">
-
-        <img src="{{ asset('assets/front/') }}/images/shapes/element-moon3.png" alt="" class="element one">
-        <img src="{{ asset('assets/front/') }}/images/shapes/element-moon1.png" alt="" class="element three">
-
+    <section class="overflow-hidden position-relative z-index-1">
         <div class="container container-two">
             <div class="breadcrumb-three-content border-bottom border-color">
-                <div class="breadcrumb-three-content__inner">
-                    <div class="breadcrumb-three-content__left">
-                        <div class="flx-between align-items-end gap-3">
-                            <div class="author-profile d-flex gap-2 flex-column">
-                                <div class="author-profile__thumb flex-shrink-0">
-                                    @if (Auth::user()->image != '')
-                                        <img style="border-radius: 50%;height:95%;width:95%"
-                                            src="{{ asset('assets/uploads/Users/' . Auth::user()->image) }}" alt="">
-                                    @else
-                                        <img style="border-radius: 50%;height:95%;width:95%"
-                                            src="{{ asset('assets/uploads/Users/user_avatar.png') }}" alt="">
-                                    @endif
-
-                                </div>
-
-                                <div class="d-flex align-items-end flex-wrap gap-4">
-                                    <div class="author-profile__info">
-                                        <h5 class="author-profile__name mb-2"> {{ Auth::user()->name }} </h5>
-                                        <span class="author-profile__membership font-14"> عضو
-                                            {{ \Carbon\Carbon::parse(Auth::user()->created_at)->diffForHumans() }} </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div
-                                class="breadcrumb-three-content__right flex-shrink-0  d-flex align-items-center gap-4 gap-lg-5">
-
-                                <div class="sales">
-                                    <span class="sales__text mb-1 text-heading fw-500">الرصيد الحالي </span>
-                                    <h5 class="sales__amount mb-0"> {{ number_format(Auth::user()->balance, 2) }} دولار </h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <ul class="nav tab-bordered nav-pills mt-4" id="pills-tabbs" role="tablist">
+                <ul class="mt-4 nav tab-bordered nav-pills" id="pills-tabbs" role="tablist">
 
                     <li class="nav-item" role="presentation">
-                        <a href="{{ url('user/orders') }}" class="nav-link"> طلباتي </a>
+                        <a href="{{ url('user/orders') }}" class="nav-link"> <i class="bi bi-cart"></i> طلباتي  </a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a href="{{ url('user/balance') }}" class="nav-link"> الرصيد </a>
+                        <a href="{{ url('user/balance') }}" class="nav-link"> <i class="bi bi-currency-dollar"></i>  شحن رصيد   </a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a href="{{ url('user/tickets') }}" class="nav-link"> تذاكر الدعم  </a>
+                        <a href="{{ url('user/wishlist') }}" class="nav-link"> <i class="bi bi-heart"></i> المفضلة   </a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a href="{{ url('user/setting') }}" class="nav-link active"> الاعدادات </a>
+                        <a href="{{ url('user/alerts') }}" class="nav-link"> <i class="bi bi-bell"></i> الاشعارات  </a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a href="{{ url('user/alerts') }}" class="nav-link"> التنبيهات </a>
+                        <a href="{{ url('user/tickets') }}" class="nav-link"> <i class="bi bi-chat-dots"></i>  الدعم الفني  </a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a href="{{ url('user/setting') }}" class="nav-link active"> <i class="bi bi-gear-fill"></i>  الاعدادات </a>
                     </li>
 
                 </ul>
@@ -73,7 +86,7 @@
     <!-- ======================== Breadcrumb Three Section End ===================== -->
 
     <!-- ===================== orders Section Start ============================== -->
-    <section class="profile pt-5 padding-b-120">
+    <section class="pt-5 profile padding-b-120">
         <div class="container container-two">
             <div class="tab-content" id="pills-tabb">
                 <div class="tab-pane fade show active" id="pills-Followingg" role="tabpanel"
@@ -82,117 +95,140 @@
                     <div class="row gy-4">
                         <div class="col-lg-12">
                             <!-- <form action="#"> -->
-                            <div class="setting-content" data-bs-spy="scroll" data-bs-target="#sidebar-scroll-spy">
-                                <div class="card common-card border border-gray-five overflow-hidden mb-24"
-                                    id="personalInfo">
-                                    <div class="card-header">
-                                        <h6 class="title"> البيانات الاساسية </h6>
+                            <div class="setting-content">
+                                <div class="settings-card">
+                                    <div class="settings-card-header">
+                                        <h3 class="settings-title">البيانات الأساسية</h3>
                                     </div>
-                                    <div class="card-body">
+                                    <div class="settings-card-body">
                                         <form action="{{ route('update_setting') }}" method="POST"
                                             enctype="multipart/form-data">
                                             @csrf
-                                            <div class="row gy-3">
-                                                <div class="col-sm-12 col-xs-12">
-                                                    <label for="name" class="form-label"> الاسم </label>
-                                                    <input name="name" type="text"
-                                                        class="common-input common-input--md border--color-dark bg--white"
-                                                        id="name" value="{{ Auth::user()->name }}">
+                                            <div class="settings-form">
+                                                <div class="form-grid">
+                                                    <div class="form-group">
+                                                        <div class="form-group-header">
+                                                            <label for="name">اسم المستخدم</label>
+                                                        </div>
+                                                        <input type="text" id="name" name="name" class="form-control"
+                                                            value="{{ Auth::user()->name }}" placeholder="Naif">
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <div class="form-group-header">
+                                                            <label for="phone">رقم الجوال</label>
+                                                        </div>
+                                                        <input type="text" id="phone" name="phone" class="form-control"
+                                                            placeholder="أدخل رقم الجوال" value="{{ Auth::user()->phone }}">
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <div class="form-group-header">
+                                                            <label for="gender">الجنس</label>
+                                                        </div>
+                                                        <select id="gender" name="gender" class="form-select">
+                                                            <option value="male" {{ Auth::user()->gender == 'male' ? 'selected' : '' }}>ذكر</option>
+                                                            <option value="female" {{ Auth::user()->gender == 'female' ? 'selected' : '' }}>أنثى</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <div class="form-group-header">
+                                                            <label for="city">المدينة</label>
+                                                        </div>
+                                                        <input type="text" id="city" name="city" class="form-control"
+                                                            placeholder="القصيم" value="{{ Auth::user()->city }}">
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <div class="form-group-header">
+                                                            <label for="birth_date">تاريخ الميلاد</label>
+                                                        </div>
+                                                        <input type="date" id="birth_date" name="birth_date" class="form-control"
+                                                            value="{{ Auth::user()->birth_date }}">
+                                                    </div>
+
+                                                    <div class="form-group full-width">
+                                                        <div class="form-group-header">
+                                                            <label for="bio">النبذة</label>
+                                                        </div>
+                                                        <textarea id="bio" name="bio" class="form-control"
+                                                            placeholder="اكتب النبذة هنا...." rows="4">{{ Auth::user()->bio }}</textarea>
+                                                    </div>
                                                 </div>
-                                                <div class="col-sm-12 col-xs-12">
-                                                    <label for="phone" class="form-label"> رقم الهاتف </label>
-                                                    <input name="phone" type="text"
-                                                        class="common-input common-input--md border--color-dark bg--white"
-                                                        id="phone" value="{{ Auth::user()->phone }}">
+
+                                                <div class="form-actions">
+                                                    <button type="submit" class="btn-save">
+                                                        <i class="bi bi-shield-lock"></i>
+                                                        حفظ البيانات
+                                                    </button>
                                                 </div>
-                                                <div class="col-sm-12">
-                                                    <label for="aboutProfile" class="form-label"> النبذة </label>
-                                                    <textarea name="person_info" class="common-input common-input--md border--color-dark bg--white" id="aboutProfile">{{ Auth::user()->person_info }}</textarea>
-                                                </div>
-                                                <div class="col-sm-12 col-xs-12">
-                                                    <label for="fileUpload" class="form-label"> الصورة الشخصية </label>
-                                                    <input name="image" type="file"
-                                                        class="common-input common-input--md border--color-dark bg--white"
-                                                        id="fileUpload">
-                                                </div>
-                                                <button type="submit" type="button" class="btn w-100 btn-main btn-md">
-                                                    حفظ البيانات
-                                                </button>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
-                                <div class="card common-card border border-gray-five overflow-hidden mb-24"
-                                    id="profile">
-                                    <div class="card-header">
-                                        <h6 class="title"> كلمة المرور </h6>
+
+                                <!-- Password Section -->
+                                <div class="mt-4 settings-card">
+                                    <div class="settings-card-header">
+                                        <h3 class="settings-title">تغيير كلمة المرور</h3>
                                     </div>
-                                    <div class="card-body">
-                                        <div class="row gy-3">
-                                            <form action="{{ route('update_password') }}" method="POST"
-                                                autocomplete="off">
-                                                @csrf
-                                                <div class="row gy-4">
-                                                    <div class="col-12">
-                                                        <label for="current-password"
-                                                            class="form-label mb-2 font-18 font-heading fw-600"> كلمة
-                                                            المرور الحالية </label>
+                                    <div class="settings-card-body">
+                                        <p class="alert alert-info" style="background-color: #5D5FED14;border-color: #5D5FED14;color:#5D5FED">
+                                            يفضل إستخدام كلمة مرور مكونة من أحرف وأرقام وعلامات خاصة مثل ( % $ # @ )
+                                        </p>
+                                        <form action="{{ route('update_password') }}" method="POST" autocomplete="off">
+                                            @csrf
+                                            <div class="settings-form password-form">
+                                                <div class="form-grid">
+                                                    <div class="form-group w-100">
+                                                        <div class="form-group-header">
+                                                            <label for="current-password">كلمة المرور الحالية</label>
+                                                        </div>
                                                         <div class="position-relative">
-                                                            <input required name="old_password" type="password"
-                                                                class="common-input common-input--withIcon common-input--withLeftIcon "
-                                                                id="current-password" placeholder="************">
-                                                            <span class="input-icon input-icon--left"><img
-                                                                    src="assets/images/icons/key-icon.svg"
-                                                                    alt=""></span>
-                                                            <span
-                                                                class="input-icon password-show-hide fas fa-eye toggle-password-two la-eye-slash"
+                                                            <input type="password" id="current-password" name="old_password"
+                                                                class="form-control" required placeholder="************">
+                                                            <span class="input-icon password-show-hide fas fa-eye toggle-password"
                                                                 id="#current-password"></span>
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-sm-6 col-xs-6">
-                                                        <label for="new-password"
-                                                            class="form-label mb-2 font-18 font-heading fw-600"> كلمة
-                                                            المرور الجديدة </label>
+                                                    <div class="form-group">
+                                                        <div class="form-group-header">
+                                                            <label for="new-password">كلمة المرور الجديدة</label>
+                                                        </div>
                                                         <div class="position-relative">
-                                                            <input type="password" required name="new_password"
-                                                                class="common-input common-input--withIcon common-input--withLeftIcon "
-                                                                id="new-password" placeholder="************">
-                                                            <span class="input-icon input-icon--left"><img
-                                                                    src="assets/images/icons/lock-two.svg"
-                                                                    alt=""></span>
-                                                            <span
-                                                                class="input-icon password-show-hide fas fa-eye toggle-password-two la-eye-slash"
+                                                            <input type="password" id="new-password" name="new_password"
+                                                                class="form-control" required placeholder="************">
+                                                            <span class="input-icon password-show-hide fas fa-eye toggle-password"
                                                                 id="#new-password"></span>
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-sm-6 col-xs-6">
-                                                        <label for="confirm-password"
-                                                            class="form-label mb-2 font-18 font-heading fw-600"> تأكيد
-                                                            المرور الجديدة </label>
+                                                    <div class="form-group">
+                                                        <div class="form-group-header">
+                                                            <label for="confirm-password">تأكيد كلمة المرور الجديدة</label>
+                                                        </div>
                                                         <div class="position-relative">
-                                                            <input type="password" required name="confirm_password"
-                                                                class="common-input common-input--withIcon common-input--withLeftIcon "
-                                                                id="confirm-password" placeholder="************">
-                                                            <span class="input-icon input-icon--left"><img
-                                                                    src="assets/images/icons/lock-two.svg"
-                                                                    alt=""></span>
-                                                            <span
-                                                                class="input-icon password-show-hide fas fa-eye toggle-password-two la-eye-slash"
+                                                            <input type="password" id="confirm-password" name="confirm_password"
+                                                                class="form-control" required placeholder="************">
+                                                            <span class="input-icon password-show-hide fas fa-eye toggle-password"
                                                                 id="#confirm-password"></span>
                                                         </div>
                                                     </div>
-                                                    <button type="submit" class="btn w-100 btn-main btn-md"> تغير كلمة
-                                                        المرور
+                                                </div>
+
+                                                <div class="form-actions">
+                                                    <button type="submit" class="btn-save">
+                                                        <i class="bi bi-lock"></i>
+                                                        تغيير كلمة المرور
                                                     </button>
                                                 </div>
-                                            </form>
-                                        </div>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                     <!-- ================== Setting Section End ====================== -->

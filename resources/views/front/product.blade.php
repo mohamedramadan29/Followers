@@ -76,10 +76,10 @@
                                     </ul>
                                 </div>
                                 <div class="success-purches">
-                                 <div class="d-flex justify-content-between align-items-center">
- <h4> تم إرسال طلبك بنجاح </h4>
-<i class="bi bi-x-square"></i>
-                                 </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h4> تم إرسال طلبك بنجاح </h4>
+                                        <i class="bi bi-x-square"></i>
+                                    </div>
 
                                     <ul class="list-unstyled">
                                         <li> رقم الطلب : <span> 343434 </span> </li>

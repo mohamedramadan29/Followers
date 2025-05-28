@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('product_id')->references('id')->on('products')->cascadeOnDelete();
             $table->string('name');
+            $table->foreignId('provider_id')->references('id')->on('providers')->cascadeOnDelete();
             $table->integer('provider_service_id');
             $table->tinyInteger('speed_active')->default(0);
             $table->string('speed_active_text')->nullable();
@@ -24,6 +25,7 @@ return new class extends Migration
             $table->string('security_text')->nullable();
             $table->tinyInteger('start_time')->default(0);
             $table->string('start_time_text')->nullable();
+            $table->double('profit_percentage')->nullable();
             $table->timestamps();
         });
     }

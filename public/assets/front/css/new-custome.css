@@ -803,7 +803,8 @@
     font-weight: 600;
     margin-bottom: 5px;
 }
-.product-details .product-details-section .review-rating .btn-success{
+
+.product-details .product-details-section .review-rating .btn-success {
     background-color: #23B120 !important;
     border-color: #23B120 !important;
     padding: 7px 15px !important;
@@ -813,21 +814,24 @@
 .product-details .product-details-section .review-time {
     font-size: 0.9em;
 }
-.product-details .success-purches{
+
+.product-details .success-purches {
     background-color: #00AAD1;
     color: #fff;
     padding: 10px;
     border-radius: 10px;
     margin-top: 14px;
 }
-.product-details .success-purches h4{
+
+.product-details .success-purches h4 {
     color: #fff;
     font-size: 20px;
     padding-top: 10px;
 
 }
-.product-details .success-purches .bi-x-square{
-font-size: 18px;
+
+.product-details .success-purches .bi-x-square {
+    font-size: 18px;
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -835,11 +839,513 @@ font-size: 18px;
     line-height: 46px;
     text-align: center;
 }
-.product-details .success-purches ul{
-line-height: 2;
-}
-.product-details .success-purches ul li{}
-.product-details .success-purches ul li span{
 
+.product-details .success-purches ul {
+    line-height: 2;
 }
+
+.product-details .success-purches ul li {}
+
+.product-details .success-purches ul li span {}
+
 /*************************** End Product Details **************/
+/*********************** Start User Dashboard **************/
+/* ======================== Dashboard Cards Section ===================== */
+.dashboard-cards-section {
+    padding: 20px 0;
+    background: #fff;
+    margin-bottom: 30px;
+}
+
+.dashboard-cards-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.dashboard-card-item {
+    background: #F8F9FD;
+    border-radius: 20px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    min-height: 160px;
+    display: flex;
+    transition: all 0.3s ease;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 6px solid #6a7cff;
+}
+
+.dashboard-card-item:hover {
+    transform: translateY(-5px);
+}
+
+.dashboard-card-item.active {
+    background: #6A7CFF;
+}
+
+
+.dashboard-card-info {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.dashboard-card-item .dashboard-card-info .bi-arrow-left {
+    color: #fff;
+    border: 1px solid #fff;
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    border-radius: 50%;
+    line-height: 33px;
+    font-weight: bold;
+    background: #5557CC;
+    margin-top: 10px;
+}
+
+.dashboard-card-item .dashboard-card-info .bi-plus {
+    color: #5557CC;
+    border: 1px solid #5557CC;
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    border-radius: 50%;
+    line-height: 33px;
+    font-weight: bold;
+
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.dashboard-card-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: #6A7CFF;
+    margin-bottom: 5px;
+    direction: rtl;
+}
+
+.dashboard-card-item.active .dashboard-card-value {
+    color: #fff;
+}
+
+.dashboard-card-label {
+    font-size: 18px;
+    color: #6A7CFF;
+    font-weight: 500;
+}
+
+.dashboard-card-item.active .dashboard-card-label {
+    color: #fff;
+}
+
+.dashboard-card-icon {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    z-index: 2;
+}
+
+.dashboard-card-icon-plus {
+    font-size: 24px;
+    color: #6A7CFF;
+}
+
+.dashboard-card-icon-currency {
+    font-size: 20px;
+    color: #6A7CFF;
+}
+
+.dashboard-card-item.active .dashboard-card-icon-currency {
+    color: #fff;
+}
+
+.dashboard-card-img {
+    position: absolute;
+    right: 0px;
+    bottom: 20px;
+    max-width: 80%;
+    max-height: 80%;
+    object-fit: contain;
+}
+
+.dashboard-card-bg {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.1;
+    background-size: cover;
+    background-position: center;
+}
+
+@media (max-width: 991px) {
+    .dashboard-cards-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 575px) {
+    .dashboard-cards-row {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-card-item {
+        min-height: 120px;
+    }
+
+    .dashboard-card-value {
+        font-size: 24px;
+    }
+
+    .dashboard-card-label {
+        font-size: 16px;
+    }
+
+    .dashboard-card-img {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+.tab-bordered .nav-link {
+    background-color: transparent;
+    padding: 0;
+    font-size: 14px;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
+    background: #F3F3F3;
+    padding-bottom: 0 !important;
+    padding: 10px 30px !important;
+    color: #5D5FED !important;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.tab-bordered .nav-link.active {
+    background-color: #5D5FED;
+    color: #fff !important;
+    font-weight: 600;
+    border-color: #5D5FED !important;
+}
+
+/* ======================== Navigation Tabs ===================== */
+.nav.tab-bordered {
+    display: flex;
+    gap: 50px;
+    border-bottom: none;
+    position: relative;
+    margin-top: 20px;
+    justify-content: center;
+}
+
+.nav.tab-bordered .nav-item {
+    margin: 0;
+}
+
+.nav.tab-bordered .nav-link {
+    border: none;
+    color: #666;
+    font-size: 16px;
+    padding: 10px 5px;
+    font-weight: 500;
+    position: relative;
+    background: transparent;
+    transition: color 0.3s ease;
+    background-color: #F3F3F3;
+}
+
+.nav.tab-bordered .nav-link i {
+    margin-left: 10px;
+}
+
+.nav.tab-bordered .nav-link:after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: transparent;
+    border-radius: 4px 4px 0 0;
+    transition: all 0.3s ease;
+}
+
+.nav.tab-bordered .nav-link.active {
+    color: #fff;
+    background: #5D5FED;
+}
+
+.nav.tab-bordered .nav-link.active:after {
+    background: #5D5FED;
+}
+
+.nav.tab-bordered .nav-link:hover {
+    color: #5D5FED;
+}
+
+/* مؤشر السهم تحت التاب النشط */
+.nav.tab-bordered .nav-link.active:before {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid #5D5FED;
+}
+
+.no-orders .btn {
+    background-color: #5557CC;
+    padding: 10px 30px;
+}
+
+.no-orders .btn i,
+.no_tickets .btn i {
+
+    font-size: 15px;
+    color: #fff;
+}
+
+.tickets_page .tickets .no_tickets a {
+    width: auto;
+}
+
+.no-orders h6 {
+    margin-top: 35px;
+}
+
+.no-orders button {
+    background-color: #5557CC;
+    padding: 10px 30px;
+    border-radius: 10px;
+}
+
+/* ======================== Settings Card Styles ===================== */
+.settings-card {
+    background: #fff;
+    border-radius: 16px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.settings-card-header {
+    padding: 20px 30px;
+    border-bottom: 1px solid #eee;
+}
+
+.settings-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+    text-align: center;
+}
+
+.settings-card-body {
+    padding: 30px;
+}
+
+.settings-form {
+    width: 100%;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-bottom: 30px;
+}
+
+.form-group {
+    position: relative;
+    margin-bottom: 24px;
+}
+
+.form-group-header label {
+    display: block;
+    font-size: 15px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.form-control,
+.form-select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 15px;
+    color: #333;
+    background: #f8f9fd;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #6a7cff;
+    box-shadow: 0 0 0 3px rgba(106, 124, 255, 0.1);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 30px;
+}
+
+.password-form .form-grid {
+    grid-template-columns: repeat(1, 1fr);
+}
+
+.form-group.full-width {
+    grid-column: span 2;
+}
+
+.position-relative {
+    position: relative;
+}
+
+.input-icon {
+    position: absolute;
+    right: auto;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6a7cff;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.input-icon:hover {
+    color: #4f4fcf;
+}
+
+.btn-save {
+    background: #6a7cff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 32px;
+    font-size: 16px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-save:hover {
+    background: #5567ee;
+    transform: translateY(-1px);
+}
+
+.btn-save i {
+    font-size: 18px;
+}
+
+/* Password Section Styles */
+.password-section {
+    margin-top: 20px;
+}
+
+.password-form-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.password-form .form-group {
+    margin-bottom: 0;
+}
+
+.password-form-group .form-control {
+    padding-left: 40px;
+    background: #f8f9fd;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    height: 48px;
+    font-size: 15px;
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+.password-form-group .form-control:focus {
+    border-color: #6a7cff;
+    box-shadow: 0 0 0 3px rgba(106, 124, 255, 0.1);
+}
+
+.password-form-group i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6a7cff;
+    font-size: 18px;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.password-toggle:hover {
+    color: #6a7cff;
+}
+
+.password-rules {
+    margin-top: 10px;
+    font-size: 13px;
+    color: #666;
+}
+
+.password-rules ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 5px 0;
+}
+
+.password-rules li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 4px;
+}
+
+.password-rules li:before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #6a7cff;
+    font-size: 16px;
+}
+
+@media (max-width: 768px) {
+    .password-form-group .form-control {
+        height: 44px;
+    }
+
+    .password-rules {
+        font-size: 12px;
+    }
+}
+
+
+.form-group input#confirm-password{
+    padding-right: 16px !important;
+}

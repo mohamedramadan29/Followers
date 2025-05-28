@@ -71,9 +71,9 @@ class RegisterController extends Controller
                     "email" => $data['email'],
                     'code' => base64_encode($email)
                 ];
-                Mail::send('front.mails.UserActivationEmail', $MessageDate, function ($message) use ($email) {
-                    $message->to($email)->subject(' تفعيل الحساب الخاص بك  ');
-                });
+                // Mail::send('front.mails.UserActivationEmail', $MessageDate, function ($message) use ($email) {
+                //     $message->to($email)->subject(' تفعيل الحساب الخاص بك  ');
+                // });
                 DB::commit();
                 return $this->success_message('تم انشاء الحساب بنجاح من فضلك فعل حسابك من خلال البريد المرسل  ⚡️');
             } catch (\Exception $e) {

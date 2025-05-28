@@ -13,54 +13,30 @@
                     toastify()->success(\Illuminate\Support\Facades\Session::get('Success_message'));
                 @endphp
             @endif
-            @if ($errors->any())
-                @foreach ($errors->all() as $error)
-                    @php
-                        toastify()->error($error);
-                    @endphp
-                @endforeach
-            @endif
+            @if (Session::has('Error_message'))
+            @php
+                toastify()->error(\Illuminate\Support\Facades\Session::get('Error_message'));
+            @endphp
+        @endif
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                @php
+                    echo '<div class="alert alert-danger">' . $error . '</div>';
+                @endphp
+            @endforeach
+        @endif
             <form method="post" action="{{ url('admin/product/update/' . $product['slug']) }}" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
 
-                    <div class="col-xl-12 col-lg-8 ">
-                        <div class="card">
+                    <div class="col-xl-12 col-lg-8">
+                        <div class="card"  style="background-color: #F2F2F8">
                             <div class="card-header">
                                 <h4 class="card-title"> تعديل الخدمة </h4>
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-lg-4 col-12">
-                                        <div class="mb-3">
-                                            <label for="name" class="form-label"> اسم الخدمة </label>
-                                            <input required type="text" id="name" name="name"
-                                                class="form-control" placeholder="" value="{{ $product['name'] }}">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="mb-3">
-                                            <label for="provider_id" class="form-label"> حدد مزود الخدمة </label>
-                                            <select required class="form-control" id="provider_id" data-choices
-                                                data-choices-groups data-placeholder="Select Categories" name="provider_id">
-                                                <option value=""> -- حدد --</option>
-                                                @foreach ($providers as $provider)
-                                                    <option @if ($product['provider_id'] == $provider['id']) selected @endif
-                                                        value="{{ $provider['id'] }}">{{ $provider['name'] }}</option>
-                                                @endforeach
-
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="mb-3">
-                                            <label for="service_id" class="form-label"> رقم الخدمة </label>
-                                            <input required type="number" id="service_id" name="service_id"
-                                                class="form-control" placeholder="" value="{{ $product['service_id'] }}">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-3">
                                         <div class="mb-3">
                                             <label for="category_id" class="form-label"> حدد القسم الرئيسي </label>
                                             <select required class="form-control" id="category_id" data-choices
@@ -73,7 +49,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-3">
                                         <div class="mb-3">
                                             <label for="sub_category_id" class="form-label"> حدد القسم الفرعي </label>
                                             <select class="form-control" id="sub_category_id"
@@ -93,7 +69,7 @@
                                                 var categoryId = $(this).val();
                                                 if (categoryId) {
                                                     $.ajax({
-                                                        url: '{{ route('get.subcategories') }}', // تأكد من استخدام المسار الصحيح
+                                                        url: '{{ route('admin.get.subcategories') }}', // تأكد من استخدام المسار الصحيح
                                                         type: "GET",
                                                         data: {
                                                             category_id: categoryId
@@ -121,22 +97,78 @@
                                             });
                                         });
                                     </script>
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-3 col-6">
                                         <div class="mb-3">
-                                            <label for="status" class="form-label"> حالة الخدمة </label>
-                                            <select class="form-control" id="status" data-choices data-choices-groups
-                                                data-placeholder="Select Categories" name="status">
-                                                <option value=""> -- حدد حالة الخدمة --</option>
-                                                <option @if ($product['status'] == 1) selected @endif value="1">
-                                                    مفعل
-                                                </option>
-                                                <option @if ($product['status'] == 0) selected @endif value="0">
-                                                    ارشيف
-                                                </option>
+                                            <label for="best_services" class="form-label"> العرض في افضل الخدمات </label>
+                                            <select required class="form-control" id="best_services" data-choices
+                                                data-choices-groups data-placeholder="Select Categories"
+                                                name="best_services">
+                                                <option value="1" {{ $product['best_services'] == 1 ? 'selected' : '' }}> فعال </option>
+                                                <option value="0" {{ $product['best_services'] == 0 ? 'selected' : '' }}> غير فعال </option>
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4">
+
+                                    <div class="col-lg-3 col-6">
+                                        <div class="mb-3">
+                                            <label for="newest_service" class="form-label"> العرض في احدث الخدمات </label>
+                                            <select required class="form-control" id="newest_service" data-choices
+                                                data-choices-groups data-placeholder="Select Categories"
+                                                name="newest_service">
+                                                <option value="1" {{ $product['newest_service'] == 1 ? 'selected' : '' }}> فعال </option>
+                                                <option value="0" {{ $product['newest_service'] == 0 ? 'selected' : '' }}> غير فعال </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="bg-white col-lg-4">
+                                        <div class="form-group">
+                                            <input type="file" class="form-control" name="image" id="single-image-edit">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label for="description" class="form-label"> وصف الخدمة </label>
+                                            <textarea class="form-control bg-light-subtle tinymce" id="description" rows="7" placeholder=""
+                                                name="description">{!! $product['description'] !!}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card" style="background-color: #F2F2F8">
+                            <div class="card-header">
+                                <h4 class="card-title"> خدمة رئيسية جديدة </h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-3 col-6">
+                                        <div class="mb-3">
+                                            <label for="name" class="form-label"> اسم الخدمة </label>
+                                            <input required type="text" id="name" name="name"
+                                                class="form-control" placeholder="" value="{{ $product['name'] }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-6">
+                                        <div class="mb-3">
+                                            <label for="provider_id" class="form-label"> حدد مزود الخدمة </label>
+                                            <select required class="form-control" id="provider_id" data-choices
+                                                data-choices-groups data-placeholder="Select Categories" name="provider_id">
+                                                <option value=""> -- حدد --</option>
+                                                @foreach ($providers as $provider)
+                                                <option @if ($product['provider_id'] == $provider['id']) selected @endif
+                                                value="{{ $provider['id'] }}">{{ $provider['name'] }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-6">
+                                        <div class="mb-3">
+                                            <label for="service_id" class="form-label"> رقم الخدمة </label>
+                                            <input required type="number" id="service_id" name="service_id"
+                                                class="form-control" placeholder="" value="{{ $product['service_id'] }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-6">
                                         <div class="mb-3">
                                             <label for="profit_percentage " class="form-label"> نسبة الربح (٪) </label>
                                             <input required type="number" step=".01" id="profit_percentage"
@@ -144,13 +176,127 @@
                                                 value="{{ $product['profit_percentage'] }}">
                                         </div>
                                     </div>
-                                    <div class="col-lg-12">
-                                        <div class="mb-3">
-                                            <label for="description" class="form-label"> وصف الخدمة </label>
-                                            <textarea required class="form-control bg-light-subtle" id="description" rows="7" placeholder=""
-                                                name="description">{{ $product['description'] }}</textarea>
+                                    <div class="col-lg-3 col-6">
+                                        <div class="form-check form-switch">
+                                            <label for="main_speed_active"> السرعة </label>
+                                            <input name="speed_active" class="form-check-input" type="checkbox"
+                                                role="switch" id="main_speed_active"
+                                                @if ($product['speed_active'] == 1) checked @endif>
                                         </div>
+                                        <div class="mt-2 mb-3 {{ $product['speed_active'] == 1 ? '' : 'd-none' }}" id="main_speed_input_container">
+                                            <label for="speed_active_text" class="form-label">ادخل السرعة</label>
+                                            <input type="text" id="speed_active_text" name="speed_active_text"
+                                                class="form-control" placeholder=""
+                                                value="{{ $product['speed_active_text'] }}">
+                                        </div>
+                                        <script>
+                                            document.addEventListener('DOMContentLoaded', function() {
+                                                const speedCheckbox = document.getElementById('main_speed_active');
+                                                const speedInputContainer = document.getElementById('main_speed_input_container');
+
+                                                // Toggle visibility based on checkbox status
+                                                speedCheckbox.addEventListener('change', function() {
+                                                    if (this.checked) {
+                                                        speedInputContainer.classList.remove('d-none');
+                                                    } else {
+                                                        speedInputContainer.classList.add('d-none');
+                                                    }
+                                                });
+                                            });
+                                        </script>
                                     </div>
+                                    <div class="col-lg-3 col-6">
+                                        <div class="form-check form-switch">
+                                            <label for="main_quality_status"> الجودة </label>
+                                            <input name="quality_status" class="form-check-input" type="checkbox"
+                                                role="switch" id="main_quality_status"
+                                                @if ($product['quality_status'] == 1) checked @endif>
+                                        </div>
+                                        <div class="mt-2 mb-3 {{ $product['quality_status'] == 1 ? '' : 'd-none' }}" id="main_quality_input_container">
+                                            <label for="quality_percentage" class="form-label">ادخل نسبة الجودة </label>
+                                            <input type="number" min="1" max="100" id="quality_percentage"
+                                                name="quality_percentage" class="form-control" placeholder=""
+                                                value="{{ $product['quality_percentage'] }}">
+                                        </div>
+                                        <script>
+                                            document.addEventListener('DOMContentLoaded', function() {
+                                                const qualityCheckbox = document.getElementById('main_quality_status');
+                                                const qualityInputContainer = document.getElementById('main_quality_input_container');
+
+                                                // Toggle visibility based on checkbox status
+                                                qualityCheckbox.addEventListener('change', function() {
+                                                    if (this.checked) {
+                                                        qualityInputContainer.classList.remove('d-none');
+                                                    } else {
+                                                        qualityInputContainer.classList.add('d-none');
+                                                    }
+                                                });
+                                            });
+                                        </script>
+
+                                    </div>
+
+                                    <div class="col-lg-3 col-6">
+                                        <div class="form-check form-switch">
+                                            <label for="main_security"> الضمان </label>
+                                            <input name="security" class="form-check-input" type="checkbox"
+                                                role="switch" id="main_security"
+                                                @if ($product['security'] == 1) checked @endif>
+                                        </div>
+                                        <div class="mt-2 mb-3 {{ $product['security'] == 1 ? '' : 'd-none' }}" id="main_security_container">
+                                            <label for="security_text" class="form-label"> ادخل الضمان </label>
+                                            <input type="text" id="security_text" name="security_text"
+                                                class="form-control" placeholder="" value="{{ $product['security_text'] }}">
+                                        </div>
+                                        <script>
+                                            document.addEventListener('DOMContentLoaded', function() {
+                                                const securityCheckbox = document.getElementById('main_security');
+                                                const securityInputContainer = document.getElementById('main_security_container');
+
+                                                // Toggle visibility based on checkbox status
+                                                securityCheckbox.addEventListener('change', function() {
+                                                    if (this.checked) {
+                                                        securityInputContainer.classList.remove('d-none');
+                                                    } else {
+                                                        securityInputContainer.classList.add('d-none');
+                                                    }
+                                                });
+                                            });
+                                        </script>
+                                    </div>
+
+                                    <div class="col-lg-3 col-6">
+                                        <div class="form-check form-switch">
+                                            <label for="main_start_time"> وقت البدء </label>
+                                            <input name="start_time" class="form-check-input" type="checkbox"
+                                                role="switch" id="main_start_time"
+                                                @if ($product['start_time'] == 1) checked @endif>
+                                        </div>
+                                        <div class="mt-2 mb-3 {{ $product['start_time'] == 1 ? '' : 'd-none' }}" id="main_start_time_container">
+                                            <label for="start_time_text" class="form-label"> ادخل وقت البدء </label>
+                                            <input type="text" id="start_time_text" name="start_time_text"
+                                                class="form-control" placeholder=""
+                                                value="{{ $product['start_time_text'] }}">
+                                        </div>
+                                        <script>
+                                            document.addEventListener('DOMContentLoaded', function() {
+                                                const start_timeCheckbox = document.getElementById('main_start_time');
+                                                const start_timeInputContainer = document.getElementById('main_start_time_container');
+
+                                                // Toggle visibility based on checkbox status
+                                                start_timeCheckbox.addEventListener('change', function() {
+                                                    if (this.checked) {
+                                                        start_timeInputContainer.classList.remove('d-none');
+                                                    } else {
+                                                        start_timeInputContainer.classList.add('d-none');
+                                                    }
+                                                });
+                                            });
+                                        </script>
+
+                                    </div>
+
+
                                 </div>
                             </div>
                         </div>
@@ -161,7 +307,7 @@
                             <div class="card-body">
                                 <div id="sub_services_container">
                                     @foreach ($product['SubServices'] as $index => $subserv)
-                                        <div class="row mb-3">
+                                        <div class="mb-3 row">
                                             <h5>الخدمة الفرعية</h5>
                                             <div class="col-lg-6">
                                                 <label for="sub_serv_name" class="form-label">اسم الخدمة</label>
@@ -170,6 +316,24 @@
                                                     class="form-control"
                                                     value="{{ old('sub_services.' . $index . '.sub_serv_name', $subserv['name']) }}">
                                             </div>
+                                            <div class="col-lg-3 col-6">
+                                                <div class="mb-3">
+                                                    <label for="sub_provider_id_0" class="form-label">حدد مزود الخدمة</label>
+                                                    <select required class="form-control" id="sub_provider_id_0" data-choices
+                                                        data-choices-groups data-placeholder="Select Categories"
+                                                        name="sub_services[0][sub_provider_id]">
+                                                        <option value="">-- حدد --</option>
+                                                        @foreach ($providers as $provider)
+                                                            <option
+                                                                {{ old('sub_services.0.sub_provider_id') == $provider['id'] ? 'selected' : '' }}
+                                                                value="{{ $provider['id'] }}">{{ $provider['name'] }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-lg-6">
                                             <div class="col-lg-6">
                                                 <label for="sub_serv_number" class="form-label">رقم الخدمة</label>
                                                 <input type="number"
@@ -180,7 +344,6 @@
                                         </div>
                                     @endforeach
                                 </div>
-
                                 <button type="button" class="btn btn-primary" id="add_sub_service">إضافة خدمة فرعية
                                     جديدة</button>
                             </div>
@@ -189,7 +352,7 @@
                                     const container = document.getElementById('sub_services_container');
                                     const index = container.children.length; // حساب عدد العناصر الحالية
                                     const newRow = `
-                                            <div class="row mb-3">
+                                            <div class="mb-3 row">
                                                 <h5>الخدمة الفرعية</h5>
                                                 <div class="col-lg-6">
                                                     <label for="sub_serv_name" class="form-label">اسم الخدمة</label>
@@ -204,269 +367,92 @@
                                 });
                             </script>
                         </div>
-
-
-
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title"> مرفقات الخدمة </h4>
+                                <h4 class="card-title">تحسينات السيو ( SEO )</h4>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body" style="background-color:#F2F2F8">
                                 <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="mb-3">
-                                            <label for="image" class="form-label"> صورة الخدمة </label>
-                                            <input type="file" id="image" name="image" class="form-control"
-                                                accept="image/*">
-                                            <br>
-                                            <img width="80px" class="img-thumbnail img-prod"
-                                                src="{{ asset('assets/uploads/product_images/' . $product['image']) }}"
-                                                alt="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card" id="simple-product-fields">
-                            <div class="card-header">
-                                <h4 class="card-title"> تفاصيل العرض </h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <p> العرض في افضل الخدمات </p>
-                                        <div class="d-flex gap-2 align-items-center">
-                                            <div class="form-check">
-                                                <input name="best_services" class="form-check-input" type="radio"
-                                                    value="1" id="flexRadioDefault1" @checked($product['best_services'] == 1)>
-                                                <label class="form-check-label" for="flexRadioDefault1">
-                                                    فعال
-                                                </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input name="best_services" class="form-check-input" type="radio"
-                                                    value="0" id="flexRadioDefault2" @checked($product['best_services'] == 0)>
-                                                <label class="form-check-label" for="flexRadioDefault2">
-                                                    غير فعال
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <p> العرض في احدث الخدمات </p>
-                                        <div class="d-flex gap-2 align-items-center">
-                                            <div class="form-check">
-                                                <input name="newest_service" class="form-check-input" type="radio"
-                                                    value="1" id="newest_service1" @checked($product['newest_service'] == 1)>
-                                                <label class="form-check-label" for="newest_service1">
-                                                    فعال
-                                                </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input name="newest_service" class="form-check-input" type="radio"
-                                                    value="0" id="newest_service2" @checked($product['newest_service'] == 0)>
-                                                <label class="form-check-label" for="newest_service2">
-                                                    غير فعال
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card" id="simple-product-fields">
-                            <div class="card-header">
-                                <h4 class="card-title">مميزات الخدمة</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-
-                                    <!-- ميزة السرعة -->
-                                    <div class="col-lg-6">
-                                        <div class="form-check form-switch">
-                                            <label for="speed_active">إضافة ميزة السرعة</label>
-                                            <input name="speed_active" class="form-check-input" type="checkbox"
-                                                role="switch" id="speed_active"
-                                                {{ old('speed_active', $product->speed_active ?? false) ? 'checked' : '' }}>
-                                        </div>
-                                        <div class="mb-3 mt-2 {{ old('speed_active', $product->speed_active ?? false) ? '' : 'd-none' }}"
-                                            id="speed_input_container">
-                                            <label for="speed_active_text" class="form-label">أدخل السرعة</label>
-                                            <input type="text" id="speed_active_text" name="speed_active_text"
-                                                class="form-control" placeholder=""
-                                                value="{{ old('speed_active_text', $product->speed_active_text ?? '') }}">
-                                        </div>
-                                    </div>
-
-                                    <!-- ميزة الجودة -->
-                                    <div class="col-lg-6">
-                                        <div class="form-check form-switch">
-                                            <label for="quality_status">إضافة ميزة الجودة</label>
-                                            <input name="quality_status" class="form-check-input" type="checkbox"
-                                                role="switch" id="quality_status"
-                                                {{ old('quality_status', $product->quality_status ?? false) ? 'checked' : '' }}>
-                                        </div>
-                                        <div class="mb-3 mt-2 {{ old('quality_status', $product->quality_status ?? false) ? '' : 'd-none' }}"
-                                            id="quality_input_container">
-                                            <label for="quality_percentage" class="form-label">أدخل نسبة الجودة</label>
-                                            <input type="number" min="1" max="100" id="quality_percentage"
-                                                name="quality_percentage" class="form-control"
-                                                value="{{ old('quality_percentage', $product->quality_percentage ?? '') }}">
-                                        </div>
-                                    </div>
-
-                                    <!-- ميزة الضمان -->
-                                    <div class="col-lg-6">
-                                        <div class="form-check form-switch">
-                                            <label for="security">إضافة ميزة الضمان</label>
-                                            <input name="security" class="form-check-input" type="checkbox"
-                                                role="switch" id="security"
-                                                {{ old('security', $product->security ?? false) ? 'checked' : '' }}>
-                                        </div>
-                                        <div class="mb-3 mt-2 {{ old('security', $product->security ?? false) ? '' : 'd-none' }}"
-                                            id="security_container">
-                                            <label for="security_text" class="form-label">أدخل الضمان</label>
-                                            <input type="text" id="security_text" name="security_text"
-                                                class="form-control" placeholder=""
-                                                value="{{ old('security_text', $product->security_text ?? '') }}">
-                                        </div>
-                                    </div>
-
-                                    <!-- ميزة وقت البدء -->
-                                    <div class="col-lg-6">
-                                        <div class="form-check form-switch">
-                                            <label for="start_time">إضافة ميزة وقت البدء</label>
-                                            <input name="start_time" class="form-check-input" type="checkbox"
-                                                role="switch" id="start_time"
-                                                {{ old('start_time', $product->start_time ?? false) ? 'checked' : '' }}>
-                                        </div>
-                                        <div class="mb-3 mt-2 {{ old('start_time', $product->start_time ?? false) ? '' : 'd-none' }}"
-                                            id="start_time_container">
-                                            <label for="start_time_text" class="form-label">أدخل وقت البدء</label>
-                                            <input type="text" id="start_time_text" name="start_time_text"
-                                                class="form-control" placeholder=""
-                                                value="{{ old('start_time_text', $product->start_time_text ?? '') }}">
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <script>
-                            document.addEventListener('DOMContentLoaded', function() {
-                                const features = [{
-                                        checkboxId: 'speed_active',
-                                        containerId: 'speed_input_container'
-                                    },
-                                    {
-                                        checkboxId: 'quality_status',
-                                        containerId: 'quality_input_container'
-                                    },
-                                    {
-                                        checkboxId: 'security',
-                                        containerId: 'security_container'
-                                    },
-                                    {
-                                        checkboxId: 'start_time',
-                                        containerId: 'start_time_container'
-                                    },
-                                ];
-
-                                features.forEach(feature => {
-                                    const checkbox = document.getElementById(feature.checkboxId);
-                                    const container = document.getElementById(feature.containerId);
-
-                                    checkbox.addEventListener('change', function() {
-                                        container.classList.toggle('d-none', !this.checked);
-                                    });
-                                });
-                            });
-                        </script>
-
-
-
-                        <div class="card" id="simple-product-fields">
-                            <div class="card-header">
-                                <h4 class="card-title"> تفاصيل السعر </h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <label for="product-price" class="form-label"> سعر الشراء </label>
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text fs-20"><i class='bx bx-dollar'></i></span>
-                                            <input type="number" id="purches_price" name="purchase_price"
-                                                class="form-control" placeholder="000"
-                                                value="{{ $product['purchase_price'] }}">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <label for="product-price" class="form-label"> سعر البيع </label>
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text fs-20"><i class='bx bx-dollar'></i></span>
-                                            <input type="number" id="price" name="price" class="form-control"
-                                                placeholder="000" value="{{ $product['price'] }}">
-                                        </div>
-                                    </div>
-                                    {{--                                    <div class="col-lg-6"> --}}
-                                    {{--                                        <label for="product-discount" class="form-label"> السعر بعدالخصم </label> --}}
-                                    {{--                                        <div class="input-group mb-3"> --}}
-                                    {{--                                            <span class="input-group-text fs-20"><i class='bx bxs-discount'></i></span> --}}
-                                    {{--                                            <input type="number" id="discount" name="discount" class="form-control" --}}
-                                    {{--                                                   placeholder="000" value="{{$product['discount']}}"> --}}
-                                    {{--                                        </div> --}}
-                                    {{--                                    </div> --}}
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title"> معلومات السيو ومحركات البحث </h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-lg-6 col-12">
-                                        <div class="mb-3">
-                                            <label for="name" class="form-label"> اضف اسم خاص للرابط ( اختياري )
-                                            </label>
-                                            <input required type="text" id="slug" name="slug"
-                                                class="form-control" placeholder="" value="{{ $product['slug'] }}">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="mb-3">
-                                            <label for="meta_title" class="form-label"> العنوان </label>
-                                            <input type="text" id="meta_title" name="meta_title" class="form-control"
-                                                placeholder="" value="{{ $product['meta_title'] }}">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="mb-3">
-                                            <label for="meta_keywords" class="form-label"> الكلمات المفتاحية </label>
-                                            <input type="text" id="meta_keywords" name="meta_keywords"
-                                                class="form-control" placeholder=""
-                                                value="{{ $product['meta_keywords'] }}">
-                                        </div>
-                                    </div>
-
                                     <div class="col-lg-12">
                                         <div class="mb-3">
-                                            <label for="meta_description" class="form-label"> الوصف </label>
-                                            <textarea class="form-control bg-light-subtle" id="meta_description" rows="7" placeholder=""
-                                                name="meta_description">{{ $product['meta_description'] }}</textarea>
+                                            <label for="meta_title" class="form-label">عنوان صفحة المنتج (Page
+                                                Title)</label>
+                                            <input type="text" id="meta_title" class="form-control" name="meta_title"
+                                                placeholder="ادخل العنوان هنا"
+                                                value="{{ old('meta_title', $product['meta_title']) }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label for="meta_url" class="form-label">رابط صفحة المنتج (SEO PAGE URL)</label>
+                                            <input type="text" id="meta_url" class="form-control" name="meta_url"
+                                                placeholder="أدخل رابط المنتج"
+                                                value="{{ old('meta_url', $product['meta_url']) }}">
+                                            <!-- حقل مخفي لتخزين الرابط النهائي -->
+                                            <input type="hidden" name="meta_url_final" id="meta_url_final"
+                                                value="{{ old('meta_url', $product['meta_url']) }}">
+                                            <!-- معاينة الرابط -->
+                                            <div class="mt-2">
+                                                <small class="text-muted">معاينة الرابط: </small>
+                                                <span id="urlPreview"
+                                                    class="text-primary">{{ url('/product/') }}/<span
+                                                        id="slugPreview">{{ old('meta_url', $product['meta_url']) }}</span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label for="meta_description" class="form-label">وصف صفحة المنتج (Page
+                                                Description)</label>
+                                            <textarea class="form-control" id="meta_description" rows="7" name="meta_description"
+                                                placeholder="وصف صفحة المنتج">{{ old('meta_description', $product['meta_description']) }}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label for="meta_keywords" class="form-label">الكلمات المفتاحية</label>
+                                            <div class="input-group">
+                                                <input type="text" id="meta_keywords" class="form-control"
+                                                    placeholder="أدخل الكلمات المفتاحية">
+                                                <!-- حقل مخفي لتخزين الكلمات -->
+                                                <input type="hidden" name="meta_keywords" id="hidden_keywords"
+                                                    value="{{ old('meta_keywords', $product['meta_keywords']) }}">
+                                            </div>
+                                            <div id="keywordList" class="mt-2">
+                                                @if (old('meta_keywords', $product['meta_keywords']))
+                                                    @foreach (explode(',', old('meta_keywords', $product['meta_keywords'])) as $keyword)
+                                                        <span class="mb-2 text-white badge bg-primary me-2"
+                                                            data-keyword="{{ $keyword }}">
+                                                            {{ $keyword }} <span class="ms-2 text-danger"
+                                                                onclick="removeKeyword(this)">×</span>
+                                                        </span>
+                                                    @endforeach
+                                                @endif
+                                            </div>
                                         </div>
                                     </div>
 
+                                    <div class="col-12">
+                                        <div class="alert alert-info" role="alert">
+                                            <div class="d-flex align-items-center">
+                                                <div class="flex-grow-1">
+                                                    <p class="mb-0">حساب تيك توك للبيع k 23 ، تعرف على متجر زيادة التفاعل
+                                                        وزيد تأثيرك فوراً</p>
+                                                    <p class="mb-0 text-muted">امتلك حساب تيك توك k 23 متاح للبيع بسهولة
+                                                        وسرعة، خمس خطوات على المنصة وتمتع بتفاعل مضمون، دون قلق.</p>
+                                                </div>
+                                            </div>
+                                            <div class="mt-2">
+                                                <a href="https://www.facebook.com/username/videos/987654321"
+                                                    class="text-primary"
+                                                    target="_blank">https://www.facebook.com/username/videos/987654321</a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
-
-                        <div class="p-3 bg-light mb-3 rounded">
+                        <div class="p-3 mb-3 rounded bg-light">
                             <div class="row justify-content-end g-2">
                                 <div class="col-lg-2">
                                     <a href="{{ url('admin/products') }}" class="btn btn-primary w-100"> رجوع </a>
@@ -488,98 +474,75 @@
 @endsection
 
 @section('js')
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        document.getElementById('product-type').addEventListener('change', function() {
-            if (this.value === 'بسيط') {
-                document.getElementById('simple-product-fields').style.display = 'block';
-                document.getElementById('variable-product-fields').style.display = 'none';
-            } else {
-                document.getElementById('simple-product-fields').style.display = 'none';
-                document.getElementById('variable-product-fields').style.display = 'block';
-            }
+
+<script>
+    // دالة لتحديث الحقل المخفي
+    function updateHiddenKeywords() {
+        let keywords = [];
+        document.querySelectorAll('#keywordList .badge').forEach(badge => {
+            keywords.push(badge.getAttribute('data-keyword'));
         });
-    </script>
+        document.getElementById('hidden_keywords').value = keywords.join(',');
+    }
 
-    <script>
-        document.getElementById('confirm-variations').addEventListener('click', function($e) {
-            $e.preventDefault();
-            const attributes = document.querySelectorAll('select[name="attributes[]"]');
-            const variations = document.querySelectorAll('input[name="variations[]"]');
+    // دالة لإزالة الكلمة وتحديث الحقل المخفي
+    function removeKeyword(element) {
+        element.parentElement.remove();
+        updateHiddenKeywords();
+    }
 
-            let selectedValues = [];
-
-            attributes.forEach((attribute, index) => {
-                const selectedAttribute = attribute.value;
-                if (selectedAttribute) {
-                    const variationValues = variations[index].value.split('-').map(v => v.trim());
-                    selectedValues.push(variationValues);
-                }
-            });
-
-            const productVariants = cartesianProduct(selectedValues);
-            let productVariantsHTML = '';
-
-            productVariants.forEach(variant => {
-                const variantText = variant.join(' - ');
-                const variationInputsHTML = `
-            <div class="variant-inputs d-flex align-items-center justify-content-between">
-                <div class="form-group">
-                    <label>اسم المتغير</label>
-                    <input name='variant_new_name[]' class="form-control" type="text" value="${variantText}">
-                </div>
-                <div class="form-group">
-                    <label>سعر المنتج</label>
-                    <input placeholder="السعر" class="form-control" type="number" name='variant_new_price[]'>
-                </div>
-                <div class="form-group">
-                    <label>السعر بعد التخفيض</label>
-                    <input placeholder="السعر" class="form-control" type="number" name='variant_new_discount[]'>
-                </div>
-                <div class="form-group">
-                    <label>الكمية المتاحة</label>
-                    <input placeholder="الكمية" class="form-control" type="number" name='variant_new_stock[]'>
-                </div>
-                <div class="form-group">
-                    <label>صورة المنتج</label>
-                    <input type='file' class='form-control' name='variant_new_image[]'>
-                </div>
-                <div class="form-group">
-                    <button style="margin-top: 20px" class="btn btn-sm btn-danger delete-variant"><i class="ti ti-x"></i></button>
-                </div>
-            </div>
-        `;
-                productVariantsHTML += variationInputsHTML;
-            });
-
-            document.getElementById('product-variants').innerHTML = productVariantsHTML;
-
-            // أضف الاستماع لأزرار الحذف الجديدة
-            attachDeleteEventListeners();
-        });
-
-        function cartesianProduct(arrays) {
-            return arrays.reduce(function(a, b) {
-                var result = [];
-                a.forEach(function(a) {
-                    b.forEach(function(b) {
-                        result.push(a.concat([b]));
-                    });
-                });
-                return result;
-            }, [
-                []
-            ]);
+    // إضافة كلمة عند الضغط على Enter
+    document.getElementById('meta_keywords').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter' && this.value.trim()) {
+            e.preventDefault();
+            let keyword = this.value.trim();
+            let keywordList = document.getElementById('keywordList');
+            let badge = document.createElement('span');
+            badge.className = 'mb-2 text-white badge bg-primary me-2';
+            badge.setAttribute('data-keyword', keyword);
+            badge.innerHTML =
+                `${keyword} <span class="ms-2 text-danger" onclick="removeKeyword(this)">×</span>`;
+            keywordList.appendChild(badge);
+            this.value = '';
+            updateHiddenKeywords();
         }
+    });
+</script>
+<script>
+    // دالة لتحويل النص إلى slug
+    function toSlug(text) {
+        return text
+            .toLowerCase()
+            .trim()
+            .replace(/[\s+]/g, '-') // استبدال المسافات بـ -
+            .replace(/[^\w\-]+/g, '') // إزالة الرموز غير المرغوب فيها
+            .replace(/\-\-+/g, '-'); // إزالة الـ - المكررة
+    }
 
-        function attachDeleteEventListeners() {
-            const deleteButtons = document.querySelectorAll('.delete-variant');
-            deleteButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const variantRow = this.closest('.variant-inputs');
-                    variantRow.remove();
-                });
-            });
-        }
-    </script>
+    // عرض معاينة الرابط أثناء الكتابة
+    document.getElementById('meta_url').addEventListener('input', function() {
+        let input = this.value;
+        let slug = toSlug(input);
+        document.getElementById('slugPreview').textContent = slug || 'عنوان-المنتج';
+        document.getElementById('meta_url_final').value = slug; // تحديث الحقل المخفي
+    });
+</script>
+
+
+<!-- Start file Input  -->
+<script>
+    var lang = "{{ app()->getLocale() }}";
+    $("#single-image-edit").fileinput({
+        theme: 'bs5',
+        allowedFileTypes: ['image'],
+        language: lang,
+        maxFileCount: 1,
+        enableResumableUpload: false,
+        showUpload: false,
+        initialPreviewAsData: true,
+        initialPreview: [
+            "{{ asset($product->Image()) }}"
+        ],
+    });
+</script>
 @endsection

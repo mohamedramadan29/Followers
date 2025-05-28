@@ -168,7 +168,7 @@
 
 
 
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link menu-arrow" href="#sidebarCategory" data-bs-toggle="collapse" role="button"
                         aria-expanded="false" aria-controls="sidebarCategory">
                         <span class="nav-icon">
@@ -184,7 +184,7 @@
                             </li>
                         </ul>
                     </div>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a class="nav-link menu-arrow" href="#sidebarPermissions" data-bs-toggle="collapse" role="button"
                         aria-expanded="false" aria-controls="sidebarPermissions">

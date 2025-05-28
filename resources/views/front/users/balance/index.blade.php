@@ -1,67 +1,85 @@
 @extends('front.layouts.master')
 @section('title', ' رصيدي ')
 @section('content')
+
+    <!-- ======================== Dashboard Cards Section Start ===================== -->
+    <section class="dashboard-cards-section">
+        <div class="dashboard-cards-row">
+            <div class="dashboard-card-item active">
+                <div class="">
+                    <img src="{{ asset('assets/front/uploads/balance-now.png') }}" alt="الرصيد الحالي"
+                        class="dashboard-card-img">
+                </div>
+                <div class="dashboard-card-info">
+                    <div class="dashboard-card-value">{{ number_format(Auth::user()->balance, 2) }} <img
+                            src="{{ asset('assets/front/images/icons/riyal-white.svg') }}" alt=""> </div>
+                    <div class="dashboard-card-label">رصيدك الآن</div>
+                    <i class="bi bi-arrow-left"></i>
+                </div>
+            </div>
+            <div class="dashboard-card-item">
+                <div class="">
+                    <img src="{{ asset('assets/front/uploads/current-used.png') }}" alt=" جار استخدامه "
+                        class="dashboard-card-img">
+                </div>
+                <div class="dashboard-card-info">
+                    <div class="dashboard-card-value">{{ number_format(Auth::user()->balance, 2) }} <img
+                            src="{{ asset('assets/front/images/icons/riyal-maincolor.svg') }}" alt=""> </div>
+                    <div class="dashboard-card-label"> جار استخدامه </div>
+                    <i class="bi bi-arrow-left"></i>
+                </div>
+            </div>
+            <div class="dashboard-card-item">
+                <div class="">
+                    <img src="{{ asset('assets/front/uploads/spend.png') }}" alt=" أنفقت معنا  " class="dashboard-card-img">
+                </div>
+                <div class="dashboard-card-info">
+                    <div class="dashboard-card-value">{{ number_format(Auth::user()->balance, 2) }} <img
+                            src="{{ asset('assets/front/images/icons/riyal-maincolor.svg') }}" alt=""> </div>
+                    <div class="dashboard-card-label"> أنفقت معنا </div>
+                    <i class="bi bi-arrow-left"></i>
+                </div>
+            </div>
+            <div class="dashboard-card-item">
+                <div class="">
+                    <img src="{{ asset('assets/front/uploads/add-balance.png') }}" alt=" شحن رصيد الآن  "
+                        class="dashboard-card-img">
+                </div>
+                <div class="dashboard-card-info">
+                    <i class="bi bi-plus"></i>
+                    <div class="dashboard-card-label"> شحن رصيد الآن </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ======================== Dashboard Cards Section End ===================== -->
+
     <!-- ======================== Breadcrumb Three Section Start ===================== -->
-    <section class="breadcrumb-three section-bg position-relative z-index-1 overflow-hidden">
-
-        <img src="{{ asset('assets/front/') }}/images/gradients/breadcrumb-gradient-bg.png" alt=""
-            class="bg--gradient">
-
-        <img src="{{ asset('assets/front/') }}/images/shapes/element-moon3.png" alt="" class="element one">
-        <img src="{{ asset('assets/front/') }}/images/shapes/element-moon1.png" alt="" class="element three">
-
+    <section class="overflow-hidden position-relative z-index-1">
         <div class="container container-two">
             <div class="breadcrumb-three-content border-bottom border-color">
-                <div class="breadcrumb-three-content__inner">
-                    <div class="breadcrumb-three-content__left">
-                        <div class="flx-between align-items-end gap-3">
-                            <div class="author-profile d-flex gap-2 flex-column">
-                                <div class="author-profile__thumb flex-shrink-0">
-                                    @if (Auth::user()->image != '')
-                                        <img style="border-radius: 50%;height:95%;width:95%"
-                                            src="{{ asset('assets/uploads/Users/' . Auth::user()->image) }}" alt="">
-                                    @else
-                                        <img style="border-radius: 50%;height:95%;width:95%"
-                                            src="{{ asset('assets/uploads/Users/user_avatar.png') }}" alt="">
-                                    @endif
-
-                                </div>
-
-                                <div class="d-flex align-items-end flex-wrap gap-4">
-                                    <div class="author-profile__info">
-                                        <h5 class="author-profile__name mb-2"> {{ Auth::user()->name }} </h5>
-                                        <span class="author-profile__membership font-14"> عضو
-                                            {{ \Carbon\Carbon::parse(Auth::user()->created_at)->diffForHumans() }} </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div
-                                class="breadcrumb-three-content__right flex-shrink-0  d-flex align-items-center gap-4 gap-lg-5">
-
-                                <div class="sales">
-                                    <span class="sales__text mb-1 text-heading fw-500">الرصيد الحالي </span>
-                                    <h5 class="sales__amount mb-0"> {{ number_format(Auth::user()->balance,2) }} دولار </h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <ul class="nav tab-bordered nav-pills mt-4" id="pills-tabbs" role="tablist">
+                <ul class="mt-4 nav tab-bordered nav-pills" id="pills-tabbs" role="tablist">
 
                     <li class="nav-item" role="presentation">
-                        <a href="{{ url('user/orders') }}" class="nav-link"> طلباتي </a>
+                        <a href="{{ url('user/orders') }}" class="nav-link"> <i class="bi bi-cart"></i> طلباتي </a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a href="{{ url('user/balance') }}" class="nav-link active"> الرصيد </a>
+                        <a href="{{ url('user/balance') }}" class="nav-link active"> <i class="bi bi-currency-dollar"></i>
+                            شحن رصيد </a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a href="{{ url('user/tickets') }}" class="nav-link"> تذاكر الدعم </a>
+                        <a href="{{ url('user/wishlist') }}" class="nav-link"> <i class="bi bi-heart"></i> المفضلة </a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a href="{{ url('user/setting') }}" class="nav-link"> الاعدادات </a>
+                        <a href="{{ url('user/alerts') }}" class="nav-link"> <i class="bi bi-bell"></i> الاشعارات </a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a href="{{ url('user/alerts') }}" class="nav-link"> التنبيهات </a>
+                        <a href="{{ url('user/tickets') }}" class="nav-link"> <i class="bi bi-chat-dots"></i> الدعم الفني
+                        </a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a href="{{ url('user/setting') }}" class="nav-link"> <i class="bi bi-gear-fill"></i> الاعدادات
+                        </a>
                     </li>
 
                 </ul>
@@ -71,14 +89,14 @@
     <!-- ======================== Breadcrumb Three Section End ===================== -->
 
     <!-- ===================== orders Section Start ============================== -->
-    <section class="profile pt-5 padding-b-120">
+    <section class="pt-5 profile padding-b-120">
         <div class="container container-two">
             <div class="tab-content" id="pills-tabb">
                 <div class="tab-pane fade show active" id="pills-Followingg" role="tabpanel"
                     aria-labelledby="pills-Followingg-tab" tabindex="0">
                     <!-- ================== Setting Balance  Start ====================== -->
                     <div class="row gy-4">
-                        <div class="text-center mt-64">
+                        <div class="mt-64 text-center">
                             <!-- Button trigger modal -->
                             <button type="button" class="btn btn-main btn-lg pill fw-300" data-bs-toggle="modal"
                                 data-bs-target="#exampleModal">
@@ -113,20 +131,21 @@
                                                     <div class="mt-4">
                                                         <div class="">
                                                             <div class="payment-select-card-wrapper">
-                                                                <div class="payment-select-card mb-4">
+                                                                <div class="mb-4 payment-select-card">
                                                                     <div
                                                                         class="d-flex align-items-center justify-content-between">
-                                                                        <div class="d-flex align-items-center gap-3">
-                                                                            <div class="common-check common-radio mb-0">
+                                                                        <div class="gap-3 d-flex align-items-center">
+                                                                            <div class="mb-0 common-check common-radio">
                                                                                 <input class="form-check-input"
-                                                                                    type="radio" name="payment_method" value="paypal"
-                                                                                    id="paypal" />
+                                                                                    type="radio" name="payment_method"
+                                                                                    value="paypal" id="paypal" />
                                                                                 <label class="form-check-label"
                                                                                     for="paypal"> </label>
                                                                             </div>
                                                                             <div class="">
-                                                                                <h6 class="font-16 mb-0"> باي بال  </h6>
-                                                                                <p class="font-14"> الدفع من خلال باي بال  </p>
+                                                                                <h6 class="mb-0 font-16"> باي بال </h6>
+                                                                                <p class="font-14"> الدفع من خلال باي بال
+                                                                                </p>
                                                                             </div>
                                                                         </div>
                                                                         <div class="payment-select-card__logo">
@@ -136,20 +155,22 @@
                                                                     </div>
                                                                 </div>
 
-                                                                <div class="payment-select-card mb-4">
+                                                                <div class="mb-4 payment-select-card">
                                                                     <div
                                                                         class="d-flex align-items-center justify-content-between">
-                                                                        <div class="d-flex align-items-center gap-3">
-                                                                            <div class="common-check common-radio mb-0">
+                                                                        <div class="gap-3 d-flex align-items-center">
+                                                                            <div class="mb-0 common-check common-radio">
                                                                                 <input class="form-check-input"
-                                                                                    type="radio" name="payment_method" value="crepto"
-                                                                                    id="crepto" />
+                                                                                    type="radio" name="payment_method"
+                                                                                    value="crepto" id="crepto" />
                                                                                 <label class="form-check-label"
                                                                                     for="crepto"> </label>
                                                                             </div>
                                                                             <div class="">
-                                                                                <h6 class="font-16 mb-0">العملات الرقمية </h6>
-                                                                                <p class="font-14"> الدفع من خلال العملات الرقمية  </p>
+                                                                                <h6 class="mb-0 font-16">العملات الرقمية
+                                                                                </h6>
+                                                                                <p class="font-14"> الدفع من خلال العملات
+                                                                                    الرقمية </p>
                                                                             </div>
                                                                         </div>
                                                                         <div class="payment-select-card__logo">
@@ -166,7 +187,7 @@
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="submit" class="btn btn-primary btn w-100 btn-main btn-md">
+                                                <button type="submit" class="btn btn-primary w-100 btn-main btn-md">
                                                     شحن الرصيد <i class="bi bi-plus"></i> </button>
                                             </div>
 
@@ -179,27 +200,8 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-lg-6">
-                            <div class="statement-item card common-card border border-gray-five">
-                                <div class="card-body">
-                                    <div class="statement-item__header">
-                                        <h6 class="statement-item__title"> الرصيد الحالي </h6>
-                                    </div>
-                                    <ul class="statement-list">
-                                        <li class="statement-list__item text-center">
-                                            <h6 class="statement-list__amount mb-0 mt-1 fw-600">
-                                                {{ number_format(Auth::user()->balance,2) }} دولار
-                                            </h6>
-                                        </li>
-
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="col-12">
-                            <div class="card common-card border border-gray-five">
+                            <div class="border card common-card border-gray-five">
                                 <div class="card-body">
                                     <div class="table-responsive">
                                         <table class="table text-body mt--24">
@@ -224,38 +226,21 @@
 
                                             </tbody>
                                         </table>
-                                        {{-- <div class="flx-between gap-2">
-                                            <div class="paginate-content flx-align flex-nowrap gap-3">
+                                    </div>
+                                    <div class="no_tickets no-orders">
+                                        <img src="{{ asset('assets/front/uploads/empty.svg') }}" alt="">
+                                        <h6> لا توجد أرصدة حاليا في حسابك </h6>
 
-                                            </div>
-                                            <nav aria-label="Page navigation example">
-                                                <ul class="pagination common-pagination mt-0">
-                                                    <li class="page-item">
-                                                        <a class="page-link" href="#">1</a>
-                                                    </li>
-                                                    <li class="page-item active">
-                                                        <a class="page-link" href="#">2</a>
-                                                    </li>
-                                                    <li class="page-item">
-                                                        <a class="page-link" href="#">3</a>
-                                                    </li>
-                                                    <li class="page-item">
-                                                        <a class="page-link" href="#">4</a>
-                                                    </li>
-                                                    <li class="page-item">
-                                                        <a class="page-link flx-align gap-2 flex-nowrap"
-                                                            href="#">التالي
-                                                            <span class="icon line-height-1 font-20"><i
-                                                                    class="las la-arrow-left"></i></span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </nav>
-                                        </div> --}}
+                                        <button type="button" class="btn btn-main btn-lg pill fw-300"
+                                            data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            شحن الرصيد الان <i class="bi bi-plus"></i>
+                                        </button>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                     <!-- ================== Setting Section End ====================== -->
                 </div>

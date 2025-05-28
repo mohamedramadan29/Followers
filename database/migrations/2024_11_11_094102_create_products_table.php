@@ -35,6 +35,7 @@ return new class extends Migration
             $table->tinyInteger('newest_service')->default(0);
             $table->integer('star_reviews')->nullable();
             $table->string('meta_title')->nullable();
+            $table->string('meta_url')->unique()->nullable();
             $table->string('meta_description')->nullable();
             $table->string('meta_keywords')->nullable();
             $table->timestamps();

@@ -1,82 +1,134 @@
 @extends('front.layouts.master')
 @section('title', 'المدونة ')
 @section('content')
-    <!-- ======================== Breadcrumb Two Section Start ===================== -->
-    <section class="p-0 breadcrumb border-bottom d-block section-bg position-relative z-index-1">
 
-        <div class="breadcrumb-two">
-            <img src="{{ asset('assets/front/') }}/images/gradients/breadcrumb-gradient-bg.png" alt=""
-                class="bg--gradient">
-            <div class="container container-two">
-                <div class="row justify-content-center">
-                    <div class="col-lg-12">
-                        <div class="text-center breadcrumb-two-content">
+    <!-- ========================  Start New Blog  ====================== -->
+    <section class="all-product">
+        <div class="container container-two">
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- =========================== Most Requested Services Section Start ========================== -->
+                    <section class="py-5 most-ordered-section">
+                        <div class="container">
+                            <div class="mb-2 most-ordered-title-bar d-flex align-items-center justify-content-center">
+                                <div class="most-ordered-title-line flex-grow-1"></div>
+                                <h4 class="mx-3 mb-0 most-ordered-title-text"> المدونة </h4>
+                                <div class="most-ordered-title-line flex-grow-1"></div>
+                            </div>
+                            <div class="mb-3 text-center most-ordered-desc">
 
-                            <ul class="gap-2 mb-2 breadcrumb-list flx-align justify-content-center">
-                                <li class="breadcrumb-list__item font-14 text-body">
-                                    <a href="{{ url('/') }}" class="breadcrumb-list__link text-body hover-text-main">
-                                        الرئيسيــة
-                                    </a>
-                                </li>
-                                <li class="breadcrumb-list__item font-14 text-body">
-                                    <span class="breadcrumb-list__icon font-10"><i class="fas fa-chevron-left"></i></span>
-                                </li>
-                                <li class="breadcrumb-list__item font-14 text-body">
-                                    <span class="breadcrumb-list__text"> المدونــة </span>
-                                </li>
-                            </ul>
+                                يسعدنا انضمامك إلى متجر زيادة التفاعل، ونسعد بمتابعتك لنا عبر وسائل التواصل الاجتماعي. بمتابعتك ستكون أول من يعرف عن العروض المميزة والمنتجات الحديثة. <br> كن فردًا من عائلتنا وساهم في رحلتنا نحو التميز دائمًا.
 
-                            <h3 class="mb-0 breadcrumb-two-content__title text-capitalize"> المدونـــة
-                            </h3>
+                            </div>
+                            <br>
+                            <div class="row g-4 justify-content-center">
+                                <div class="col-lg-3 col-md-4 col-sm-6">
+                                    <div class="text-center most-ordered-card">
+                                        <img src="{{ asset('assets/front/images/icons/insta.png') }}"
+                                            class="mb-2 most-ordered-img" alt="اسم الخدمة">
+                                        <div class="most-ordered-title"> اسم الخدمة </div>
+                                        <div class="most-ordered-desc-card" style="color: #5D5FED"> تيك توك </div>
+                                        <div class="time text-muted" style="color: #9C9C9C;font-size: 12px"> <i class="bi bi-alarm"></i> منذ سنتين </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-4 col-sm-6">
+                                    <div class="text-center most-ordered-card">
+                                        <img src="{{ asset('assets/front/images/icons/insta.png') }}"
+                                            class="mb-2 most-ordered-img" alt="اسم الخدمة">
+                                        <div class="most-ordered-title"> اسم الخدمة </div>
+                                        <div class="most-ordered-desc-card">وصف </div>
+                                        <div class="mt-2 mb-1 most-ordered-rating">
+                                            <span>(10)</span>
+                                            <span class="stars ms-1">
+                                                @for ($i = 0; $i < 5; $i++)
+                                                    <i class="fa fa-star text-warning"></i>
+                                                @endfor
+                                            </span>
+                                        </div>
+                                        <div class="most-ordered-price">100 / <span class="text-primary">$</span></div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-4 col-sm-6">
+                                    <div class="text-center most-ordered-card">
+                                        <img src="{{ asset('assets/front/images/icons/insta.png') }}"
+                                            class="mb-2 most-ordered-img" alt="اسم الخدمة">
+                                        <div class="most-ordered-title"> اسم الخدمة </div>
+                                        <div class="most-ordered-desc-card">وصف </div>
+                                        <div class="mt-2 mb-1 most-ordered-rating">
+                                            <span>(10)</span>
+                                            <span class="stars ms-1">
+                                                @for ($i = 0; $i < 5; $i++)
+                                                    <i class="fa fa-star text-warning"></i>
+                                                @endfor
+                                            </span>
+                                        </div>
+                                        <div class="most-ordered-price">100 / <span class="text-primary">$</span></div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-4 col-sm-6">
+                                    <div class="text-center most-ordered-card">
+                                        <img src="{{ asset('assets/front/images/icons/insta.png') }}"
+                                            class="mb-2 most-ordered-img" alt="اسم الخدمة">
+                                        <div class="most-ordered-title"> اسم الخدمة </div>
+                                        <div class="most-ordered-desc-card">وصف </div>
+                                        <div class="mt-2 mb-1 most-ordered-rating">
+                                            <span>(10)</span>
+                                            <span class="stars ms-1">
+                                                @for ($i = 0; $i < 5; $i++)
+                                                    <i class="fa fa-star text-warning"></i>
+                                                @endfor
+                                            </span>
+                                        </div>
+                                        <div class="most-ordered-price">100 / <span class="text-primary">$</span></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    </section>
                 </div>
             </div>
         </div>
     </section>
-    <!-- ======================== Breadcrumb Two Section End ===================== -->
+    <!-- ===========================  End New Blog  ========================== -->
+    <!-- ======================== All Product Section End ====================== -->
+    <div class="container my-5">
+        <h2 class="mb-3 text-center fw-bold">المدونة</h2>
+        <p class="mb-4 text-center text-muted" style="font-size: 1.1rem;">
+            يسعدنا انضمامك إلى محضر زيادة التفاعل، ونسعد بمتابعتك لنا عبر وسائل التواصل الاجتماعي. بمتابعتك ستكون أول من
+            يعرف عن العروض المميزة والمنتجات الحديثة. كل فردًا من عائلتنا وساهم في رحلتنا نحو التميز دائمًا.
+        </p>
+    </div>
 
     <!-- =========================== Blog Section Start ========================== -->
     <section class="overflow-hidden blog padding-y-120 section-bg position-relative z-index-1">
         <img src="{{ asset('assets/front/') }}/images/shapes/pattern-five.png"
             class="top-0 position-absolute end-0 z-index--1" alt="">
         <div class="container container-two">
-            <div class="row gy-4">
+            <div class="row g-4">
                 @foreach ($blogs as $blog)
-                    <div class="col-lg-4 col-sm-6">
-                        <div class="post-item">
-                            <div class="post-item__thumb">
-                                <a href="{{ url('blog/' . $blog['slug']) }}" class="link">
-                                    <img src="{{ asset('assets/uploads/Blogs/' . $blog->image) }}" class="cover-img"
-                                        alt="{{ $blog->name }}">
-                                </a>
+                    <div class="col-12 col-sm-6 col-lg-3">
+                        <div class="p-3 text-center border-0 shadow-sm card h-100 rounded-4">
+                            <a href="{{ url('blog/' . $blog['slug']) }}">
+                                <img src="{{ asset('assets/uploads/Blogs/' . $blog->image) }}" alt="{{ $blog->name }}"
+                                    class="mx-auto mb-3" style="width: 80px; height: 80px; object-fit: contain;">
+                            </a>
+                            <div class="mb-2">
+                                <span class="px-3 py-2 badge bg-light text-primary fw-bold rounded-pill"
+                                    style="font-size: 0.9rem;">
+                                    {{ $blog->category->name }}
+                                </span>
                             </div>
-                            <div class="post-item__content">
-                                <div class="post-item__top flx-align">
-                                    <a href="{{ url('blog/' . $blog['slug']) }}"
-                                        class="post-item__tag pill font-14 text-heading fw-500 hover-text-main">
-                                        {{ $blog->category->name }} </a>
-                                    <div class="gap-2 post-item__date font-14 flx-align text-heading fw-500">
-                                        <span class="icon">
-                                            <img src="{{ asset('assets/front/') }}/images/icons/calendar.svg" alt=""
-                                                class="white-version">
-                                            <img src="{{ asset('assets/front/') }}/images/icons/calendar-white.svg"
-                                                alt="" class="dark-version">
-                                        </span>
-                                        <span class="text"> {{ $blog->created_at->translatedFormat('d F , Y') }} </span>
-                                    </div>
-                                </div>
-                                <h5 class="post-item__title">
-                                    <a href="{{ url('blog/' . $blog['slug']) }}" class="link"> {{ $blog->name }}</a>
-                                </h5>
-                                <a href="{{ url('blog/' . $blog['slug']) }}" class="btn btn-outline-light pill fw-600">
-                                    قراءة
-                                    المزيد </a>
+                            <h5 class="mb-2 fw-bold" style="font-size: 1.1rem;">
+                                <a href="{{ url('blog/' . $blog['slug']) }}" class="text-dark text-decoration-none">
+                                    {{ $blog->name }}
+                                </a>
+                            </h5>
+                            <div class="mb-2 text-muted small">
+                                منذ {{ $blog->created_at->diffForHumans() }}
                             </div>
                         </div>
                     </div>
                 @endforeach
-
             </div>
             <!-- Pagination Start -->
             @if ($blogs->hasPages())

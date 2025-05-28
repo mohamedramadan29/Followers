@@ -2028,6 +2028,7 @@ button:focus {
     background-color:#5D5FED !important;
     border: transparent !important;
     z-index: 1;
+    border-radius: 10px;
 }
 .btn-main:hover {
     background-color: #5D5FED !important;

@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Traits\Message_Trait;
-use App\Http\Traits\Slug_Trait;
-use App\Http\Traits\Upload_Images;
-use App\Models\admin\MainCategory;
+use Illuminate\Http\Request;
 use App\Models\admin\Product;
 use App\Models\admin\Provider;
-use App\Models\admin\SubCategory;
+use App\Http\Traits\Slug_Trait;
 use App\Models\admin\SubService;
-use Illuminate\Http\Request;
+use App\Models\admin\SubCategory;
+use App\Http\Traits\Message_Trait;
+use App\Http\Traits\Upload_Images;
+use App\Models\admin\MainCategory;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
@@ -51,28 +52,28 @@ class ProductController extends Controller
         if ($request->isMethod('post')) {
             try {
                 $data = $request->all();
-                //  dd($data);
+                // dd($data);
                 $rules = [
                     'name' => 'required',
                     'category_id' => 'required',
                     'description' => 'required',
                     'provider_id' => 'required',
-                    'status' => 'required',
+                  //  'status' => 'required',
                     'service_id' => 'required|integer',
                     'sub_category_id' => 'required',
                     'profit_percentage' => 'required',
                 ];
                 if ($request->hasFile('image')) {
-                    $rules['image'] = 'image|mimes:jpg,png,jpeg,webp';
+                    $rules['image'] = 'image|mimes:jpg,png,jpeg,webp,svg';
                 }
                 $messages = [
                     'name.required' => ' من فضلك ادخل اسم المنتج  ',
                     'category_id.required' => ' من فضلك حدد القسم الرئيسي للمنتج  ',
                     'description.required' => ' من فضلك ادخل الوصف الخاص بالمنتج ',
                     'image.mimes' =>
-                        'من فضلك يجب ان يكون نوع الصورة jpg,png,jpeg,webp',
+                        'من فضلك يجب ان يكون نوع الصورة jpg,png,jpeg,webp,svg',
                     'image.image' => 'من فضلك ادخل الصورة بشكل صحيح',
-                    'status.required' => ' من فضلك حدد حالة المنتج  ',
+                   // 'status.required' => ' من فضلك حدد حالة المنتج  ',
                     'service_id.required' => ' من فضلك ادخل رقم الخدمة  ',
                     'sub_category_id.required' => ' من فضلك حدد القسم الفرعي للمنتج  ',
                     'profit_percentage.required' => ' من فضلك ادخل نسبة الربح  ',
@@ -80,6 +81,7 @@ class ProductController extends Controller
                 ];
                 $validator = Validator::make($data, $rules, $messages);
                 if ($validator->fails()) {
+                    Log::error('Validation failed', $validator->errors()->all());
                     return Redirect::back()->withInput()->withErrors($validator);
                 }
                 if ($request->hasFile('image')) {
@@ -91,22 +93,23 @@ class ProductController extends Controller
                 if ($count_old_product > 0) {
                     return Redirect::back()->withInput()->withErrors(' اسم المنتج متواجد من قبل من فضلك ادخل منتج جديد  ');
                 }
+                $slug = $this->CustomeSlug($data['name']);
                 DB::beginTransaction();
+
                 $product = new Product();
-                $product->name = $data['name'];
-                if ($data['slug'] && $data['slug'] != '') {
-                    $slug = $this->CustomeSlug($data['slug']);
-                } else {
-                    $slug = $this->CustomeSlug($data['name']);
-                }
-                $product->slug = $slug;
                 $product->category_id = $data['category_id'];
                 $product->sub_category_id = $data['sub_category_id'];
+                $product->best_services = $data['best_services'];
+                $product->newest_service = $data['newest_service'];
+                $product->image = $file_name;
+                $product->description = $data['description'];
+                ##### Start  Main Service Details #########
+                $product->name = $data['name'];
+                $product->slug = $slug;
                 $product->provider_id = $data['provider_id'];
                 $product->service_id = $data['service_id'];
-                $product->status = $data['status'];
                 $product->profit_percentage = $data['profit_percentage'];
-                $product->description = $data['description'];
+                $product->status = 1;
                 $product->speed_active = isset($data['speed_active']) && $data['speed_active'] == 'on' ? 1 : 0;
                 $product->speed_active_text = $data['speed_active_text'];
                 $product->quality_status = isset($data['quality_status']) && $data['quality_status'] == 'on' ? 1 : 0;
@@ -115,14 +118,11 @@ class ProductController extends Controller
                 $product->security_text = $data['security_text'];
                 $product->start_time = isset($data['start_time']) && $data['start_time'] == 'on' ? 1 : 0;
                 $product->start_time_text = $data['start_time_text'];
-                $product->best_services = $data['best_services'];
-                $product->newest_service = $data['newest_service'];
                 $product->meta_title = $data['meta_title'];
+                $product->meta_url = $data['meta_url_final'];
                 $product->meta_keywords = $data['meta_keywords'];
                 $product->meta_description = $data['meta_description'];
-                $product->image = $file_name;
                 $product->save();
-
                 ////////////////// Start Add Sub Service
                 if (!empty($data['sub_services'])) {
                     foreach ($data['sub_services'] as $sub_serv) {
@@ -130,13 +130,25 @@ class ProductController extends Controller
                         $sub_service->create([
                             'product_id' => $product->id,
                             'name' => $sub_serv['sub_serv_name'],
+                            'provider_id'=>$sub_serv['sub_provider_id'],
                             'provider_service_id' => $sub_serv['sub_serv_number'],
+                            'speed_active'=> isset($sub_serv['sub_speed_active']) && $sub_serv['sub_speed_active'] == 'on' ? 1 : 0,
+                            'speed_active_text'=>$sub_serv['sub_speed_active_text'] ,
+                            'quality_status'=> isset($sub_serv['sub_quality_status']) && $sub_serv['sub_quality_status'] == 'on' ? 1 : 0,
+                            'quality_percentage'=> $sub_serv['sub_quality_percentage'],
+                            'security'=> isset($sub_serv['sub_security']) && $sub_serv['sub_security'] == 'on' ? 1 : 0,
+                            'security_text'=>$sub_serv['sub_security_text'],
+                            'start_time'=> isset($sub_serv['sub_start_time']) && $sub_serv['sub_start_time'] == 'on' ? 1 : 0,
+                            'start_time_text'=>$sub_serv['sub_start_time_text'],
+                            'profit_percentage'=>$sub_serv['sub_profit_percentage'],
                         ]);
                     }
                 }
                 DB::commit();
                 return $this->success_message(' تم اضافة الخدمة  بنجاح  ');
             } catch (\Exception $e) {
+                DB::rollBack();
+                Log::error('Error in store method: ' . $e->getMessage());
                 return $this->exception_message($e);
             }
         }
@@ -161,7 +173,7 @@ class ProductController extends Controller
                 'category_id' => 'required',
                 'description' => 'required',
                 'provider_id' => 'required',
-                'status' => 'required',
+                //'status' => 'required',
                 'service_id' => 'required|integer',
                 'sub_category_id' => 'required',
                 'profit_percentage' => 'required',
@@ -176,7 +188,7 @@ class ProductController extends Controller
                 'image.mimes' =>
                     'من فضلك يجب ان يكون نوع الصورة jpg,png,jpeg,webp',
                 'image.image' => 'من فضلك ادخل الصورة بشكل صحيح',
-                'status.required' => ' من فضلك حدد حالة المنتج  ',
+               // 'status.required' => ' من فضلك حدد حالة المنتج  ',
                 'service_id.required' => ' من فضلك ادخل رقم الخدمة  ',
                 'sub_category_id.required' => ' من فضلك حدد القسم الفرعي للمنتج  ',
                 'profit_percentage.required' => ' من فضلك ادخل نسبة الربح  ',
@@ -210,7 +222,7 @@ class ProductController extends Controller
                 $product->sub_category_id = $data['sub_category_id'];
                 $product->provider_id = $data['provider_id'];
                 $product->service_id = $data['service_id'];
-                $product->status = $data['status'];
+                //$product->status = $data['status'];
                 $product->profit_percentage = $data['profit_percentage'];
                 $product->description = $data['description'];
                 $product->speed_active = isset($data['speed_active']) && $data['speed_active'] == 'on' ? 1 : 0;
@@ -235,7 +247,17 @@ class ProductController extends Controller
                         $sub_service->create([
                             'product_id' => $product->id,
                             'name' => $sub_serv['sub_serv_name'],
+                            'provider_id'=>$sub_serv['sub_provider_id'],
                             'provider_service_id' => $sub_serv['sub_serv_number'],
+                            'speed_active'=> isset($sub_serv['sub_speed_active']) && $sub_serv['sub_speed_active'] == 'on' ? 1 : 0,
+                            'speed_active_text'=>$sub_serv['sub_speed_active_text'] ,
+                            'quality_status'=> isset($sub_serv['sub_quality_status']) && $sub_serv['sub_quality_status'] == 'on' ? 1 : 0,
+                            'quality_percentage'=> $sub_serv['sub_quality_percentage'],
+                            'security'=> isset($sub_serv['sub_security']) && $sub_serv['sub_security'] == 'on' ? 1 : 0,
+                            'security_text'=>$sub_serv['sub_security_text'],
+                            'start_time'=> isset($sub_serv['sub_start_time']) && $sub_serv['sub_start_time'] == 'on' ? 1 : 0,
+                            'start_time_text'=>$sub_serv['sub_start_time_text'],
+                            'profit_percentage'=>$sub_serv['sub_profit_percentage'],
                         ]);
                     }
                 }

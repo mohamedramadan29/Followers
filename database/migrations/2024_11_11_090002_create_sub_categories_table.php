@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->text('description')->nullable();
             $table->string('meta_title')->nullable();
+            $table->string('meta_url')->nullable()->unique();
             $table->text('meta_description')->nullable();
             $table->text('meta_keywords')->nullable();
             $table->tinyInteger('status')->default('1');

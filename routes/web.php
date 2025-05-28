@@ -19,6 +19,7 @@ use App\Http\Controllers\front\TikTokCounterController;
 use App\Http\Controllers\front\InstagramCounterContoller;
 use App\Http\Controllers\front\User\UserOrdersController;
 use App\Http\Controllers\front\Auth\SocialLoginController;
+use App\Http\Controllers\front\FavoriteController;
 use Illuminate\Http\Request;
 
 Route::controller(LoginController::class)->group(function () {
@@ -58,7 +59,6 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
         Route::get('/payment/cancel', 'paymentCancel')->name('payment.cancel');
         Route::get('/paypal/success', 'paypalSuccess')->name('paypal.success');
         Route::get('/paypal/cancel', 'paypalCancel')->name('paypal.cancel');
-
     });
     Route::controller(TicketController::class)->group(function () {
         Route::get('tickets', 'tickets')->name('tickets');
@@ -73,6 +73,9 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
         Route::get('orders', 'index')->name('orders');
         Route::match(['post','get'],'order/refill/{order_number}', 'refill');
         Route::match(['post','get'],'order/cancel/{order_number}', 'cancel');
+    });
+    Route::controller(FavoriteController::class)->group(function () {
+        Route::get('wishlist', 'index');
     });
 });
 Route::controller(FrontController::class)->group(function () {

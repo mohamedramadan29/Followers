@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
+    protected $guarded = [];
     use HasFactory;
     // علاقة مع الفئة الرئيسية
     public function Main_Category()
@@ -28,6 +29,9 @@ class Product extends Model
     public function SubServices()
     {
         return $this->hasMany(SubService::class, 'product_id');
+    }
+    public function Image(){
+        return asset('assets/uploads/product_images/'.$this->image);
     }
 
 }

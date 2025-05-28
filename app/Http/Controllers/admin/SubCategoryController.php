@@ -38,6 +38,7 @@ class SubCategoryController extends Controller
                         'name' => 'required',
                         'status' => 'required',
                         'image' => 'image|required|mimes:jpg,png,jpeg,webp',
+                        'meta_url_final' => 'required|string|max:255|unique:sub_categories,meta_url',
                     ];
                     $customeMessage = [
                         'name.required' => 'من فضلك ادخل اسم القسم',
@@ -63,6 +64,7 @@ class SubCategoryController extends Controller
                     $new_category->meta_title = $alldata['meta_title'];
                     $new_category->meta_description = $alldata['meta_description'];
                     $new_category->meta_keywords = $alldata['meta_keywords'];
+                    $new_category->meta_url = $alldata['meta_url_final'];
                     $new_category->image = $file_name;
                     $new_category->save();
                     return $this->success_message(' تمت اضافة قسم فرعي بنجاح  ');
@@ -85,6 +87,7 @@ class SubCategoryController extends Controller
                 $rules = [
                     'name' => 'required',
                     'status' => 'required',
+                    'meta_url_final' => 'required|string|max:255|unique:sub_categories,meta_url,'.$id,
                 ];
                 if ($request->hasFile('image')) {
                     $rules['image'] = 'image|mimes:jpg,png,jpeg,webp';
@@ -120,6 +123,7 @@ class SubCategoryController extends Controller
                     "meta_title" => $alldata['meta_title'],
                     "meta_description" => $alldata['meta_description'],
                     "meta_keywords" => $alldata['meta_keywords'],
+                    "meta_url" => $alldata['meta_url_final'],
                 ]);
                 return $this->success_message(' تم تعديل القسم بنجاح  ');
             } catch (\Exception $e) {

@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\front\Auth;
-
 use App\Models\front\User;
 use Illuminate\Http\Request;
 use App\Http\Traits\Message_Trait;
@@ -60,7 +59,6 @@ class LoginController extends Controller
                 }
             } catch (\Exception $e) {
                 return Redirect()->back()->withInput()->withErrors(['حدث خطأ غير متوقع، حاول مرة أخرى']);
-                //    return response()->json(['error' => 'حدث خطأ غير متوقع، حاول مرة أخرى'], 500);
             }
         }
 

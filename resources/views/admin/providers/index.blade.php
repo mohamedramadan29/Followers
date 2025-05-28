@@ -38,10 +38,9 @@
                             <div class="table-responsive">
                                 <table id="table-search"
                                     class="table mb-0 align-middle table-bordered gridjs-table table-hover table-centered">
-                                    <thead class="bg-light-subtle">
+                                    <thead class="bg-light-subtle table-primary-custome">
                                         <tr>
-                                            <th style="width: 20px;">
-                                            </th>
+                                            <th>#</th>
                                             <th> الاسم </th>
                                             <th> api url </th>
                                             <th> api key </th>
@@ -118,6 +117,7 @@
 
             // تهيئة DataTables من جديد
             $('#table-search').DataTable({
+                "ordering":false,
                 "language": {
                     "search": "بحث:",
                     "lengthMenu": "عرض _MENU_ عناصر لكل صفحة",

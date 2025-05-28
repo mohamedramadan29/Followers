@@ -13,22 +13,29 @@
                     toastify()->success(\Illuminate\Support\Facades\Session::get('Success_message'));
                 @endphp
             @endif
+            @if (Session::has('Error_message'))
+                @php
+                    toastify()->error(\Illuminate\Support\Facades\Session::get('Error_message'));
+                @endphp
+            @endif
             @if ($errors->any())
                 @foreach ($errors->all() as $error)
                     @php
-                        toastify()->error($error);
+                        echo '<div class="alert alert-danger">' . $error . '</div>';
                     @endphp
                 @endforeach
             @endif
+
+
             <form method="post" action="{{ url('admin/product/add') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="col-xl-12 col-lg-8">
-                        <div class="card">
+                        <div class="card" style="background-color: #F2F2F8">
                             <div class="card-header">
                                 <h4 class="card-title"> اضافة خدمة جديدة </h4>
                             </div>
-                            <div class="card-body" style="background-color: #F2F2F8">
+                            <div class="card-body">
                                 <div class="row">
                                     <div class="col-lg-3 col-6">
                                         <div class="mb-3">
@@ -92,7 +99,6 @@
                                             <select required class="form-control" id="best_services" data-choices
                                                 data-choices-groups data-placeholder="Select Categories"
                                                 name="best_services">
-
                                                 <option value="1"> فعال </option>
                                                 <option selected value="0"> غير فعال </option>
                                             </select>
@@ -105,7 +111,6 @@
                                             <select required class="form-control" id="newest_service" data-choices
                                                 data-choices-groups data-placeholder="Select Categories"
                                                 name="newest_service">
-
                                                 <option value="1"> فعال </option>
                                                 <option selected value="0"> غير فعال </option>
                                             </select>
@@ -119,18 +124,18 @@
                                     <div class="col-lg-12">
                                         <div class="mb-3">
                                             <label for="description" class="form-label"> وصف الخدمة </label>
-                                            <textarea required class="form-control bg-light-subtle tinymce" id="description" rows="7" placeholder=""
+                                            <textarea class="form-control bg-light-subtle tinymce" id="description" rows="7" placeholder=""
                                                 name="description">{{ old('description') }}</textarea>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="card">
+                        <div class="card" style="background-color: #F2F2F8">
                             <div class="card-header">
                                 <h4 class="card-title"> خدمة رئيسية جديدة </h4>
                             </div>
-                            <div class="card-body" style="background-color: #F2F2F8">
+                            <div class="card-body">
                                 <div class="row">
                                     <div class="col-lg-3 col-6">
                                         <div class="mb-3">
@@ -292,23 +297,23 @@
                             </div>
                             <div class="card-body" style="background-color: #F2F2F8">
                                 <div id="sub_services_container">
-                                    <div class="mb-3 row">
+                                    <div class="mb-3 row sub-service-row">
                                         <div class="col-lg-3 col-6">
-                                            <label for="sub_serv_name" class="form-label">اسم الخدمة</label>
+                                            <label for="sub_serv_name_0" class="form-label">اسم الخدمة</label>
                                             <input type="text" name="sub_services[0][sub_serv_name]"
                                                 class="form-control" placeholder=""
                                                 value="{{ old('sub_services.0.sub_serv_name') }}">
                                         </div>
                                         <div class="col-lg-3 col-6">
                                             <div class="mb-3">
-                                                <label for="provider_id" class="form-label"> حدد مزود الخدمة </label>
-                                                <select required class="form-control" id="provider_id" data-choices
+                                                <label for="sub_provider_id_0" class="form-label">حدد مزود الخدمة</label>
+                                                <select required class="form-control" id="sub_provider_id_0" data-choices
                                                     data-choices-groups data-placeholder="Select Categories"
-                                                    name="sub_services[0][provider_id]">
-                                                    <option value=""> -- حدد --</option>
+                                                    name="sub_services[0][sub_provider_id]">
+                                                    <option value="">-- حدد --</option>
                                                     @foreach ($providers as $provider)
                                                         <option
-                                                            {{ old('sub_services.0.provider_id') == $provider['id'] ? 'selected' : '' }}
+                                                            {{ old('sub_services.0.sub_provider_id') == $provider['id'] ? 'selected' : '' }}
                                                             value="{{ $provider['id'] }}">{{ $provider['name'] }}
                                                         </option>
                                                     @endforeach
@@ -316,274 +321,240 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-3 col-6">
-                                            <label for="sub_serv_number" class="form-label">رقم الخدمة</label>
+                                            <label for="sub_serv_number_0" class="form-label">رقم الخدمة</label>
                                             <input type="number" name="sub_services[0][sub_serv_number]"
                                                 class="form-control" placeholder=""
                                                 value="{{ old('sub_services.0.sub_serv_number') }}">
                                         </div>
                                         <div class="col-lg-3 col-6">
                                             <div class="mb-3">
-                                                <label for="profit_percentage " class="form-label"> نسبة الربح (٪)
-                                                </label>
-                                                <input required type="number" step=".01" id="profit_percentage"
-                                                    name="sub_services[0][profit_percentage]" class="form-control"
-                                                    placeholder="" value="{{ old('sub_services.0.profit_percentage') }}">
+                                                <label for="sub_profit_percentage_0" class="form-label">نسبة الربح
+                                                    (٪)</label>
+                                                <input required type="number" step=".01"
+                                                    id="sub_profit_percentage_0"
+                                                    name="sub_services[0][sub_profit_percentage]" class="form-control"
+                                                    placeholder=""
+                                                    value="{{ old('sub_services.0.sub_profit_percentage') }}">
                                             </div>
                                         </div>
                                         <div class="col-lg-3 col-6">
                                             <div class="form-check form-switch">
-                                                <label for="sub_speed_active"> السرعة </label>
-                                                <input name="sub_services[0][speed_active]" class="form-check-input"
-                                                    type="checkbox" role="switch" id="sub_speed_active">
+                                                <label for="sub_speed_active_0">السرعة</label>
+                                                <input name="sub_services[0][sub_speed_active]" class="form-check-input"
+                                                    type="checkbox" role="switch" id="sub_speed_active_0">
                                             </div>
-                                            <div class="mt-2 mb-3 d-none" id="sub_speed_input_container">
-                                                <label for="speed_active_text" class="form-label">ادخل السرعة</label>
-                                                <input type="text" id="speed_active_text"
-                                                    name="sub_services[0][speed_active_text]" class="form-control"
-                                                    placeholder="" value="{{ old('sub_services.0.speed_active_text') }}">
+                                            <div class="mt-2 mb-3 d-none" id="sub_speed_input_container_0">
+                                                <label for="sub_speed_active_text_0" class="form-label">ادخل
+                                                    السرعة</label>
+                                                <input type="text" id="sub_speed_active_text_0"
+                                                    name="sub_services[0][sub_speed_active_text]" class="form-control"
+                                                    placeholder=""
+                                                    value="{{ old('sub_services.0.sub_speed_active_text') }}">
                                             </div>
-                                            <script>
-                                                document.addEventListener('DOMContentLoaded', function() {
-                                                    const speedCheckbox = document.getElementById('sub_speed_active');
-                                                    const speedInputContainer = document.getElementById('sub_speed_input_container');
-
-                                                    // Toggle visibility based on checkbox status
-                                                    speedCheckbox.addEventListener('change', function() {
-                                                        if (this.checked) {
-                                                            speedInputContainer.classList.remove('d-none');
-                                                        } else {
-                                                            speedInputContainer.classList.add('d-none');
-                                                        }
-                                                    });
-                                                });
-                                            </script>
                                         </div>
                                         <div class="col-lg-3 col-6">
                                             <div class="form-check form-switch">
-                                                <label for="sub_quality_status"> الجودة </label>
-                                                <input name="sub_services[0][quality_status]" class="form-check-input"
-                                                    type="checkbox" role="switch" id="sub_quality_status">
+                                                <label for="sub_quality_status_0">الجودة</label>
+                                                <input name="sub_services[0][sub_quality_status]" class="form-check-input"
+                                                    type="checkbox" role="switch" id="sub_quality_status_0">
                                             </div>
-                                            <div class="mt-2 mb-3 d-none" id="sub_quality_input_container">
-                                                <label for="quality_percentage" class="form-label">ادخل نسبة الجودة
-                                                </label>
+                                            <div class="mt-2 mb-3 d-none" id="sub_quality_input_container_0">
+                                                <label for="sub_quality_percentage_0" class="form-label">ادخل نسبة
+                                                    الجودة</label>
                                                 <input type="number" min="1" max="100"
-                                                    id="quality_percentage" name="sub_services[0][quality_percentage]"
-                                                    class="form-control" placeholder=""
-                                                    value="{{ old('sub_services.0.quality_percentage') }}">
+                                                    id="sub_quality_percentage_0"
+                                                    name="sub_services[0][sub_quality_percentage]" class="form-control"
+                                                    placeholder=""
+                                                    value="{{ old('sub_services.0.sub_quality_percentage') }}">
                                             </div>
-                                            <script>
-                                                document.addEventListener('DOMContentLoaded', function() {
-                                                    const qualityCheckbox = document.getElementById('sub_quality_status');
-                                                    const qualityInputContainer = document.getElementById('sub_quality_input_container');
-
-                                                    // Toggle visibility based on checkbox status
-                                                    qualityCheckbox.addEventListener('change', function() {
-                                                        if (this.checked) {
-                                                            qualityInputContainer.classList.remove('d-none');
-                                                        } else {
-                                                            qualityInputContainer.classList.add('d-none');
-                                                        }
-                                                    });
-                                                });
-                                            </script>
-
                                         </div>
-
                                         <div class="col-lg-3 col-6">
                                             <div class="form-check form-switch">
-                                                <label for="sub_security"> الضمان </label>
-                                                <input name="sub_services[0][security]" class="form-check-input"
-                                                    type="checkbox" role="switch" id="sub_security">
+                                                <label for="sub_security_0">الضمان</label>
+                                                <input name="sub_services[0][sub_security]" class="form-check-input"
+                                                    type="checkbox" role="switch" id="sub_security_0">
                                             </div>
-                                            <div class="mt-2 mb-3 d-none" id="sub_security_container">
-                                                <label for="security_text" class="form-label"> ادخل الضمان </label>
-                                                <input type="text" id="security_text"
-                                                    name="sub_services[0][security_text]" class="form-control"
-                                                    placeholder="" value="{{ old('sub_services.0.security_text') }}">
+                                            <div class="mt-2 mb-3 d-none" id="sub_security_container_0">
+                                                <label for="sub_security_text_0" class="form-label">ادخل الضمان</label>
+                                                <input type="text" id="sub_security_text_0"
+                                                    name="sub_services[0][sub_security_text]" class="form-control"
+                                                    placeholder="" value="{{ old('sub_services.0.sub_security_text') }}">
                                             </div>
-                                            <script>
-                                                document.addEventListener('DOMContentLoaded', function() {
-                                                    const securityCheckbox = document.getElementById('sub_security');
-                                                    const securityInputContainer = document.getElementById('sub_security_container');
-
-                                                    // Toggle visibility based on checkbox status
-                                                    securityCheckbox.addEventListener('change', function() {
-                                                        if (this.checked) {
-                                                            securityInputContainer.classList.remove('d-none');
-                                                        } else {
-                                                            securityInputContainer.classList.add('d-none');
-                                                        }
-                                                    });
-                                                });
-                                            </script>
                                         </div>
-
                                         <div class="col-lg-3 col-6">
                                             <div class="form-check form-switch">
-                                                <label for="sub_start_time"> وقت البدء </label>
-                                                <input name="sub_services[0][start_time]" class="form-check-input"
-                                                    type="checkbox" role="switch" id="sub_start_time">
+                                                <label for="sub_start_time_0">وقت البدء</label>
+                                                <input name="sub_services[0][sub_start_time]" class="form-check-input"
+                                                    type="checkbox" role="switch" id="sub_start_time_0">
                                             </div>
-                                            <div class="mt-2 mb-3 d-none" id="sub_start_time_container">
-                                                <label for="start_time_text" class="form-label"> ادخل وقت البدء </label>
-                                                <input type="text" id="start_time_text"
-                                                    name="sub_services[0][start_time_text]" class="form-control"
-                                                    placeholder="" value="{{ old('sub_services.0.start_time_text') }}">
+                                            <div class="mt-2 mb-3 d-none" id="sub_start_time_container_0">
+                                                <label for="sub_start_time_text_0" class="form-label">ادخل وقت
+                                                    البدء</label>
+                                                <input type="text" id="sub_start_time_text_0"
+                                                    name="sub_services[0][sub_start_time_text]" class="form-control"
+                                                    placeholder=""
+                                                    value="{{ old('sub_services.0.sub_start_time_text') }}">
                                             </div>
-                                            <script>
-                                                document.addEventListener('DOMContentLoaded', function() {
-                                                    const start_timeCheckbox = document.getElementById('sub_start_time');
-                                                    const start_timeInputContainer = document.getElementById('sub_start_time_container');
-
-                                                    // Toggle visibility based on checkbox status
-                                                    start_timeCheckbox.addEventListener('change', function() {
-                                                        if (this.checked) {
-                                                            start_timeInputContainer.classList.remove('d-none');
-                                                        } else {
-                                                            start_timeInputContainer.classList.add('d-none');
-                                                        }
-                                                    });
-                                                });
-                                            </script>
-
                                         </div>
 
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-primary" id="add_sub_service">إضافة خدمة فرعية
+                                <button type="button" class="mt-3 btn btn-primary" id="add_sub_service">إضافة خدمة فرعية
                                     جديدة</button>
+                                    <!-- زر الحذف للخدمة الفرعية الأولى (مخفي افتراضيًا) -->
+                                    <button type="button" class="btn btn-danger btn-sm remove-sub-service d-none">حذف</button>
                             </div>
 
                             <script>
-                                document.getElementById('add_sub_service').addEventListener('click', function() {
-                                    const container = document.getElementById('sub_services_container');
-                                    const index = container.children.length;
-                                    const uniqueId = Date.now(); // أو استخدم index إذا تفضل
-
-                                    const newRow = `
-                                    <div class="mb-3 row">
-                                           <button type="button" class="top-0 m-2 btn btn-danger btn-sm position-absolute end-0 remove-sub-service">
-        حذف
-    </button>
-                                        <div class="col-lg-3 col-6">
-                                            <label class="form-label">اسم الخدمة</label>
-                                            <input type="text" name="sub_services[${index}][sub_serv_name]" class="form-control">
-                                        </div>
-                                        <div class="col-lg-3 col-6">
-                                            <label class="form-label"> حدد مزود الخدمة </label>
-                                            <select required class="form-control" name="sub_services[${index}][provider_id]">
-                                                <option value=""> -- حدد --</option>
-                                                @foreach ($providers as $provider)
-                                                    <option value="{{ $provider['id'] }}">{{ $provider['name'] }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="col-lg-3 col-6">
-                                            <label class="form-label">رقم الخدمة</label>
-                                            <input type="number" name="sub_services[${index}][sub_serv_number]" class="form-control">
-                                        </div>
-                                        <div class="col-lg-3 col-6">
-                                            <label class="form-label"> نسبة الربح (٪) </label>
-                                            <input required type="number" step=".01" name="sub_services[${index}][profit_percentage]" class="form-control">
-                                        </div>
-
-                                        <div class="col-lg-3 col-6">
-                                            <div class="form-check form-switch">
-                                                <label for="sub_speed_active_${uniqueId}"> السرعة </label>
-                                                <input name="sub_services[${index}][speed_active]" class="form-check-input"
-                                                    type="checkbox" role="switch" id="sub_speed_active_${uniqueId}">
-                                            </div>
-                                            <div class="mt-2 mb-3 d-none" id="sub_speed_input_container_${uniqueId}">
-                                                <label class="form-label">ادخل السرعة</label>
-                                                <input type="text" name="sub_services[${index}][speed_active_text]" class="form-control">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-3 col-6">
-                                            <div class="form-check form-switch">
-                                                <label for="sub_quality_status_${uniqueId}"> الجودة </label>
-                                                <input name="sub_services[${index}][quality_status]" class="form-check-input"
-                                                    type="checkbox" role="switch" id="sub_quality_status_${uniqueId}">
-                                            </div>
-                                            <div class="mt-2 mb-3 d-none" id="sub_quality_input_container_${uniqueId}">
-                                                <label class="form-label">ادخل نسبة الجودة</label>
-                                                <input type="number" min="1" max="100" name="sub_services[${index}][quality_percentage]" class="form-control">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-3 col-6">
-                                            <div class="form-check form-switch">
-                                                <label for="sub_security_${uniqueId}"> الضمان </label>
-                                                <input name="sub_services[${index}][security]" class="form-check-input"
-                                                    type="checkbox" role="switch" id="sub_security_${uniqueId}">
-                                            </div>
-                                            <div class="mt-2 mb-3 d-none" id="sub_security_container_${uniqueId}">
-                                                <label class="form-label">ادخل الضمان</label>
-                                                <input type="text" name="sub_services[${index}][security_text]" class="form-control">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-3 col-6">
-                                            <div class="form-check form-switch">
-                                                <label for="sub_start_time_${uniqueId}"> وقت البدء </label>
-                                                <input name="sub_services[${index}][start_time]" class="form-check-input"
-                                                    type="checkbox" role="switch" id="sub_start_time_${uniqueId}">
-                                            </div>
-                                            <div class="mt-2 mb-3 d-none" id="sub_start_time_container_${uniqueId}">
-                                                <label class="form-label">ادخل وقت البدء</label>
-                                                <input type="text" name="sub_services[${index}][start_time_text]" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    `;
-                                    container.insertAdjacentHTML('beforeend', newRow);
-                                    // تفعيل السويتشات الجديدة
-                                    setTimeout(() => {
-                                        const speedCheckbox = document.getElementById(`sub_speed_active_${uniqueId}`);
-                                        const speedInputContainer = document.getElementById(
-                                        `sub_speed_input_container_${uniqueId}`);
-                                        if (speedCheckbox) {
-                                            speedCheckbox.addEventListener('change', function() {
-                                                speedInputContainer.classList.toggle('d-none', !this.checked);
+                                document.addEventListener('DOMContentLoaded', function() {
+                                    // تفعيل السويتشات للخدمة الفرعية الأولى
+                                    const toggleSwitch = (checkboxId, containerId) => {
+                                        const checkbox = document.getElementById(checkboxId);
+                                        const container = document.getElementById(containerId);
+                                        if (checkbox && container) {
+                                            checkbox.addEventListener('change', function() {
+                                                container.classList.toggle('d-none', !this.checked);
                                             });
                                         }
+                                    };
 
-                                        const qualityCheckbox = document.getElementById(`sub_quality_status_${uniqueId}`);
-                                        const qualityInputContainer = document.getElementById(
-                                            `sub_quality_input_container_${uniqueId}`);
-                                        if (qualityCheckbox) {
-                                            qualityCheckbox.addEventListener('change', function() {
-                                                qualityInputContainer.classList.toggle('d-none', !this.checked);
-                                            });
+                                    toggleSwitch('sub_speed_active_0', 'sub_speed_input_container_0');
+                                    toggleSwitch('sub_quality_status_0', 'sub_quality_input_container_0');
+                                    toggleSwitch('sub_security_0', 'sub_security_container_0');
+                                    toggleSwitch('sub_start_time_0', 'sub_start_time_container_0');
+
+                                    // إضافة خدمة فرعية جديدة
+                                    document.getElementById('add_sub_service').addEventListener('click', function() {
+                                        const container = document.getElementById('sub_services_container');
+                                        const index = container.children.length;
+                                        const uniqueId = Date.now();
+
+                                        const newRow = `
+                                            <div class="mb-3 row sub-service-row">
+
+                                                <div class="col-lg-1 col-1">
+                                                    <button style="margin-top:20px" type="button" class="btn btn-danger btn-sm remove-sub-service"> <i class="bx bx-trash"></i> </button>
+                                                </div>
+                                                <div class="col-lg-3 col-6">
+                                                    <label class="form-label">اسم الخدمة</label>
+                                                    <input type="text" name="sub_services[${index}][sub_serv_name]" class="form-control">
+                                                </div>
+                                                <div class="col-lg-2 col-5">
+                                                    <label class="form-label">حدد مزود الخدمة</label>
+                                                    <select required class="form-control" name="sub_services[${index}][sub_provider_id]">
+                                                        <option value="">-- حدد --</option>
+                                                        @foreach ($providers as $provider)
+                                                            <option value="{{ $provider['id'] }}">{{ $provider['name'] }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-3 col-6">
+                                                    <label class="form-label">رقم الخدمة</label>
+                                                    <input type="number" name="sub_services[${index}][sub_serv_number]" class="form-control">
+                                                </div>
+                                                <div class="col-lg-3 col-6">
+                                                    <label class="form-label">نسبة الربح (٪)</label>
+                                                    <input required type="number" step=".01" name="sub_services[${index}][sub_profit_percentage]" class="form-control">
+                                                </div>
+                                                <div class="col-lg-3 col-6">
+                                                    <div class="form-check form-switch">
+                                                        <label for="sub_speed_active_${uniqueId}">السرعة</label>
+                                                        <input name="sub_services[${index}][sub_speed_active]" class="form-check-input" type="checkbox" role="switch" id="sub_speed_active_${uniqueId}">
+                                                    </div>
+                                                    <div class="mt-2 mb-3 d-none" id="sub_speed_input_container_${uniqueId}">
+                                                        <label class="form-label">ادخل السرعة</label>
+                                                        <input type="text" name="sub_services[${index}][sub_speed_active_text]" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3 col-6">
+                                                    <div class="form-check form-switch">
+                                                        <label for="sub_quality_status_${uniqueId}">الجودة</label>
+                                                        <input name="sub_services[${index}][sub_quality_status]" class="form-check-input" type="checkbox" role="switch" id="sub_quality_status_${uniqueId}">
+                                                    </div>
+                                                    <div class="mt-2 mb-3 d-none" id="sub_quality_input_container_${uniqueId}">
+                                                        <label class="form-label">ادخل نسبة الجودة</label>
+                                                        <input type="number" min="1" max="100" name="sub_services[${index}][sub_quality_percentage]" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3 col-6">
+                                                    <div class="form-check form-switch">
+                                                        <label for="sub_security_${uniqueId}">الضمان</label>
+                                                        <input name="sub_services[${index}][sub_security]" class="form-check-input" type="checkbox" role="switch" id="sub_security_${uniqueId}">
+                                                    </div>
+                                                    <div class="mt-2 mb-3 d-none" id="sub_security_container_${uniqueId}">
+                                                        <label class="form-label">ادخل الضمان</label>
+                                                        <input type="text" name="sub_services[${index}][sub_security_text]" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3 col-6">
+                                                    <div class="form-check form-switch">
+                                                        <label for="sub_start_time_${uniqueId}">وقت البدء</label>
+                                                        <input name="sub_services[${index}][sub_start_time]" class="form-check-input" type="checkbox" role="switch" id="sub_start_time_${uniqueId}">
+                                                    </div>
+                                                    <div class="mt-2 mb-3 d-none" id="sub_start_time_container_${uniqueId}">
+                                                        <label class="form-label">ادخل وقت البدء</label>
+                                                        <input type="text" name="sub_services[${index}][sub_start_time_text]" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        `;
+                                        container.insertAdjacentHTML('beforeend', newRow);
+
+                                        // تفعيل السويتشات للخدمة الفرعية الجديدة
+                                        setTimeout(() => {
+                                            toggleSwitch(`sub_speed_active_${uniqueId}`,
+                                                `sub_speed_input_container_${uniqueId}`);
+                                            toggleSwitch(`sub_quality_status_${uniqueId}`,
+                                                `sub_quality_input_container_${uniqueId}`);
+                                            toggleSwitch(`sub_security_${uniqueId}`, `sub_security_container_${uniqueId}`);
+                                            toggleSwitch(`sub_start_time_${uniqueId}`,
+                                                `sub_start_time_container_${uniqueId}`);
+                                        }, 100);
+
+                                        // تحديث حالة زر الحذف
+                                        updateRemoveButtons();
+                                    });
+
+                                    // إدارة حذف الخدمات الفرعية
+                                    function updateRemoveButtons() {
+                                        const container = document.getElementById('sub_services_container');
+                                        const subServiceRows = container.querySelectorAll('.sub-service-row');
+                                        const removeButtons = container.querySelectorAll('.remove-sub-service');
+
+                                        // إخفاء زر الحذف للخدمة الأولى إذا كان هناك خدمة واحدة فقط
+                                        if (subServiceRows.length <= 1) {
+                                            removeButtons.forEach(button => button.classList.add('d-none'));
+                                        } else {
+                                            removeButtons.forEach(button => button.classList.remove('d-none'));
                                         }
 
-                                        const securityCheckbox = document.getElementById(`sub_security_${uniqueId}`);
-                                        const securityInputContainer = document.getElementById(
-                                        `sub_security_container_${uniqueId}`);
-                                        if (securityCheckbox) {
-                                            securityCheckbox.addEventListener('change', function() {
-                                                securityInputContainer.classList.toggle('d-none', !this.checked);
-                                            });
-                                        }
+                                        // إضافة حدث الحذف لكل زر
+                                        removeButtons.forEach(button => {
+                                            button.removeEventListener('click',
+                                            removeLastSubService); // إزالة الأحداث القديمة لتجنب التكرار
+                                            button.addEventListener('click', removeLastSubService);
+                                        });
+                                    }
 
-                                        const startTimeCheckbox = document.getElementById(`sub_start_time_${uniqueId}`);
-                                        const startTimeInputContainer = document.getElementById(
-                                            `sub_start_time_container_${uniqueId}`);
-                                        if (startTimeCheckbox) {
-                                            startTimeCheckbox.addEventListener('change', function() {
-                                                startTimeInputContainer.classList.toggle('d-none', !this.checked);
-                                            });
+                                    function removeLastSubService() {
+                                        const container = document.getElementById('sub_services_container');
+                                        const subServiceRows = container.querySelectorAll('.sub-service-row');
+                                        if (subServiceRows.length > 1) {
+                                            subServiceRows[subServiceRows.length - 1].remove(); // حذف آخر خدمة فرعية
+                                            updateRemoveButtons(); // تحديث حالة الأزرار
                                         }
-                                    }, 100);
+                                    }
+
+                                    // تحديث حالة الأزرار عند تحميل الصفحة
+                                    updateRemoveButtons();
                                 });
                             </script>
                         </div>
-                        <div class="card" id="simple-product-fields">
+                        {{-- <div class="card" id="simple-product-fields">
                             <div class="card-header">
                                 <h4 class="card-title"> مميزات الخدمة </h4>
                             </div>
-                            <div class="card-body"  style="background-color: #F2F2F8">
+                            <div class="card-body" style="background-color: #F2F2F8">
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-check form-switch">
@@ -704,41 +675,87 @@
 
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
 
-                        <div class="card">
+                        <div class="card" style="background-color:#F2F2F8">
                             <div class="card-header">
-                                <h4 class="card-title"> تحسينات السيو ( SEO ) </h4>
+                                <h4 class="card-title">تحسينات السيو ( SEO )</h4>
                             </div>
-                            <div class="card-body" style="background-color: #C6C6C621">
+                            <div class="card-body">
                                 <div class="row">
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-12">
                                         <div class="mb-3">
-                                            <label for="meta_title" class="form-label"> عنوان صفحة المنتج (Page Title)  </label>
-                                            <input type="text" id="meta_title" name="meta_title" class="form-control"
-                                                placeholder="" value="{{ old('meta_title') }}">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="mb-3">
-                                            <label for="name" class="form-label"> رابط صفحة المنتج (SEO Page URL) </label>
-                                            <input type="text" id="slug" name="slug" class="form-control"
-                                                placeholder="" value="{{ old('slug') }}">
+                                            <label for="meta_title" class="form-label">عنوان صفحة المنتج (Page
+                                                Title)</label>
+                                            <input type="text" id="meta_title" class="form-control" name="meta_title"
+                                                placeholder="ادخل العنوان هنا" value="{{ old('meta_title') }}">
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="mb-3">
-                                            <label for="meta_description" class="form-label"> وصف صفحة المنتج (Page Description) </label>
-                                            <textarea class="form-control bg-light-subtle" id="meta_description" rows="7" placeholder=""
-                                                name="meta_description">{{ old('meta_description') }}</textarea>
+                                            <label for="meta_url" class="form-label">رابط صفحة المنتج (SEO PAGE
+                                                URL)</label>
+                                            <input type="text" id="meta_url" class="form-control" name="meta_url"
+                                                placeholder="أدخل رابط المنتج" value="{{ old('meta_url') }}">
+                                            <!-- حقل مخفي لتخزين الرابط النهائي -->
+                                            <input type="hidden" name="meta_url_final" id="meta_url_final"
+                                                value="{{ old('meta_url') }}">
+                                            <!-- معاينة الرابط -->
+                                            <div class="mt-2">
+                                                <small class="text-muted">معاينة الرابط: </small>
+                                                <span id="urlPreview" class="text-primary">{{ url('/category/') }}/<span
+                                                        id="slugPreview"></span></span>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-12">
                                         <div class="mb-3">
-                                            <label for="meta_keywords" class="form-label"> الكلمات المفتاحية </label>
-                                            <input type="text" id="meta_keywords" name="meta_keywords"
-                                                class="form-control" placeholder="" value="{{ old('meta_keywords') }}">
+                                            <label for="meta_description" class="form-label">وصف صفحة المنتج (Page
+                                                Description)</label>
+                                            <textarea class="form-control" id="meta_description" rows="7" name="meta_description"
+                                                placeholder="وصف صفحة المنتج">{{ old('meta_description') }}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label for="meta_keywords" class="form-label">الكلمات المفتاحية</label>
+                                            <div class="input-group">
+                                                <input type="text" id="meta_keywords" class="form-control"
+                                                    placeholder="أدخل الكلمات المفتاحية">
+                                                <!-- حقل مخفي لتخزين الكلمات -->
+                                                <input type="hidden" name="meta_keywords" id="hidden_keywords"
+                                                    value="{{ old('meta_keywords') }}">
+                                            </div>
+                                            <div id="keywordList" class="mt-2">
+                                                @if (old('meta_keywords'))
+                                                    @foreach (explode(',', old('meta_keywords')) as $keyword)
+                                                        <span class="mb-2 text-white badge bg-primary me-2"
+                                                            data-keyword="{{ $keyword }}">
+                                                            {{ $keyword }} <span class="ms-2 text-danger"
+                                                                onclick="removeKeyword(this)">×</span>
+                                                        </span>
+                                                    @endforeach
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="alert alert-info" role="alert">
+                                            <div class="d-flex align-items-center">
+                                                <div class="flex-grow-1">
+                                                    <p class="mb-0">حساب تيك توك للبيع k 23 ، تعرف على متجر زيادة التفاعل
+                                                        وزيد تأثيرك فوراً</p>
+                                                    <p class="mb-0 text-muted">امتلك حساب تيك توك k 23 متاح للبيع بسهولة
+                                                        وسرعة، خمس خطوات على المنصة وتمتع بتفاعل مضمون، دون قلق.</p>
+                                                </div>
+                                            </div>
+                                            <div class="mt-2">
+                                                <a href="https://www.facebook.com/username/videos/987654321"
+                                                    class="text-primary"
+                                                    target="_blank">https://www.facebook.com/username/videos/987654321</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -751,7 +768,7 @@
                                             class='bx bxs-save'></i></button>
                                 </div>
                                 <div class="col-lg-3">
-                                    <a href="{{ url('admin/products') }}" class="btn btn-danger w-100"> الغاء  </a>
+                                    <a href="{{ url('admin/products') }}" class="btn btn-danger w-100"> الغاء </a>
                                 </div>
 
                             </div>
@@ -767,146 +784,56 @@
 @endsection
 
 @section('js')
-    <script src="https://cdn.tiny.cloud/1/c8u902w1qjlgsxdu73djug5kw4ckg9n6ggwi5lynenmwrw25/tinymce/7/tinymce.min.js"
-        referrerpolicy="origin"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        document.getElementById('product-type').addEventListener('change', function() {
-            if (this.value === 'بسيط') {
-                document.getElementById('simple-product-fields').style.display = 'block';
-                document.getElementById('variable-product-fields').style.display = 'none';
-            } else {
-                document.getElementById('simple-product-fields').style.display = 'none';
-                document.getElementById('variable-product-fields').style.display = 'block';
+        // دالة لتحديث الحقل المخفي
+        function updateHiddenKeywords() {
+            let keywords = [];
+            document.querySelectorAll('#keywordList .badge').forEach(badge => {
+                keywords.push(badge.getAttribute('data-keyword'));
+            });
+            document.getElementById('hidden_keywords').value = keywords.join(',');
+        }
+
+        // دالة لإزالة الكلمة وتحديث الحقل المخفي
+        function removeKeyword(element) {
+            element.parentElement.remove();
+            updateHiddenKeywords();
+        }
+
+        // إضافة كلمة عند الضغط على Enter
+        document.getElementById('meta_keywords').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && this.value.trim()) {
+                e.preventDefault();
+                let keyword = this.value.trim();
+                let keywordList = document.getElementById('keywordList');
+                let badge = document.createElement('span');
+                badge.className = 'mb-2 text-white badge bg-primary me-2';
+                badge.setAttribute('data-keyword', keyword);
+                badge.innerHTML =
+                    `${keyword} <span class="ms-2 text-danger" onclick="removeKeyword(this)">×</span>`;
+                keywordList.appendChild(badge);
+                this.value = '';
+                updateHiddenKeywords();
             }
         });
     </script>
-
     <script>
-        document.getElementById('confirm-variations').addEventListener('click', function($e) {
-            $e.preventDefault();
-            const attributes = document.querySelectorAll('select[name="attributes[]"]');
-            const variations = document.querySelectorAll('input[name="variations[]"]');
-
-            let selectedValues = [];
-
-            attributes.forEach((attribute, index) => {
-                const selectedAttribute = attribute.value;
-                if (selectedAttribute) {
-                    const variationValues = variations[index].value.split('-').map(v => v.trim());
-                    selectedValues.push(variationValues);
-                }
-            });
-
-            const productVariants = cartesianProduct(selectedValues);
-            let productVariantsHTML = '';
-
-            productVariants.forEach(variant => {
-                const variantText = variant.join(' - ');
-                const variationInputsHTML = `
-            <div class="variant-inputs d-flex align-items-center justify-content-between">
-                <div class="form-group">
-                    <label>اسم المتغير</label>
-                    <input name='variant_name[]' class="form-control" type="text" value="${variantText}">
-                </div>
-                <div class="form-group">
-                    <label>سعر المنتج</label>
-                    <input placeholder="السعر" class="form-control" type="number" name='variant_price[]'>
-                </div>
-                <div class="form-group">
-                    <label>السعر بعد التخفيض</label>
-                    <input placeholder="السعر" class="form-control" type="number" name='variant_discount[]'>
-                </div>
-                <div class="form-group">
-                    <label>الكمية المتاحة</label>
-                    <input placeholder="الكمية" class="form-control" type="number" name='variant_stock[]'>
-                </div>
-                <div class="form-group">
-                    <label>صورة المنتج</label>
-                    <input type='file' class='form-control' name='variant_image[]'>
-                </div>
-                <div class="form-group">
-                    <button style="margin-top: 20px" class="btn btn-sm btn-danger delete-variant"><i class="ti ti-x"></i></button>
-                </div>
-            </div>
-        `;
-                productVariantsHTML += variationInputsHTML;
-            });
-
-            document.getElementById('product-variants').innerHTML = productVariantsHTML;
-
-            // أضف الاستماع لأزرار الحذف الجديدة
-            attachDeleteEventListeners();
-        });
-
-        function cartesianProduct(arrays) {
-            return arrays.reduce(function(a, b) {
-                var result = [];
-                a.forEach(function(a) {
-                    b.forEach(function(b) {
-                        result.push(a.concat([b]));
-                    });
-                });
-                return result;
-            }, [
-                []
-            ]);
+        // دالة لتحويل النص إلى slug
+        function toSlug(text) {
+            return text
+                .toLowerCase()
+                .trim()
+                .replace(/[\s+]/g, '-') // استبدال المسافات بـ -
+                .replace(/[^\w\-]+/g, '') // إزالة الرموز غير المرغوب فيها
+                .replace(/\-\-+/g, '-'); // إزالة الـ - المكررة
         }
 
-        function attachDeleteEventListeners() {
-            const deleteButtons = document.querySelectorAll('.delete-variant');
-            deleteButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const variantRow = this.closest('.variant-inputs');
-                    variantRow.remove();
-                });
-            });
-        }
-    </script>
-
-    <script>
-        tinymce.init({
-            selector: '.tinymce',
-            height: 300,
-            directionality: 'rtl', // لجعل المحرر يعمل من اليمين إلى اليسار
-            language: 'ar',
-            plugins: [
-                'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
-                'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen',
-                'insertdatetime',
-                'media', 'table', 'emoticons', 'help'
-            ],
-            toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | ' +
-                'bullist numlist outdent indent | link image | print preview media fullscreen | ' +
-                'forecolor backcolor emoticons',
-            menu: {
-                favs: {
-                    title: 'My Favorites',
-                    items: 'code visualaid | searchreplace | emoticons'
-                }
-            },
-            image_title: true, // السماح بتعديل العنوان
-            automatic_uploads: true,
-            images_upload_url: 'post_uploads', // مسار API لاستقبال الصور
-            file_picker_types: 'image',
-            file_picker_callback: function(cb, value, meta) {
-                if (meta.filetype === 'image') {
-                    var input = document.createElement('input');
-                    input.setAttribute('type', 'file');
-                    input.setAttribute('accept', 'image/*');
-                    input.onchange = function() {
-                        var file = this.files[0];
-                        var reader = new FileReader();
-                        reader.onload = function() {
-                            cb(reader.result, {
-                                title: file.name
-                            });
-                        };
-                        reader.readAsDataURL(file);
-                    };
-                    input.click();
-                }
-            }
+        // عرض معاينة الرابط أثناء الكتابة
+        document.getElementById('meta_url').addEventListener('input', function() {
+            let input = this.value;
+            let slug = toSlug(input);
+            document.getElementById('slugPreview').textContent = slug || 'عنوان-المنتج';
+            document.getElementById('meta_url_final').value = slug; // تحديث الحقل المخفي
         });
     </script>
 @endsection
