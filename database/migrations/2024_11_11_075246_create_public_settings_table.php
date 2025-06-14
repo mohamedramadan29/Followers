@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('snapchap')->nullable();
             $table->string('pinterest')->nullable();
             $table->string('whatsapp')->nullable();
+            $table->tinyInteger('active_bot')->default(1);
             $table->timestamps();
         });
     }

@@ -28,10 +28,12 @@ class BootFaqController extends Controller
                 $rules = [
                     'title' => 'required',
                     'content' => 'required',
+                    'keywords' => 'required',
                 ];
                 $messages = [
                     'title.required' => ' من فضلك ادخل السوال  ',
                     'content.required' => ' من فضلك ادخل الاجابة   ',
+                    'keywords.required' => ' من فضلك ادخل الكلمات المفتاحية   ',
                 ];
                 $validator = Validator::make($data, $rules, $messages);
                 if ($validator->fails()) {
@@ -41,6 +43,7 @@ class BootFaqController extends Controller
                 $faq->create([
                     'question' => $data['title'],
                     'answer' => $data['content'],
+                    'keywords' => $data['keywords'],
                 ]);
                 return $this->success_message(' تم اضافة السوال بنجاح  ');
             } catch (\Exception $e) {
@@ -59,10 +62,12 @@ class BootFaqController extends Controller
                 $rules = [
                     'title' => 'required',
                     'content' => 'required',
+                    'keywords' => 'required',
                 ];
                 $messages = [
                     'title.required' => ' من فضلك ادخل السوال  ',
                     'content.required' => ' من فضلك ادخل الاجابة   ',
+                    'keywords.required' => ' من فضلك ادخل الكلمات المفتاحية   ',
                 ];
                 $validator = Validator::make($data, $rules, $messages);
                 if ($validator->fails()) {
@@ -71,6 +76,7 @@ class BootFaqController extends Controller
                 $faq->update([
                     'question' => $data['title'],
                     'answer' => $data['content'],
+                    'keywords' => $data['keywords'],
                 ]);
                 return $this->success_message(' تم تعديل السوال بنجاح  ');
             } catch (\Exception $e) {

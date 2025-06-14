@@ -34,121 +34,140 @@
                     <span class="nav-text"> الرئيسية </span>
                 </a>
             </li>
-            @can('admins')
-                <li class="nav-item">
-                    <a class="nav-link menu-arrow" href="#sidebarorders" data-bs-toggle="collapse" role="button"
-                        aria-expanded="false" aria-controls="sidebarorders">
-                        <span class="nav-icon">
-                            <i class="bi bi-list-check"></i>
-                        </span>
-                        <span class="nav-text"> سجل الطلبات </span>
-                    </a>
-                    <div class="collapse" id="sidebarorders">
-                        <ul class="nav sub-navbar-nav">
 
-                            <li class="sub-nav-item">
-                                <a class="sub-nav-link" href="{{ url('admin/orders') }}"> جميع الطلبات </a>
-                            </li>
+            <li class="nav-item">
+                <a class="nav-link menu-arrow" href="#sidebarorders" data-bs-toggle="collapse" role="button"
+                    aria-expanded="false" aria-controls="sidebarorders">
+                    <span class="nav-icon">
+                        <i class="bi bi-list-check"></i>
+                    </span>
+                    <span class="nav-text"> سجل الطلبات </span>
+                </a>
+                <div class="collapse" id="sidebarorders">
+                    <ul class="nav sub-navbar-nav">
 
-                        </ul>
-                    </div>
-                </li>
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="{{ url('admin/orders') }}"> جميع الطلبات </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link menu-arrow" href="#sidebarCustomers" data-bs-toggle="collapse" role="button"
+                    aria-expanded="false" aria-controls="sidebarCustomers">
+                    <span class="nav-icon">
+                        <i class="bi bi-people"></i>
+                    </span>
+                    <span class="nav-text"> المستخدمين </span>
+                </a>
+                <div class="collapse" id="sidebarCustomers">
+                    <ul class="nav sub-navbar-nav">
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="{{ url('admin/users') }}"> جميع المستخدمين </a>
+                        </li>
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="{{ url('admin/user/add') }}"> اضافة مستخدم </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            @can('support')
                 <li class="nav-item">
-                    <a class="nav-link menu-arrow" href="#sidebarCustomers" data-bs-toggle="collapse" role="button"
-                        aria-expanded="false" aria-controls="sidebarCustomers">
+                    <a class="nav-link menu-arrow" href="#sidebarSupport" data-bs-toggle="collapse" role="button"
+                        aria-expanded="false" aria-controls="sidebarSupport">
                         <span class="nav-icon">
                             <i class="bi bi-people"></i>
                         </span>
-                        <span class="nav-text"> المستخدمين </span>
+                        <span class="nav-text"> خدمة العملاء </span>
                     </a>
-                    <div class="collapse" id="sidebarCustomers">
+                    <div class="collapse" id="sidebarSupport">
                         <ul class="nav sub-navbar-nav">
                             <li class="sub-nav-item">
-                                <a class="sub-nav-link" href="{{ url('admin/users') }}"> جميع المستخدمين </a>
-                            </li>
-                            <li class="sub-nav-item">
-                                <a class="sub-nav-link" href="{{ url('admin/user/add') }}"> اضافة مستخدم </a>
+                                <a class="sub-nav-link" href="{{ url('admin/support/tickets') }}"> جميع التذاكر </a>
                             </li>
                         </ul>
                     </div>
                 </li>
-                @can('support')
-                    <li class="nav-item">
-                        <a class="nav-link menu-arrow" href="#sidebarSupport" data-bs-toggle="collapse" role="button"
-                            aria-expanded="false" aria-controls="sidebarSupport">
-                            <span class="nav-icon">
-                                <i class="bi bi-people"></i>
-                            </span>
-                            <span class="nav-text"> خدمة العملاء </span>
-                        </a>
-                        <div class="collapse" id="sidebarSupport">
-                            <ul class="nav sub-navbar-nav">
-                                <li class="sub-nav-item">
-                                    <a class="sub-nav-link" href="{{ url('admin/support/tickets') }}"> جميع التذاكر </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                @endcan
-                @can('reviews')
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('admin/reviews') }}">
-                            <span class="nav-icon">
-                                <i class="bi bi-person-raised-hand"></i>
-                            </span>
-                            <span class="nav-text"> التقيمات </span>
-                        </a>
-                    </li>
-                @endcan
+            @endcan
+            @can('reviews')
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('admin/reviews') }}">
+                        <span class="nav-icon">
+                            <i class="bi bi-person-raised-hand"></i>
+                        </span>
+                        <span class="nav-text"> التقيمات </span>
+                    </a>
+                </li>
+            @endcan
 
-                @can('reports')
-                    <li class="nav-item">
-                        <a class="nav-link menu-arrow" href="#sidebarReports" data-bs-toggle="collapse" role="button"
-                            aria-expanded="false" aria-controls="sidebarReports">
-                            <span class="nav-icon">
-                                <i class="bi bi-bar-chart-line"></i>
-                            </span>
-                            <span class="nav-text"> التقارير </span>
-                        </a>
-                        <div class="collapse" id="sidebarReports">
-                            <ul class="nav sub-navbar-nav">
-                                <li class="sub-nav-item">
-                                    <a class="sub-nav-link" href="{{ url('admin/reports/index') }}"> جميع التقارير </a>
-                                </li>
-                                <li class="sub-nav-item">
-                                    <a class="sub-nav-link" href="{{ url('admin/reports/index') }}"> تقارير المنتجات </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                @endcan
-                @can('products')
-                    <li class="nav-item">
-                        <a class="nav-link menu-arrow" href="#sidebarProducts" data-bs-toggle="collapse" role="button"
-                            aria-expanded="false" aria-controls="sidebarProducts">
-                            <span class="nav-icon">
-                                <i class="bi bi-hdd-stack-fill"></i>
-                            </span>
-                            <span class="nav-text"> الخدمات </span>
-                        </a>
-                        <div class="collapse" id="sidebarProducts">
-                            <ul class="nav sub-navbar-nav">
+            @can('reports')
+                <li class="nav-item">
+                    <a class="nav-link menu-arrow" href="#sidebarReports" data-bs-toggle="collapse" role="button"
+                        aria-expanded="false" aria-controls="sidebarReports">
+                        <span class="nav-icon">
+                            <i class="bi bi-bar-chart-line"></i>
+                        </span>
+                        <span class="nav-text"> التقارير </span>
+                    </a>
+                    <div class="collapse" id="sidebarReports">
+                        <ul class="nav sub-navbar-nav">
+                            <li class="sub-nav-item">
+                                <a class="sub-nav-link" href="{{ url('admin/reports/index') }}"> جميع التقارير </a>
+                            </li>
+                            <li class="sub-nav-item">
+                                <a class="sub-nav-link" href="{{ url('admin/reports/index') }}"> تقارير المنتجات </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            @endcan
+            @can('products')
+                <li class="nav-item">
+                    <a class="nav-link menu-arrow" href="#sidebarProducts" data-bs-toggle="collapse" role="button"
+                        aria-expanded="false" aria-controls="sidebarProducts">
+                        <span class="nav-icon">
+                            <i class="bi bi-hdd-stack-fill"></i>
+                        </span>
+                        <span class="nav-text"> الخدمات </span>
+                    </a>
+                    <div class="collapse" id="sidebarProducts">
+                        <ul class="nav sub-navbar-nav">
 
-                                <li class="sub-nav-item">
-                                    <a class="sub-nav-link" href="{{ url('admin/products') }}"> جميع الخدمات </a>
-                                </li>
-                                <li class="sub-nav-item">
-                                    <a class="sub-nav-link" href="{{ url('admin/product/add') }}"> اضف خدمة جديدة </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                @endcan
+                            <li class="sub-nav-item">
+                                <a class="sub-nav-link" href="{{ url('admin/products') }}"> جميع الخدمات </a>
+                            </li>
+                            <li class="sub-nav-item">
+                                <a class="sub-nav-link" href="{{ url('admin/product/add') }}"> اضف خدمة جديدة </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-arrow @yield('providers-active')" href="#sidebarProviders" data-bs-toggle="collapse"
+                        role="button" aria-expanded="false" aria-controls="sidebarProviders">
+                        <span class="nav-icon">
+                            <i class="bi bi-server"></i>
+                        </span>
+                        <span class="nav-text"> مزودي الخدمات </span>
+                    </a>
+                    <div class="collapse @yield('providers-collapse')" id="sidebarProviders">
+                        <ul class="nav sub-navbar-nav">
+                            <li class="sub-nav-item">
+                                <a class="sub-nav-link" href="{{ url('admin/providers') }}"> مزودي الخدمات </a>
+                            </li>
+                            <li class="sub-nav-item">
+                                <a class="sub-nav-link" href="{{ url('admin/provider/add') }}"> اضافة مزود جديد </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            @endcan
 
-                @can('blog')
-                    <li class="nav-item">
-                        <a class="nav-link menu-arrow @yield('blog-active')" href="#sidebaradvs" data-bs-toggle="collapse" role="button"
-                        aria-expanded="false" aria-controls="sidebarBrands">
+            @can('blog')
+                <li class="nav-item">
+                    <a class="nav-link menu-arrow @yield('blog-active')" href="#sidebaradvs" data-bs-toggle="collapse"
+                        role="button" aria-expanded="false" aria-controls="sidebarBrands">
                         <span class="nav-icon">
                             <i class="bi bi-brush"></i>
                         </span>
@@ -166,98 +185,20 @@
                         </ul>
                     </div>
                 </li>
-                @endcan
-                <li class="nav-item">
-                    <a class="nav-link menu-arrow" href="#sidebarProviders" data-bs-toggle="collapse" role="button"
-                        aria-expanded="false" aria-controls="sidebarProviders">
-                        <span class="nav-icon">
-                            <i class="bi bi-server"></i>
-                        </span>
-                        <span class="nav-text"> مزودي الخدمات </span>
-                    </a>
-                    <div class="collapse" id="sidebarProviders">
-                        <ul class="nav sub-navbar-nav">
-                            <li class="sub-nav-item">
-                                <a class="sub-nav-link" href="{{ url('admin/providers') }}"> مزودي الخدمات </a>
-                            </li>
-                            <li class="sub-nav-item">
-                                <a class="sub-nav-link" href="{{ url('admin/provider/add') }}"> اضافة مزود جديد </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-
-
-
-
-                {{-- <li class="nav-item">
-                    <a class="nav-link menu-arrow" href="#sidebarCategory" data-bs-toggle="collapse" role="button"
-                        aria-expanded="false" aria-controls="sidebarCategory">
-                        <span class="nav-icon">
-                            <i class="bi bi-tags-fill"></i>
-                        </span>
-                        <span class="nav-text"> التصنيفات </span>
-                    </a>
-                    <div class="collapse" id="sidebarCategory">
-                        <ul class="nav sub-navbar-nav">
-                            <li class="sub-nav-item">
-                                <a class="sub-nav-link" href="{{ url('admin/main-categories') }}"> التصنيفات الرئيسية
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li> --}}
-                <li class="nav-item">
-                    <a class="nav-link menu-arrow" href="#sidebarPermissions" data-bs-toggle="collapse" role="button"
-                        aria-expanded="false" aria-controls="sidebarPermissions">
-                        <span class="nav-icon">
-                            <i class="bi bi-ui-checks"></i>
-                        </span>
-                        <span class="nav-text"> الصلاحيات </span>
-                    </a>
-                    <div class="collapse" id="sidebarPermissions">
-                        <ul class="nav sub-navbar-nav">
-                            <li class="sub-nav-item">
-                                <a class="sub-nav-link" href="{{ url('admin/roles') }}"> جميع الصلاحيات
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link menu-arrow" href="#sidebarEmployess" data-bs-toggle="collapse" role="button"
-                        aria-expanded="false" aria-controls="sidebarEmployess">
-                        <span class="nav-icon">
-                            <i class="bi bi-people"></i>
-                        </span>
-                        <span class="nav-text"> الموظفين </span>
-                    </a>
-                    <div class="collapse" id="sidebarEmployess">
-                        <ul class="nav sub-navbar-nav">
-                            <li class="sub-nav-item">
-                                <a class="sub-nav-link" href="{{ url('admin/employees') }}"> جميع الموظفين </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
             @endcan
 
             <li class="nav-item">
-                <a class="nav-link menu-arrow" href="#sidebarfaqs" data-bs-toggle="collapse" role="button"
-                    aria-expanded="false" aria-controls="sidebarfaqs">
+                <a class="nav-link menu-arrow @yield('chatboot-active')" href="#sidebarchatboot" data-bs-toggle="collapse"
+                    role="button" aria-expanded="false" aria-controls="sidebarchatboot">
                     <span class="nav-icon">
-                        <i class="bi bi-patch-question-fill"></i>
+                        <i class="bi bi-robot"></i>
                     </span>
-                    <span class="nav-text">الاسئلة الشائعة للمتجر </span>
+                    <span class="nav-text"> تدريب البوت </span>
                 </a>
-                <div class="collapse" id="sidebarfaqs">
+                <div class="collapse @yield('chatboot-collapse')" id="sidebarchatboot">
                     <ul class="nav sub-navbar-nav">
                         <li class="sub-nav-item">
-                            <a class="sub-nav-link" href="{{ url('admin/faqs') }}"> الاسئلة الشائعة للمتجر </a>
-                        </li>
-                        <li class="sub-nav-item">
-                            <a class="sub-nav-link" href="{{ url('admin/faq/add') }}"> اضافة سوال جديد </a>
+                            <a class="sub-nav-link" href="{{ url('admin/bootfaqs') }}"> الاسئلة </a>
                         </li>
                     </ul>
                 </div>
@@ -283,25 +224,62 @@
                 </div>
             </li>
 
+
             <li class="nav-item">
-                <a class="nav-link menu-arrow" href="#sidebarchatboot" data-bs-toggle="collapse" role="button"
-                    aria-expanded="false" aria-controls="sidebarchatboot">
+                <a class="nav-link menu-arrow" href="#sidebarPermissions" data-bs-toggle="collapse" role="button"
+                    aria-expanded="false" aria-controls="sidebarPermissions">
                     <span class="nav-icon">
-                        <i class="bi bi-robot"></i>
+                        <i class="bi bi-ui-checks"></i>
                     </span>
-                    <span class="nav-text"> اسئلة وتدريب البوت </span>
+                    <span class="nav-text"> الصلاحيات </span>
                 </a>
-                <div class="collapse" id="sidebarchatboot">
+                <div class="collapse" id="sidebarPermissions">
                     <ul class="nav sub-navbar-nav">
                         <li class="sub-nav-item">
-                            <a class="sub-nav-link" href="{{ url('admin/bootfaqs') }}"> الاسئلة </a>
-                        </li>
-                        <li class="sub-nav-item">
-                            <a class="sub-nav-link" href="{{ url('admin/bootfaqs/add') }}"> اضافة سوال </a>
+                            <a class="sub-nav-link" href="{{ url('admin/roles') }}"> جميع الصلاحيات
+                            </a>
                         </li>
                     </ul>
                 </div>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link menu-arrow" href="#sidebarEmployess" data-bs-toggle="collapse" role="button"
+                    aria-expanded="false" aria-controls="sidebarEmployess">
+                    <span class="nav-icon">
+                        <i class="bi bi-people"></i>
+                    </span>
+                    <span class="nav-text"> الموظفين </span>
+                </a>
+                <div class="collapse" id="sidebarEmployess">
+                    <ul class="nav sub-navbar-nav">
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="{{ url('admin/employees') }}"> جميع الموظفين </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link menu-arrow" href="#sidebarfaqs" data-bs-toggle="collapse" role="button"
+                    aria-expanded="false" aria-controls="sidebarfaqs">
+                    <span class="nav-icon">
+                        <i class="bi bi-patch-question-fill"></i>
+                    </span>
+                    <span class="nav-text">الاسئلة الشائعة للمتجر </span>
+                </a>
+                <div class="collapse" id="sidebarfaqs">
+                    <ul class="nav sub-navbar-nav">
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="{{ url('admin/faqs') }}"> الاسئلة الشائعة للمتجر </a>
+                        </li>
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="{{ url('admin/faq/add') }}"> اضافة سوال جديد </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+
             <li class="nav-item">
                 <a class="nav-link menu-arrow" href="#sidebarterms" data-bs-toggle="collapse" role="button"
                     aria-expanded="false" aria-controls="sidebarterms">

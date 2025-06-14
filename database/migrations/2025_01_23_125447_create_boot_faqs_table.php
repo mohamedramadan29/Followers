@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('question');
             $table->text('answer');
+            $table->text('keywords');
+            $table->integer('usage_count')->default(0);
             $table->timestamps();
         });
     }

@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
-@section('title')
-    اضافة مزود خدمة جديد
-@endsection
+@section('title','اضافة مزود خدمة جديد')
+@section('providers-active','active')
+@section('providers-collapse','show')
 @section('css')
 @endsection
 @section('content')

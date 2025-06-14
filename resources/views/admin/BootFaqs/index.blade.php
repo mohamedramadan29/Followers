@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
-@section('title')
-    اسئلة وتدريب البوت
-@endsection
+@section('title', 'اسئلة وتدريب البوت')
+@section('chatboot-active', 'active')
+@section('chatboot-collapse', 'show')
 @section('css')
     {{--    <!-- DataTables CSS --> --}}
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
@@ -25,69 +25,86 @@
                         @endphp
                     @endforeach
                 @endif
-                <div class="col-xl-12">
-                    <div class="card">
-                        <div class="card-header d-flex justify-content-between align-items-center gap-1">
-                            <h4 class="card-title flex-grow-1"> اسئلة وتدريب البوت </h4>
-                            <a href="{{ url('admin/bootfaq/add') }}" class="btn btn-sm btn-primary">
-                                اضافة سؤال جديد
-                                <i class="ti ti-plus"></i>
-                            </a>
-                        </div>
-
-
-                        <div>
-                            <div class="table-responsive">
-                                <table id="table-search"
-                                    class="table table-bordered gridjs-table align-middle mb-0 table-hover table-centered">
-                                    <thead class="bg-light-subtle">
-                                        <tr>
-                                            <th style="width: 20px;">
-                                                <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" id="customCheck1">
-                                                    <label class="form-check-label" for="customCheck1"></label>
-                                                </div>
-                                            </th>
-                                            <th> السوال </th>
-                                            <th> الاجابة </th>
-                                            <th> العمليات</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($faqs as $faq)
-                                            <tr>
-                                                <td>
-                                                    {{ $loop->iteration }}
-                                                </td>
-                                                <td> {{ $faq['question'] }} </td>
-                                                <td> {!! $faq['answer'] !!} </td>
-                                                <td>
-                                                    <div class="d-flex gap-2">
-                                                        <a href="{{ url('admin/bootfaq/update/' . $faq['id']) }}"
-                                                            type="button" class="btn btn-soft-primary btn-sm">
-                                                            <iconify-icon icon="solar:pen-2-broken"
-                                                                class="align-middle fs-18"></iconify-icon>
-                                                        </a>
-                                                        <button type="button" class="btn btn-soft-danger btn-sm"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#delete_message_{{ $faq['id'] }}">
-                                                            <iconify-icon icon="solar:trash-bin-minimalistic-2-broken"
-                                                                class="align-middle fs-18"></iconify-icon>
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <!-- Modal -->
-                                            @include('admin.bootfaqs.delete')
-                                        @endforeach
-
-                                    </tbody>
-                                </table>
+                @if ($faqs->isEmpty())
+                    <div class="empty-data">
+                        <div class="row">
+                            <div class="empty-image">
+                                <img src="{{ asset('assets/admin/images/empty.png') }}" alt="">
                             </div>
-                            <!-- end table-responsive -->
+                            <div class="empty-info">
+                                <h4> لا توجد مقالات جديدة في الوقت الحالي </h4>
+                                <p>
+                                    نعمل على تحديث المقالات بشكل مستمر. تابعنا لتحصل على آخر التحديثات قريبًا! , "نحن نعد
+                                    العدة لتقديم محتوى المقالات مميز وشامل."
+                                    <br>
+                                    "ترقبوا آخر البيانات قريبًا!"
+                                </p>
+                                <a href="{{ url('admin/bootfaq/add') }}" class="btn btn-sm btn-primary">
+                                    اضافة سؤال جديد
+                                    <i class="ti ti-plus"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @else
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="gap-1 card-header d-flex justify-content-between align-items-center">
+                                <h4 class="card-title flex-grow-1"> اسئلة وتدريب البوت </h4>
+                               @livewire('admin.boot-faq.active-status')
+                                <a href="{{ url('admin/bootfaq/add') }}" class="btn btn-sm btn-primary">
+                                    اضافة سؤال جديد
+                                    <i class="ti ti-plus"></i>
+                                </a>
+                            </div>
+                            <div>
+                                <div class="table-responsive">
+                                    <table id="table-search"
+                                        class="table mb-0 align-middle table-bordered gridjs-table table-hover table-centered">
+                                        <thead class="bg-light-subtle table-primary-custome">
+                                            <tr>
+                                                <th># </th>
+                                                <th> السوال </th>
+                                                <th> الاجابة </th>
+                                                <th> الكلمات المفتاحية </th>
+                                                <th> عدد الاستخدامات </th>
+                                                <th> العمليات</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($faqs as $faq)
+                                                <tr>
+                                                    <td> {{ $loop->iteration }} </td>
+                                                    <td> {{ $faq['question'] }} </td>
+                                                    <td> {!! $faq['answer'] !!} </td>
+                                                    <td> {!! $faq['keywords'] !!} </td>
+                                                    <td> {!! $faq['usage_count'] !!} </td>
+                                                    <td>
+                                                        <div class="gap-2 d-flex">
+                                                            <a href="{{ url('admin/bootfaq/update/' . $faq['id']) }}"
+                                                                class="color-primary">
+                                                                <i class="ti ti-edit"></i>
+                                                            </a>
+                                                            <button type="button" class="color-danger"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#delete_bootfaq_{{ $faq['id'] }}">
+                                                                <i class="ti ti-trash"></i>
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <!-- Modal -->
+                                                @include('admin.bootfaqs.delete')
+                                            @endforeach
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- end table-responsive -->
+                            </div>
+                        </div>
+                    </div>
+                @endif
             </div>
 
         </div>
@@ -114,6 +131,7 @@
 
             // تهيئة DataTables من جديد
             $('#table-search').DataTable({
+                'ordering': false,
                 "language": {
                     "search": "بحث:",
                     "lengthMenu": "عرض _MENU_ عناصر لكل صفحة",

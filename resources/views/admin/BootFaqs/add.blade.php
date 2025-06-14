@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
-@section('title')
-    اضافة سوال جديد للبوت
-@endsection
+@section('title', ' اضافة بيانات جديدة ')
+@section('chatboot-active', 'active')
+@section('chatboot-collapse', 'show')
 @section('css')
 @endsection
 @section('content')
@@ -13,7 +13,7 @@
             <form method="post" action="{{ url('admin/bootfaq/add') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
-                    <div class="col-xl-12 col-lg-12 ">
+                    <div class="col-xl-12 col-lg-12">
                         @if (Session::has('Success_message'))
                             @php
                                 toastify()->success(\Illuminate\Support\Facades\Session::get('Success_message'));
@@ -26,7 +26,7 @@
                                 @endphp
                             @endforeach
                         @endif
-                        <div class="card">
+                        <div class="card" style="background-color: #F2F2F8">
                             <div class="card-header">
                                 <h4 class="card-title"> اضافة سوال جديد للبوت </h4>
                             </div>
@@ -41,28 +41,35 @@
                                                 name="title" value="{{ old('title') }}">
                                         </div>
                                     </div>
+                                    <div class="mt-2 col-lg-12">
+                                        <div class="mb-3">
+                                            <label for="content" class="form-label"> الاجابة المتوقعة <span class="star"
+                                                    style="color: red"> * </span></label>
+                                            <textarea class="form-control bg-light-subtle tinymce" id="content" rows="7" placeholder="" name="content">{{ old('content') }}</textarea>
+                                        </div>
+                                    </div>
                                     <div class="col-lg-12">
-                                        {{--                                        <div class="mb-3"> --}}
-                                        {{--                                            <label for="name" class="form-label"> اجابة السؤال <span class="star" --}}
-                                        {{--                                                                                                     style="color: red"> * </span> --}}
-                                        {{--                                            </label> --}}
-                                        {{--                                            <textarea name="content" class="form-control" --}}
-                                        {{--                                                      rows="4">{{old('content')}}</textarea> --}}
-                                        {{--                                        </div> --}}
-                                        <input type="hidden" name="content" id="content">
-                                        <!-- Quill Editors -->
-                                        <div id="snow-editor" style="height: 300px;">
+                                        <div class="mb-3">
+                                            <label for="name" class="form-label"> الكلمات المفتاحية للسوال <span class="badge badge-danger bg-danger"> افصل بين كل كلمة والاخري ب (,) </span> <span class="star"
+                                                    style="color: red"> * </span>
+                                            </label>
+                                            <input required type="text" id="keywords" class="form-control"
+                                                name="keywords" value="{{ old('keywords') }}">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="p-3 bg-light mb-3 rounded">
-                            <div class="row justify-content-end g-2">
-                                <div class="col-lg-2">
-                                    <button type="submit" class="btn btn-outline-secondary w-100"> حفظ <i
+                        <div class="p-3 mb-3 rounded bg-light">
+                            <div class="row justify-content-start g-2">
+                                <div class="col-lg-3">
+                                    <button type="submit" class="btn btn-primary w-100"> حفظ <i
                                             class='bx bxs-save'></i></button>
                                 </div>
+                                <div class="col-lg-3">
+                                    <a href="{{ url('admin/bootfaqs') }}" class="btn btn-danger w-100"> الغاء </a>
+                                </div>
+
                             </div>
                         </div>
                     </div>

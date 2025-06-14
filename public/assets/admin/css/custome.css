@@ -345,3 +345,8 @@ td span.badge{
     border-radius: 5px;
     border: 1px solid #E5E5E5;
 }
+
+
+.active_bot{ 
+    color: var(--main-color);
+}

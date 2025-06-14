@@ -2,6 +2,8 @@
 @section('title')
     تعديل المزود {{ $provider->name }}
 @endsection
+@section('providers-active','active')
+@section('providers-collapse','show')
 @section('css')
 @endsection
 @section('content')
@@ -64,7 +66,7 @@
                                 </div>
                             </div>
 
-                            
+
                             <div class="p-3 mb-3 rounded bg-light">
                                 <div class="row justify-content-start g-2">
                                     <div class="col-lg-3">

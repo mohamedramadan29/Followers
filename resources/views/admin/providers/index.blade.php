@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
-@section('title')
-    مزودي الخدمات
-@endsection
+@section('title','مزودي الخدمات')
+@section('providers-active','active')
+@section('providers-collapse','show')
 @section('css')
     {{--    <!-- DataTables CSS --> --}}
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">

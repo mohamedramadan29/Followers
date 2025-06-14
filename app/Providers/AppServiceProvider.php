@@ -2,9 +2,12 @@
 
 namespace App\Providers;
 
+use App\Models\admin\PublicSetting;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\View;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -14,6 +17,8 @@ class AppServiceProvider extends ServiceProvider
     {
         //
     }
+
+
 
     /**
      * Bootstrap any application services.
@@ -26,5 +31,12 @@ class AppServiceProvider extends ServiceProvider
                 return $auth->hasAccess($config_permission);
             });
         }
+
+        ########### Share Setting
+        View::composer('*', function ($view) {
+            $setting = PublicSetting::first();
+            $view->with('setting', $setting);
+        });
+        ########### Share Setting
     }
 }
