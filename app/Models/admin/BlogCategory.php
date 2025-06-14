@@ -9,4 +9,8 @@ class BlogCategory extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function Image(){
+        return asset('assets/uploads/BlogCategory/'.$this->image);
+    }
 }

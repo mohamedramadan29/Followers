@@ -79,16 +79,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
                 Route::match(['post', 'get'], 'follow', 'follow');
             });
         });
-        //////////////// Start Faq Controller ////////////////////
+          ///////////////////  Start Blog Category //////////////////
         ///
-        Route::controller(FaqController::class)->group(function () {
-            Route::get('faqs', 'index');
-            Route::match(['post', 'get'], 'faq/add', 'store');
-            Route::match(['post', 'get'], 'faq/update/{id}', 'update');
-            Route::post('faq/delete/{id}', 'delete');
-        });
-        ///////////////////  Start Blog Category //////////////////
-        ///
+        Route::group(['can' => 'blog'], function () {
         Route::controller(BlogCategoryController::class)->group(function () {
             Route::get('blog_category', 'index');
             Route::match(['post', 'get'], 'blog_category/add', 'store');
@@ -102,7 +95,19 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
             Route::match(['post', 'get'], 'blog/add', 'store');
             Route::match(['post', 'get'], 'blog/update/{id}', 'update');
             Route::post('blog/delete/{id}', 'delete');
+            Route::get('blog/schedule', 'schedule');
+            Route::get('blog/archived', 'archived');
         });
+        });
+        //////////////// Start Faq Controller ////////////////////
+        ///
+        Route::controller(FaqController::class)->group(function () {
+            Route::get('faqs', 'index');
+            Route::match(['post', 'get'], 'faq/add', 'store');
+            Route::match(['post', 'get'], 'faq/update/{id}', 'update');
+            Route::post('faq/delete/{id}', 'delete');
+        });
+
         //////////////// Start Reviews //////////////////////
         ///
         Route::group(['as' => 'reviews.', 'can' => 'reviews'], function () {

@@ -2,8 +2,9 @@
 
 namespace App\Models\admin;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Instagram\Model\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Blog extends Model
 {
@@ -13,4 +14,11 @@ class Blog extends Model
     public function Category(){
         return $this->belongsTo(BlogCategory::class,'category_id');
     }
+    public function Author(){
+        return $this->belongsTo(User::class,'author');
+    }
+    public function Image(){
+        return asset('assets/uploads/Blogs/'.$this->image);
+    }
+
 }

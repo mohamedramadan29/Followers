@@ -3,7 +3,7 @@
 }
 .topbar{
     margin-top: 20px;
-    background-color:#2425880F ;
+    background-color:#f2f2f7;
     height: 65px;
 }
 .topbar .navbar-header{
@@ -337,4 +337,11 @@ td span.badge{
 }
 #slugPreview {
     font-weight: bold;
+}
+
+
+.custome_image{
+    padding:5px;
+    border-radius: 5px;
+    border: 1px solid #E5E5E5;
 }

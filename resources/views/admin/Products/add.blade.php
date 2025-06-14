@@ -116,7 +116,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="bg-white col-lg-4">
+                                    <div class="bg-white col-lg-4 custome_image">
                                         <div class="form-group">
                                             <input type="file" class="form-control" name="image" id="single-image">
                                         </div>
@@ -401,8 +401,9 @@
                                 </div>
                                 <button type="button" class="mt-3 btn btn-primary" id="add_sub_service">إضافة خدمة فرعية
                                     جديدة</button>
-                                    <!-- زر الحذف للخدمة الفرعية الأولى (مخفي افتراضيًا) -->
-                                    <button type="button" class="btn btn-danger btn-sm remove-sub-service d-none">حذف</button>
+                                <!-- زر الحذف للخدمة الفرعية الأولى (مخفي افتراضيًا) -->
+                                <button type="button"
+                                    class="btn btn-danger btn-sm remove-sub-service d-none">حذف</button>
                             </div>
 
                             <script>
@@ -431,7 +432,6 @@
 
                                         const newRow = `
                                             <div class="mb-3 row sub-service-row">
-
                                                 <div class="col-lg-1 col-1">
                                                     <button style="margin-top:20px" type="button" class="btn btn-danger btn-sm remove-sub-service"> <i class="bx bx-trash"></i> </button>
                                                 </div>
@@ -531,7 +531,7 @@
                                         // إضافة حدث الحذف لكل زر
                                         removeButtons.forEach(button => {
                                             button.removeEventListener('click',
-                                            removeLastSubService); // إزالة الأحداث القديمة لتجنب التكرار
+                                                removeLastSubService); // إزالة الأحداث القديمة لتجنب التكرار
                                             button.addEventListener('click', removeLastSubService);
                                         });
                                     }

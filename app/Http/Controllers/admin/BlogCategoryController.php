@@ -20,7 +20,7 @@ class BlogCategoryController extends Controller
 
     public function index()
     {
-        $categories = BlogCategory::all();
+        $categories = BlogCategory::orderBy('id','desc')->get();
         return view('admin.BlogCategory.index', compact('categories'));
     }
 
@@ -32,13 +32,15 @@ class BlogCategoryController extends Controller
                 $data = $request->all();
                 $rules = [
                     'name' => 'required',
-                    'content' => 'required',
-                    'image'=>'required|image'
+                    'description' => 'required',
+                    'image'=>'required|image',
+                    'status'=>'required',
                 ];
                 $messages = [
                     'name.required' => ' من فضلك ادخل الاسم   ',
-                    'content.required' => ' من فضلك ادخل الوصف    ',
-                    'image.required'=> ' من فضلك ادخل صورة القسم  '
+                    'description.required' => ' من فضلك ادخل الوصف    ',
+                    'image.required'=> ' من فضلك ادخل صورة القسم  ',
+                    'status.required'=> ' من فضلك ادخل حالة القسم  ',
 
                 ];
                 $validator = Validator::make($data, $rules, $messages);
@@ -54,8 +56,13 @@ class BlogCategoryController extends Controller
                 $category->create([
                     'name' => $data['name'],
                     'slug' => $this->CustomeSlug($data['name']),
-                    'description' => $data['content'],
-                    'image'=>$file_name
+                    'description' => $data['description'],
+                    'image'=>$file_name,
+                    'status'=>$data['status'],
+                    'meta_title'=>$data['meta_title'],
+                    'meta_url'=>$data['meta_url_final'],
+                    'meta_description'=>$data['meta_description'],
+                    'meta_keywords'=>$data['meta_keywords'],
                 ]);
                 return $this->success_message(' تم اضافة القسم  بنجاح  ');
             } catch (\Exception $e) {
@@ -73,14 +80,24 @@ class BlogCategoryController extends Controller
                 $data = $request->all();
                 $rules = [
                     'name' => 'required',
-
-                    'content' => 'required',
+                    'description' => 'required',
+                    'status'=>'required',
                 ];
+                if ($request->hasFile('image')) {
+                    $rules['image'] = 'image|mimes:jpeg,png,jpg,gif|max:2048'; // حدد أنواع الصور والحجم الأقصى (2MB)
+                }
                 $messages = [
-                    'name.required' => ' من فضلك ادخل العنوان  ',
-                    'content.required' => ' من فضلك ادخل الوصف    ',
+                    'name.required' => 'من فضلك ادخل العنوان',
+                    'description.required' => 'من فضلك ادخل الوصف',
+                    'status.required' => 'من فضلك ادخل حالة القسم',
+                    'image.image' => 'من فضلك ادخل صورة صالحة',
+                    'image.mimes' => 'يجب أن تكون الصورة من نوع jpeg, png, jpg, أو gif',
+                    'image.max' => 'يجب ألا يتجاوز حجم الصورة 2 ميجابايت',
                 ];
-
+                $validator = Validator::make($data, $rules, $messages);
+                if ($validator->fails()) {
+                    return Redirect::back()->withInput()->withErrors($validator);
+                }
 
                 if ($request->hasFile('image')) {
                     $file_name = $this->saveImage($request->image, public_path('assets/uploads/BlogCategory'));
@@ -96,14 +113,16 @@ class BlogCategoryController extends Controller
                     ]);
                 }
 
-                $validator = Validator::make($data, $rules, $messages);
-                if ($validator->fails()) {
-                    return Redirect::back()->withInput()->withErrors($validator);
-                }
+
                 $category->update([
                     'name' => $data['name'],
                     'slug' => $this->CustomeSlug($data['name']),
-                    'description' => $data['content'],
+                    'description' => $data['description'],
+                    'status'=>$data['status'],
+                    'meta_title'=>$data['meta_title'],
+                    'meta_url'=>$data['meta_url_final'],
+                    'meta_description'=>$data['meta_description'],
+                    'meta_keywords'=>$data['meta_keywords'],
                 ]);
                 return $this->success_message(' تم تعديل القسم  بنجاح  ');
             } catch (\Exception $e) {

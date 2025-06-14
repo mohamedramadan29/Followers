@@ -168,6 +168,8 @@ class ProductController extends Controller
 
         if ($request->isMethod('post')) {
             // التحقق من صحة المدخلات
+            //dd($request->all());
+
             $rules = [
                 'name' => 'required',
                 'category_id' => 'required',
@@ -195,7 +197,6 @@ class ProductController extends Controller
                 'provider_id.required' => ' من فضلك حدد المزود  ',
             ];
             DB::beginTransaction();
-
             try {
                 $data = $request->all();
                 if ($request->hasFile('image')) {
@@ -205,26 +206,24 @@ class ProductController extends Controller
                     if (file_exists($old_image)) {
                         @unlink($old_image);
                     }
-
                     $product->update([
                         'image' => $file_name,
                     ]);
                 }
                 // تحديث معلومات المنتج
-                $product->name = $data['name'];
-                if ($data['slug'] && $data['slug'] != '') {
-                    $slug = $this->CustomeSlug($data['slug']);
-                } else {
-                    $slug = $this->CustomeSlug($data['name']);
-                }
-                $product->slug = $slug;
+                $slug = $this->CustomeSlug($data['name']);
                 $product->category_id = $data['category_id'];
                 $product->sub_category_id = $data['sub_category_id'];
+                $product->best_services = $data['best_services'];
+                $product->newest_service = $data['newest_service'];
+                $product->description = $data['description'];
+                ##### Start  Main Service Details #########
+                $product->name = $data['name'];
+                $product->slug = $slug;
                 $product->provider_id = $data['provider_id'];
                 $product->service_id = $data['service_id'];
-                //$product->status = $data['status'];
                 $product->profit_percentage = $data['profit_percentage'];
-                $product->description = $data['description'];
+                $product->status = 1;
                 $product->speed_active = isset($data['speed_active']) && $data['speed_active'] == 'on' ? 1 : 0;
                 $product->speed_active_text = $data['speed_active_text'];
                 $product->quality_status = isset($data['quality_status']) && $data['quality_status'] == 'on' ? 1 : 0;
@@ -233,14 +232,14 @@ class ProductController extends Controller
                 $product->security_text = $data['security_text'];
                 $product->start_time = isset($data['start_time']) && $data['start_time'] == 'on' ? 1 : 0;
                 $product->start_time_text = $data['start_time_text'];
-                $product->best_services = $data['best_services'];
-                $product->newest_service = $data['newest_service'];
                 $product->meta_title = $data['meta_title'];
+                $product->meta_url = $data['meta_url_final'];
                 $product->meta_keywords = $data['meta_keywords'];
                 $product->meta_description = $data['meta_description'];
                 $product->save();
 
-                if (!empty($data['sub_services'])) {
+                 ////////////////// Start Add Sub Service
+                 if (!empty($data['sub_services'])) {
                     $product->SubServices()->delete();
                     foreach ($data['sub_services'] as $sub_serv) {
                         $sub_service = new SubService();
@@ -260,13 +259,14 @@ class ProductController extends Controller
                             'profit_percentage'=>$sub_serv['sub_profit_percentage'],
                         ]);
                     }
-                }
+                    }
                 DB::commit();
                 // بعد تحديث المنتج بنجاح
-                return Redirect::route('product.update', ['slug' => $product->slug])
-                    ->with('Success_message', 'تم تعديل الخدمة  بنجاح');
+                // return Redirect::route('product.update', ['slug' => $slug])
+                //     ->with('Success_message', 'تم تعديل الخدمة  بنجاح');
+                return $this->success_message('تم تعديل الخدمة بنجاح');
             } catch (\Exception $e) {
-                //  DB::rollback();
+                DB::rollback();
                 return $this->exception_message($e);
             }
         }
@@ -277,6 +277,11 @@ class ProductController extends Controller
     public function delete($id)
     {
         $product = Product::findOrFail($id);
+        ########## Delete Product Image ###########
+        $old_image = public_path('assets/uploads/product_images/' . $product['image']);
+        if (file_exists($old_image)) {
+            @unlink($old_image);
+        }
         $product->delete();
 
         return $this->success_message(' تم حذف المنتج بنجاح  ');

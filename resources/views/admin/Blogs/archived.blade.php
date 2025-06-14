@@ -60,14 +60,14 @@
                                     style="justify-content: space-between;align-items: center">
                                     <ul class="list-unstyled orders-tabs" style="widows: 90%">
                                         <li>
-                                            <a href="{{ url('admin/blogs') }}" class="all active"> المقالات </a>
+                                            <a href="{{ url('admin/blogs') }}" class="all"> المقالات </a>
                                         </li>
                                         <li>
                                             <a href="{{ url('admin/blog/schedule') }}" class="categories"> المقالات
                                                 المجدولة </a>
                                         </li>
                                         <li>
-                                            <a href="{{ url('admin/blog/archived') }}" class="categories"> الارشيف </a>
+                                            <a href="{{ url('admin/blog/archived') }}" class="categories all active"> الارشيف </a>
                                         </li>
                                         <li>
                                             <a href="{{ url('admin/blog_category') }}" class="categories"> اقسام المدومة

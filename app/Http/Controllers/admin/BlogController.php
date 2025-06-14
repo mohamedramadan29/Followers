@@ -9,6 +9,7 @@ use App\Http\Traits\Upload_Images;
 use App\Models\admin\Blog;
 use App\Models\admin\BlogCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
@@ -34,14 +35,20 @@ class BlogController extends Controller
                 $rules = [
                     'name' => 'required',
                     'category_id'=>'required',
-                    'content' => 'required',
-                    'image'=>'required|image'
+                    'desc' => 'required',
+                    'image'=>'required|image',
+                    'publish_date'=>'required|date|after_or_equal:today',
+                    'status'=>'required',
                 ];
                 $messages = [
                     'name.required' => ' من فضلك ادخل الاسم   ',
-                    'content.required' => ' من فضلك ادخل الوصف    ',
+                    'desc.required' => ' من فضلك ادخل الوصف    ',
                     'image.required'=> ' من فضلك ادخل صورة القسم  ',
                     'category_id.required'=>' من فضلك حدد القسم  ' ,
+                    'publish_date.required'=>' من فضلك حدد تاريخ النشر  ' ,
+                    'publish_date.date'=>' من فضلك حدد تاريخ صحيح  ' ,
+                    'publish_date.after_or_equal'=>' من فضلك حدد تاريخ صحيح  ' ,
+                    'status.required'=>' من فضلك حدد حالة المقال  ' ,
 
                 ];
                 $validator = Validator::make($data, $rules, $messages);
@@ -56,12 +63,16 @@ class BlogController extends Controller
                     'name' => $data['name'],
                     'slug'=>$this->CustomeSlug($data['name']),
                     'category_id'=>$data['category_id'],
-                    'short_desc'=>$data['short_desc'],
-                    'desc' => $data['content'],
+                    'publish_date'=>$data['publish_date'],
+                   // 'short_desc'=>$data['short_desc'],
+                    'desc' => $data['desc'],
+                    'status'=>$data['status'],
                     'meta_title'=>$data['meta_title'],
+                    'meta_url'=>$data['meta_url_final'],
                     'meta_desc'=>$data['meta_description'],
                     'meta_keywords'=>$data['meta_keywords'],
-                    'image'=>$file_name
+                    'image'=>$file_name,
+                    'author'=>Auth::guard('admin')->user()->id,
                 ]);
                 return $this->success_message(' تم اضافة المقال  بنجاح  ');
             } catch (\Exception $e) {
@@ -80,11 +91,17 @@ class BlogController extends Controller
                 $data = $request->all();
                 $rules = [
                     'name' => 'required',
-                    'content' => 'required',
+                    'desc' => 'required',
+                    'publish_date'=>'required|date|after_or_equal:today',
+                    'status'=>'required',
                 ];
                 $messages = [
                     'name.required' => ' من فضلك ادخل العنوان  ',
-                    'content.required' => ' من فضلك ادخل الوصف    ',
+                    'desc.required' => ' من فضلك ادخل الوصف    ',
+                    'publish_date.required' => ' من فضلك ادخل تاريخ النشر  ',
+                    'publish_date.date' => ' من فضلك ادخل تاريخ صحيح  ',
+                    'publish_date.after_or_equal' => ' من فضلك ادخل تاريخ صحيح  ',
+                    'status'=>'من فضلك حدد حالة المقال  ',
                 ];
 
 
@@ -110,9 +127,11 @@ class BlogController extends Controller
                     'name' => $data['name'],
                     'slug'=>$this->CustomeSlug($data['name']),
                     'category_id'=>$data['category_id'],
-                    'short_desc'=>$data['short_desc'],
-                    'desc' => $data['content'],
+                    'desc' => $data['desc'],
+                    'publish_date'=>$data['publish_date'],
+                    'status'=>$data['status'],
                     'meta_title'=>$data['meta_title'],
+                    'meta_url'=>$data['meta_url_final'],
                     'meta_desc'=>$data['meta_description'],
                     'meta_keywords'=>$data['meta_keywords'],
 
@@ -134,5 +153,15 @@ class BlogController extends Controller
         }
         $blog->delete();
         return $this->success_message(' تم حذف المقال بنجاح ');
+    }
+    public function schedule()
+    {
+        $blogs = Blog::with('category')->where('publish_date', '>', now())->orderBy('id', 'desc')->get();
+        return view('admin.Blogs.schedule', compact('blogs'));
+    }
+    public function archived()
+    {
+        $blogs = Blog::with('category')->where('status','==','0')->orderBy('id', 'desc')->get();
+        return view('admin.Blogs.archived', compact('blogs'));
     }
 }

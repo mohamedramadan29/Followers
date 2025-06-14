@@ -60,10 +60,10 @@
                                     style="justify-content: space-between;align-items: center">
                                     <ul class="list-unstyled orders-tabs" style="widows: 90%">
                                         <li>
-                                            <a href="{{ url('admin/blogs') }}" class="all active"> المقالات </a>
+                                            <a href="{{ url('admin/blogs') }}" class="all"> المقالات </a>
                                         </li>
                                         <li>
-                                            <a href="{{ url('admin/blog/schedule') }}" class="categories"> المقالات
+                                            <a href="{{ url('admin/blog/schedule') }}" class="categories all active"> المقالات
                                                 المجدولة </a>
                                         </li>
                                         <li>

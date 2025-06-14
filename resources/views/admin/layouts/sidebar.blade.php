@@ -145,6 +145,28 @@
                     </li>
                 @endcan
 
+                @can('blog')
+                    <li class="nav-item">
+                        <a class="nav-link menu-arrow @yield('blog-active')" href="#sidebaradvs" data-bs-toggle="collapse" role="button"
+                        aria-expanded="false" aria-controls="sidebarBrands">
+                        <span class="nav-icon">
+                            <i class="bi bi-brush"></i>
+                        </span>
+                        <span class="nav-text"> المدونة </span>
+                    </a>
+                    <div class="collapse @yield('blog-collapse')" id="sidebaradvs">
+                        <ul class="nav sub-navbar-nav">
+                            <li class="sub-nav-item">
+                                <a class="sub-nav-link" href="{{ url('admin/blog_category') }}"> اقسام المدونة </a>
+                            </li>
+                            <li class="sub-nav-item">
+                                <a class="sub-nav-link" href="{{ url('admin/blogs') }}"> التدوينات </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </li>
+                @endcan
                 <li class="nav-item">
                     <a class="nav-link menu-arrow" href="#sidebarProviders" data-bs-toggle="collapse" role="button"
                         aria-expanded="false" aria-controls="sidebarProviders">
@@ -280,29 +302,6 @@
                     </ul>
                 </div>
             </li>
-
-
-            <li class="nav-item">
-                <a class="nav-link menu-arrow" href="#sidebaradvs" data-bs-toggle="collapse" role="button"
-                    aria-expanded="false" aria-controls="sidebarBrands">
-                    <span class="nav-icon">
-                        <i class="bi bi-diagram-3-fill"></i>
-                    </span>
-                    <span class="nav-text"> المدونة </span>
-                </a>
-                <div class="collapse" id="sidebaradvs">
-                    <ul class="nav sub-navbar-nav">
-                        <li class="sub-nav-item">
-                            <a class="sub-nav-link" href="{{ url('admin/blog_category') }}"> اقسام المدونة </a>
-                        </li>
-                        <li class="sub-nav-item">
-                            <a class="sub-nav-link" href="{{ url('admin/blogs') }}"> التدوينات </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-
             <li class="nav-item">
                 <a class="nav-link menu-arrow" href="#sidebarterms" data-bs-toggle="collapse" role="button"
                     aria-expanded="false" aria-controls="sidebarterms">

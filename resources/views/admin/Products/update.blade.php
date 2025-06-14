@@ -14,23 +14,23 @@
                 @endphp
             @endif
             @if (Session::has('Error_message'))
-            @php
-                toastify()->error(\Illuminate\Support\Facades\Session::get('Error_message'));
-            @endphp
-        @endif
-        @if ($errors->any())
-            @foreach ($errors->all() as $error)
                 @php
-                    echo '<div class="alert alert-danger">' . $error . '</div>';
+                    toastify()->error(\Illuminate\Support\Facades\Session::get('Error_message'));
                 @endphp
-            @endforeach
-        @endif
+            @endif
+            @if ($errors->any())
+                @foreach ($errors->all() as $error)
+                    @php
+                        echo '<div class="alert alert-danger">' . $error . '</div>';
+                    @endphp
+                @endforeach
+            @endif
             <form method="post" action="{{ url('admin/product/update/' . $product['slug']) }}" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
 
                     <div class="col-xl-12 col-lg-8">
-                        <div class="card"  style="background-color: #F2F2F8">
+                        <div class="card" style="background-color: #F2F2F8">
                             <div class="card-header">
                                 <h4 class="card-title"> تعديل الخدمة </h4>
                             </div>
@@ -103,8 +103,11 @@
                                             <select required class="form-control" id="best_services" data-choices
                                                 data-choices-groups data-placeholder="Select Categories"
                                                 name="best_services">
-                                                <option value="1" {{ $product['best_services'] == 1 ? 'selected' : '' }}> فعال </option>
-                                                <option value="0" {{ $product['best_services'] == 0 ? 'selected' : '' }}> غير فعال </option>
+                                                <option value="1"
+                                                    {{ $product['best_services'] == 1 ? 'selected' : '' }}> فعال </option>
+                                                <option value="0"
+                                                    {{ $product['best_services'] == 0 ? 'selected' : '' }}> غير فعال
+                                                </option>
                                             </select>
                                         </div>
                                     </div>
@@ -115,14 +118,18 @@
                                             <select required class="form-control" id="newest_service" data-choices
                                                 data-choices-groups data-placeholder="Select Categories"
                                                 name="newest_service">
-                                                <option value="1" {{ $product['newest_service'] == 1 ? 'selected' : '' }}> فعال </option>
-                                                <option value="0" {{ $product['newest_service'] == 0 ? 'selected' : '' }}> غير فعال </option>
+                                                <option value="1"
+                                                    {{ $product['newest_service'] == 1 ? 'selected' : '' }}> فعال </option>
+                                                <option value="0"
+                                                    {{ $product['newest_service'] == 0 ? 'selected' : '' }}> غير فعال
+                                                </option>
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="bg-white col-lg-4">
+                                    <div class="bg-white col-lg-4 custome_image">
                                         <div class="form-group">
-                                            <input type="file" class="form-control" name="image" id="single-image-edit">
+                                            <input type="file" class="form-control" name="image"
+                                                id="single-image-edit">
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
@@ -155,8 +162,8 @@
                                                 data-choices-groups data-placeholder="Select Categories" name="provider_id">
                                                 <option value=""> -- حدد --</option>
                                                 @foreach ($providers as $provider)
-                                                <option @if ($product['provider_id'] == $provider['id']) selected @endif
-                                                value="{{ $provider['id'] }}">{{ $provider['name'] }}</option>
+                                                    <option @if ($product['provider_id'] == $provider['id']) selected @endif
+                                                        value="{{ $provider['id'] }}">{{ $provider['name'] }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -165,7 +172,8 @@
                                         <div class="mb-3">
                                             <label for="service_id" class="form-label"> رقم الخدمة </label>
                                             <input required type="number" id="service_id" name="service_id"
-                                                class="form-control" placeholder="" value="{{ $product['service_id'] }}">
+                                                class="form-control" placeholder=""
+                                                value="{{ $product['service_id'] }}">
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-6">
@@ -183,7 +191,8 @@
                                                 role="switch" id="main_speed_active"
                                                 @if ($product['speed_active'] == 1) checked @endif>
                                         </div>
-                                        <div class="mt-2 mb-3 {{ $product['speed_active'] == 1 ? '' : 'd-none' }}" id="main_speed_input_container">
+                                        <div class="mt-2 mb-3 {{ $product['speed_active'] == 1 ? '' : 'd-none' }}"
+                                            id="main_speed_input_container">
                                             <label for="speed_active_text" class="form-label">ادخل السرعة</label>
                                             <input type="text" id="speed_active_text" name="speed_active_text"
                                                 class="form-control" placeholder=""
@@ -212,7 +221,8 @@
                                                 role="switch" id="main_quality_status"
                                                 @if ($product['quality_status'] == 1) checked @endif>
                                         </div>
-                                        <div class="mt-2 mb-3 {{ $product['quality_status'] == 1 ? '' : 'd-none' }}" id="main_quality_input_container">
+                                        <div class="mt-2 mb-3 {{ $product['quality_status'] == 1 ? '' : 'd-none' }}"
+                                            id="main_quality_input_container">
                                             <label for="quality_percentage" class="form-label">ادخل نسبة الجودة </label>
                                             <input type="number" min="1" max="100" id="quality_percentage"
                                                 name="quality_percentage" class="form-control" placeholder=""
@@ -243,10 +253,12 @@
                                                 role="switch" id="main_security"
                                                 @if ($product['security'] == 1) checked @endif>
                                         </div>
-                                        <div class="mt-2 mb-3 {{ $product['security'] == 1 ? '' : 'd-none' }}" id="main_security_container">
+                                        <div class="mt-2 mb-3 {{ $product['security'] == 1 ? '' : 'd-none' }}"
+                                            id="main_security_container">
                                             <label for="security_text" class="form-label"> ادخل الضمان </label>
                                             <input type="text" id="security_text" name="security_text"
-                                                class="form-control" placeholder="" value="{{ $product['security_text'] }}">
+                                                class="form-control" placeholder=""
+                                                value="{{ $product['security_text'] }}">
                                         </div>
                                         <script>
                                             document.addEventListener('DOMContentLoaded', function() {
@@ -272,7 +284,8 @@
                                                 role="switch" id="main_start_time"
                                                 @if ($product['start_time'] == 1) checked @endif>
                                         </div>
-                                        <div class="mt-2 mb-3 {{ $product['start_time'] == 1 ? '' : 'd-none' }}" id="main_start_time_container">
+                                        <div class="mt-2 mb-3 {{ $product['start_time'] == 1 ? '' : 'd-none' }}"
+                                            id="main_start_time_container">
                                             <label for="start_time_text" class="form-label"> ادخل وقت البدء </label>
                                             <input type="text" id="start_time_text" name="start_time_text"
                                                 class="form-control" placeholder=""
@@ -300,7 +313,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card">
+                        {{-- <div class="card">
                             <div class="card-header">
                                 <h4 class="card-title">الخدمات الفرعية</h4>
                             </div>
@@ -309,7 +322,7 @@
                                     @foreach ($product['SubServices'] as $index => $subserv)
                                         <div class="mb-3 row">
                                             <h5>الخدمة الفرعية</h5>
-                                            <div class="col-lg-6">
+                                            <div class="col-lg-3 col-6">
                                                 <label for="sub_serv_name" class="form-label">اسم الخدمة</label>
                                                 <input type="text"
                                                     name="sub_services[{{ $index }}][sub_serv_name]"
@@ -318,28 +331,37 @@
                                             </div>
                                             <div class="col-lg-3 col-6">
                                                 <div class="mb-3">
-                                                    <label for="sub_provider_id_0" class="form-label">حدد مزود الخدمة</label>
-                                                    <select required class="form-control" id="sub_provider_id_0" data-choices
-                                                        data-choices-groups data-placeholder="Select Categories"
-                                                        name="sub_services[0][sub_provider_id]">
+                                                    <label for="sub_provider_id_0" class="form-label">حدد مزود
+                                                        الخدمة</label>
+                                                    <select required class="form-control" id="sub_provider_id_0"
+                                                        data-choices data-choices-groups
+                                                        data-placeholder="Select Categories"
+                                                        name="sub_services[{{ $index }}][sub_provider_id]">
                                                         <option value="">-- حدد --</option>
                                                         @foreach ($providers as $provider)
                                                             <option
-                                                                {{ old('sub_services.0.sub_provider_id') == $provider['id'] ? 'selected' : '' }}
+                                                                {{ old('sub_services.' . $index . '.sub_provider_id', $subserv['provider_id']) == $provider['id'] ? 'selected' : '' }}
                                                                 value="{{ $provider['id'] }}">{{ $provider['name'] }}
                                                             </option>
                                                         @endforeach
                                                     </select>
                                                 </div>
                                             </div>
-                                            
-                                            <div class="col-lg-6">
-                                            <div class="col-lg-6">
+                                            <div class="col-lg-3 col-6">
                                                 <label for="sub_serv_number" class="form-label">رقم الخدمة</label>
                                                 <input type="number"
                                                     name="sub_services[{{ $index }}][sub_serv_number]"
                                                     class="form-control"
                                                     value="{{ old('sub_services.' . $index . '.sub_serv_number', $subserv['provider_service_id']) }}">
+                                            </div>
+                                            <div class="col-lg-3 col-6">
+                                                <label for="sub_profit_percentage" class="form-label">نسبة الربح
+                                                    (٪)
+                                                </label>
+                                                <input required type="number" step=".01"
+                                                    name="sub_services[{{ $index }}][sub_profit_percentage]"
+                                                    class="form-control" placeholder=""
+                                                    value="{{ old('sub_services.' . $index . '.sub_profit_percentage', $subserv['profit_percentage']) }}">
                                             </div>
                                         </div>
                                     @endforeach
@@ -348,22 +370,420 @@
                                     جديدة</button>
                             </div>
                             <script>
-                                document.getElementById('add_sub_service').addEventListener('click', function() {
-                                    const container = document.getElementById('sub_services_container');
-                                    const index = container.children.length; // حساب عدد العناصر الحالية
-                                    const newRow = `
+                                document.addEventListener('DOMContentLoaded', function() {
+                                    // تفعيل السويتشات للخدمة الفرعية الأولى
+                                    const toggleSwitch = (checkboxId, containerId) => {
+                                        const checkbox = document.getElementById(checkboxId);
+                                        const container = document.getElementById(containerId);
+                                        if (checkbox && container) {
+                                            checkbox.addEventListener('change', function() {
+                                                container.classList.toggle('d-none', !this.checked);
+                                            });
+                                        }
+                                    };
+
+                                    toggleSwitch('sub_speed_active_0', 'sub_speed_input_container_0');
+                                    toggleSwitch('sub_quality_status_0', 'sub_quality_input_container_0');
+                                    toggleSwitch('sub_security_0', 'sub_security_container_0');
+                                    toggleSwitch('sub_start_time_0', 'sub_start_time_container_0');
+                                    document.getElementById('add_sub_service').addEventListener('click', function() {
+                                        const container = document.getElementById('sub_services_container');
+                                        const index = container.children.length; // حساب عدد العناصر الحالية
+                                        const uniqueId = Date.now();
+                                        const newRow = `
                                             <div class="mb-3 row">
-                                                <h5>الخدمة الفرعية</h5>
-                                                <div class="col-lg-6">
+                                                <div class="col-lg-1 col-1">
+                                                    <button style="margin-top:20px" type="button" class="btn btn-danger btn-sm remove-sub-service"> <i class="bx bx-trash"></i> </button>
+                                                </div>
+                                                <div class="col-lg-3 col-6">
                                                     <label for="sub_serv_name" class="form-label">اسم الخدمة</label>
                                                     <input type="text" name="sub_services[${index}][sub_serv_name]" class="form-control" placeholder="">
                                                 </div>
-                                                <div class="col-lg-6">
+                                                <div class="col-lg-2 col-5">
+                                                    <label class="form-label">حدد مزود الخدمة</label>
+                                                    <select required class="form-control" name="sub_services[${index}][sub_provider_id]">
+                                                        <option value="">-- حدد --</option>
+                                                        @foreach ($providers as $provider)
+                                                            <option value="{{ $provider['id'] }}">{{ $provider['name'] }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-3 col-6">
                                                     <label for="sub_serv_number" class="form-label">رقم الخدمة</label>
                                                     <input type="number" name="sub_services[${index}][sub_serv_number]" class="form-control" placeholder="">
                                                 </div>
+                                                 <div class="col-lg-3 col-6">
+                                                    <label class="form-label">نسبة الربح (٪)</label>
+                                                    <input required type="number" step=".01" name="sub_services[${index}][sub_profit_percentage]" class="form-control">
+                                                </div>
+                                                <div class="col-lg-3 col-6">
+                                                    <div class="form-check form-switch">
+                                                        <label for="sub_speed_active_${uniqueId}">السرعة</label>
+                                                        <input name="sub_services[${index}][sub_speed_active]" class="form-check-input" type="checkbox" role="switch" id="sub_speed_active_${uniqueId}">
+                                                    </div>
+                                                    <div class="mt-2 mb-3 d-none" id="sub_speed_input_container_${uniqueId}">
+                                                        <label class="form-label">ادخل السرعة</label>
+                                                        <input type="text" name="sub_services[${index}][sub_speed_active_text]" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3 col-6">
+                                                    <div class="form-check form-switch">
+                                                        <label for="sub_quality_status_${uniqueId}">الجودة</label>
+                                                        <input name="sub_services[${index}][sub_quality_status]" class="form-check-input" type="checkbox" role="switch" id="sub_quality_status_${uniqueId}">
+                                                    </div>
+                                                    <div class="mt-2 mb-3 d-none" id="sub_quality_input_container_${uniqueId}">
+                                                        <label class="form-label">ادخل نسبة الجودة</label>
+                                                        <input type="number" min="1" max="100" name="sub_services[${index}][sub_quality_percentage]" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3 col-6">
+                                                    <div class="form-check form-switch">
+                                                        <label for="sub_security_${uniqueId}">الضمان</label>
+                                                        <input name="sub_services[${index}][sub_security]" class="form-check-input" type="checkbox" role="switch" id="sub_security_${uniqueId}">
+                                                    </div>
+                                                    <div class="mt-2 mb-3 d-none" id="sub_security_container_${uniqueId}">
+                                                        <label class="form-label">ادخل الضمان</label>
+                                                        <input type="text" name="sub_services[${index}][sub_security_text]" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3 col-6">
+                                                    <div class="form-check form-switch">
+                                                        <label for="sub_start_time_${uniqueId}">وقت البدء</label>
+                                                        <input name="sub_services[${index}][sub_start_time]" class="form-check-input" type="checkbox" role="switch" id="sub_start_time_${uniqueId}">
+                                                    </div>
+                                                    <div class="mt-2 mb-3 d-none" id="sub_start_time_container_${uniqueId}">
+                                                        <label class="form-label">ادخل وقت البدء</label>
+                                                        <input type="text" name="sub_services[${index}][sub_start_time_text]" class="form-control">
+                                                    </div>
+                                                </div>
+
                                             </div>`;
-                                    container.insertAdjacentHTML('beforeend', newRow);
+                                        container.insertAdjacentHTML('beforeend', newRow);
+
+                                        // تفعيل السويتشات للخدمة الفرعية الجديدة
+                                        setTimeout(() => {
+                                            toggleSwitch(`sub_speed_active_${uniqueId}`,
+                                                `sub_speed_input_container_${uniqueId}`);
+                                            toggleSwitch(`sub_quality_status_${uniqueId}`,
+                                                `sub_quality_input_container_${uniqueId}`);
+                                            toggleSwitch(`sub_security_${uniqueId}`, `sub_security_container_${uniqueId}`);
+                                            toggleSwitch(`sub_start_time_${uniqueId}`,
+                                                `sub_start_time_container_${uniqueId}`);
+                                        }, 100);
+
+                                        // تحديث حالة زر الحذف
+                                        updateRemoveButtons();
+                                    });
+
+                                    // إدارة حذف الخدمات الفرعية
+                                    function updateRemoveButtons() {
+                                        const container = document.getElementById('sub_services_container');
+                                        const subServiceRows = container.querySelectorAll('.sub-service-row');
+                                        const removeButtons = container.querySelectorAll('.remove-sub-service');
+
+                                        // إخفاء زر الحذف للخدمة الأولى إذا كان هناك خدمة واحدة فقط
+                                        // if (subServiceRows.length <= 1) {
+                                        //     removeButtons.forEach(button => button.classList.add('d-none'));
+                                        // } else {
+                                        //     removeButtons.forEach(button => button.classList.remove('d-none'));
+                                        // }
+
+                                        // إضافة حدث الحذف لكل زر
+                                        removeButtons.forEach(button => {
+                                            button.removeEventListener('click',
+                                                removeLastSubService); // إزالة الأحداث القديمة لتجنب التكرار
+                                            button.addEventListener('click', removeLastSubService);
+                                        });
+                                    }
+
+                                    function removeLastSubService() {
+                                        const container = document.getElementById('sub_services_container');
+                                        const subServiceRows = container.querySelectorAll('.sub-service-row');
+                                        if (subServiceRows.length > 1) {
+                                            subServiceRows[subServiceRows.length - 1].remove(); // حذف آخر خدمة فرعية
+                                            updateRemoveButtons(); // تحديث حالة الأزرار
+                                        }
+                                    }
+
+                                    // تحديث حالة الأزرار عند تحميل الصفحة
+                                    updateRemoveButtons();
+
+                                });
+                            </script>
+                        </div> --}}
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">الخدمات الفرعية</h4>
+                            </div>
+                            <div class="card-body">
+                                <div id="sub_services_container">
+                                    @foreach ($product['SubServices'] as $index => $subserv)
+                                        <div class="mb-3 row sub-service-row">
+                                            <div class="col-lg-1 col-1">
+                                                <button style="margin-top:20px" type="button"
+                                                    class="btn btn-danger btn-sm remove-sub-service">
+                                                    <i class="bx bx-trash"></i>
+                                                </button>
+                                            </div>
+                                            <div class="col-lg-3 col-6">
+                                                <label for="sub_serv_name_{{ $index }}" class="form-label">اسم
+                                                    الخدمة</label>
+                                                <input type="text"
+                                                    name="sub_services[{{ $index }}][sub_serv_name]"
+                                                    class="form-control"
+                                                    value="{{ old('sub_services.' . $index . '.sub_serv_name', $subserv['name']) }}">
+                                            </div>
+                                            <div class="col-lg-2 col-5">
+                                                <label class="form-label">حدد مزود الخدمة</label>
+                                                <select required class="form-control"
+                                                    name="sub_services[{{ $index }}][sub_provider_id]">
+                                                    <option value="">-- حدد --</option>
+                                                    @foreach ($providers as $provider)
+                                                        <option
+                                                            {{ old('sub_services.' . $index . '.sub_provider_id', $subserv['provider_id']) == $provider['id'] ? 'selected' : '' }}
+                                                            value="{{ $provider['id'] }}">{{ $provider['name'] }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-3 col-6">
+                                                <label for="sub_serv_number_{{ $index }}" class="form-label">رقم
+                                                    الخدمة</label>
+                                                <input type="number"
+                                                    name="sub_services[{{ $index }}][sub_serv_number]"
+                                                    class="form-control"
+                                                    value="{{ old('sub_services.' . $index . '.sub_serv_number', $subserv['provider_service_id']) }}">
+                                            </div>
+                                            <div class="col-lg-3 col-6">
+                                                <label for="sub_profit_percentage_{{ $index }}"
+                                                    class="form-label">نسبة الربح (٪)</label>
+                                                <input required type="number" step=".01"
+                                                    name="sub_services[{{ $index }}][sub_profit_percentage]"
+                                                    class="form-control"
+                                                    value="{{ old('sub_services.' . $index . '.sub_profit_percentage', $subserv['profit_percentage']) }}">
+                                            </div>
+                                            <div class="col-lg-3 col-6">
+                                                <div class="form-check form-switch">
+                                                    <label for="sub_speed_active_{{ $index }}">السرعة</label>
+                                                    <input name="sub_services[{{ $index }}][sub_speed_active]"
+                                                        class="form-check-input" type="checkbox" role="switch"
+                                                        id="sub_speed_active_{{ $index }}"
+                                                        {{ old('sub_services.' . $index . '.sub_speed_active', $subserv['speed_active'] ?? false) ? 'checked' : '' }}>
+                                                </div>
+                                                <div class="mt-2 mb-3 {{ old('sub_services.' . $index . '.sub_speed_active', $subserv['speed_active'] ?? false) ? '' : 'd-none' }}"
+                                                    id="sub_speed_input_container_{{ $index }}">
+                                                    <label class="form-label">ادخل السرعة</label>
+                                                    <input type="text"
+                                                        name="sub_services[{{ $index }}][sub_speed_active_text]"
+                                                        class="form-control"
+                                                        value="{{ old('sub_services.' . $index . '.sub_speed_active_text', $subserv['speed_active_text'] ?? '') }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-6">
+                                                <div class="form-check form-switch">
+                                                    <label for="sub_quality_status_{{ $index }}">الجودة</label>
+                                                    <input name="sub_services[{{ $index }}][sub_quality_status]"
+                                                        class="form-check-input" type="checkbox" role="switch"
+                                                        id="sub_quality_status_{{ $index }}"
+                                                        {{ old('sub_services.' . $index . '.sub_quality_status', $subserv['quality_status'] ?? false) ? 'checked' : '' }}>
+                                                </div>
+                                                <div class="mt-2 mb-3 {{ old('sub_services.' . $index . '.sub_quality_status', $subserv['quality_status'] ?? false) ? '' : 'd-none' }}"
+                                                    id="sub_quality_input_container_{{ $index }}">
+                                                    <label class="form-label">ادخل نسبة الجودة</label>
+                                                    <input type="number" min="1" max="100"
+                                                        name="sub_services[{{ $index }}][sub_quality_percentage]"
+                                                        class="form-control"
+                                                        value="{{ old('sub_services.' . $index . '.sub_quality_percentage', $subserv['quality_percentage'] ?? '') }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-6">
+                                                <div class="form-check form-switch">
+                                                    <label for="sub_security_{{ $index }}">الضمان</label>
+                                                    <input name="sub_services[{{ $index }}][sub_security]"
+                                                        class="form-check-input" type="checkbox" role="switch"
+                                                        id="sub_security_{{ $index }}"
+                                                        {{ old('sub_services.' . $index . '.sub_security', $subserv['security'] ?? false) ? 'checked' : '' }}>
+                                                </div>
+                                                <div class="mt-2 mb-3 {{ old('sub_services.' . $index . '.sub_security', $subserv['security'] ?? false) ? '' : 'd-none' }}"
+                                                    id="sub_security_container_{{ $index }}">
+                                                    <label class="form-label">ادخل الضمان</label>
+                                                    <input type="text"
+                                                        name="sub_services[{{ $index }}][sub_security_text]"
+                                                        class="form-control"
+                                                        value="{{ old('sub_services.' . $index . '.sub_security_text', $subserv['security_text'] ?? '') }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-6">
+                                                <div class="form-check form-switch">
+                                                    <label for="sub_start_time_{{ $index }}">وقت البدء</label>
+                                                    <input name="sub_services[{{ $index }}][sub_start_time]"
+                                                        class="form-check-input" type="checkbox" role="switch"
+                                                        id="sub_start_time_{{ $index }}"
+                                                        {{ old('sub_services.' . $index . '.sub_start_time', $subserv['start_time'] ?? false) ? 'checked' : '' }}>
+                                                </div>
+                                                <div class="mt-2 mb-3 {{ old('sub_services.' . $index . '.sub_start_time', $subserv['start_time'] ?? false) ? '' : 'd-none' }}"
+                                                    id="sub_start_time_container_{{ $index }}">
+                                                    <label class="form-label">ادخل وقت البدء</label>
+                                                    <input type="text"
+                                                        name="sub_services[{{ $index }}][sub_start_time_text]"
+                                                        class="form-control"
+                                                        value="{{ old('sub_services.' . $index . '.sub_start_time_text', $subserv['start_time_text'] ?? '') }}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                                <button type="button" class="btn btn-primary" id="add_sub_service">إضافة خدمة فرعية
+                                    جديدة</button>
+                            </div>
+
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function() {
+                                    // دالة لتفعيل السويتشات
+                                    const toggleSwitch = (checkboxId, containerId) => {
+                                        const checkbox = document.getElementById(checkboxId);
+                                        const container = document.getElementById(containerId);
+                                        if (checkbox && container) {
+                                            checkbox.addEventListener('change', function() {
+                                                container.classList.toggle('d-none', !this.checked);
+                                            });
+                                        }
+                                    };
+
+                                    // تفعيل السويتشات للخدمات الفرعية الموجودة
+                                    @foreach ($product['SubServices'] as $index => $subserv)
+                                        toggleSwitch('sub_speed_active_{{ $index }}',
+                                            'sub_speed_input_container_{{ $index }}');
+                                        toggleSwitch('sub_quality_status_{{ $index }}',
+                                            'sub_quality_input_container_{{ $index }}');
+                                        toggleSwitch('sub_security_{{ $index }}', 'sub_security_container_{{ $index }}');
+                                        toggleSwitch('sub_start_time_{{ $index }}',
+                                            'sub_start_time_container_{{ $index }}');
+                                    @endforeach
+
+                                    // إضافة خدمة فرعية جديدة
+                                    document.getElementById('add_sub_service').addEventListener('click', function() {
+                                        const container = document.getElementById('sub_services_container');
+                                        const index = container.children.length;
+                                        const uniqueId = index; // استخدام المؤشر كمعرف
+
+                                        const newRow = `
+                                            <div class="mb-3 row sub-service-row">
+                                                <div class="col-lg-1 col-1">
+                                                    <button style="margin-top:20px" type="button" class="btn btn-danger btn-sm remove-sub-service">
+                                                        <i class="bx bx-trash"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="col-lg-3 col-6">
+                                                    <label for="sub_serv_name_${uniqueId}" class="form-label">اسم الخدمة</label>
+                                                    <input type="text" name="sub_services[${index}][sub_serv_name]" class="form-control" placeholder="">
+                                                </div>
+                                                <div class="col-lg-2 col-5">
+                                                    <label class="form-label">حدد مزود الخدمة</label>
+                                                    <select required class="form-control" name="sub_services[${index}][sub_provider_id]">
+                                                        <option value="">-- حدد --</option>
+                                                        @foreach ($providers as $provider)
+                                                            <option value="{{ $provider['id'] }}">{{ $provider['name'] }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-3 col-6">
+                                                    <label for="sub_serv_number_${uniqueId}" class="form-label">رقم الخدمة</label>
+                                                    <input type="number" name="sub_services[${index}][sub_serv_number]" class="form-control" placeholder="">
+                                                </div>
+                                                <div class="col-lg-3 col-6">
+                                                    <label for="sub_profit_percentage_${uniqueId}" class="form-label">نسبة الربح (٪)</label>
+                                                    <input required type="number" step=".01" name="sub_services[${index}][sub_profit_percentage]" class="form-control" placeholder="">
+                                                </div>
+                                                <div class="col-lg-3 col-6">
+                                                    <div class="form-check form-switch">
+                                                        <label for="sub_speed_active_${uniqueId}">السرعة</label>
+                                                        <input name="sub_services[${index}][sub_speed_active]" class="form-check-input" type="checkbox" role="switch" id="sub_speed_active_${uniqueId}">
+                                                    </div>
+                                                    <div class="mt-2 mb-3 d-none" id="sub_speed_input_container_${uniqueId}">
+                                                        <label class="form-label">ادخل السرعة</label>
+                                                        <input type="text" name="sub_services[${index}][sub_speed_active_text]" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3 col-6">
+                                                    <div class="form-check form-switch">
+                                                        <label for="sub_quality_status_${uniqueId}">الجودة</label>
+                                                        <input name="sub_services[${index}][sub_quality_status]" class="form-check-input" type="checkbox" role="switch" id="sub_quality_status_${uniqueId}">
+                                                    </div>
+                                                    <div class="mt-2 mb-3 d-none" id="sub_quality_input_container_${uniqueId}">
+                                                        <label class="form-label">ادخل نسبة الجودة</label>
+                                                        <input type="number" min="1" max="100" name="sub_services[${index}][sub_quality_percentage]" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3 col-6">
+                                                    <div class="form-check form-switch">
+                                                        <label for="sub_security_${uniqueId}">الضمان</label>
+                                                        <input name="sub_services[${index}][sub_security]" class="form-check-input" type="checkbox" role="switch" id="sub_security_${uniqueId}">
+                                                    </div>
+                                                    <div class="mt-2 mb-3 d-none" id="sub_security_container_${uniqueId}">
+                                                        <label class="form-label">ادخل الضمان</label>
+                                                        <input type="text" name="sub_services[${index}][sub_security_text]" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3 col-6">
+                                                    <div class="form-check form-switch">
+                                                        <label for="sub_start_time_${uniqueId}">وقت البدء</label>
+                                                        <input name="sub_services[${index}][sub_start_time]" class="form-check-input" type="checkbox" role="switch" id="sub_start_time_${uniqueId}">
+                                                    </div>
+                                                    <div class="mt-2 mb-3 d-none" id="sub_start_time_container_${uniqueId}">
+                                                        <label class="form-label">ادخل وقت البدء</label>
+                                                        <input type="text" name="sub_services[${index}][sub_start_time_text]" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>`;
+                                        container.insertAdjacentHTML('beforeend', newRow);
+
+                                        // تفعيل السويتشات للخدمة الفرعية الجديدة
+                                        setTimeout(() => {
+                                            toggleSwitch(`sub_speed_active_${uniqueId}`,
+                                                `sub_speed_input_container_${uniqueId}`);
+                                            toggleSwitch(`sub_quality_status_${uniqueId}`,
+                                                `sub_quality_input_container_${uniqueId}`);
+                                            toggleSwitch(`sub_security_${uniqueId}`, `sub_security_container_${uniqueId}`);
+                                            toggleSwitch(`sub_start_time_${uniqueId}`,
+                                                `sub_start_time_container_${uniqueId}`);
+                                        }, 100);
+
+                                        // تحديث حالة أزرار الحذف
+                                        updateRemoveButtons();
+                                    });
+
+                                    // إدارة حذف الخدمات الفرعية
+                                    function updateRemoveButtons() {
+                                        const container = document.getElementById('sub_services_container');
+                                        const rows = container.querySelectorAll('.sub-service-row');
+                                        const removeButtons = container.querySelectorAll('.remove-sub-service');
+
+                                        // إخفاء زر الحذف إذا كان هناك خدمة فرعية واحدة فقط
+                                        if (rows.length === 1) {
+                                            removeButtons.forEach(button => button.classList.add('d-none'));
+                                        } else {
+                                            removeButtons.forEach(button => button.classList.remove('d-none'));
+                                        }
+
+                                        // إعادة ربط أحداث الحذف
+                                        removeButtons.forEach(button => {
+                                            button.removeEventListener('click', handleRemove);
+                                            button.addEventListener('click', handleRemove);
+                                        });
+                                    }
+
+                                    function handleRemove(event) {
+                                        const container = document.getElementById('sub_services_container');
+                                        const rows = container.querySelectorAll('.sub-service-row');
+                                        if (rows.length > 1) {
+                                            event.target.closest('.sub-service-row').remove();
+                                            updateRemoveButtons();
+                                        }
+                                    }
+
+                                    // تحديث حالة الأزرار عند تحميل الصفحة
+                                    updateRemoveButtons();
                                 });
                             </script>
                         </div>
@@ -384,7 +804,8 @@
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="mb-3">
-                                            <label for="meta_url" class="form-label">رابط صفحة المنتج (SEO PAGE URL)</label>
+                                            <label for="meta_url" class="form-label">رابط صفحة المنتج (SEO PAGE
+                                                URL)</label>
                                             <input type="text" id="meta_url" class="form-control" name="meta_url"
                                                 placeholder="أدخل رابط المنتج"
                                                 value="{{ old('meta_url', $product['meta_url']) }}">
@@ -394,8 +815,7 @@
                                             <!-- معاينة الرابط -->
                                             <div class="mt-2">
                                                 <small class="text-muted">معاينة الرابط: </small>
-                                                <span id="urlPreview"
-                                                    class="text-primary">{{ url('/product/') }}/<span
+                                                <span id="urlPreview" class="text-primary">{{ url('/product/') }}/<span
                                                         id="slugPreview">{{ old('meta_url', $product['meta_url']) }}</span></span>
                                             </div>
                                         </div>
@@ -474,75 +894,74 @@
 @endsection
 
 @section('js')
+    <script>
+        // دالة لتحديث الحقل المخفي
+        function updateHiddenKeywords() {
+            let keywords = [];
+            document.querySelectorAll('#keywordList .badge').forEach(badge => {
+                keywords.push(badge.getAttribute('data-keyword'));
+            });
+            document.getElementById('hidden_keywords').value = keywords.join(',');
+        }
 
-<script>
-    // دالة لتحديث الحقل المخفي
-    function updateHiddenKeywords() {
-        let keywords = [];
-        document.querySelectorAll('#keywordList .badge').forEach(badge => {
-            keywords.push(badge.getAttribute('data-keyword'));
-        });
-        document.getElementById('hidden_keywords').value = keywords.join(',');
-    }
-
-    // دالة لإزالة الكلمة وتحديث الحقل المخفي
-    function removeKeyword(element) {
-        element.parentElement.remove();
-        updateHiddenKeywords();
-    }
-
-    // إضافة كلمة عند الضغط على Enter
-    document.getElementById('meta_keywords').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter' && this.value.trim()) {
-            e.preventDefault();
-            let keyword = this.value.trim();
-            let keywordList = document.getElementById('keywordList');
-            let badge = document.createElement('span');
-            badge.className = 'mb-2 text-white badge bg-primary me-2';
-            badge.setAttribute('data-keyword', keyword);
-            badge.innerHTML =
-                `${keyword} <span class="ms-2 text-danger" onclick="removeKeyword(this)">×</span>`;
-            keywordList.appendChild(badge);
-            this.value = '';
+        // دالة لإزالة الكلمة وتحديث الحقل المخفي
+        function removeKeyword(element) {
+            element.parentElement.remove();
             updateHiddenKeywords();
         }
-    });
-</script>
-<script>
-    // دالة لتحويل النص إلى slug
-    function toSlug(text) {
-        return text
-            .toLowerCase()
-            .trim()
-            .replace(/[\s+]/g, '-') // استبدال المسافات بـ -
-            .replace(/[^\w\-]+/g, '') // إزالة الرموز غير المرغوب فيها
-            .replace(/\-\-+/g, '-'); // إزالة الـ - المكررة
-    }
 
-    // عرض معاينة الرابط أثناء الكتابة
-    document.getElementById('meta_url').addEventListener('input', function() {
-        let input = this.value;
-        let slug = toSlug(input);
-        document.getElementById('slugPreview').textContent = slug || 'عنوان-المنتج';
-        document.getElementById('meta_url_final').value = slug; // تحديث الحقل المخفي
-    });
-</script>
+        // إضافة كلمة عند الضغط على Enter
+        document.getElementById('meta_keywords').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && this.value.trim()) {
+                e.preventDefault();
+                let keyword = this.value.trim();
+                let keywordList = document.getElementById('keywordList');
+                let badge = document.createElement('span');
+                badge.className = 'mb-2 text-white badge bg-primary me-2';
+                badge.setAttribute('data-keyword', keyword);
+                badge.innerHTML =
+                    `${keyword} <span class="ms-2 text-danger" onclick="removeKeyword(this)">×</span>`;
+                keywordList.appendChild(badge);
+                this.value = '';
+                updateHiddenKeywords();
+            }
+        });
+    </script>
+    <script>
+        // دالة لتحويل النص إلى slug
+        function toSlug(text) {
+            return text
+                .toLowerCase()
+                .trim()
+                .replace(/[\s+]/g, '-') // استبدال المسافات بـ -
+                .replace(/[^\w\-]+/g, '') // إزالة الرموز غير المرغوب فيها
+                .replace(/\-\-+/g, '-'); // إزالة الـ - المكررة
+        }
+
+        // عرض معاينة الرابط أثناء الكتابة
+        document.getElementById('meta_url').addEventListener('input', function() {
+            let input = this.value;
+            let slug = toSlug(input);
+            document.getElementById('slugPreview').textContent = slug || 'عنوان-المنتج';
+            document.getElementById('meta_url_final').value = slug; // تحديث الحقل المخفي
+        });
+    </script>
 
 
-<!-- Start file Input  -->
-<script>
-    var lang = "{{ app()->getLocale() }}";
-    $("#single-image-edit").fileinput({
-        theme: 'bs5',
-        allowedFileTypes: ['image'],
-        language: lang,
-        maxFileCount: 1,
-        enableResumableUpload: false,
-        showUpload: false,
-        initialPreviewAsData: true,
-        initialPreview: [
-            "{{ asset($product->Image()) }}"
-        ],
-    });
-</script>
+    <!-- Start file Input  -->
+    <script>
+        var lang = "{{ app()->getLocale() }}";
+        $("#single-image-edit").fileinput({
+            theme: 'bs5',
+            allowedFileTypes: ['image'],
+            language: lang,
+            maxFileCount: 1,
+            enableResumableUpload: false,
+            showUpload: false,
+            initialPreviewAsData: true,
+            initialPreview: [
+                "{{ asset($product->Image()) }}"
+            ],
+        });
+    </script>
 @endsection

@@ -15,14 +15,17 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
-            $table->foreignId('category_id')->references('id')->on('blog_categories')->cascadeOnDelete();
+            $table->foreignId('category_id')->nullable()->references('id')->on('blog_categories')->cascadeOnDelete();
             $table->text('short_desc')->nullable();
             $table->longText('desc');
+            $table->date('publish_date');
             $table->string('meta_title');
+            $table->string('meta_url')->unique()->nullable();
             $table->text('meta_desc');
             $table->string('meta_keywords');
             $table->tinyInteger('status')->default(1);
             $table->string('image')->nullable();
+            $table->integer('author');
             $table->timestamps();
         });
     }
