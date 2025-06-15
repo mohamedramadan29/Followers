@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
-@section('title')
-    الموظفين
-@endsection
+@section('title', 'الادراين')
+@section('employees-active', 'active')
+@section('employees-collapse', 'show')
 @section('css')
     {{--    <!-- DataTables CSS --> --}}
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
@@ -18,6 +18,11 @@
                         toastify()->success(\Illuminate\Support\Facades\Session::get('Success_message'));
                     @endphp
                 @endif
+                @if (Session::has('Error_message'))
+                    @php
+                        toastify()->error(\Illuminate\Support\Facades\Session::get('Error_message'));
+                    @endphp
+                @endif
                 @if ($errors->any())
                     @foreach ($errors->all() as $error)
                         @php
@@ -27,56 +32,52 @@
                 @endif
                 <div class="col-xl-12">
                     <div class="card">
-                        <div class="card-header d-flex justify-content-between align-items-center gap-1">
-                            <h4 class="card-title flex-grow-1"> الموظفين </h4>
-                            <a href="{{url('admin/employee/add')}}" class="btn btn-sm btn-primary">
-                                اضافة موظف
+                        <div class="gap-1 card-header d-flex justify-content-between align-items-center">
+                            <h4 class="card-title flex-grow-1"> الادراين </h4>
+                            <a href="{{ url('admin/employee/add') }}" class="btn btn-sm btn-primary">
+                                اضافة اداري
                                 <i class="ti ti-plus"></i>
                             </a>
                         </div>
                         <div>
                             <div class="table-responsive">
                                 <table id="table-search"
-                                    class="table table-bordered gridjs-table align-middle mb-0 table-hover table-centered">
-                                    <thead class="bg-light-subtle">
+                                    class="table mb-0 align-middle table-bordered gridjs-table table-hover table-centered">
+                                    <thead class="bg-light-subtle table-primary-custome">
                                         <tr>
                                             <th>#</th>
                                             <th> الاسم </th>
-                                            <th> البريد الالكتروني </th>
-                                            <th> رقم الهاتف </th>
-                                            <th> الصلاحية </th>
-                                            <th> الحالة </th>
-                                            <th> العمليات </th>
+                                            <th> الصلاحيات </th>
+                                            <th> تاريخ الاضافة </th>
+                                            <th> اجراءات متقدمة </th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($admins as $admin)
-                                        <tr>
-                                            <th scope="row">{{ $loop->iteration }}</th>
-                                            <td> {{ $admin->name }} </td>
-                                            <td>
-                                                {{ $admin->email }}
-                                            </td>
-                                            <td>
-                                                {{ $admin->phone }}
-                                            </td>
-                                            <td>
-                                                {{ $admin->role->role }}
-                                            </td>
-                                            <td>
-                                                {{ $admin->status == 1 ? 'مفعل' : 'غير مفعل' }}
-                                            </td>
-                                            <td>
-                                                <a class="btn btn-info btn-sm"
-                                                    href="{{ url('admin/employee/update/' . $admin->id) }}"><i
-                                                        class="la la-edit"></i> تعديل </a>
-                                                <button type="button" class="btn btn-danger btn-sm"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#delete_admin_{{ $admin->id }}">
-                                                    حذف <i class="la la-trash"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
+                                            <tr>
+                                                <th scope="row">{{ $loop->iteration }}</th>
+                                                <td> {{ $admin->name }} </td>
+                                                <td>
+                                                    <span class="px-2 py-1 badge bg-light text-dark fs-11"> {{ $admin->role->role }}
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    {{ $admin->created_at->format('Y-m-d') }}
+                                                </td>
+                                                <td>
+                                                    <div class="gap-2 d-flex">
+                                                        @livewire('admin.admins.change-status', ['admin' => $admin], key($admin->id))
+                                                        <a href="{{ url('admin/employee/update/' . $admin->id) }}"
+                                                            class="color-primary">
+                                                            <i class="ti ti-edit"></i>
+                                                        </a>
+                                                        <button type="button" class="color-danger" data-bs-toggle="modal"
+                                                            data-bs-target="#delete_admin_{{ $admin->id }}">
+                                                            <i class="ti ti-trash"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
                                             <!-- Modal -->
                                             @include('admin.Admins.delete')
                                         @endforeach
@@ -114,6 +115,7 @@
 
             // تهيئة DataTables من جديد
             $('#table-search').DataTable({
+                'ordering': false,
                 "language": {
                     "search": "بحث:",
                     "lengthMenu": "عرض _MENU_ عناصر لكل صفحة",

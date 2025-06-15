@@ -1,17 +1,21 @@
 * {
     --main-color: #242588;
 }
-.topbar{
+
+.topbar {
     margin-top: 20px;
-    background-color:#f2f2f7;
+    background-color: #f2f2f7;
     height: 65px;
 }
-.topbar .navbar-header{
+
+.topbar .navbar-header {
     height: 65px;
 }
-.topbar .navbar-header .topbar-item h4{
+
+.topbar .navbar-header .topbar-item h4 {
     color: #000;
 }
+
 .wrapper .main-nav {
     background-color: var(--main-color);
 }
@@ -99,46 +103,54 @@
 /************ End Main Dashboard  ************/
 
 /************ Start Empty Data ************/
-.empty-data{
+.empty-data {
     text-align: center;
     margin: auto;
 }
-.empty-data .empty-image img{
+
+.empty-data .empty-image img {
     max-width: 250px;
 }
-.empty-data .empty-info{
+
+.empty-data .empty-info {
     margin-top: 30px;
 }
-.empty-data .empty-info p{
+
+.empty-data .empty-info p {
     margin-top: 20px;
 }
-.table-primary-custome th{
+
+.table-primary-custome th {
     background-color: var(--main-color);
     color: #fff;
 }
+
 /************ End Empty Data *************/
 
-.color-success{
+.color-success {
     color: #21C55D;
     border: none;
     background: transparent;
     font-size: 18px;
 }
-.color-danger{
+
+.color-danger {
     color: #FF0000;
     border: none;
     background: transparent;
     font-size: 18px;
 }
-.color-primary{
+
+.color-primary {
     color: var(--main-color);
     border: none;
     background: transparent;
     font-size: 18px;
 }
+
 /************ Start Order Tabs ***********/
 
-.orders-tabs{
+.orders-tabs {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -148,101 +160,122 @@
     border-radius: 10px;
     padding: 10px 2px;
 }
-.orders-tabs li{}
-.orders-tabs li a{
+
+.orders-tabs li {}
+
+.orders-tabs li a {
     text-decoration: none;
     padding: 8px;
     border-radius: 10px;
 }
 
-.orders-tabs li .all{
+.orders-tabs li .all {
     color: var(--main-color)
 }
+
 .orders-tabs li .all.active,
-.orders-tabs li .all:hover{
+.orders-tabs li .all:hover {
     background-color: var(--main-color);
     color: #fff;
 }
-.orders-tabs li .complete{
+
+.orders-tabs li .complete {
     color: #22AB00;
 }
+
 .orders-tabs li .complete.active,
-.orders-tabs li .complete:hover{
+.orders-tabs li .complete:hover {
     background-color: #22AB00;
     color: #fff;
 }
-.orders-tabs li .pending{
+
+.orders-tabs li .pending {
     color: #2D9CDB
 }
+
 .orders-tabs li .pending.active,
-.orders-tabs li .pending:hover{
+.orders-tabs li .pending:hover {
     background-color: #2D9CDB;
     color: #fff;
 }
-.orders-tabs li .inprogress{
+
+.orders-tabs li .inprogress {
     color: #0CBE83
 }
+
 .orders-tabs li .inprogress.active,
-.orders-tabs li .inprogress:hover{
+.orders-tabs li .inprogress:hover {
     background-color: #0CBE83;
     color: #fff;
 }
-.orders-tabs li .partial{
+
+.orders-tabs li .partial {
     color: #0057A0
 }
+
 .orders-tabs li .partial.active,
-.orders-tabs li .partial:hover{
+.orders-tabs li .partial:hover {
     background-color: #0057A0;
     color: #fff;
 }
-.orders-tabs li .processing{
+
+.orders-tabs li .processing {
     color: #884DFF
 }
+
 .orders-tabs li .processing.active,
-.orders-tabs li .processing:hover{
+.orders-tabs li .processing:hover {
     background-color: #884DFF;
     color: #fff;
 }
-.orders-tabs li .cancelled{
+
+.orders-tabs li .cancelled {
     color: #EF2B1F
 }
+
 .orders-tabs li .cancelled.active,
-.orders-tabs li .cancelled:hover{
+.orders-tabs li .cancelled:hover {
     background-color: #EF2B1F;
     color: #fff;
 }
+
 /************ End Order Tabs ***********/
 
-td span.badge{
+td span.badge {
     padding: 10px 20px;
     border-radius: 10px;
 }
-.dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover{
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
     background-color: var(--main-color) !important;
     border-color: var(--main-color) !important;
     color: #fff !important;
 }
-.form-label{
+
+.form-label {
     color: #000;
 }
+
 .btn-submit,
-.btn-submit:hover{
+.btn-submit:hover {
     background-color: var(--main-color);
     color: #fff;
     border-radius: 3px;
     width: 100%;
     font-weight: bold;
 }
+
 .btn-return,
-.btn-return:hover{
-    background-color:#EF2B1F;
+.btn-return:hover {
+    background-color: #EF2B1F;
     color: #fff;
     border-radius: 3px;
     width: 100%;
     font-weight: bold;
 }
+
 .btn-ban,
-.btn-ban:hover{
+.btn-ban:hover {
     background-color: #EF2B1F;
     color: #fff;
     border-radius: 5px;
@@ -250,7 +283,8 @@ td span.badge{
     opacity: 0.5;
     cursor: not-allowed;
 }
-.btn-ban.active{
+
+.btn-ban.active {
     background-color: #EF2B1F;
     color: #fff;
     border-radius: 5px;
@@ -258,8 +292,9 @@ td span.badge{
     opacity: 1;
     cursor: pointer;
 }
+
 .btn-unban,
-.btn-unban:hover{
+.btn-unban:hover {
     background-color: #22AB00 !important;
     color: #fff !important;
     border-radius: 5px;
@@ -267,7 +302,8 @@ td span.badge{
     opacity: 0.5;
     cursor: not-allowed;
 }
-.btn-unban.active{
+
+.btn-unban.active {
     background-color: #22AB00 !important;
     color: #fff !important;
     border-radius: 5px;
@@ -276,53 +312,58 @@ td span.badge{
     cursor: pointer;
 }
 
-.person_info{
+.person_info {
     text-align: center;
     margin: auto;
 }
 
-.person_info img{
+.person_info img {
     width: 100px;
     height: 100px;
     border-radius: 10px;
     margin-bottom: 10px;
 }
 
-.person_info h4{
+.person_info h4 {
     color: #2D2D2D;
 }
-.person_info p{
+
+.person_info p {
     color: #2D2D2D;
     line-height: 2;
 }
 
-.modal-footer{
+.modal-footer {
     display: flex;
     justify-content: space-between;
 }
-.modal-footer button{
-  width: 48%;
-  border-radius: 2px;
+
+.modal-footer button {
+    width: 48%;
+    border-radius: 2px;
 }
-.modal-footer .btn-primary{
+
+.modal-footer .btn-primary {
     background-color: var(--main-color);
 }
 
-.btn-primary{
+.btn-primary {
     background-color: var(--main-color);
     border-color: var(--main-color);
     border-radius: 3px;
     padding: 8px 20px;
 }
-.btn-primary:hover{
+
+.btn-primary:hover {
     background-color: var(--main-color);
     border-color: var(--main-color);
 }
 
 
-.file-preview .fileinput-remove{
+.file-preview .fileinput-remove {
     display: none;
 }
+
 #keywordList .badge {
     cursor: pointer;
     background-color: #CCCCCC !important;
@@ -335,18 +376,57 @@ td span.badge{
 #urlPreview {
     font-weight: 500;
 }
+
 #slugPreview {
     font-weight: bold;
 }
 
 
-.custome_image{
-    padding:5px;
+.custome_image {
+    padding: 5px;
     border-radius: 5px;
     border: 1px solid #E5E5E5;
 }
 
 
-.active_bot{ 
+.active_bot {
     color: var(--main-color);
 }
+
+/************** Start Wallet Page **********/
+
+.wallet-report {
+    margin: 20px;
+}
+
+.wallet-report .wallet-main-info {
+    background-color: #F2F2F8;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.wallet-report .wallet-main-info h4 {
+    font-weight: normal;
+    font-size: 16px;
+    color: #212121;
+    margin-top: 10px;
+}
+
+.wallet-report .wallet-main-info h4 i {
+    font-size: 12px;
+}
+
+.wallet-report .wallet-main-info p {
+    font-size: 28px;
+    color: #000;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.wallet-report .wallet-main-info p img {
+    width: 25px;
+    height: 25px;
+}
+
+
+/************* End Wallet Page **************/

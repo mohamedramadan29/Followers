@@ -8,8 +8,11 @@ use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\TermsController;
 use App\Http\Controllers\admin\UsersController;
 use App\Http\Controllers\admin\OrdersController;
+use App\Http\Controllers\admin\ReportController;
 use App\Http\Controllers\admin\ReviewController;
+use App\Http\Controllers\admin\WalletController;
 use App\Http\Controllers\admin\BootFaqController;
+use App\Http\Controllers\admin\ExpenseController;
 use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\admin\EmployeeController;
 use App\Http\Controllers\admin\LastNewsController;
@@ -19,7 +22,6 @@ use App\Http\Controllers\admin\MainCategoryController;
 use App\Http\Controllers\admin\NotificationController;
 use \App\Http\Controllers\admin\BlogCategoryController;
 use App\Http\Controllers\admin\PublicSettingController;
-use App\Http\Controllers\admin\ReportController;
 use App\Http\Controllers\admin\SupportTicketsController;
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
@@ -101,12 +103,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         });
         //////////////// Start Faq Controller ////////////////////
         ///
+        Route::group(['can' => 'faqs'], function () {
         Route::controller(FaqController::class)->group(function () {
             Route::get('faqs', 'index');
             Route::match(['post', 'get'], 'faq/add', 'store');
             Route::match(['post', 'get'], 'faq/update/{id}', 'update');
             Route::post('faq/delete/{id}', 'delete');
         });
+    });
 
         //////////////// Start Reviews //////////////////////
         ///
@@ -155,38 +159,47 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         ####################### End User Controllers ##################
 
         ########################## Start Employeers Controllers #######################
+        Route::group(['can' => 'employees'], function () {
         Route::controller(EmployeeController::class)->group(function () {
             Route::get('employees', 'index');
             Route::match(['post', 'get'], 'employee/add', 'store');
             Route::match(['post', 'get'], 'employee/update/{id}', 'update');
             Route::post('employee/delete/{id}', 'delete');
         });
+    });
         ############################ End Employeers Controlles ####################
         ############################# Start Roles #########################
-        Route::controller(RoleController::class)->group(function () {
-            Route::get('roles', 'index');
-            Route::match(['post', 'get'], 'role/add', 'store');
-            Route::match(['post', 'get'], 'role/update/{id}', 'update');
-            Route::post('role/delete/{id}', 'destroy');
+        Route::group(['can' => 'roles'], function () {
+            Route::controller(RoleController::class)->group(function () {
+                Route::get('roles', 'index');
+                Route::match(['post', 'get'], 'role/add', 'store');
+                Route::match(['post', 'get'], 'role/update/{id}', 'update');
+                Route::post('role/delete/{id}', 'destroy');
+            });
         });
         ############################# End Roles ############################
 
         ############################ Start Last News ####################
 
-        Route::controller(LastNewsController::class)->group(function () {
-            Route::get('news', 'index');
-            Route::match(['post', 'get'], 'news/add', 'store');
-            Route::match(['post', 'get'], 'news/update/{id}', 'update');
-            Route::post('news/delete/{id}', 'delete');
+        Route::group(['can' => 'news'], function () {
+            Route::controller(LastNewsController::class)->group(function () {
+                Route::get('news', 'index');
+                Route::match(['post', 'get'], 'news/add', 'store');
+                Route::match(['post', 'get'], 'news/update/{id}', 'update');
+                Route::post('news/delete/{id}', 'delete');
+            });
         });
         ############################ End Last News ######################
 
         ############################ Start Chat Boot ##################
-        Route::controller(BootFaqController::class)->group(function () {
-            Route::get('bootfaqs', 'index');
-            Route::match(['post', 'get'], 'bootfaq/add', 'store');
-            Route::match(['post', 'get'], 'bootfaq/update/{id}', 'update');
-            Route::post('bootfaq/delete/{id}', 'delete');
+
+        Route::group(['can' => 'boot'], function () {
+            Route::controller(BootFaqController::class)->group(function () {
+                Route::get('bootfaqs', 'index');
+                Route::match(['post', 'get'], 'bootfaq/add', 'store');
+                Route::match(['post', 'get'], 'bootfaq/update/{id}', 'update');
+                Route::post('bootfaq/delete/{id}', 'delete');
+            });
         });
         ############################ End Chart Boot ####################
         ############################ Start Notifications ##################
@@ -212,5 +225,23 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
             });
         });
         ################### End Reports Controller #########################
+
+        ################### Start Wallet Controller #######################
+        Route::group(['prefix' => 'wallet', 'as' => 'wallet.', 'can' => 'wallet'], function () {
+            Route::controller(WalletController::class)->group(function () {
+                Route::get('index', 'index')->name('index');
+            });
+        });
+        ################### End Wallet Controller #########################
+           ################### Start Expense Controller #######################
+           Route::group(['can' => 'expense'], function () {
+            Route::controller(ExpenseController::class)->group(function () {
+                Route::get('index', 'index')->name('index');
+                Route::match(['post', 'get'], 'expense/add', 'store');
+                Route::match(['post', 'get'], 'expense/update/{id}', 'update');
+                Route::post('expense/delete/{id}', 'delete');
+            });
+        });
+        ################### End Expense Controller #########################
     });
 });

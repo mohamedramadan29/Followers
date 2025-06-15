@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
-@section('title')
-    اضافة صلاحية
-@endsection
+@section('title','اضافة صلاحية')
+@section('roles-active', 'active')
+@section('roles-collapse', 'show')
 @section('css')
 @endsection
 @section('content')
@@ -24,8 +24,8 @@
                 @csrf
                 <div class="row">
 
-                    <div class="col-xl-12 col-lg-8 ">
-                        <div class="card">
+                    <div class="col-xl-12 col-lg-8">
+                        <div class="card" style="background-color: #F2F2F8">
                             <div class="card-header">
                                 <h4 class="card-title">  اضافة صلاحية</h4>
                             </div>
@@ -68,13 +68,16 @@
                                 </div>
                             </div>
 
-                            <div class="row justify-content-end g-2">
-                                <div class="col-lg-2">
-                                    <a href="{{ url('admin/products') }}" class="btn btn-primary w-100"> رجوع </a>
-                                </div>
-                                <div class="col-lg-2">
-                                    <button type="submit" class="btn btn-outline-secondary w-100"> حفظ <i
-                                            class='bx bxs-save'></i></button>
+                            <div class="p-3 mb-3 rounded bg-light">
+                                <div class="row justify-content-start g-2">
+                                    <div class="col-lg-3">
+                                        <button type="submit" class="btn btn-primary w-100"> حفظ <i
+                                                class='bx bxs-save'></i></button>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <a href="{{ url('admin/roles') }}" class="btn btn-danger w-100"> الغاء </a>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>

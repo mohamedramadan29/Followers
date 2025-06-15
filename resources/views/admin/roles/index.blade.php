@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
-@section('title')
-    الصلاحيات
-@endsection
+@section('title', 'الصلاحيات')
+@section('roles-active', 'active')
+@section('roles-collapse', 'show')
 @section('css')
     {{--    <!-- DataTables CSS --> --}}
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
@@ -27,7 +27,7 @@
                 @endif
                 <div class="col-xl-12">
                     <div class="card">
-                        <div class="card-header d-flex justify-content-between align-items-center gap-1">
+                        <div class="gap-1 card-header d-flex justify-content-between align-items-center">
                             <h4 class="card-title flex-grow-1"> الصلاحيات </h4>
                             <a href="{{ url('admin/role/add') }}" class="btn btn-sm btn-primary">
                                 اضافة صلاحية
@@ -37,8 +37,8 @@
                         <div>
                             <div class="table-responsive">
                                 <table id="table-search"
-                                    class="table table-bordered gridjs-table align-middle mb-0 table-hover table-centered">
-                                    <thead class="bg-light-subtle">
+                                    class="table mb-0 align-middle table-bordered gridjs-table table-hover table-centered">
+                                    <thead class="bg-light-subtle table-primary-custome">
                                         <tr>
                                             <th>#</th>
                                             <th> اسم الصلاحية </th>
@@ -57,22 +57,24 @@
                                                     @foreach (json_decode($role->permissions) as $permission)
                                                         @foreach (Config::get('permissions') as $key => $value)
                                                             @if ($key == $permission)
-                                                                <span class="badge badge-info bg-info"> {{ $value }}
+                                                                <span class="px-2 py-1 badge bg-light text-dark fs-11">
+                                                                    {{ $value }}
                                                                 </span>
                                                             @endif
                                                         @endforeach
                                                     @endforeach
                                                 </td>
                                                 <td>
-                                                    <a class="btn btn-info btn-sm"
-                                                        href="{{ url('admin/role/update/' . $role->id) }}"><i
-                                                            class="fa fa-edit"></i> تعديل </a>
-                                                    <button type="button" class="btn btn-danger btn-sm"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#delete_permision_{{ $role->id }}">
-                                                        حذف <i class="fa fa-trash"></i>
-                                                    </button>
-
+                                                    <div class="gap-2 d-flex">
+                                                        <a href="{{ url('admin/role/update/' . $role->id) }}"
+                                                            class="color-primary">
+                                                            <i class="ti ti-edit"></i>
+                                                        </a>
+                                                        <button type="button" class="color-danger" data-bs-toggle="modal"
+                                                            data-bs-target="#delete_permision_{{ $role->id }}">
+                                                            <i class="ti ti-trash"></i>
+                                                        </button>
+                                                    </div>
                                                 </td>
                                             </tr>
                                             <!-- Modal -->
@@ -111,6 +113,7 @@
 
             // تهيئة DataTables من جديد
             $('#table-search').DataTable({
+                'ordering': false,
                 "language": {
                     "search": "بحث:",
                     "lengthMenu": "عرض _MENU_ عناصر لكل صفحة",

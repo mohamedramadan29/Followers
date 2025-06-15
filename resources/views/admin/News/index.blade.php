@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
-@section('title')
-    احدث الاخبار
-@endsection
+@section('title',' احدث الاخبار')
+@section('lastnews-active','active')
+@section('lastnews-collapse','show')
 @section('css')
 
     {{--    <!-- DataTables CSS -->--}}
@@ -26,9 +26,31 @@
                         @endphp
                     @endforeach
                 @endif
+                @if ($news->isEmpty())
+                    <div class="empty-data">
+                        <div class="row">
+                            <div class="empty-image">
+                                <img src="{{ asset('assets/admin/images/empty.png') }}" alt="">
+                            </div>
+                            <div class="empty-info">
+                                <h4> لا توجد اخبار جديدة في الوقت الحالي </h4>
+                                <p>
+                                    نعمل على تحديث اخبارنا بشكل مستمر. تابعنا لتحصل على آخر التحديثات قريبًا! , "نحن نعد
+                                    العدة لتقديم محتوى اخبار مميز وشامل."
+                                    <br>
+                                    "ترقبوا آخر البيانات قريبًا!"
+                                </p>
+                                <a href="{{ url('admin/news/add') }}" class="btn btn-sm btn-primary">
+                                    اضافة خبر جديد
+                                    <i class="ti ti-plus"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                @else
                 <div class="col-xl-12">
                     <div class="card">
-                        <div class="card-header d-flex justify-content-between align-items-center gap-1">
+                        <div class="gap-1 card-header d-flex justify-content-between align-items-center">
                             <h4 class="card-title flex-grow-1"> احدث الاخبار  </h4>
                             <a href="{{url('admin/news/add')}}" class="btn btn-sm btn-primary">
                                  اضافة خبر جديد
@@ -40,7 +62,7 @@
                         <div>
                             <div class="table-responsive">
                                 <table id="table-search"
-                                       class="table table-bordered gridjs-table align-middle mb-0 table-hover table-centered">
+                                       class="table mb-0 align-middle table-bordered gridjs-table table-hover table-centered">
                                     <thead class="bg-light-subtle">
                                     <tr>
                                         <th>
@@ -49,6 +71,7 @@
                                         <th> عنوان الخبر  </th>
                                         <th> التاريخ   </th>
                                         <th> الصورة    </th>
+                                        <th> التصنيف    </th>
                                         <th> العمليات</th>
                                     </tr>
                                     </thead>
@@ -63,21 +86,23 @@
                                             </td>
                                             <td> {{$new['title']}} </td>
                                             <td> {{ $new->created_at->format('y-m-d') }} </td>
-                                            <td> <img width="60" height="60" src="{{ asset('assets/uploads/News/'.$new['image']) }}" alt=""> </td>
+                                            <td> <img width="60" height="60" src="{{ $new->Image() }}" alt=""> </td>
                                             <td>
-                                                <div class="d-flex gap-2">
-                                                    <a href="{{url('admin/news/update/'.$new['id'])}}" type="button" class="btn btn-soft-primary btn-sm">
-                                                        <iconify-icon icon="solar:pen-2-broken"
-                                                                      class="align-middle fs-18"></iconify-icon>
+                                                {{$new['category']}}
+                                            </td>
+                                            <td>
+                                                <div class="gap-2 d-flex">
+                                                    <a href="{{ url('admin/news/update/' . $new->id) }}"
+                                                        class="color-primary">
+                                                        <i class="ti ti-edit"></i>
                                                     </a>
-                                                    <button type="button" class="btn btn-soft-danger btn-sm"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#delete_message_{{$new['id']}}">
-                                                        <iconify-icon icon="solar:trash-bin-minimalistic-2-broken"
-                                                                      class="align-middle fs-18"></iconify-icon>
+                                                    <button type="button" class="color-danger"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#delete_new_{{ $new->id }}">
+                                                        <i class="ti ti-trash"></i>
                                                     </button>
                                                 </div>
-                                            </td>
+                                            </td> 
                                         </tr>
                                         <!-- Modal -->
                                         @include('admin.News.delete')
@@ -90,6 +115,7 @@
                         </div>
                     </div>
                 </div>
+                @endif
             </div>
 
         </div>

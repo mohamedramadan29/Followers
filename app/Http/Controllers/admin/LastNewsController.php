@@ -30,7 +30,8 @@ class LastNewsController extends Controller
             $rules = [
                 'title' => 'required',
                 'content' => 'required',
-
+                'category' => 'required',
+                'publish_date' => 'required|date|after_or_equal:today',
             ];
             if ($request->hasFile('image')) {
                 $rules['image'] = 'required|image|mimes:jpg,png,jpeg,webp';
@@ -38,6 +39,10 @@ class LastNewsController extends Controller
             $messages = [
                 'title.required' => ' من فضلك ادخل العنوان',
                 'content.required' => ' من فضلك ادخل المحتوى',
+                'category.required' => ' من فضلك ادخل التصنيف',
+                'publish_date.required' => ' من فضلك ادخل تاريخ النشر',
+                'publish_date.date' => ' من فضلك ادخل تاريخ صحيح',
+                'publish_date.after_or_equal' => ' من فضلك ادخل تاريخ صحيح',
                 'image.required' => ' من فضلك ادخل الصورة',
                 'image.mimes' => ' من فضلك يجب ان يكون نوع الصورة jpg,png,jpeg,webp',
             ];
@@ -54,7 +59,11 @@ class LastNewsController extends Controller
             $news->content = $request->content;
             $news->user_id = Auth::guard('admin')->user()->id;
             $news->status = 1;
-            $news->image = $filename;
+            $news->category = $request->category;
+            $news->publish_date = $request->publish_date;
+            if ($request->hasFile('image')) {
+                $news->image = $filename;
+            }
             $news->save();
             return $this->success_message( ' تم اضافة الخبر بنجاح');
         }
@@ -72,6 +81,8 @@ class LastNewsController extends Controller
             $rules = [
                 'title' => 'required',
                 'content' => 'required',
+                'category' => 'required',
+                'publish_date' => 'required|date|after_or_equal:today',
             ];
             if ($request->hasFile('image')) {
                 $rules['image'] = 'required|image|mimes:jpg,png,jpeg,webp';
@@ -103,6 +114,8 @@ class LastNewsController extends Controller
             $news->title = $request->title;
             $news->content = $request->content;
             $news->user_id = Auth::guard('admin')->user()->id;
+            $news->category = $request->category;
+            $news->publish_date = $request->publish_date;
             $news->save();
             return $this->success_message(' تم تعديل الخبر بنجاح');
         }

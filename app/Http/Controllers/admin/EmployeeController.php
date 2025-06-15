@@ -114,12 +114,12 @@ class EmployeeController extends Controller
         $roles = Role::all();
         return view('admin.admins.update', compact('admin', 'roles'));
     }
-    public function destroy($id)
+    public function delete($id)
     {
 
         $admin = admin::find($id);
         if ($admin->id == 1) {
-            return $this->Error_message('لا يمكن حذف المستخدم المدير');
+            return $this->Error_message('لا يمكن حذف المدير');
         }
         $admin->delete();
         return $this->success_message('تم حذف المستخدم بنجاح');
