@@ -16,4 +16,10 @@ class WalletController extends Controller
         $expenses = Expense::orderBy('id','desc')->get();
         return view('admin.wallet.index',compact('expenses'));
     }
+    public function WalletPayments(){
+        return view('admin.wallet.payments-data');
+    }
+    public function PaymentShow($id){
+
+    }
 }

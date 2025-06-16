@@ -15,20 +15,26 @@ return new class extends Migration
             $table->id();
             $table->string('website_name')->default(' متجر المتابعين  ');
             $table->string('website_logo')->nullable();
+            $table->string('website_favicon')->nullable();
+            $table->longText('about_website');
             $table->string('website_short_desc')->nullable();
             $table->string('website_description')->nullable();
             $table->string('website_keywords')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
             $table->string('facebook')->nullable();
-            $table->string(column: 'twitter')->nullable();
+            $table->string('twitter')->nullable();
             $table->string('instagram')->nullable();
             $table->string('linkedin')->nullable();
-            $table->string(column: 'youtube')->nullable();
+            $table->string('youtube')->nullable();
             $table->string('snapchap')->nullable();
             $table->string('pinterest')->nullable();
             $table->string('whatsapp')->nullable();
             $table->tinyInteger('active_bot')->default(1);
+            #########
+            $table->string('autentication_number')->nullable();
+            $table->string('commercial_number')->nullable();
+            $table->string('tax_number')->nullable();
             $table->timestamps();
         });
     }

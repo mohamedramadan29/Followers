@@ -6,18 +6,17 @@
     <!-- ==================================================== -->
     <div class="page-content">
         <div class="container-xxl">
-            <div class="row">
-                <h4> المحفظة </h4>
+            <div class="row"> 
                 <form action="#" method="get" class="d-flex" style="justify-content: space-between;align-items: center">
                     <ul class="list-unstyled orders-tabs" style="widows: 90%">
                         <li>
-                            <a href="" class="all active"> المحفظة </a>
+                            <a href="{{ url('admin/wallet/index') }}" class="all active"> المحفظة </a>
                         </li>
                         <li>
-                            <a href="#" class="all"> سجل المدفوعات </a>
+                            <a href="{{ url('admin/wallet/payments') }}" class="all"> سجل المدفوعات </a>
                         </li>
                         <li>
-                            <a href="#" class="all"> طرق الدفع </a>
+                            <a href="{{ url('admin/wallet/payment-methods') }}" class="all"> طرق الدفع </a>
                         </li>
                     </ul>
                 </form>

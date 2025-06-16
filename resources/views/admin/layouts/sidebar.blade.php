@@ -301,8 +301,19 @@
             </li>
             {{-- @endcan --}}
 
+             {{-- @can('wallet') --}}
+             <li class="nav-item">
+                <a class="nav-link menu-arrow @yield('page-active')" href="{{ url('admin/pages') }}">
+                    <span class="nav-icon">
+                        <i class="bi bi-browser-edge"></i>
+                    </span>
+                    <span class="nav-text"> الصفحات التعريفية </span>
+                </a>
+            </li>
+            {{-- @endcan --}}
 
 
+{{-- 
 
             <li class="nav-item">
                 <a class="nav-link menu-arrow" href="#sidebarterms" data-bs-toggle="collapse" role="button"
@@ -328,7 +339,7 @@
 
                     </ul>
                 </div>
-            </li>
+            </li> --}}
 
 
 

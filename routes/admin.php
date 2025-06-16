@@ -17,11 +17,15 @@ use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\admin\EmployeeController;
 use App\Http\Controllers\admin\LastNewsController;
 use App\Http\Controllers\admin\ProviderController;
+use App\Http\Controllers\admin\HandPaymentController;
 use App\Http\Controllers\admin\SubCategoryController;
 use App\Http\Controllers\admin\MainCategoryController;
 use App\Http\Controllers\admin\NotificationController;
+use App\Http\Controllers\admin\PaymentCardsController;
 use \App\Http\Controllers\admin\BlogCategoryController;
+use App\Http\Controllers\admin\PagesController;
 use App\Http\Controllers\admin\PublicSettingController;
+use App\Http\Controllers\admin\PaymentMethodsController;
 use App\Http\Controllers\admin\SupportTicketsController;
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
@@ -230,6 +234,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::group(['prefix' => 'wallet', 'as' => 'wallet.', 'can' => 'wallet'], function () {
             Route::controller(WalletController::class)->group(function () {
                 Route::get('index', 'index')->name('index');
+                   ############## Payments Report ###########
+                   Route::get('payments','WalletPayments');
+                   Route::get('payment/show/{id}','PaymentShow');
             });
         });
         ################### End Wallet Controller #########################
@@ -243,5 +250,38 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
             });
         });
         ################### End Expense Controller #########################
+        ################## Start PaymentMethods Controller #################
+        Route::controller(PaymentMethodsController::class)->group(function(){
+            Route::get('wallet/payment-methods','index');
+        });
+        ################## End PaymentMethods Controller ###################
+
+        ################ Start PaymentMethods Card #####################
+
+        Route::controller(PaymentCardsController::class)->group(function(){
+            Route::get('wallet/payments/card','index');
+            Route::match(['post','get'],'wallet/payment/card/store','store');
+            Route::match(['post','get'],'wallet/payment/card/update/{id}','update');
+            Route::match(['post','get'],'wallet/payment/card/delete/{id}','delete');
+        });
+        ################# End PaymentMethods Card #####################
+
+        ################ Start PaymentMethods Hand #####################
+
+        Route::controller(HandPaymentController::class)->group(function(){
+            Route::get('wallet/payments/hand','index');
+            Route::match(['post','get'],'wallet/payment/hand/store','store');
+            Route::match(['post','get'],'wallet/payment/hand/update/{id}','update');
+            Route::match(['post','get'],'wallet/payment/hand/delete/{id}','delete');
+        });
+        ################# End PaymentMethods Hand #####################
+        ################# Start Page Controller ######################
+        Route::controller(PagesController::class)->group(function(){
+            Route::get('pages','index');
+            Route::match(['post','get'],'page/store','store');
+            Route::match(['post','get'],'page/update/{id}','update');
+            Route::match(['post','get'],'page/delete/{id}','delete');
+        });
+        ################## End Page Controller #######################
     });
 });

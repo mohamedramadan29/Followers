@@ -428,5 +428,84 @@ td span.badge {
     height: 25px;
 }
 
+/*********** Start Payments Page ************/
+.payments-main-report .wallet-payments-success h4 {
+    border-right: 3px solid green;
+    padding-right: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.payments-main-report .wallet-payments-success h4 i {
+    color: #fff;
+    font-size: 20px;
+    background: green;
+    border-radius: 50%;
+    width: 23px;
+    height: 23px;
+    text-align: center;
+    line-height: 30px;
+}
+
+.payments-main-report .wallet-payments-warning h4 {
+    border-right: 3px solid orange;
+    padding-right: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.payments-main-report .wallet-payments-warning h4 i {
+    color: #fff;
+    font-size: 20px;
+    background: orange;
+    border-radius: 50%;
+    width: 23px;
+    height: 23px;
+    text-align: center;
+    line-height: 30px;
+}
+
+.payments-main-report .wallet-payments-danger h4 {
+    border-right: 3px solid red;
+    padding-right: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.payments-main-report .wallet-payments-danger h4 i {
+    color: #fff;
+    font-size: 20px;
+    background: red;
+    border-radius: 50%;
+    width: 23px;
+    height: 23px;
+    text-align: center;
+    line-height: 30px;
+}
+
+/************** End Payments Page ************/
 
 /************* End Wallet Page **************/
+
+/***************** Start Card Numbr Page ************/
+
+.cardnumbersection {}
+
+.cardnumbersection .cardnumberinputs {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cardnumbersection .cardnumberinputs .newcardnumbersugest {
+    background-color: transparent;
+    color: var(--main-color);
+    text-decoration: underline;
+    border: none;
+    cursor: pointer;
+}
+
+/***************** End Card Number Page *************/
