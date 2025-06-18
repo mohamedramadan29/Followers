@@ -54,6 +54,14 @@
         enableResumableUpload: false,
         showUpload: false,
     });
+    $("#single-image2").fileinput({
+        theme: 'bs5',
+        allowedFileTypes: ['image'],
+        language: lang,
+        maxFileCount: 1,
+        enableResumableUpload: false,
+        showUpload: false,
+    });
 </script>
 <!--- Start tinymce -->
 <script>

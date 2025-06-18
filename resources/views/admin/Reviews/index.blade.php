@@ -1,7 +1,6 @@
 @extends('admin.layouts.master')
-@section('title')
-    التقيمات
-@endsection
+@section('title', 'التقيمات')
+@section('reviews-active', 'active')
 @section('css')
     {{--    <!-- DataTables CSS --> --}}
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
@@ -9,22 +8,9 @@
 @section('content')
     <!-- ==================================================== -->
     <div class="page-content">
-
         <!-- Start Container Fluid -->
         <div class="container-xxl">
             <div class="row">
-                @if (Session::has('Success_message'))
-                    @php
-                        toastify()->success(\Illuminate\Support\Facades\Session::get('Success_message'));
-                    @endphp
-                @endif
-                @if ($errors->any())
-                    @foreach ($errors->all() as $error)
-                        @php
-                            toastify()->error($error);
-                        @endphp
-                    @endforeach
-                @endif
                 @if ($reviews->isEmpty())
                     <div class="empty-data">
                         <div class="row">
@@ -58,14 +44,9 @@
                                 <div class="table-responsive">
                                     <table id="table-search"
                                         class="table mb-0 align-middle table-bordered gridjs-table table-hover table-centered">
-                                        <thead class="bg-light-subtle">
+                                        <thead class="bg-light-subtle table-primary-custome">
                                             <tr>
-                                                <th style="width: 20px;">
-                                                    <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input" id="customCheck1">
-                                                        <label class="form-check-label" for="customCheck1"></label>
-                                                    </div>
-                                                </th>
+                                                <th># </th>
                                                 <th> الاسم </th>
                                                 <th> الخدمة </th>
                                                 <th> رقم الطلب </th>
@@ -90,23 +71,32 @@
                                                     <td> {{ $review['created_at']->format('Y-m-d') }} </td>
                                                     <td>
                                                         @if ($review['status'] == 1)
-                                                            <span class="badge badge-outline-warning"> فعال </span>
+                                                            <span class="badge badge-success bg-success"> فعال </span>
                                                         @else
-                                                            <span class="badge badge-soft-danger"> غير فعال </span>
+                                                            <span class="badge badge-danger bg-danger"> غير فعال </span>
                                                         @endif
                                                     </td>
                                                     <td>
                                                         <div class="gap-2 d-flex">
+                                                            @if ($review['status'] == 1)
+                                                                <a href="{{ url('admin/review/status/' . $review['id']) }}"
+                                                                    class="color-success">
+                                                                    <i class="bi bi-check2-circle"></i>
+                                                                </a>
+                                                            @else
+                                                                <a href="{{ url('admin/review/status/' . $review['id']) }}"
+                                                                    class="color-danger">
+                                                                    <i class="bi bi-x-circle"></i>
+                                                                </a>
+                                                            @endif
                                                             <a href="{{ url('admin/review/update/' . $review['id']) }}"
-                                                                type="button" class="btn btn-primary btn-sm">
-                                                                <iconify-icon icon="solar:pen-2-broken"
-                                                                    class="align-middle fs-18"></iconify-icon>
+                                                                class="color-primary">
+                                                                <i class="ti ti-edit"></i>
                                                             </a>
-                                                            <button type="button" class="btn btn-danger btn-sm"
+                                                            <button type="button" class="color-danger"
                                                                 data-bs-toggle="modal"
-                                                                data-bs-target="#delete_message_{{ $review['id'] }}">
-                                                                <iconify-icon icon="solar:trash-bin-minimalistic-2-broken"
-                                                                    class="align-middle fs-18"></iconify-icon>
+                                                                data-bs-target="#delete_category_{{ $review['id'] }}">
+                                                                <i class="ti ti-trash"></i>
                                                             </button>
                                                         </div>
                                                     </td>
@@ -150,6 +140,7 @@
 
             // تهيئة DataTables من جديد
             $('#table-search').DataTable({
+                "ordering": false,
                 "language": {
                     "search": "بحث:",
                     "lengthMenu": "عرض _MENU_ عناصر لكل صفحة",

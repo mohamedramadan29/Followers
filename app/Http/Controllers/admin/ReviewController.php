@@ -28,16 +28,23 @@ class ReviewController extends Controller
             try {
                 $data = $request->all();
 
-                // dd($data);
+                 //dd($data);
                 $rules = [
                     'rating'=>'required',
                     'name'=>'required',
-                    'content'=>'required'
+                    'content'=>'required',
+                    'published_date'=>'required|date|after_or_equal:today',
+                    'status'=>'required|in:0,1',
                 ];
                 $messages = [
                     'rating.required'=>' من فضلك ادخل التقيم  ',
                     'name.required'=>' من فضلك ادخل الاسم   ',
                     'content.required'=>' من فضلك ادخل التقيم  ',
+                    'published_date.required'=>' من فضلك ادخل تاريخ النشر  ',
+                    'published_date.date'=>' من فضلك ادخل تاريخ صحيح  ',
+                    'published_date.after_or_equal'=>' من فضلك ادخل تاريخ صحيح  ',
+                    'status.required'=>' من فضلك ادخل حالة التقيم  ',
+                    'status.in'=>' من فضلك ادخل حالة صحيح  ',
                 ];
                 $validator = Validator::make($data, $rules, $messages);
                 if ($validator->fails()) {
@@ -49,8 +56,9 @@ class ReviewController extends Controller
                     'user_id'=>Auth::guard('admin')->id(),
                     'name' => $data['name'],
                     'description' => $data['content'],
-                    'rating'=>$data['rating'],
+                    'rate'=>$data['rating'],
                     'service_id'=>$data['service_id'],
+                    'published_date'=>$data['published_date'],
                     'status'=>$data['status'],
                 ]);
 
@@ -108,4 +116,12 @@ class ReviewController extends Controller
         return $this->success_message(' تم حذف التقيم بنجاح  ');
     }
 
+    public function status($id)
+    {
+        $review = Review::findOrFail($id);
+        $review->update([
+            'status'=> $review->status == 1 ? 0 : 1,
+        ]);
+        return $this->success_message(' تم تعديل حالة التقيم بنجاح  ');
+    }
 }

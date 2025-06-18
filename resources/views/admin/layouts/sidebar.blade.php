@@ -92,9 +92,9 @@
             @endcan
             @can('reviews')
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('admin/reviews') }}">
+                    <a class="nav-link @yield('reviews-active')" href="{{ url('admin/reviews') }}">
                         <span class="nav-icon">
-                            <i class="bi bi-person-raised-hand"></i>
+                            <i class="bi bi-stack"></i>
                         </span>
                         <span class="nav-text"> التقيمات </span>
                     </a>
@@ -124,21 +124,24 @@
             @endcan
             {{-- @can('products') --}}
             <li class="nav-item">
-                <a class="nav-link menu-arrow" href="#sidebarProducts" data-bs-toggle="collapse" role="button"
+                <a class="nav-link menu-arrow @yield('products-active')" href="#sidebarProducts" data-bs-toggle="collapse" role="button"
                     aria-expanded="false" aria-controls="sidebarProducts">
                     <span class="nav-icon">
                         <i class="bi bi-hdd-stack-fill"></i>
                     </span>
                     <span class="nav-text"> الخدمات </span>
                 </a>
-                <div class="collapse" id="sidebarProducts">
+                <div class="collapse @yield('products-collapse')" id="sidebarProducts">
                     <ul class="nav sub-navbar-nav">
 
                         <li class="sub-nav-item">
-                            <a class="sub-nav-link" href="{{ url('admin/products') }}"> جميع الخدمات </a>
+                            <a class="sub-nav-link @yield('products-active')" href="{{ url('admin/products') }}"> جميع الخدمات </a>
                         </li>
                         <li class="sub-nav-item">
-                            <a class="sub-nav-link" href="{{ url('admin/product/add') }}"> اضف خدمة جديدة </a>
+                            <a class="sub-nav-link @yield('products-active')" href="{{ url('admin/product/add') }}"> اضف خدمة جديدة </a>
+                        </li>
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link @yield('products-active')" href="{{ url('admin/main-categories') }}"> جميع الأقسام </a>
                         </li>
                     </ul>
                 </div>
@@ -313,7 +316,7 @@
             {{-- @endcan --}}
 
 
-{{-- 
+{{--
 
             <li class="nav-item">
                 <a class="nav-link menu-arrow" href="#sidebarterms" data-bs-toggle="collapse" role="button"
@@ -344,13 +347,12 @@
 
 
             <li class="mt-2 menu-title"> اعدادات الموقع</li>
-
-            <li class="nav-item">
+            <li class="nav-item @yield('publicsetting-active')">
                 <a class="nav-link" href="{{ url('admin/public-setting/update') }}">
                     <span class="nav-icon">
                         <iconify-icon icon="solar:settings-bold-duotone"></iconify-icon>
                     </span>
-                    <span class="nav-text"> الاعدادات العامة </span>
+                    <span class="nav-text"> الاعدادات   </span>
                 </a>
             </li>
 
@@ -366,7 +368,7 @@
                 </a>
             </li>
 
-
+{{--
 
             <li class="mt-2 menu-title"> المستخدمين</li>
 
@@ -391,7 +393,7 @@
                         </li>
                     </ul>
                 </div>
-            </li>
+            </li> --}}
 
 
 

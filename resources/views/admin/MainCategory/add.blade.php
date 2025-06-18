@@ -1,8 +1,7 @@
 @extends('admin.layouts.master')
-@section('title')
-    الخدمات
-@endsection
-
+@section('title','اضافة قسم جديد')
+@section('products-active','active')
+@section('products-collapse','show')
 @section('content')
     <!-- ==================================================== -->
     <div class="page-content">
@@ -13,18 +12,6 @@
                 @csrf
                 <div class="row">
                     <div class="col-xl-12 col-lg-12">
-                        @if (Session::has('Success_message'))
-                            @php
-                                toastify()->success(\Illuminate\Support\Facades\Session::get('Success_message'));
-                            @endphp
-                        @endif
-                        @if ($errors->any())
-                            @foreach ($errors->all() as $error)
-                                @php
-                                    toastify()->error($error);
-                                @endphp
-                            @endforeach
-                        @endif
                         <div class="card" style="background-color: #F2F2F8">
                             <div class="card-header">
                                 <h4 class="card-title"> اضافة قسم جديد </h4>

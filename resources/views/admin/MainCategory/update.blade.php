@@ -2,7 +2,8 @@
 @section('title')
     تعديل القسم - {{ $category['name'] }}
 @endsection
-
+@section('products-active','active')
+@section('products-collapse','show')
 @section('content')
     <!-- ==================================================== -->
     <div class="page-content">
@@ -14,18 +15,6 @@
                 @csrf
                 <div class="row">
                     <div class="col-xl-12 col-lg-12">
-                        @if (Session::has('Success_message'))
-                            @php
-                                toastify()->success(\Illuminate\Support\Facades\Session::get('Success_message'));
-                            @endphp
-                        @endif
-                        @if ($errors->any())
-                            @foreach ($errors->all() as $error)
-                                @php
-                                    toastify()->error($error);
-                                @endphp
-                            @endforeach
-                        @endif
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="card-title"> تعديل القسم </h4>

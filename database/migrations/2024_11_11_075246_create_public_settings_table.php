@@ -16,10 +16,10 @@ return new class extends Migration
             $table->string('website_name')->default(' متجر المتابعين  ');
             $table->string('website_logo')->nullable();
             $table->string('website_favicon')->nullable();
-            $table->longText('about_website');
+            $table->longText('about_website')->nullable();
             $table->string('website_short_desc')->nullable();
             $table->string('website_description')->nullable();
-            $table->string('website_keywords')->nullable();
+            $table->string('meta_keywords')->nullable();/////////////////
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
             $table->string('facebook')->nullable();
@@ -35,6 +35,9 @@ return new class extends Migration
             $table->string('autentication_number')->nullable();
             $table->string('commercial_number')->nullable();
             $table->string('tax_number')->nullable();
+            #########
+            $table->longText('robots_txt')->nullable();
+            $table->string('site_map_url')->nullable();
             $table->timestamps();
         });
     }

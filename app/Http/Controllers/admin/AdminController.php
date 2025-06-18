@@ -113,7 +113,7 @@ class AdminController extends Controller
             }
         }
         $admin_data = Admin::where('email', Auth::guard('admin')->user()->email)->first();
-        return view('admin.AdminSetting.update_admin_password', compact('admin_data'));
+        return view('admin.AdminSetting.update_admin_data', compact('admin_data'));
     }
 
     ///////////////// Update Admin Details  //////////

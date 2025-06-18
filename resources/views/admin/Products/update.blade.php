@@ -1,30 +1,13 @@
 @extends('admin.layouts.master')
-@section('title')
-    تعديل الخدمة
-@endsection
+@section('title','تعديل الخدمة')
+@section('products-active','active')
+@section('products-collapse','show')
 @section('css')
 @endsection
 @section('content')
     <div class="page-content">
         <!-- Start Container Fluid -->
         <div class="container-xxl">
-            @if (Session::has('Success_message'))
-                @php
-                    toastify()->success(\Illuminate\Support\Facades\Session::get('Success_message'));
-                @endphp
-            @endif
-            @if (Session::has('Error_message'))
-                @php
-                    toastify()->error(\Illuminate\Support\Facades\Session::get('Error_message'));
-                @endphp
-            @endif
-            @if ($errors->any())
-                @foreach ($errors->all() as $error)
-                    @php
-                        echo '<div class="alert alert-danger">' . $error . '</div>';
-                    @endphp
-                @endforeach
-            @endif
             <form method="post" action="{{ url('admin/product/update/' . $product['slug']) }}" enctype="multipart/form-data">
                 @csrf
                 <div class="row">

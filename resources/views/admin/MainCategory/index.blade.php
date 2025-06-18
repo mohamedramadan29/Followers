@@ -2,6 +2,8 @@
 @section('title')
     الاقسام الرئيسية
 @endsection
+@section('products-active','active')
+@section('products-collapse','show')
 @section('css')
     {{--    <!-- DataTables CSS --> --}}
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
@@ -12,18 +14,6 @@
         <!-- Start Container Fluid -->
         <div class="container-xxl">
             <div class="row">
-                @if (Session::has('Success_message'))
-                    @php
-                        toastify()->success(\Illuminate\Support\Facades\Session::get('Success_message'));
-                    @endphp
-                @endif
-                @if ($errors->any())
-                    @foreach ($errors->all() as $error)
-                        @php
-                            toastify()->error($error);
-                        @endphp
-                    @endforeach
-                @endif
                 <div class="col-xl-12">
                     <div class="card">
                         <div class="gap-1 card-header d-flex justify-content-between align-items-center">

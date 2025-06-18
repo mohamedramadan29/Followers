@@ -28,7 +28,7 @@
                                 @endphp
                             @endforeach
                         @endif
-                        <div class="card">
+                        <div class="card" style="background-color: #F2F2F8">
                             <div class="card-header">
                                 <h4 class="card-title"> حسابي - تعديل كلمة المرور </h4>
                             </div>

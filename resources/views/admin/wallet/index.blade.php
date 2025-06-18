@@ -6,7 +6,7 @@
     <!-- ==================================================== -->
     <div class="page-content">
         <div class="container-xxl">
-            <div class="row"> 
+            <div class="row">
                 <form action="#" method="get" class="d-flex" style="justify-content: space-between;align-items: center">
                     <ul class="list-unstyled orders-tabs" style="widows: 90%">
                         <li>

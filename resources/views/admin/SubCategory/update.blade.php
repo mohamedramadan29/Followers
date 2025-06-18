@@ -2,6 +2,8 @@
 @section('title')
     تعديل القسم الفرعي - {{ $category['name'] }}
 @endsection
+@section('products-active','active')
+@section('products-collapse','show')
 @section('css')
 @endsection
 @section('content')
@@ -13,21 +15,8 @@
             <form method="post" action="{{ url('admin/sub-category/update/' . $category['id']) }}"
                 enctype="multipart/form-data">
                 @csrf
-
                 <div class="row">
                     <div class="col-xl-12 col-lg-12">
-                        @if (Session::has('Success_message'))
-                            @php
-                                toastify()->success(\Illuminate\Support\Facades\Session::get('Success_message'));
-                            @endphp
-                        @endif
-                        @if ($errors->any())
-                            @foreach ($errors->all() as $error)
-                                @php
-                                    toastify()->error($error);
-                                @endphp
-                            @endforeach
-                        @endif
                         <div class="card" style="background-color: #F2F2F8">
                             <div class="card-header">
                                 <h4 class="card-title"> المعلومات العامة </h4>

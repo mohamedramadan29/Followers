@@ -53,6 +53,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
         Route::controller(PublicSettingController::class)->group(function () {
             Route::match(['post', 'get'], 'public-setting/update', 'update');
+            Route::match(['post', 'get'], 'public-setting/seo-data', 'updateSeo');
+            Route::match(['post', 'get'], 'public-setting/robots-data', 'updateRobots');
         });
 
 
@@ -123,6 +125,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
                 Route::get('reviews', 'index');
                 Route::match(['post', 'get'], 'review/store', 'store');
                 Route::match(['post', 'get'], 'review/update/{id}', 'update');
+                Route::match(['post', 'get'], 'review/status/{id}', 'status');
                 Route::post('review/delete/{id}', 'delete');
             });
         });

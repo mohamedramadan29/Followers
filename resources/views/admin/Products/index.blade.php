@@ -13,18 +13,6 @@
         <!-- Start Container Fluid -->
         <div class="container-xxl">
             <div class="row">
-                @if (Session::has('Success_message'))
-                    @php
-                        toastify()->success(\Illuminate\Support\Facades\Session::get('Success_message'));
-                    @endphp
-                @endif
-                @if ($errors->any())
-                    @foreach ($errors->all() as $error)
-                        @php
-                            toastify()->error($error);
-                        @endphp
-                    @endforeach
-                @endif
                 @if ($products->isEmpty())
                 <div class="empty-data">
                     <div class="row">
@@ -40,6 +28,10 @@
                             </p>
                             <a href="{{ url('admin/product/add') }}" class="btn btn-sm btn-primary">
                                 اضافة خدمة جديدة
+                                <i class="ti ti-plus"></i>
+                            </a>
+                            <a href="{{ url('admin/main-category/add') }}" class="btn btn-sm btn-primary">
+                                 اضافة قسم جديد
                                 <i class="ti ti-plus"></i>
                             </a>
                         </div>
