@@ -1,5 +1,4 @@
 @php
-    $publicsetting = \App\Models\admin\PublicSetting::first();
     $maincategories = \App\Models\admin\MainCategory::where('status', 1)->get();
 @endphp
 
@@ -8,13 +7,12 @@
     <button type="button" class="close-button"> <i class="las la-times"></i> </button>
     <div class="mobile-menu__inner">
         <a href="{{ url('/') }}" class="mobile-menu__logo">
-            <img width="60px" src="{{ asset('assets/uploads/PublicSetting/' . $publicsetting['website_logo']) }}"
-                alt="{{ $publicsetting['website_name'] }}" class="white-version">
-            <img width="60px" src="{{ asset('assets/uploads/PublicSetting/' . $publicsetting['website_logo']) }}"
-                alt="{{ $publicsetting['website_name'] }}" class="dark-version">
+            <img width="60px" src="{{ $setting['website_logo'] }}" alt="{{ $setting['website_name'] }}"
+                class="white-version">
+            <img width="60px" src="{{ $setting['website_logo'] }}" alt="{{ $setting['website_name'] }}"
+                class="dark-version">
         </a>
         <div class="mobile-menu__menu">
-
             <ul class="nav-menu flx-align nav-menu--mobile">
                 <li class="nav-menu__item">
                     <a href="{{ url('/') }}" class="nav-menu__link">الرئيسية </a>
@@ -42,7 +40,7 @@
 
             </ul>
             @if (!Auth::check())
-                <div class="header-right__inner d-lg-none my-3 gap-1 d-flex flx-align">
+                <div class="gap-1 my-3 header-right__inner d-lg-none d-flex flx-align">
                     <a href="{{ url('login') }}" class="btn btn-main pill">
                         <span class="icon-left icon">
                             <img src="{{ asset('assets/front/') }}/images/icons/user.svg" alt="">
@@ -62,12 +60,10 @@
                 <!-- Logo Start -->
                 <div class="logo">
                     <a href="{{ url('/') }}" class="link white-version">
-                        <img src="{{ asset('assets/uploads/PublicSetting/' . $publicsetting['website_logo']) }}"
-                            alt="{{ $publicsetting['website_name'] }}">
+                        <img src="{{ $setting['website_logo'] }}" alt="{{ $setting['website_name'] }}">
                     </a>
                     <a href="{{ url('/') }}" class="link dark-version">
-                        <img src="{{ asset('assets/uploads/PublicSetting/' . $publicsetting['website_logo']) }}"
-                            alt="{{ $publicsetting['website_name'] }}">
+                        <img src="{{ $setting['website_logo'] }}" alt="{{ $setting['website_name'] }}">
                     </a>
                 </div>
                 <!-- Logo End  -->
@@ -75,7 +71,7 @@
                 <!-- Menu Start  -->
                 <div class="header-menu d-lg-block d-none">
 
-                    <ul class="nav-menu flx-align ">
+                    <ul class="nav-menu flx-align">
                         <li class="nav-menu__item">
                             <a href="{{ url('/') }}" class="nav-menu__link">الرئيسية </a>
                         </li>
@@ -108,15 +104,15 @@
                         @endphp
                         <!-- ############# Start User Notifications ############# -->
                         <div class="notifications dropdown">
-                            <a href="#" class="header-right__button cart-btn position-relative dropdown-toggle"
+                            {{-- <a href="#" class="header-right__button cart-btn position-relative dropdown-toggle"
                                 type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi bi-bell"></i>
                                 @if ($unreadNotificationsUsers->count() > 0)
                                     <span class="qty-badge font-12">{{ $unreadNotificationsUsers->count() }}</span>
                                 @endif
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end p-2" style="width: 300px;">
-                                <li class="d-flex justify-content-between align-items-center px-2">
+                            </a> --}}
+                            <ul class="p-2 dropdown-menu dropdown-menu-end" style="width: 300px;">
+                                <li class="px-2 d-flex justify-content-between align-items-center">
                                     <span class="fw-bold">الإشعارات</span>
                                     <div>
                                         <a href="{{ route('notifications.markAllRead') }}"
@@ -130,14 +126,14 @@
                                 @if ($unreadNotificationsUsers->count() > 0)
                                     @foreach ($unreadNotificationsUsers as $notification)
                                         <li>
-                                            <a class="dropdown-item d-flex align-items-center py-2" href="#">
+                                            <a class="py-2 dropdown-item d-flex align-items-center" href="#">
                                                 <i class="bi bi-dot text-danger me-2"></i>
                                                 <span>{{ $notification->data['message'] }}</span>
                                             </a>
                                         </li>
                                     @endforeach
                                 @else
-                                    <li class="text-center py-2 text-muted">لا يوجد إشعارات جديدة</li>
+                                    <li class="py-2 text-center text-muted">لا يوجد إشعارات جديدة</li>
                                 @endif
 
                                 <li>
@@ -154,7 +150,7 @@
 
 
                     @if (!Auth::check())
-                        <div class="header-right__inner gap-3 flx-align d-lg-flex d-none">
+                        <div class="gap-3 header-right__inner flx-align d-lg-flex d-none">
                             <a href="{{ url('login') }}" class="btn btn-main pill">
                                 <span class="icon-left icon">
                                     <img src="{{ asset('assets/front/') }}/images/icons/user.svg" alt="">
@@ -162,7 +158,11 @@
                             </a>
                         </div>
                     @else
-                        <div class="user-profile ">
+                        <div class="user-profile">
+                            <span style="color: #000;margin-left:20px"> رصيدك الحالي <br>
+                                <strong style="color: #D9272A;font-weight: bold">
+                                    {{ number_format(Auth::user()->balance, 4) }} $</strong>
+                            </span>
                             <button class="user-profile__button flex-align">
                                 <span class="user-profile__thumb">
                                     @if (Auth::user()->image != '')

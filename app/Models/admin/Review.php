@@ -13,6 +13,6 @@ class Review extends Model
 
     public function service()
     {
-        return $this->belongsTo(Product::class,'service_id');
+        return $this->belongsTo(Product::class,'product_id');
     }
 }

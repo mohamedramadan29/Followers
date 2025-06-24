@@ -1,8 +1,3 @@
-@php
-
-    $publicsetting = \App\Models\admin\PublicSetting::first();
-
-@endphp
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 
@@ -13,11 +8,11 @@
     <!-- Title -->
     <title> @yield('title') </title>
     <!-- Favicon -->
-    <link rel="shortcut icon" href="{{ asset('assets/uploads/PublicSetting/' . $publicsetting['website_logo']) }}">
+    <link rel="shortcut icon" href="{{ $setting['website_logo'] }}">
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="{{ asset('assets/front/') }}/css/bootstrap.min.css">
-
+    {{-- <link rel="stylesheet" href="{{ asset('assets/front/') }}/css/bootstrap.min.css"> --}}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
     <!-- Fontawesome -->
     <link rel="stylesheet" href="{{ asset('assets/front/') }}/css/fontawesome-all.min.css">
     <!-- Slick -->

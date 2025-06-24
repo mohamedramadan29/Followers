@@ -75,19 +75,23 @@
                                         </li>
                                     </ul>
                                 </div>
-                                @if (Session::has('Success_message'))
-                                    <div class="success-purches" id="success-purches">
+                                @if (session()->has('success_order'))
+                                    <div class="success-purches">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <h4> تم إرسال طلبك بنجاح </h4>
-                                            <i style="cursor: pointer;" class="bi bi-x-square" id="closeSuccessMessage"></i>
+                                            <i class="bi bi-x-square"></i>
                                         </div>
+
                                         <ul class="list-unstyled">
-                                            <li>رقم الطلب: <span>{{ session('order')->order_number }}</span></li>
-                                            <li>الخدمة: <span>{{ session('order')->name }}</span></li>
-                                            <li>الرابط: <span>{{ session('order')->page_link }}</span></li>
-                                            <li>الكمية: <span>{{ session('order')->quantity }}</span></li>
-                                            <li>سعر الطلب: <span>{{ session('order')->total_price }} $</span></li>
-                                            <li>الرصيد المتبقي: <span>{{ session('order')->user->balance }} $</span></li>
+                                            <li> رقم الطلب : <span> 343434 </span> </li>
+                                            <li> الخدمة : <span> زيادة مشاهدات تليجرام - خدمة جديدة - وصول سريع للتنفيذ -
+                                                    50.000
+                                                    باليوم </span> </li>
+                                            <li> الرابط : <span> https://nayefstor.com/recharge-balance/p512525813 </span>
+                                            </li>
+                                            <li> الكمية : <span> 100 </span> </li>
+                                            <li> سعر الطلب : <span> 0.13 </span> </li>
+                                            <li> الرصيد المتبقي: <span> 100 </span> </li>
                                         </ul>
                                     </div>
                                 @endif
@@ -95,7 +99,276 @@
                                     <div class="tab-pane fade show active" id="pills-price-select" role="tabpanel"
                                         aria-labelledby="pills-price-select-tab" tabindex="0">
                                         <br>
-                                        @livewire('front.livewire-event.product-details', ['slug' => $service['slug']])
+                                        <form action="{{ route('make_order') }}" autocomplete="off" method="post"
+                                            class="form-select-product-details">
+                                            @csrf
+                                            <p class="product-title"> {{ $service['meta_description'] }} </p>
+                                            @if ($service->Reviews->count() > 0)
+                                                <span class="gap-1 d-flex align-items-center stars">
+                                                    <span class="star-rating">
+                                                        @for ($i = 0; $i < 5; $i++)
+                                                            @if ($i < $service->Reviews->avg('rate'))
+                                                                <span class="star-rating__item font-11"><i
+                                                                        class="fas fa-star"></i></span>
+                                                            @else
+                                                                <span class="star-rating__item font-11"
+                                                                    style="color: #bcbbbb"><i
+                                                                        class="fas fa-star"></i></span>
+                                                            @endif
+                                                        @endfor
+                                                    </span>
+                                                    <span class="star-rating__text text-body"> (
+                                                        {{ $service->Reviews->count() }} تقيم ) </span>
+                                                </span>
+                                            @endif
+                                            <div class="mb-3 col-sm-12 col-xs-12">
+                                                <input type="hidden" name="website_serv_id" value="{{ $service['id'] }}">
+                                                <input required type="hidden" name="main_service"
+                                                    value="{{ $service['service_id'] }}">
+                                                <input type="hidden" required name="provider_id"
+                                                    value="{{ $service->provider_id }}">
+                                                <input type="hidden" name="service_refill" id="service_refill"
+                                                    value="">
+                                                <input type="hidden" name="service_cancel" id="service_cancel"
+                                                    value="">
+                                                <label for="Stateee" class="mb-2 form-label font-18 font-heading fw-600">
+                                                    حدد
+                                                    الخدمة </label>
+                                                <div class="select-has-icon">
+                                                    <select required class="border common-input" id="Stateee"
+                                                        name="sub_service_id">
+                                                        <option selected value="{{ $service->provider_service_id }}">
+                                                            {{ $service->name }} </option>
+                                                        @if ($service->SubServices->count() > 0)
+                                                            @foreach ($service->SubServices as $subservice)
+                                                                <option value="{{ $subservice['provider_service_id'] }}">
+                                                                    {{ $subservice['name'] }} </option>
+                                                            @endforeach
+                                                        @endif
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 col-sm-12 col-xs-12">
+                                                <div class="service_price">
+                                                    <p> السعر لكل <span
+                                                            id="min_quantity">{{ $service_from_provider->min }}</span>
+                                                    </p>
+                                                    <h6 id="total_price_for_min">
+                                                        {{ number_format($service_from_provider->final_price, 4) }} $
+                                                    </h6>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 col-sm-12 col-xs-12">
+                                                <label for="account_link"
+                                                    class="mb-2 form-label font-18 font-heading fw-600">
+                                                    الرابط </label>
+                                                <input required type="url" name="account_link"
+                                                    class="border common-input common-input--grayBg" id="account_link"
+                                                    placeholder=" ضع رابط القناة أو الجروب هنا... ">
+                                            </div>
+                                            <div class="mb-3 col-sm-12 col-xs-12">
+                                                <label for="follower_num"
+                                                    class="mb-2 form-label font-18 font-heading fw-600">
+                                                    الكمية
+                                                </label>
+                                                <input type="number" required min="{{ $service_from_provider->min }}"
+                                                    max="{{ $service_from_provider->max }}" name="followers_num"
+                                                    class="common-input" id="follower_num"
+                                                    placeholder="ادخل العدد المطلوب">
+                                                <div class="min_max_quantity">
+                                                    <p> الحد الأدنى لطلب الخدمة هو <span
+                                                            id="min_quantity">{{ $service_from_provider->min }}</span>
+                                                    </p>
+                                                    <p> الحد الأقصى لطلب الخدمة هو <span
+                                                            id="max_quantity">{{ $service_from_provider->max }}</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <!-- New Speed -->
+                                            <div class="col-sm-12 col-xs-12">
+                                                <label for="account_link"
+                                                    class="mb-2 form-label font-18 font-heading fw-600">
+                                                    السرعة </label>
+                                            </div>
+                                            <div class="mb-3 col-sm-12 col-xs-12">
+                                                <div class="price_section">
+                                                    <h4 class="price">
+                                                        <span> 16 </span>
+                                                        <span> دقيقة </span>
+                                                    </h4>
+                                                </div>
+                                                <div class="min_max_quantity">
+                                                    <p> متوسط مدة التنفيذ لكل 100 زيادة بناءً على آخر 10 طلبات </p>
+                                                </div>
+                                            </div>
+                                            <!-- End New Speed  -->
+                                            <div class="col-sm-12 col-xs-12">
+                                                <label for="account_link"
+                                                    class="mb-2 form-label font-18 font-heading fw-600">
+                                                    السعــر </label>
+                                            </div>
+                                            <div class="mb-3 col-sm-12 col-xs-12 last_price">
+                                                <div class="price_section">
+                                                    <h4 class="price">
+                                                        <span
+                                                            id="final_price">{{ number_format($service_from_provider->final_price, 4) }}</span>
+                                                        <span> $ </span>
+                                                    </h4>
+                                                    <input type="hidden" id="hidden_final_price" name="final_price"
+                                                        value="">
+                                                </div>
+                                            </div>
+                                            <button type="submit"
+                                                class="gap-2 mt-32 btn btn-main d-flex w-100 justify-content-center align-items-center pill px-sm-5">
+                                                تأكيد الطلب
+                                                <img width="20px"
+                                                    src="{{ asset('assets/front/') }}/images/icons/shopping.png"
+                                                    alt="">
+                                            </button>
+                                            <div class="service_advantages">
+                                                <div class="row">
+                                                    <div class="col-lg-3 col-6">
+                                                        @if ($service['speed_active'] == 1)
+                                                            <div class="info">
+                                                                <i class="bi bi-lightning"></i>
+                                                                <p> السرعة </p>
+                                                                <h5> {{ $service['speed_active_text'] }} </h5>
+                                                            </div>
+                                                        @else
+                                                            <div class="info disabled">
+                                                                <i class="bi bi-lightning"></i>
+                                                                <p> السرعة </p>
+                                                                <h5> غير متاح </h5>
+                                                            </div>
+                                                        @endif
+                                                    </div>
+                                                    <div class="col-lg-3 col-6">
+                                                        @if ($service['start_time'] == 1)
+                                                            <div class="info">
+                                                                <i class="bi bi-alarm"></i>
+                                                                <p> وقت البدء </p>
+                                                                <h5> {{ $service['start_time_text'] }} </h5>
+                                                            </div>
+                                                        @else
+                                                            <div class="info disabled">
+                                                                <i class="bi bi-alarm"></i>
+                                                                <p> وقت البدء </p>
+                                                                <h5> غير متاح </h5>
+                                                            </div>
+                                                        @endif
+                                                    </div>
+                                                    <div class="col-lg-3 col-6">
+                                                        @if ($service['security'] == 1)
+                                                            <div class="info">
+                                                                <i class="bi bi-trophy"></i>
+                                                                <p> الضمان </p>
+                                                                <h5> <i style="font-size: 12px;color:#23B120"
+                                                                        class="fa fa-check-circle"></i>
+                                                                    {{ $service['security_text'] }} </h5>
+                                                            </div>
+                                                        @else
+                                                            <div class="info disabled">
+                                                                <i class="bi bi-trophy"></i>
+                                                                <p> الضمان </p>
+                                                                <h5> غير متاح </h5>
+                                                            </div>
+                                                        @endif
+                                                    </div>
+                                                    <div class="col-lg-3 col-6">
+                                                        @if ($service['quality_status'] == 1)
+                                                            <div class="info">
+                                                                <i class="bi bi-check-square"></i>
+                                                                <p> الجودة </p>
+                                                                <div class="progress" role="progressbar"
+                                                                    aria-label="Basic example"
+                                                                    aria-valuenow="{{ $service['quality_percentage'] }}"
+                                                                    aria-valuemin="0" aria-valuemax="100">
+                                                                    <div class="progress-bar"
+                                                                        style="width: {{ $service['quality_percentage'] }}%">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        @else
+                                                            <div class="info disabled">
+                                                                <i class="bi bi-check-square"></i>
+                                                                <p> الجودة </p>
+                                                                <h5> غير متاح </h5>
+                                                            </div>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <script>
+                                            // عند تغيير الخدمة الفرعية من الـ select
+                                            document.getElementById('Stateee').addEventListener('change', function() {
+                                                const provider_service_id = this.value;
+                                                const service_id = "{{ $service['id'] }}"; // أخذ ID الخدمة من الـ Blade
+                                                if (provider_service_id) {
+                                                    // استرجاع البيانات من السيرفر عن طريق fetch
+                                                    fetch(`/get-sub-service-details/${service_id}/${provider_service_id}`)
+                                                        .then(response => response.json())
+                                                        .then(data => {
+                                                            // تحديث البيانات بناءً على الخدمة الفرعية
+                                                            document.getElementById('min_quantity').textContent = data.min;
+                                                            document.getElementById('max_quantity').textContent = data.max;
+                                                            document.getElementById('total_price_for_min').textContent = `${data.final_price} $`;
+                                                            document.getElementById('final_price').textContent = data.final_price;
+                                                            document.getElementById('hidden_final_price').value = data.final_price;
+                                                            document.getElementById('service_refill').value = data.service_refill;
+                                                            document.getElementById('service_cancel').value = data.service_cancel;
+                                                            const followerInput = document.getElementById('follower_num');
+                                                            const minQuantityElement = document.getElementById('min_quantity');
+                                                            const finalPriceElement = document.getElementById('final_price');
+                                                            const hiddenFinalPrice = document.getElementById('hidden_final_price');
+                                                            // تحديث القيم بناءً على الخدمة الفرعية
+                                                            const minQuantity = parseInt(data.min);
+                                                            const totalPriceForMin = parseFloat(data.final_price);
+                                                            unitPrice = totalPriceForMin / minQuantity; // حساب سعر الوحدة بناءً على الخدمة الفرعية
+                                                            followerInput.addEventListener('input', function() {
+                                                                const quantity = parseInt(followerInput.value);
+                                                                // التحقق إذا كان العدد المدخل أكبر من أو يساوي الحد الأدنى
+                                                                if (quantity >= parseInt(minQuantityElement.innerText)) {
+                                                                    const totalPrice = (quantity * unitPrice).toFixed(
+                                                                        4); // حساب السعر النهائي بناءً على الخدمة الأساسية أو الفرعية
+                                                                    finalPriceElement.innerText =
+                                                                        `${totalPrice}`; // تحديث السعر في الصفحة
+                                                                    hiddenFinalPrice.value = totalPrice;
+                                                                } else {
+                                                                    finalPriceElement.innerText = "0"; // في حال الإدخال أقل من الحد الأدنى
+                                                                    hiddenFinalPrice.value = "0";
+                                                                }
+                                                            });
+                                                        })
+                                                        .catch(error => console.error('Error:', error));
+                                                }
+                                            });
+                                            document.addEventListener("DOMContentLoaded", function() {
+                                                // العناصر المهمة
+                                                const followerInput = document.getElementById('follower_num');
+                                                const finalPriceElement = document.getElementById('final_price');
+                                                const totalPriceForMinElement = document.getElementById('total_price_for_min');
+                                                const minQuantityElement = document.getElementById('min_quantity');
+                                                const hiddenFinalPrice = document.getElementById('hidden_final_price'); //
+                                                let unitPrice = parseFloat(totalPriceForMinElement.innerText) / parseInt(minQuantityElement
+                                                    .innerText); // الحساب الأولي لسعر الوحدة من الخدمة الأساسية
+                                                // عند تغيير العدد المدخل، تحديث السعر النهائي
+                                                followerInput.addEventListener('input', function() {
+                                                    const quantity = parseInt(followerInput.value);
+                                                    // التحقق إذا كان العدد المدخل أكبر من أو يساوي الحد الأدنى
+                                                    if (quantity >= parseInt(minQuantityElement.innerText)) {
+                                                        const totalPrice = (quantity * unitPrice).toFixed(
+                                                            3); // حساب السعر النهائي بناءً على الخدمة الأساسية أو الفرعية
+                                                        finalPriceElement.innerText = `${totalPrice}`; // تحديث السعر في الصفحة
+                                                        hiddenFinalPrice.value = totalPrice;
+                                                    } else {
+                                                        finalPriceElement.innerText = "0"; // في حال الإدخال أقل من الحد الأدنى
+                                                        hiddenFinalPrice.value = "0";
+                                                    }
+                                                });
+                                            });
+                                        </script>
+
                                     </div>
                                     <div class="tab-pane fade" id="pills-product-details" role="tabpanel"
                                         aria-labelledby="pills-product-details-tab" tabindex="0">
@@ -103,9 +376,9 @@
                                         <div class="product-details">
 
                                             <p class="product-details__desc">
-                                                {!! $service['description'] !!}
+                                                {{ $service['description'] }}
                                             </p>
-                                            {{--
+
                                             <div class="product-details__item">
                                                 <h5 class="mb-3 product-details__title"> مميزات خدمتنا </h5>
                                                 <ul class="product-list">
@@ -122,7 +395,7 @@
                                                         وبأسعار
                                                         تناسب الجميع. </li>
                                                 </ul>
-                                            </div> --}}
+                                            </div>
                                             <div class="product-details__item">
                                                 <h5 class="mb-3 product-details__title"> الأمان والخصوصية </h5>
                                                 <ul class="product-list">
@@ -137,60 +410,61 @@
                                     <div class="tab-pane fade" id="pills-rating" role="tabpanel"
                                         aria-labelledby="pills-rating-tab" tabindex="0">
                                         <div class="mt-4 product-reviews">
-                                            @if ($service->Reviews->count() > 0)
-                                                @foreach ($service->reviews as $review)
-                                                    <!-- Single Review -->
-                                                    <div
-                                                        class="mb-3 review-item d-flex justify-content-between align-items-center">
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="reviewer-avatar">
-                                                                @if ($review->user)
-                                                                    <img src="{{ asset('assets/front/uploads/person.jpg') }}"
-                                                                        class="mb-3 rounded-circle" alt="avatar"
-                                                                        style="border-radius: 50%;" width="40"
-                                                                        height="40">
-                                                                @else
-                                                                    <img src="{{ asset('assets/front/uploads/person.jpg') }}"
-                                                                        class="mb-3 rounded-circle" alt="avatar"
-                                                                        style="border-radius: 50%;" width="40"
-                                                                        height="40">
-                                                                @endif
-                                                            </div>
-                                                            <div class="mx-3 review-content">
-                                                                <div class="reviewer-name"> {{ $review->name }} </div>
-                                                                <div class="review-stars">
-                                                                    @for ($i = 0; $i < 5; $i++)
-                                                                        @if ($i < $review->rate)
-                                                                            <i class="fas fa-star text-warning"></i>
-                                                                        @else
-                                                                            <i class="fas fa-star text-gray"
-                                                                                style="color: #bcbbbb"></i>
-                                                                        @endif
-                                                                    @endfor
-                                                                </div>
-                                                                <p> {{ $review->description }} </p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="text-end">
-                                                            <div class="review-rating"> <button
-                                                                    class="btn btn-success btn-sm"> <i
-                                                                        class="bi bi-check2-circle"></i> قام بالشراء
-                                                                </button>
-                                                            </div>
-                                                            <div class="review-time text-muted">
-                                                                {{ $review->created_at->diffForHumans() }} </div>
-                                                        </div>
+                                            <!-- Single Review -->
+                                            <div
+                                                class="mb-3 review-item d-flex justify-content-between align-items-center">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="reviewer-avatar">
+                                                        <img src="{{ asset('assets/front/uploads/person.jpg') }}"
+                                                            alt="avatar" width="40" height="40"
+                                                            style="border-radius: 50%;">
                                                     </div>
-                                                @endforeach
-                                            @else
-                                                <div
-                                                    class="mb-3 review-item d-flex justify-content-between align-items-center">
-                                                    <div class="">
-                                                        لا يوجد تقيمات علي الخدمة في الوقت الحالي
+                                                    <div class="mx-3 review-content">
+                                                        <div class="reviewer-name">نايف الراشدي</div>
+                                                        <div class="review-stars">
+                                                            <i class="fas fa-star text-warning"></i>
+                                                            <i class="fas fa-star text-warning"></i>
+                                                            <i class="fas fa-star text-warning"></i>
+                                                            <i class="fas fa-star text-warning"></i>
+                                                            <i class="fas fa-star text-warning"></i>
+                                                        </div>
+                                                        <p> يعطيني الخدمة ممتازة </p>
                                                     </div>
                                                 </div>
-                                            @endif
-
+                                                <div class="text-end">
+                                                    <div class="review-rating"> <button class="btn btn-success btn-sm"> <i
+                                                                class="bi bi-check2-circle"></i> قام بالشراء </button>
+                                                    </div>
+                                                    <div class="review-time text-muted">منذ 30 دقيقة</div>
+                                                </div>
+                                            </div>
+                                            <!-- Repeat for more reviews -->
+                                            <div
+                                                class="mb-3 review-item d-flex justify-content-between align-items-center">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="reviewer-avatar">
+                                                        <img src="{{ asset('assets/front/images/avatar.png') }}"
+                                                            alt="avatar" width="40" height="40"
+                                                            style="border-radius: 50%;">
+                                                    </div>
+                                                    <div class="mx-3 review-content">
+                                                        <div class="reviewer-name">نايف الراشدي</div>
+                                                        <div class="review-stars">
+                                                            <i class="fas fa-star text-warning"></i>
+                                                            <i class="fas fa-star text-warning"></i>
+                                                            <i class="fas fa-star text-warning"></i>
+                                                            <i class="fas fa-star text-warning"></i>
+                                                            <i class="fas fa-star text-warning"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="text-end">
+                                                    <div class="review-rating"> <button class="btn btn-success btn-sm"> <i
+                                                                class="bi bi-check2-circle"></i> قام بالشراء </button>
+                                                    </div>
+                                                    <div class="review-time text-muted">منذ 30 دقيقة</div>
+                                                </div>
+                                            </div>
                                         </div>
 
                                         <style>
@@ -503,11 +777,6 @@
                         }
                     }
                 });
-            });
-        </script>
-        <script>
-            document.getElementById('closeSuccessMessage').addEventListener('click', function() {
-                document.getElementById('success-purches').style.display = 'none';
             });
         </script>
     @endsection

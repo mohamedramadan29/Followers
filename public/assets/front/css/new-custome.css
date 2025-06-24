@@ -734,6 +734,7 @@
     padding: 12px 25px;
     padding-bottom: 12px !important;
     border-bottom: 0;
+    border-radius: 0;
 }
 
 .product-details .product-details-section .tab-bordered .nav-link i {
@@ -817,6 +818,7 @@
 
 .product-details .product-details-section .review-time {
     font-size: 0.9em;
+    text-align: center;
 }
 
 .product-details .success-purches {
@@ -1353,3 +1355,54 @@
 .form-group input#confirm-password{
     padding-right: 16px !important;
 }
+
+
+.review_order_button{
+    color: #5d5fed !important;
+    border: 1px solid;
+    border-radius: 23px;
+    padding: 8px 20px;
+}
+
+.review_order_success{
+    color: #198753 !important;
+    border: 1px solid #198753 !important;
+    border-radius: 23px;
+    padding: 8px 20px;
+    cursor: auto;
+}
+
+
+.modal-footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.modal-footer button {
+    width: 48%;
+    border-radius: 2px;
+}
+
+.modal-footer .btn-primary {
+    background-color: #5c5eeb;
+}
+
+
+
+.table .table-primary-custome th {
+    background-color: #5c5eeb;
+    color: #fff;
+}
+
+.table {
+    min-width: max-content;
+}
+.table thead th{
+    padding: 11px;
+    text-align: center;
+}
+.table tr th {
+    padding-left: 0;
+    padding: 20px 16px; 
+}
+

@@ -14,9 +14,12 @@ return new class extends Migration {
             $table->id();
             $table->string('order_number')->unique();
             $table->integer('user_id');
+            $table->string('service_type');
             $table->integer('provider_id');
             $table->integer('main_service_id');
+            $table->integer('product_id');
             $table->integer('sub_service_id')->nullable();
+            $table->string('name');
             $table->double('quantity');
             $table->string('page_link');
             $table->double('provider_main_price');
@@ -24,8 +27,13 @@ return new class extends Migration {
             $table->double('total_price');
             $table->tinyInteger('order_status');
             $table->string('refill')->nullable();
+            $table->string('refill_status')->nullable();
             $table->string('cancel')->nullable();
+            $table->string('cancel_status')->nullable();
             $table->string('end_time')->nullable();
+            $table->string('status');
+            $table->timestamp('start_time');
+            $table->timestamp('completed_at')->nullable();
             $table->timestamps();
         });
     }

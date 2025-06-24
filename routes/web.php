@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\front\ReviewController;
 use App\Models\admin\Product;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\front\BlogController;
@@ -77,6 +78,13 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
     Route::controller(FavoriteController::class)->group(function () {
         Route::get('wishlist', 'index');
     });
+    ############ Start Review Orders #############
+
+    Route::controller(ReviewController::class)->group(function () {
+        Route::post('order/review/{order_id}', 'store')->name('order.review');
+    });
+
+    ######### End Review Orders #########
 });
 Route::controller(FrontController::class)->group(function () {
     Route::get('/', 'index')->name('index');
@@ -86,7 +94,6 @@ Route::controller(ProductController::class)->group(function () {
     Route::get('product/{slug}', 'index');
     Route::get('product_details/{id}', 'showServiceDetails');
     Route::get('/get-sub-service-details/{product_id}/{subServiceId}', 'getSubServiceDetails');
-
 });
 Route::controller(ContactController::class)->group(function () {
     Route::get('contact', 'index');

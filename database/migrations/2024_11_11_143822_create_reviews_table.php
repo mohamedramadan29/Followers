@@ -19,7 +19,8 @@ return new class extends Migration
             $table->integer('rate');
             $table->string('image')->nullable();
             $table->integer('order_id')->nullable();
-            $table->integer('service_id')->nullable();
+            $table->integer('product_id')->nullable();
+            $table->integer('sub_service_id')->nullable();
             $table->string('published_date')->nullable();
             $table->tinyInteger('status')->default(0);
             $table->timestamps();

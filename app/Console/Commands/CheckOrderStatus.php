@@ -4,8 +4,12 @@ namespace App\Console\Commands;
 
 use Carbon\Carbon;
 use App\Services\Api;
+use App\Models\front\User;
 use App\Models\front\Order;
+use App\Models\admin\Provider;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class CheckOrderStatus extends Command
 {
@@ -28,22 +32,62 @@ class CheckOrderStatus extends Command
      */
     public function handle()
     {
-        // استرجاع الطلبات التي لا تحتوي على وقت انتهاء بعد
-        $orders = Order::whereNull('end_time')->get();
-         // عملية التحقق لكل طلب
-         foreach ($orders as $order) {
-            $api = new Api($order->provider->api_url, $order->provider->api_key);
-            // التحقق من حالة الطلب
-            $status = $api->status($order->order_number);
-            // إذا كانت الحالة مكتملة
-            if ($status->status == 'completed') {
-                // سجل وقت الانتهاء الفعلي
-                $order->end_time = Carbon::now();
+        // جلب الطلبات غير المكتملة
+        $orders = Order::whereIn('status', ['Pending', 'Processing'])->get();
+
+        foreach ($orders as $order) {
+            DB::beginTransaction();
+            try {
+                $provider = Provider::findOrFail($order->provider_id);
+                $api = new Api($provider->api_url, $provider->api_key);
+
+                // الاستعلام عن حالة الطلب
+                $statusResponse = $api->status($order->order_number); // افترض أن API يحتوي على دالة status
+                $status = $statusResponse->status ?? 'Pending';
+                $mappedStatus = $this->mapProviderStatus($status);
+
+                // تحديث حالة الطلب
+                $order->status = $mappedStatus;
+
+                // تحديث وقت الاكتمال إذا كان الطلب مكتملًا أو مكتملًا جزئيًا
+                if (in_array($mappedStatus, ['Completed', 'Partial']) && !$order->completed_at) {
+                    $order->completed_at = now();
+                }
+
+                // التعامل مع الإلغاء أو الاسترداد
+                if (in_array($mappedStatus, ['Canceled', 'Refunded'])) {
+                    // إعادة المبلغ إلى رصيد المستخدم
+                    $user = User::find($order->user_id);
+                    if ($user) {
+                        $user->balance += $order->total_price;
+                        $user->save();
+                    }
+                }
+
                 $order->save();
-                // طباعة رسالة في الـ CLI لتأكيد التحديث
-                $this->info("Order {$order->order_number} has been completed.");
+                DB::commit();
+            } catch (\Exception $e) {
+                DB::rollback();
+                Log::error("Failed to check order {$order->order_number}: {$e->getMessage()}");
             }
         }
-        return 0;
+
+        $this->info('Order status check completed.');
+    }
+
+    private function mapProviderStatus($providerStatus): string
+    {
+        // تحويل حالة المزود إلى الحالات الداخلية
+        $statusMap = [
+            'partial' => 'Partial',
+            'completed' => 'Completed',
+            'pending' => 'Pending',
+            'processing' => 'Processing',
+            'canceled' => 'Canceled',
+            'refunded' => 'Refunded',
+        ];
+
+        return $statusMap[strtolower($providerStatus)] ?? 'Pending';
     }
 }
+

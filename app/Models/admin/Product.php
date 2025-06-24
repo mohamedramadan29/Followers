@@ -36,7 +36,7 @@ class Product extends Model
     }
 
     public function Reviews(){
-        return $this->hasMany(Review::class, 'service_id');
+        return $this->hasMany(Review::class, 'product_id');
     }
 
     ########## Get Service Data From Provider #########

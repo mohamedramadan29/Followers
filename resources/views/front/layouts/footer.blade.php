@@ -152,7 +152,7 @@
                 <div class="footer-widget">
                     <h5 class="text-white footer-widget__title">روابط تهمك</h5>
                     <ul class="footer-lists">
-                        <li class="footer-lists__item">  <a href="{{ url('blog') }}"> المدونة </a> </li>
+                        <li class="footer-lists__item"> <a href="{{ url('blog') }}"> المدونة </a> </li>
                         <li class="footer-lists__item"> <a href="{{ url('terms') }}"> الشروط والأحكام </a> </li>
                         <li class="footer-lists__item">سياسة الإرجاع</li>
                         <li class="footer-lists__item">سياسة الإستخدام والخصوصية</li>
@@ -218,7 +218,8 @@
     .custom-purple-footer .footer-social-icons .list-inline-item {
         margin: 0 7px;
     }
-    .custom-purple-footer .footer-lists__item a{
+
+    .custom-purple-footer .footer-lists__item a {
         color: #fff
     }
 
@@ -260,9 +261,13 @@
 
 <!-- Jquery js -->
 <script src="{{ asset('assets/front/') }}/js/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous">
+</script>
 
 <!-- Bootstrap Bundle Js -->
-<script src="{{ asset('assets/front/') }}/js/boostrap.bundle.min.js"></script>
+
+{{-- <script src="{{ asset('assets/front/') }}/js/boostrap.bundle.min.js"></script> --}}
 <!-- CountDown -->
 <script src="{{ asset('assets/front/') }}/js/countdown.js"></script>
 <!-- counter up -->

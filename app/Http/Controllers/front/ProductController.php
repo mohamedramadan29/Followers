@@ -60,13 +60,10 @@ class ProductController extends Controller
     {
         // جلب الخدمة الرئيسية
         $mainService = Product::find($product_id);
-
         if (!$mainService) {
             return response()->json(['error' => 'Product not found'], 404);
         }
-
         $provider = Provider::find($mainService->provider_id);
-
         if (!$provider) {
             return response()->json(['error' => 'Provider not found'], 404);
         }
@@ -75,10 +72,11 @@ class ProductController extends Controller
         $subService = SubService::where('product_id', $product_id)
             ->where('provider_service_id', $provider_service_id)
             ->first();
-
         if (!$subService) {
             return response()->json(['error' => 'SubService not found'], 404);
         }
+        ######## If SubService Is The Main Service
+        
 
         // مفتاح الكاش
         $cacheKey = "provider_service_{$provider->id}_{$provider_service_id}";
