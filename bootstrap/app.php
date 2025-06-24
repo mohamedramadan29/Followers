@@ -21,7 +21,7 @@ return Application::configure(basePath: dirname(__DIR__))
             if (request()->is('*/admin/*')) {
                 return route('admin.admin_login');
             } else {
-                return route('admin.admin_login');
+                return route('login');
             }
         });
         $middleware->redirectUsersTo(function () {

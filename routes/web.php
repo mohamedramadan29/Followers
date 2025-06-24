@@ -21,6 +21,7 @@ use App\Http\Controllers\front\InstagramCounterContoller;
 use App\Http\Controllers\front\User\UserOrdersController;
 use App\Http\Controllers\front\Auth\SocialLoginController;
 use App\Http\Controllers\front\FavoriteController;
+use App\Http\Controllers\front\Payments\PaypalPaymentController;
 use Illuminate\Http\Request;
 
 Route::controller(LoginController::class)->group(function () {
@@ -53,7 +54,7 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
         Route::get('balance', 'balance');
     });
     Route::controller(UserBalanceController::class)->group(function () {
-        Route::get('balance', 'index');
+        Route::get('balance', 'index')->name('user.balance');
         Route::post('balance/store', 'store')->name('store_balance');
         Route::post('/payment/callback', 'handleCallback')->name('crepto.payment.callback');
         Route::get('/payment/success', 'paymentSuccess')->name('payment.success');
@@ -85,6 +86,18 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
     });
 
     ######### End Review Orders #########
+
+    ########################################## Start Payment Controllers #################
+
+    Route::controller(PaypalPaymentController::class)->group(function(){
+        Route::match(['post','get'],'/payment/paypal', 'initiatePayment')->name('payment.paypal.initiate');
+        Route::match(['post','get'],'/payment/card/initiate', 'initiateCardPayment')->name('payment.card.initiate');
+        Route::get('/payment/paypal/success', 'paypalSuccess')->name('payment.paypal.success');
+        Route::get('/payment/card/success', 'cardSuccess')->name('payment.card.success');
+        Route::get('/payment/paypal/cancel', 'paypalCancel')->name('payment.paypal.cancel');
+        Route::get('/payment/card/cancel', 'cardCancel')->name('payment.card.cancel');
+    });
+    ########################################### End Payment Controllers ###################
 });
 Route::controller(FrontController::class)->group(function () {
     Route::get('/', 'index')->name('index');

@@ -46,6 +46,9 @@
                         <h4> {{ $service['name'] }} </h4>
                         <div class="product-sidebar section-bg">
                             <div class="container container-two">
+                                <div class="wishlist">
+                                  @livewire('front.livewire-event.wishtlist',['service' => $service])
+                                </div>
                                 <div class="gap-2 breadcrumb-tab flx-wrap align-items-start gap-lg-4">
                                     <ul class="nav tab-bordered nav-pills" id="pills-tab" role="tablist">
                                         <li class="nav-item" role="presentation">
@@ -92,6 +95,7 @@
                                     </div>
                                 @endif
                                 <div class="tab-content" id="pills-tabContent">
+
                                     <div class="tab-pane fade show active" id="pills-price-select" role="tabpanel"
                                         aria-labelledby="pills-price-select-tab" tabindex="0">
                                         <br>

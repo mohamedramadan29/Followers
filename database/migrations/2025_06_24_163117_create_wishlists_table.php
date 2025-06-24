@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('transactions', function (Blueprint $table) {
+        Schema::create('wishlists', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
-            $table->string('payment_method')->nullable();
-            $table->string('payment_status')->nullable();
-            $table->double('amount');
-            $table->string('payment_id')->nullable();
+            $table->foreignId('user_id')->nullable()->references('id')->on('users')->cascadeOnDelete();
+            $table->string('session_id')->nullable();
+            $table->foreignId('product_id')->references('id')->on('products')->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('transactions');
+        Schema::dropIfExists('wishlists');
     }
 };

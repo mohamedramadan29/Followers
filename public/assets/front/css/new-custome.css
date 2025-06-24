@@ -494,6 +494,7 @@
     color: #444;
     margin-bottom: 6px;
 }
+
 .most-ordered-title a {
     color: #444;
     text-decoration: none;
@@ -1352,19 +1353,19 @@
 }
 
 
-.form-group input#confirm-password{
+.form-group input#confirm-password {
     padding-right: 16px !important;
 }
 
 
-.review_order_button{
+.review_order_button {
     color: #5d5fed !important;
     border: 1px solid;
     border-radius: 23px;
     padding: 8px 20px;
 }
 
-.review_order_success{
+.review_order_success {
     color: #198753 !important;
     border: 1px solid #198753 !important;
     border-radius: 23px;
@@ -1396,13 +1397,152 @@
 
 .table {
     min-width: max-content;
+    text-align: center;
 }
-.table thead th{
+
+.table thead th {
     padding: 11px;
     text-align: center;
 }
+
 .table tr th {
     padding-left: 0;
-    padding: 20px 16px; 
+    padding: 20px 16px;
 }
 
+/******************** Start Payment Methods Page *******************/
+.payment-methods .data {
+    background-color: #FAFAFA;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.payment-methods .data h2 {
+    text-align: right;
+    font-size: 18px;
+    padding-bottom: 12px;
+    margin-top: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.payment-methods .data .payment-option {
+    border: 2px solid #ddd;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.payment-methods .data .payment-option.active {
+    border-color: #007bff;
+    background-color: #f0f8ff;
+}
+
+.payment-methods .data .payment-option input {
+    margin-left: 10px;
+}
+
+.payment-methods .data .payment-option img {
+    height: 25px;
+}
+
+.payment-methods .data .recharge-box {
+    background: #e6e6fa;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.payment-methods .data .recharge-box input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.payment-methods .data .recharge-box button {
+    width: 20%;
+    background: #5a60ea;
+    color: white;
+    padding: 12px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.payment-methods .data .summary {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+    width: 40%;
+}
+
+@media (max-width: 991px) {
+    .payment-methods .data .summary {
+        width: 100%;
+    }
+}
+
+.payment-methods .data .summary div {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.payment-methods .data .summary .total {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.payment-methods .data .note {
+    font-size: 14px;
+    color: #777;
+    text-align: right;
+    margin-top: 20px;
+}
+
+.payment-methods .data .notes {
+    width: 100%;
+    border-top: 0;
+    padding: 10px;
+}
+
+.payment-methods .data .notes ul {
+    list-style: disc;
+}
+
+.payment-methods .data .notes ul li {
+    margin-bottom: 10px;
+}
+
+.payment-methods .payment-buttom {
+    width: 20%;
+    background: #5a60ea;
+    color: white;
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.add-new-balance{
+text-align: left;
+}
+.add-new-balance .add-new-balance-buttom{
+    border-radius: 5px !important;
+    background: #5c5eeb;
+    color: #fff;
+    padding: 10px;
+    margin-bottom: 5px;
+}
+/******************** End Payment Methods Page **********************/

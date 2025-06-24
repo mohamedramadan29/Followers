@@ -30,8 +30,7 @@
             </div>
             <div class="dashboard-card-item">
                 <div class="">
-                    <img src="{{ asset('assets/front/uploads/spend.png') }}" alt=" أنفقت معنا  "
-                        class="dashboard-card-img">
+                    <img src="{{ asset('assets/front/uploads/spend.png') }}" alt=" أنفقت معنا  " class="dashboard-card-img">
                 </div>
                 <div class="dashboard-card-info">
                     <div class="dashboard-card-value">{{ number_format(Auth::user()->balance, 2) }} <img
@@ -61,22 +60,26 @@
                 <ul class="mt-4 nav tab-bordered nav-pills" id="pills-tabbs" role="tablist">
 
                     <li class="nav-item" role="presentation">
-                        <a href="{{ url('user/orders') }}" class="nav-link"> <i class="bi bi-cart"></i> طلباتي  </a>
+                        <a href="{{ url('user/orders') }}" class="nav-link"> <i class="bi bi-cart"></i> طلباتي </a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a href="{{ url('user/balance') }}" class="nav-link"> <i class="bi bi-currency-dollar"></i>  شحن رصيد   </a>
+                        <a href="{{ url('user/balance') }}" class="nav-link"> <i class="bi bi-currency-dollar"></i> شحن
+                            رصيد </a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a href="{{ url('user/wishlist') }}" class="nav-link active"> <i class="bi bi-heart"></i> المفضلة   </a>
+                        <a href="{{ url('user/wishlist') }}" class="nav-link active"> <i class="bi bi-heart"></i> المفضلة
+                        </a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a href="{{ url('user/alerts') }}" class="nav-link"> <i class="bi bi-bell"></i> الاشعارات  </a>
+                        <a href="{{ url('user/alerts') }}" class="nav-link"> <i class="bi bi-bell"></i> الاشعارات </a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a href="{{ url('user/tickets') }}" class="nav-link"> <i class="bi bi-chat-dots"></i>  الدعم الفني  </a>
+                        <a href="{{ url('user/tickets') }}" class="nav-link"> <i class="bi bi-chat-dots"></i> الدعم الفني
+                        </a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a href="{{ url('user/setting') }}" class="nav-link"> <i class="bi bi-gear-fill"></i>  الاعدادات </a>
+                        <a href="{{ url('user/setting') }}" class="nav-link"> <i class="bi bi-gear-fill"></i> الاعدادات
+                        </a>
                     </li>
 
                 </ul>
@@ -94,18 +97,15 @@
                     <!-- ========================= Orders section start =========================== -->
                     <div class="row gy-4">
                         <div class="col-12">
-                            <div class="border card common-card border-gray-five">
-                                <div class="card-body">
-                                    <div class="table-responsive">
-
-                                            <div class="no_tickets no-orders">
-                                                <img src="{{ asset('assets/front/uploads/empty.svg') }}" alt="">
-                                                <h6> لا توجد أى عناصر حاليا في المفضلة </h6>
-                                            </div>
-
-                                    </div>
+                            @if ($wishlist->count() > 0)
+                                @livewire('front.livewire-event.user-wishtlist')
+                            @else
+                                <div class="no_tickets no-orders">
+                                    <img src="{{ asset('assets/front/uploads/empty.svg') }}" alt="">
+                                    <h6> لا توجد أى عناصر حاليا في المفضلة </h6>
                                 </div>
-                            </div>
+                            @endif
+
                         </div>
                     </div>
                     <!-- ========================= Orders section End =========================== -->

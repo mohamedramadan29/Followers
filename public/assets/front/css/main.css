@@ -10944,18 +10944,27 @@ input[type=number] {
     margin-top: 5px;
 }
 
+.add_balance h1{
+    font-size: 20px;
+    text-align: center;
+    width:100%;
+}
 
 .add_balance .modal-header .btn-close {
     margin: 0;
 }
-
+.add_balance .modal-content label{
+    display: block;
+    width: 100%;
+    text-align: right;
+    margin-bottom: 10px;
+}
 .add_balance .modal-content input[type='number'] {
-    height: 60px;
-    font-size: 25px;
+margin-bottom: 20px;
 }
 
 .add_balance .modal-content input::placeholder {
-    font-size: 25px;
+    font-size: 16px;
 }
 
 .add_balance .modal-content .btn-main {
@@ -10978,6 +10987,16 @@ input[type=number] {
 
 .add_balance .charge_info li i {
     color: #025789;
+}
+
+.add_balance .modal-content .accordion-item{
+    background-color: #F8F8F8;
+}
+.add_balance .modal-content .accordion-item .accordion-button{
+    background-color: #e4e4e4;
+    outline: none;
+    border: none;
+    box-shadow: none;
 }
 
 @keyframes pulse {
