@@ -101,34 +101,55 @@
                         <div class="col-12">
                             <div class="border card common-card border-gray-five">
                                 <div class="card-body">
-                                    @if ($notifications->isEmpty())
-                                        <div class="no_tickets no-orders">
-                                            <img src="{{ asset('assets/front/uploads/empty-alert.svg') }}" alt="">
-                                            <h6>  لا توجد أى اشعارات حاليا </h6>
+                                    @if ($notifications->count() > 0)
+                                        <div class="notification-section">
+                                            <h5> كل الاشعارات </h5>
+                                            <div class="notifications-header">
+                                                <div class="right-section">
+                                                    <a href="{{ route('alerts') }}" class="active"> الكل </a>
+                                                    <a href="{{ route('alerts.unread') }}"> الغير مقروءة
+                                                        ({{ $unreadNotifications->count() }})</a>
+                                                </div>
+                                                <div class="left-section">
+                                                    <a href="{{ route('notifications.markAllRead') }}"> تعين الكل مقروءة
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            @if (isset($_GET['unread']))
+                                                @foreach ($unreadNotifications as $notification)
+                                                    <div
+                                                        class="notifications-body {{ $notification->read_at ? 'read' : 'no-read' }}">
+                                                        <div>
+                                                            <i class="bi bi-bell-fill"></i>
+                                                        </div>
+                                                        <div>
+                                                            <h3> {{ $notification->data['title'] }} </h3>
+                                                            <p> {{ $notification->data['message'] }} </p>
+                                                            <span> {{ $notification->created_at->diffForHumans() }} </span>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            @else
+                                                @foreach ($notifications as $notification)
+                                                    <div
+                                                        class="notifications-body {{ $notification->read_at ? 'read' : 'no-read' }}">
+                                                        <div>
+                                                            <i class="bi bi-bell-fill"></i>
+                                                        </div>
+                                                        <div>
+                                                            <h3> {{ $notification->data['title'] }} </h3>
+                                                            <p> {{ $notification->data['message'] }} </p>
+                                                            <span> {{ $notification->created_at->diffForHumans() }} </span>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            @endif
                                         </div>
                                     @else
-                                        <div class="table-responsive">
-                                            <table class="table text-body mt--24">
-                                                <thead>
-                                                    <tr>
-                                                        <th> التاريخ </th>
-                                                        <th> الاشعار </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach ($notifications as $notification)
-                                                        <tr>
-                                                            <td data-label="Date">
-                                                                {{ $notification->created_at->translatedFormat('d F , Y') }}
-                                                            </td>
-                                                            <td data-label="Order ID">
-                                                                {{ $notification->data['message'] }}
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-
+                                        <div class="no_tickets no-orders">
+                                            <img src="{{ asset('assets/front/uploads/empty-alert.svg') }}"
+                                                alt="">
+                                            <h6> لا توجد أى اشعارات حاليا </h6>
                                         </div>
                                     @endif
 

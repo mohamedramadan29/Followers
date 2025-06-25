@@ -99,61 +99,78 @@
                     aria-labelledby="pills-Followingg-tab" tabindex="0">
                     <!-- ================== Setting Section Start ====================== -->
                     <div class="row gy-4">
-                        <div class="col-lg-12">
+                        @if ($tickets->count() > 0)
+                            <div class="col-lg-12">
+                                <div class="search_button index-ticket-header">
+                                    <h2> سجل التذاكر </h2>
+                                    <a href="{{ url('user/ticket/add') }}" class="btn btn-sm">  <i class="bi bi-plus-circle"></i>  اضافة تذكرة
+                                        جديدة
+                                    </a>
+                                </div>
 
-                            <div class="search_button">
-                                <a href="{{ url('user/ticket/add') }}" class="btn btn-main btn-sm pill"> اضافة تذكرة جديدة
-                                </a>
                             </div>
+                        @endif
 
-                        </div>
                         <div class="col-12">
                             <div class="border card common-card border-gray-five">
                                 <div class="card-body tickets_page">
-                                    <div class="tickets">
-                                        @forelse ($tickets as $ticket)
-                                            <a href="{{ url('user/ticket/' . $ticket['id']) }}">
-                                                <div class="ticket">
-                                                    <div class="ticket_logo">
-                                                        <i class="bi bi-ticket"></i>
-                                                    </div>
-                                                    <div>
-                                                        <h4> {{ $ticket['title'] }} </h4>
-                                                        <div class="ticket_details">
-                                                            <p>
-                                                                <i class="bi bi-ticket-fill"></i>
-                                                                {{ $ticket['id'] }}
-                                                            </p>
-                                                            <p>
-                                                                <i class="bi bi-clock-fill"></i>
-                                                                {{ $ticket->created_at->diffForHumans() }}
-                                                            </p>
-                                                            <p>
-                                                                <i class="bi bi-check-circle-fill"></i>
-                                                                @if ($ticket['status'] == 0)
-                                                                    لا يتوفر رد
-                                                                @elseif($ticket['status'] == 1)
-                                                                    يتوفر رد
+                                    @if ($tickets->count() > 0)
+                                        <div class="table-responsive">
+                                            <table id="table-search" class="table table-bordered">
+                                                <thead class="table-primary-custome">
+                                                    <tr>
+                                                        <th> رقم التذكرة </th>
+                                                        <th> نوع التذكرة </th>
+                                                        <th> عنوان التذكرة </th>
+                                                        <th> تاريخ ووقت التذكرة </th>
+                                                        <th> اخر تحديث </th>
+                                                        <th> حالة التذكرة </th>
+                                                        <th> التفاصيل </th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($tickets as $ticket)
+                                                        <tr>
+                                                            <td>{{ $ticket->id }} # </td>
+                                                            <td>{{ $ticket->support_type }}</td>
+                                                            <td>{{ $ticket->title }}</td>
+                                                            <td> {{ $ticket->created_at->format('Y-m-d h:i A') }} </td>
+                                                            <td> {{ $ticket->updated_at->diffForHumans() }} </td>
+                                                            <td>
+                                                                @if ($ticket->status == 0)
+                                                                    <span class="badge badge-warning bg-warning">قيد
+                                                                        الانتظار</span>
+                                                                @elseif($ticket->status == 1)
+                                                                    <span class="badge badge-success bg-success">تم الرد
+                                                                        عليها</span>
+                                                                @elseif($ticket->status == 2)
+                                                                    <span class="badge badge-danger bg-danger"> مغلقة
+                                                                    </span>
                                                                 @endif
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <hr>
+                                                            </td>
+                                                            <td>
+                                                                <a href="{{ url('user/ticket/' . $ticket->id) }}">
+                                                                    <i style="color: #5D5FED" class="bi bi-eye"></i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    @else
+                                        <div class="no_tickets">
+                                            <img src="{{ asset('assets/front/uploads/empty-support.svg') }}"
+                                                alt="">
+                                            <h6> تواصل معنا في أي وقت اذا احتجت أي مساعدة
+                                            </h6>
+                                            <a href="{{ url('user/ticket/add') }}" class="btn btn-main pill">
+                                                اضافة
+                                                تذكرة جديدة <i class="bi bi-plus"></i>
                                             </a>
-                                        @empty
-                                            <div class="no_tickets">
-                                                <img src="{{ asset('assets/front/uploads/empty-support.svg') }}"
-                                                    alt="">
-                                                <h6> تواصل معنا في أي وقت اذا احتجت أي مساعدة
-                                                </h6>
-                                                <a href="{{ url('user/ticket/add') }}" class="btn btn-main pill">
-                                                    اضافة
-                                                    تذكرة جديدة <i class="bi bi-plus"></i>
-                                                </a>
-                                            </div>
-                                        @endforelse
-                                    </div>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>

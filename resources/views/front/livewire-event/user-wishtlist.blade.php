@@ -10,7 +10,8 @@
                             <div class="text-center">
                                 <div class="mb-3 service-card__icon" style="position:relative">
                                     <div class="wishlist-heart">
-                                        <button wire:click="removeFromWishlist({{ $service->product_id }})" class="active">
+                                        <button wire:click="removeFromWishlist({{ $service->product_id }})"
+                                            class="active">
                                             <i class="bi bi-heart"></i>
                                         </button>
                                     </div>
@@ -55,10 +56,12 @@
             position: absolute;
             left: 0;
             top: -23px;
-            background: #ebe6e6;
-            padding: 10px;
+            background: #ebe6e6; 
             border-radius: 50%;
-            color: red
+            color: red;
+            width: 30px;
+            height: 30px;
+            line-height: 37px;
         }
 
         .wishlist-heart i {
@@ -67,5 +70,3 @@
     </style>
 </section>
 <!-- =========================== Most Requested Services Section End ========================== -->
-
- 

@@ -1546,3 +1546,238 @@ text-align: left;
     margin-bottom: 5px;
 }
 /******************** End Payment Methods Page **********************/
+
+/******************* Start Notification Section **********************/
+.notification-section{
+
+}
+.notification-section h5{
+    text-align: right;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px;
+}
+
+.notification-section .notifications-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px;
+}
+
+.notification-section .notifications-header .right-section{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+}
+
+.notification-section .notifications-header .left-section{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.notification-section .notifications-header .right-section a{
+    text-align: right;
+    font-size: 16px;
+    color: #A1A1A1;
+    text-decoration: none;
+}
+.notification-section .notifications-header .right-section a.active,
+.notification-section .notifications-header .right-section a:hover{
+    color: #000;
+}
+.notification-section .notifications-header .left-section a{
+    text-align: right;
+    font-size: 16px;
+    color: #5D5FED;
+    text-decoration: none;
+    font-weight: bold;
+}
+.notification-section .notifications-header .left-section a.active,
+.notification-section .notifications-header .left-section a:hover{
+    color: #000;
+}
+
+.notification-section .notifications-body{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+    padding: 15px 3px;
+    border-radius: 10px;
+}
+.notification-section .notifications-body.no-read,
+.notification-section .notifications-body:hover{
+    background: #476CFF0A;
+}
+.notification-section .notifications-body i{
+    background: #F2F5F8;
+    font-size: 15px;
+    color: #5D5FED;
+    width: 25px;
+    display: inline-block;
+    height: 25px;
+    text-align: center;
+    border-radius: 50%;
+    line-height: 30px;
+}
+
+.notification-section .notifications-body h3{
+    text-align: right;
+    font-size: 18px;
+    margin: 0;
+    color: #393939;
+
+}
+
+.notification-section .notifications-body p{
+    text-align: right;
+    color: #2e2e2e;
+}
+
+.notification-section .notifications-body span{
+    text-align: right;
+    color: #777777;
+}
+
+/********************** End Notification Section **********************/
+
+/******************* Start Tickets Section **********************/
+.ticket-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px;
+}
+.ticket-header h2{
+    text-align: right;
+    font-size: 20px;
+    margin: 0;
+    color: #393939;
+}
+.ticket-header a{
+    text-align: right;
+    font-size: 16px;
+    color: #5D5FED;
+    text-decoration: none;
+    border: 1px solid #5D5FED;
+    border-radius: 7px;
+    padding: 8px 12px;
+}
+
+.add-support-section{
+
+}
+.add-support-section .support-type{
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+}
+.add-support-section .support-type input{
+    opacity: 0;
+
+}
+.add-support-section .support-type input:checked{
+    background-color: #5D5FED;
+
+}
+.add-support-section .support-type label{
+    background-color: #F3F3F3;
+    padding: 7px 20px;
+    border-radius: 7px;
+    color: #5D5FED;
+    cursor: pointer;
+}
+.add-support-section .support-type input:checked + label{
+    color: #fff;
+    background-color: #5D5FED;
+}
+.add-support-section input,
+.add-support-section textarea{
+    background-color: #28356A0A !important;
+    border-color: #28356A0A !important;
+}
+.send-ticket,
+.send-ticket:hover{
+    background-color: #5D5FED;
+    border-radius: 7px;
+    padding: 13px 12px;
+    width: 150px;
+}
+
+.index-ticket-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.index-ticket-header h2{
+    text-align: right;
+    font-size: 20px;
+    margin: 0;
+    color: #393939;
+}
+.index-ticket-header a,
+.index-ticket-header a:hover{
+    border-radius: 5px !important;
+    background: #5c5eeb;
+    color: #fff;
+    padding: 10px;
+    margin-bottom: 5px;
+}
+
+.index-ticket-header a i{
+    margin: 5px;
+    font-weight: bold;
+}
+
+.messages-container{
+
+}
+.messages-container .messages-headline {
+
+}
+.messages-container .messages-headline h4{
+    font-size: 20px;
+    margin: 0;
+    color: #252525;
+    margin-bottom: 11px;
+}
+/****************************** Start Chat Design **********************/
+
+.message-plunch.me .dash-msg-text{
+    background-color: #5D5FED;
+    color: #fff;
+    border-radius: 10px 0px 10px 10px;
+}
+.message-plunch.me .dash-msg-text h6{
+    color: #fff;
+    margin: 3px;
+}
+.message-plunch .dash-msg-text h6{
+    margin: 3px;
+}
+.message-plunch.me .dash-msg-text span{
+    color: #c5c5c5;
+    margin: 3px;
+    font-size: 12px;
+}
+.message-plunch.me .dash-msg-text p{
+    color: #fff;
+    margin: 3px;
+}
+.message-plunch .dash-msg-text{
+    margin-left: 70px;
+    background-color: #f4f5f7;
+    border-radius: 4px;
+    padding: 20px;
+    position: relative;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 0px 20px 20px 20px;
+}
+/****************************** End Chat Design ************************/

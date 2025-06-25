@@ -8,9 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Ticket extends Model
 {
     use HasFactory;
-    protected $table = 'support_tickets';
+    protected $table = 'tickets';
     protected $fillable = [
         'user_id',
+        'support_type',
         'sender_username',
         'receiver_username',
         'ticket_subject',

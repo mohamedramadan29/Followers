@@ -122,7 +122,13 @@ class ProfileController extends Controller
 
     public function alerts(){
         $notifications = Auth::user()->notifications;
-        return view('front.users.alerts',compact('notifications'));
+        $unreadNotifications = Auth::user()->unreadNotifications;
+        return view('front.users.alerts',compact('notifications','unreadNotifications'));
+    }
+    public function alertsUnread(){
+        $notifications = Auth::user()->notifications;
+        $unreadNotifications = Auth::user()->unreadNotifications;
+        return view('front.users.alerts',compact('notifications','unreadNotifications'));
     }
 
 

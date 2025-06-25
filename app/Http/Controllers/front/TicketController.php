@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\front\TicketMessage;
 use App\Http\Controllers\Controller;
+use App\Http\Traits\Upload_Images;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\Validator;
 class TicketController extends Controller
 {
     use Message_Trait;
+    use Upload_Images;
     public function tickets()
     {
         $tickets = Ticket::where('user_id', Auth::id())->orderBy('id', 'desc')->get();
@@ -46,14 +48,19 @@ class TicketController extends Controller
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
+            if ($request->hasFile('image')) {
+                $data['image'] = $this->saveImage($request->file('image'), 'assets/front/uploads/tickets');
+            }
             /////////// Ticket /////////////////
             DB::beginTransaction();
             try {
                 /////////// Start Ticket
                 $ticket = new Ticket();
                 $ticket->user_id = Auth::user()->id;
+                $ticket->support_type = $data['support_type'];
                 $ticket->title = $data['title'];
                 $ticket->content = $data['message'];
+                $ticket->files = $data['image'];
                 $ticket->save();
                 ///////////////// Start Message In Ticket  ////////////
                 $message = new TicketMessage();

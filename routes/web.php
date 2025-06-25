@@ -49,7 +49,8 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
         Route::get('setting', 'setting');
         Route::post('update_setting', 'UpdateSetting')->name('update_setting');
         Route::post('update_password', 'UpdatePassword')->name('update_password');
-        Route::get('alerts', 'alerts');
+        Route::get('alerts', 'alerts')->name('alerts');
+        Route::get('alerts/unread', 'alertsUnread')->name('alerts.unread');
         Route::get('/notifications/mark-all-read','markAllRead')->name('notifications.markAllRead');
         Route::get('balance', 'balance');
     });
