@@ -13,6 +13,7 @@
         "laravel/socialite": "^5.17",
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.6",
+        "parsecvpn/heleket-laravel-integrate": "^1.0",
         "pgrimaud/instagram-user-feed": "^7.0",
         "redot/laravel-toastify": "^1.0",
         "srmklive/paypal": "^3.0"

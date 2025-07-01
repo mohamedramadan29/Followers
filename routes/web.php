@@ -1,16 +1,19 @@
 <?php
 
-use App\Http\Controllers\front\ReviewController;
+use Illuminate\Http\Request;
 use App\Models\admin\Product;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HeleketController;
 use App\Http\Controllers\front\BlogController;
 use App\Http\Controllers\front\FrontController;
 use App\Http\Controllers\front\TermsController;
 use App\Http\Controllers\front\OrdersController;
+use App\Http\Controllers\front\ReviewController;
 use App\Http\Controllers\front\TicketController;
 use App\Http\Controllers\front\BootFaqController;
 use App\Http\Controllers\front\ContactController;
 use App\Http\Controllers\front\ProductController;
+use App\Http\Controllers\front\FavoriteController;
 use App\Http\Controllers\front\Auth\LoginController;
 use App\Http\Controllers\front\UserBalanceController;
 use App\Http\Controllers\front\User\ProfileController;
@@ -20,9 +23,7 @@ use App\Http\Controllers\front\TikTokCounterController;
 use App\Http\Controllers\front\InstagramCounterContoller;
 use App\Http\Controllers\front\User\UserOrdersController;
 use App\Http\Controllers\front\Auth\SocialLoginController;
-use App\Http\Controllers\front\FavoriteController;
 use App\Http\Controllers\front\Payments\PaypalPaymentController;
-use Illuminate\Http\Request;
 
 Route::controller(LoginController::class)->group(function () {
 
@@ -99,6 +100,14 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
         Route::get('/payment/card/cancel', 'cardCancel')->name('payment.card.cancel');
     });
     ########################################### End Payment Controllers ###################
+
+
+        Route::group(['middleware' => ['heleket']], function () {
+            Route::post('/heleket/webhook', [HeleketController::class, 'payment.webhook'])->name('heleket.webhook');
+            Route::post('/heleket/success', [HeleketController::class, 'success'])->name('heleket.success');
+            Route::post('/heleket/cancel', [HeleketController::class, 'cancel'])->name('heleket.cancel');
+        });
+Route::post('/heleket/notify', [HeleketController::class, 'notify'])->name('heleket.notify');
 });
 Route::controller(FrontController::class)->group(function () {
     Route::get('/', 'index')->name('index');

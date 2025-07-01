@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "af7596f94b02d227ca5556c09877d19c",
+    "content-hash": "988065f4ca86d8f64362606ad924cee3",
     "packages": [
         {
             "name": "anhskohbo/no-captcha",
@@ -3051,6 +3051,120 @@
                 "source": "https://github.com/paragonie/random_compat"
             },
             "time": "2020-10-15T08:29:30+00:00"
+        },
+        {
+            "name": "parsecvpn/api-php-sdk",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/parsecvpn/api-php-sdk.git",
+                "reference": "e2805c99ae432086b65bb6d4dffce47978b5c498"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/parsecvpn/api-php-sdk/zipball/e2805c99ae432086b65bb6d4dffce47978b5c498",
+                "reference": "e2805c99ae432086b65bb6d4dffce47978b5c498",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Heleket\\Api\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "ParsecVPN",
+                    "email": "support@parsecvpn.online",
+                    "homepage": "https://parsecvpn.online"
+                }
+            ],
+            "description": "Heleket api SDK",
+            "support": {
+                "source": "https://github.com/parsecvpn/api-php-sdk/tree/1.0.0"
+            },
+            "time": "2025-04-16T09:29:14+00:00"
+        },
+        {
+            "name": "parsecvpn/heleket-laravel-integrate",
+            "version": "1.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/parsecvpn/heleket-laravel-integrate.git",
+                "reference": "94b5126107f3585da49b7ab9110b5da5d2a5c7c1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/parsecvpn/heleket-laravel-integrate/zipball/94b5126107f3585da49b7ab9110b5da5d2a5c7c1",
+                "reference": "94b5126107f3585da49b7ab9110b5da5d2a5c7c1",
+                "shasum": ""
+            },
+            "require": {
+                "parsecvpn/api-php-sdk": "^1.0",
+                "php": "^8.1"
+            },
+            "require-dev": {
+                "illuminate/http": "^8.83",
+                "illuminate/routing": "^8.83",
+                "illuminate/support": "^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Parsecvpn\\Heleket\\HeleketServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Parsecvpn\\Heleket\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "ParsecVPN",
+                    "email": "support@parsecvpn.online",
+                    "homepage": "https://parsecvpn.online"
+                },
+                {
+                    "name": "Funny dev., Jsc",
+                    "email": "contact@funnydev.vn",
+                    "homepage": "https://github.com/funnydevjsc"
+                }
+            ],
+            "description": "Laravel package for heleket.com",
+            "homepage": "https://github.com/parsecvpn/heleket-laravel-integrate",
+            "keywords": [
+                "9pay",
+                "SePay",
+                "USDT",
+                "bitcoin",
+                "bsc",
+                "btc",
+                "crypto",
+                "heleket",
+                "laravel",
+                "litecoin",
+                "ltc",
+                "package",
+                "payment"
+            ],
+            "support": {
+                "source": "https://github.com/parsecvpn/heleket-laravel-integrate/tree/v1.0.5"
+            },
+            "time": "2025-04-16T09:37:52+00:00"
         },
         {
             "name": "pgrimaud/instagram-user-feed",

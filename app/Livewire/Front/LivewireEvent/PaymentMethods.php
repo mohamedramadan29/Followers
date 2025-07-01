@@ -3,6 +3,7 @@
 namespace App\Livewire\Front\LivewireEvent;
 
 use Livewire\Component;
+use Parsecvpn\Heleket\HeleketSdk;
 
 class PaymentMethods extends Component
 {
@@ -44,7 +45,42 @@ class PaymentMethods extends Component
            return redirect()->route('payment.paypal.initiate', ['amount' => $this->amount]);
         }
         if($this->paymentMethod == 'usdt'){
-          dd('usdt');
+            try {
+                // إنشاء مثيل من Heleket SDK
+                $heleket = new HeleketSdk();
+
+                // إنشاء رقم فاتورة فريد (يمكنك استخدام timestamp أو معرف الطلب)
+                $invoiceId = 'INV-' . time();
+
+                // إنشاء طلب دفع عبر Heleket
+                $payment = $heleket->create_payment(
+                    $invoiceId, // رقم الفاتورة
+                    $this->amount, // المبلغ
+                    'USDT', // العملة
+                    'BTC', // الشبكة (Binance Smart Chain)
+                    'bsc', // معرف الطلب
+                    route('heleket.success'), // رابط النجاح
+                    route('heleket.cancel'), // رابط الإلغاء
+                    route('heleket.notify')
+                );
+              //  dd($payment);
+
+                // التحقق من نجاح إنشاء الدفعة
+                if (isset($payment)) {
+
+                    // إعادة توجيه العميل إلى رابط الدفع
+                    return redirect()->away($payment);
+                } else {
+                    // التعامل مع الخطأ
+                    session()->flash('error', 'فشل إنشاء رابط الدفع. حاول مرة أخرى.');
+                    return redirect()->back();
+                }
+            } catch (\Exception $e) {
+                dd($e);
+                // التعامل مع أي استثناءات
+                session()->flash('error', 'حدث خطأ أثناء معالجة الدفع: ' . $e->getMessage());
+                return redirect()->back();
+            }
         }
     }
     }
