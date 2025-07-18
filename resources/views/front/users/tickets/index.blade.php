@@ -103,7 +103,8 @@
                             <div class="col-lg-12">
                                 <div class="search_button index-ticket-header">
                                     <h2> سجل التذاكر </h2>
-                                    <a href="{{ url('user/ticket/add') }}" class="btn btn-sm">  <i class="bi bi-plus-circle"></i>  اضافة تذكرة
+                                    <a href="{{ url('user/ticket/add') }}" class="btn btn-sm"> <i
+                                            class="bi bi-plus-circle"></i> اضافة تذكرة
                                         جديدة
                                     </a>
                                 </div>
@@ -133,18 +134,26 @@
                                                     @foreach ($tickets as $ticket)
                                                         <tr>
                                                             <td>{{ $ticket->id }} # </td>
-                                                            <td>{{ $ticket->support_type }}</td>
+                                                            <td>
+                                                                @if ($ticket->support_type == 'payments')
+                                                                    المدفوعات
+                                                                @else
+                                                                    الطلبات
+                                                                @endif
+                                                            </td>
                                                             <td>{{ $ticket->title }}</td>
                                                             <td> {{ $ticket->created_at->format('Y-m-d h:i A') }} </td>
                                                             <td> {{ $ticket->updated_at->diffForHumans() }} </td>
                                                             <td>
-                                                                @if ($ticket->status == 0)
-                                                                    <span class="badge badge-warning bg-warning">قيد
-                                                                        الانتظار</span>
-                                                                @elseif($ticket->status == 1)
+                                                                @if($ticket->status != 2)
+                                                                    @if($ticket->support_replay_status == 0)
+                                                                        <span class="badge badge-warning bg-warning">قيد
+                                                                            الانتظار</span>
+                                                                @elseif($ticket->support_replay_status == 1)
                                                                     <span class="badge badge-success bg-success">تم الرد
                                                                         عليها</span>
-                                                                @elseif($ticket->status == 2)
+                                                                @endif
+                                                                @else
                                                                     <span class="badge badge-danger bg-danger"> مغلقة
                                                                     </span>
                                                                 @endif

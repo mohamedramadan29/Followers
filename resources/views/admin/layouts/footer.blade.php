@@ -25,6 +25,7 @@
 
 <!-- App Javascript (Require in all Page) -->
 <script src="{{ asset('assets/admin/js/app.js') }}"></script>
+<script src="{{ asset('assets/admin/js/pages/app-chat.js') }}"></script>
 
 <!-- Vector Map Js -->
 {{-- <script src="{{asset('assets/admin/vendor/jsvectormap/js/jsvectormap.min.js')}}"></script> --}}

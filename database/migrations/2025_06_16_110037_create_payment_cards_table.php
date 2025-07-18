@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('card_number')->unique();
             $table->double('current_balance',8,2);
             $table->tinyInteger('status')->default(1);
+            $table->tinyInteger('user_id')->nullable();
             $table->timestamps();
         });
     }

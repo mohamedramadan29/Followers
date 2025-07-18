@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('content');
             $table->string('files')->nullable();
             $table->tinyInteger('status')->default(0);
+            $table->tinyInteger('support_replay_status')->default(0);
             $table->timestamps();
         });
     }

@@ -2,6 +2,8 @@
 @section('title')
     خدمة العملاء
 @endsection
+@section('support-active', 'active')
+@section('support-collapse', 'show')
 @section('css')
     {{--    <!-- DataTables CSS --> --}}
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
@@ -26,82 +28,95 @@
                     @endforeach
                 @endif
 
-                 @if ($tickets->isEmpty())
-                <div class="empty-data">
-                    <div class="row">
-                        <div class="empty-image">
-                            <img src="{{ asset('assets/admin/images/empty.png') }}" alt="">
-                        </div>
-                        <div class="empty-info">
-                            <h4> لا توجد تذاكر في الوقت الحالي </h4>
-                            <p> هذه الصفحة لا تحتوي على أي تذاكر في الوقت الحالي، ولكننا نعمل على إثرائها بأفضل المحتوى
-                                قريبًا. </br> نحن نسعى لتقديم قائمة التذاكر مميزة ومفيدة تلبي اهتماماتك. ترقب جديدنا قريبًا
-                                ونتمنى لك تجربة ممتعة معنا! </p>
-                        </div>
-                    </div>
-                </div>
-                @else
-                <div class="col-xl-12">
-                    <div class="card">
-                        <div>
-                            <div class="table-responsive">
-                                <table id="table-search"
-                                    class="table mb-0 align-middle table-bordered gridjs-table table-hover table-centered">
-                                    <thead class="bg-light-subtle table-primary-custome">
-                                        <tr>
-                                            <th style="width: 20px;">
-                                            </th>
-                                            <th> رقم التذكرة </th>
-                                            <th> رقم الطلب </th>
-                                            <th> اسم العميل </th>
-                                            <th> تاريخ ووقت التذكرة </th>
-                                            <th> اخر تحديث </th>
-                                            <th> حالة التذكرة </th>
-                                            <th> التفاصيل </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($tickets as $ticket)
-                                            <tr>
-                                                <td>
-                                                    {{ $ticket['id'] }}
-                                                </td>
-                                                <td> {{ $ticket['id'] }} </td>
-                                                <td> {{ $ticket->user->name }} </td>
-                                                <td> {{ date('Y-M-D ai A', strtotime($ticket['created_at'])) }} </td>
-                                                <td> {{ date('Y-M-D ai A', strtotime($ticket['last_time_message'])) }} </td>
-                                                <td>
-                                                    @if ($ticket['status'] == 0)
-                                                        <span class="badge bg-danger"> لم يتم الرد </span>
-                                                    @elseif($ticket['status'] == 1)
-                                                        <span class="badge bg-success">تم الرد عليها</span>
-                                                    @elseif ($ticket['status'] == 2)
-                                                        <span class="badge bg-warning"> عادية </span>
-                                                    @elseif ($ticket['status'] == 3)
-                                                        <span class="badge bg-info"> عاجلة </span>
-                                                    @elseif ($ticket['status'] == 4)
-                                                        <span class="badge bg-info"> مغلقة </span>
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    <div class="gap-2 d-flex">
-                                                        <a href="{{ url('admin/support/ticket/' . $ticket['id']) }}"
-                                                            class="btn btn-success btn-sm">
-                                                            <i class="fa fa-eye"></i>
-                                                        </a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-
-                                    </tbody>
-                                </table>
+                @if ($tickets->isEmpty())
+                    <div class="empty-data">
+                        <div class="row">
+                            <div class="empty-image">
+                                <img src="{{ asset('assets/admin/images/empty.png') }}" alt="">
                             </div>
-                            <!-- end table-responsive -->
+                            <div class="empty-info">
+                                <h4> لا توجد تذاكر في الوقت الحالي </h4>
+                                <p> هذه الصفحة لا تحتوي على أي تذاكر في الوقت الحالي، ولكننا نعمل على إثرائها بأفضل المحتوى
+                                    قريبًا. </br> نحن نسعى لتقديم قائمة التذاكر مميزة ومفيدة تلبي اهتماماتك. ترقب جديدنا
+                                    قريبًا
+                                    ونتمنى لك تجربة ممتعة معنا! </p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                 @endif
+                @else
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div>
+                                <div class="table-responsive">
+                                    <table id="table-search"
+                                        class="table mb-0 align-middle table-bordered gridjs-table table-hover table-centered">
+                                        <thead class="bg-light-subtle table-primary-custome">
+                                            <tr>
+                                                <th>#
+                                                </th>
+                                                <th> رقم التذكرة </th>
+                                                <th> نوع التذكرة </th>
+                                                {{-- <th> رقم الطلب </th> --}}
+                                                <th> اسم العميل </th>
+                                                <th> تاريخ ووقت التذكرة </th>
+                                                <th> اخر تحديث </th>
+                                                <th> حالة التذكرة </th>
+                                                <th> حالة الرد </th>
+                                                <th> التفاصيل </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($tickets as $ticket)
+                                                <tr>
+                                                    <td>
+                                                        {{ $loop->iteration }}
+                                                    </td>
+                                                    <td> {{ $ticket['id'] }} </td>
+                                                    <td>
+                                                        @if ($ticket->support_type == 'payments')
+                                                            المدفوعات
+                                                        @else
+                                                            الطلبات
+                                                        @endif
+                                                    </td>
+                                                    <td> {{ $ticket->user->name }} </td>
+                                                    <td> {{ $ticket->created_at->format('Y-m-d h:i A') }} </td>
+                                                    <td> {{ $ticket->updated_at->format('Y-m-d h:i A') }} </td>
+                                                    <td>
+                                                        @if ($ticket['status'] == 0)
+                                                            <span class="badge bg-warning"> عادية </span>
+                                                        @elseif($ticket['status'] == 1)
+                                                            <span class="badge bg-info"> عاجلة </span>
+                                                        @elseif ($ticket['status'] == 2)
+                                                            <span class="badge bg-danger"> مغلقة </span>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if ($ticket['support_replay_status'] == 0)
+                                                            <span class="badge bg-danger"> لم يتم الرد </span>
+                                                        @elseif($ticket['support_replay_status'] == 1)
+                                                            <span class="badge bg-success"> تم الرد </span>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        <div class="gap-2 d-flex">
+                                                            <a href="{{ route('admin.support.ticket_detail', $ticket['id']) }}"
+                                                                class="btn btn-success btn-sm">
+                                                                <i class="fa fa-eye"></i>
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- end table-responsive -->
+                            </div>
+                        </div>
+                    </div>
+                @endif
 
             </div>
 

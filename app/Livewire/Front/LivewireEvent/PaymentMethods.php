@@ -2,6 +2,12 @@
 
 namespace App\Livewire\Front\LivewireEvent;
 
+use App\Models\admin\PaymentCard;
+use App\Models\front\Transaction;
+use App\Models\front\User;
+use Illuminate\Contracts\Session\Session;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Livewire\Component;
 use Parsecvpn\Heleket\HeleketSdk;
 
@@ -10,6 +16,8 @@ class PaymentMethods extends Component
 
     public $paymentMethod;
     public $amount;
+    public $card_number = '';
+    public $card_value = '';
     public function setPaymentMethod($method)
     {
         $this->paymentMethod = $method;
@@ -19,6 +27,8 @@ class PaymentMethods extends Component
         return [
             'paymentMethod' => 'required',
             'amount' => 'required',
+           'card_number' => 'required_if:paymentMethod,card',
+           'card_value' => 'required_if:paymentMethod,card|numeric|min:1',
         ];
     }
 
@@ -26,11 +36,16 @@ class PaymentMethods extends Component
         return [
             'paymentMethod.required' => 'من فضلك حدد طريقة الدفع',
             'amount.required' => 'من فضلك حدد المبلغ',
+            'card_number.required_if' => 'من فضلك حدد رقم البطاقة',
+            'card_value.required_if' => 'من فضلك حدد قيمة البطاقة',
+            'card_value.numeric' => 'من فضلك حدد قيمة البطاقة',
+            'card_value.min' => 'من فضلك حدد قيمة البطاقة',
         ];
     }
     public function pay(){
         $this->validate($this->rules(), $this->messages());
-        if($this->paymentMethod == 'master' || $this->paymentMethod == 'paypal' || $this->paymentMethod == 'usdt'){
+
+        if($this->paymentMethod == 'master' || $this->paymentMethod == 'paypal' || $this->paymentMethod == 'usdt' || $this->paymentMethod == 'card'){
             $this->resetValidation();
             ########### Start Make Payment
         if($this->paymentMethod == 'master')
@@ -43,6 +58,9 @@ class PaymentMethods extends Component
             ########### End Make Payment
         if($this->paymentMethod == 'paypal'){
            return redirect()->route('payment.paypal.initiate', ['amount' => $this->amount]);
+        }
+        if($this->paymentMethod == 'card'){
+            $this->cardNumberPayment();
         }
         if($this->paymentMethod == 'usdt'){
             try {
@@ -83,7 +101,57 @@ class PaymentMethods extends Component
             }
         }
     }
+}
+
+public function cardNumberPayment(){
+    ###### Step1  Check Payment data Number and Value
+    $card = PaymentCard::where('card_number',$this->card_number)->first();
+    if(!$card){
+        session()->flash('error_no_card',' رقم الكارت الذي ادخلتة غير صحيح  ');
+        return;
     }
+    if($card){
+    $card_main_value = $card['balance'];
+    if($card_main_value != $this->card_value){
+
+        session()->flash('error_no_value',' قيمة الكارت التي ادخلتة غير صحيح  ');
+        return;
+    }
+
+     ########### Step2 Check Card Number Useed Or Not
+     $card_status = $card['status'];
+     if($card_status != 1){
+        session()->flash('error_no_card',' تم استخدام هذا الكارت من قبل من فضلك ادخل كارت جديد  ');
+        return;
+     }
+
+      ######## Add Balance To User
+      if(Auth::check()){
+      $user = Auth::user()->id;
+      $user = User::find($user);
+      $user->balance += $card_main_value;
+      $user->save();
+      }
+
+    ######### Change Card Status To Used
+    $card->status = 0;
+    $card->user_id = Auth::user()->id;
+    $card->save();
+    #########
+    #### Add To Payment Transactions
+    $transaction = new Transaction();
+    $transaction->create([
+        'user_id'=>Auth::user()->id,
+        'payment_method'=>'card',
+        'payment_status'=>'completed',
+        'amount'=>$card_main_value,
+    ]);
+
+    session()->flash('card_success','تم شحن الكارت  بنجاح');
+    return redirect()->route('user.balance');
+    }
+}
+
 
     public function render()
     {

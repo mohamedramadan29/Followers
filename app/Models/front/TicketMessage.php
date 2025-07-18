@@ -13,4 +13,13 @@ class TicketMessage extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function files()
+    {
+        return $this->hasMany(SupportTicketFile::class,'ticket_message_id');
+    }
+
+    public function ticket(){
+        return $this->belongsTo(Ticket::class,'ticket_id');
+    }
+
 }

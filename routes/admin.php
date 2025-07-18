@@ -30,7 +30,6 @@ use App\Http\Controllers\admin\SupportTicketsController;
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     // Admin Login
-
     Route::controller(AdminController::class)->group(function () {
         Route::match(['post', 'get'], '/', 'login')->name('admin_login');
         Route::match(['post', 'get'], 'login', 'login')->name('admin_login');
@@ -220,8 +219,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::group(['prefix' => 'support', 'as' => 'support.', 'can' => 'support'], function () {
             Route::controller(SupportTicketsController::class)->group(function () {
                 Route::get('tickets', 'index');
-                Route::get('ticket-show/{id}', 'showTicket');
-                Route::match(['post', 'get'], 'send-message/{id}', 'sendMessage');
+                Route::get('ticket-show/{id}', 'showTicket')->name('ticket_detail');
+                Route::match(['post', 'get'], 'send-message/{id}', 'sendMessage')->name('send_message');
             });
         });
         ################### End Support Ticket Controller ##################

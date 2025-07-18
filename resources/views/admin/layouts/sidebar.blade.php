@@ -74,7 +74,7 @@
             </li>
             @can('support')
                 <li class="nav-item">
-                    <a class="nav-link menu-arrow" href="#sidebarSupport" data-bs-toggle="collapse" role="button"
+                    <a class="nav-link @yield('support-active')" href="#sidebarSupport" data-bs-toggle="collapse" role="button"
                         aria-expanded="false" aria-controls="sidebarSupport">
                         <span class="nav-icon">
                             <i class="bi bi-people"></i>
@@ -84,7 +84,7 @@
                     <div class="collapse" id="sidebarSupport">
                         <ul class="nav sub-navbar-nav">
                             <li class="sub-nav-item">
-                                <a class="sub-nav-link" href="{{ url('admin/support/tickets') }}"> جميع التذاكر </a>
+                                <a class="sub-nav-link @yield('tickets-active')" href="{{ url('admin/support/tickets') }}"> جميع التذاكر </a>
                             </li>
                         </ul>
                     </div>

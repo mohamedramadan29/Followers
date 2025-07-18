@@ -106,6 +106,11 @@
                                                 شحن الرصيد الان <i class="bi bi-plus"></i>
                                             </button>
                                         </div>
+                                        @if(session()->has('card_success'))
+                                        <div class="alert alert-success">
+                                            {{ session('card_success') }}
+                                        </div>
+                                        @endif
                                         <div class="table-responsive">
                                             <table id="table-search" class="table table-bordered">
                                                 <thead class="table-primary-custome">
@@ -175,7 +180,7 @@
                             <div class="row gy-3">
                                 <div class="col-sm-12 col-xs-12">
                                     <label for=""> ادخل المبلغ المراد شحنة بالدولار </label>
-                                    <input name="amount" type="number"
+                                    <input required name="amount" type="number"
                                         class="common-input common-input--md border--color-dark bg--white" id="name"
                                         placeholder=" مثال 20  ">
                                 </div>

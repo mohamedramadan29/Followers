@@ -65,7 +65,7 @@ class AdminController extends Controller
                     $this->Error_message(' حساب الادمن الخاص بك غير فعال  ');
                 } else {
                     //  dd('Goood');
-                    return redirect('admin/dashboard');
+                    return redirect()->intended(route('admin.dashboard.welcome'));
                 }
             } else {
 
