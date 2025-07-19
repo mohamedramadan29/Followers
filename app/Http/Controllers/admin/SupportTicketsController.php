@@ -19,9 +19,17 @@ class SupportTicketsController extends Controller
     use Upload_Images;
     public function index()
     {
-       // $tickets = SupportTicket::latest()->get();
-       $tickets = Ticket::latest()->get();
-        return view('admin.support.tickets', compact('tickets'));
+
+        $tickets = Ticket::latest()->get();
+        $purchases_count = $tickets->where('support_type', 'payments')->count();
+        $orders_count = $tickets->where('support_type', 'orders')->count();
+        $urgent_count = $tickets->where('status', 1)->count();
+        $normal_count = $tickets->where('status', 0)->count();
+        $answered_count = $tickets->where('support_replay_status', 1)->count();
+        $closed_count = $tickets->where('status', 2)->count();
+
+
+        return view('admin.support.tickets', compact('tickets','purchases_count','orders_count','urgent_count','normal_count','answered_count','closed_count'));
     }
 
     public function showTicket($id)
@@ -38,52 +46,6 @@ class SupportTicketsController extends Controller
     ########### Send New Message ############
     public function sendMessage(Request $request, $id)
     {
-        // $ticket = Ticket::findOrFail($id);
-        // $data = $request->all();
-        // $rules = [
-        //     'message' => 'required|string',
-        //     'files.*' => 'nullable|file|mimes:jpg,png,pdf,doc,docx|max:2048',
-        // ];
-        // $messages = [
-        //     'message.required' => 'من فضلك ادخل رسالتك',
-        //     'message.string' => 'من فضلك ادخل نص الرسالة بشكل صحيح',
-        //     'files.*.mimes' => 'نوع الملف غير مدعوم، يرجى رفع صور أو مستندات (jpg, png, pdf, doc, docx)',
-        //     'files.*.max' => 'حجم الملف يتجاوز الحد الأقصى (2 ميجابايت)',
-        // ];
-        // $validator = Validator::make($data, $rules, $messages);
-        // if ($validator->fails()) {
-        //     return Redirect()->back()->withInput()->withErrors($validator);
-        // }
-
-        // ###### Insert Message
-        // TicketMessage::create([
-        //     'ticket_id' => $ticket->id,
-        //     'sender_username' => 'support',
-        //     'receiver_username' => $ticket->sender_username,
-        //     'message' => $request->message,
-        //     'is_read' => 1,
-        // ]);
-        // $ticket->update([
-        //     'last_message' => $request->message,
-        //     'last_time_message' => now(),
-        //     'is_read' => 1,
-        // ]);
-        // ###### Insert Files Message #########
-
-        // #### Is Request has File
-        // if ($request->hasFile('files')) {
-        //     foreach ($request->file('files') as $file) {
-        //         $filename = $this->saveImage($file, public_path('assets/uploads/support_tickets/'));
-        //         SupportTicketFile::create([
-        //             'ticket_message_id' => $ticket->id,
-        //             'file' => $filename,
-        //         ]);
-        //     }
-        // }
-
-        // return $this->success_message('تم اضافة رسالتك بنجاح');
-
-
         if ($request->isMethod('POST')) {
             $ticket = Ticket::findOrFail($id);
             $data = $request->all();
@@ -123,5 +85,39 @@ class SupportTicketsController extends Controller
             DB::commit();
             return $this->success_message(' تم اضافة رسالتك بنجاح  ');
         }
+    }
+
+    public function tickets($status)
+    {
+
+
+          ######## Get Count ########
+          $purchases_count = Ticket::where('support_type', 'payments')->count();
+          $orders_count = Ticket::where('support_type', 'orders')->count();
+          $urgent_count = Ticket::where('status', 1)->count();
+          $normal_count = Ticket::where('status', 0)->count();
+          $answered_count = Ticket::where('support_replay_status', 1)->count();
+          $closed_count = Ticket::where('status', 2)->count();
+          ######## Get Tickets ########
+
+
+        $query = Ticket::query();
+        if ($status == 'all') {
+            $tickets = $query->latest()->get();
+        } elseif ($status == 'purchases') {
+            $tickets = $query->where('support_type', 'payments')->latest()->get();
+        } elseif ($status == 'orders') {
+            $tickets = $query->where('support_type', 'orders')->latest()->get();
+        } elseif ($status == 'urgent') {
+            $tickets = $query->where('status', 1)->latest()->get();
+        } elseif ($status == 'normal') {
+            $tickets = $query->where('status', 0)->latest()->get();
+        } elseif ($status == 'answered') {
+            $tickets = $query->where('support_replay_status', 1)->latest()->get();
+        } elseif ($status == 'closed') {
+            $tickets = $query->where('status', 2)->latest()->get();
+        }
+
+        return view('admin.support.tickets', compact('tickets','purchases_count','orders_count','urgent_count','normal_count','answered_count','closed_count'));
     }
 }

@@ -219,6 +219,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::group(['prefix' => 'support', 'as' => 'support.', 'can' => 'support'], function () {
             Route::controller(SupportTicketsController::class)->group(function () {
                 Route::get('tickets', 'index');
+                Route::get('tickets/{status}', 'tickets')->where('status', 'all|purchases|orders|urgent|normal|answered|closed');
                 Route::get('ticket-show/{id}', 'showTicket')->name('ticket_detail');
                 Route::match(['post', 'get'], 'send-message/{id}', 'sendMessage')->name('send_message');
             });

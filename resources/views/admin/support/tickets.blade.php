@@ -46,6 +46,35 @@
                 @else
                     <div class="col-xl-12">
                         <div class="card">
+                            <div class="row">
+                                <form class="d-flex"
+                                    style="justify-content: space-between;align-items: center">
+                                    <ul class="list-unstyled orders-tabs" style="widows: 90%">
+                                        <li>
+                                            <a href="{{ url('admin/support/tickets') }}" class="all active"> جميع التذاكر </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ url('admin/support/tickets/purchases') }}" class="purchases pending"> المدفوعات ({{ $purchases_count }}) </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ url('admin/support/tickets/orders') }}" class="orders inprogress"> الطلبات ({{ $orders_count }}) </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ url('admin/support/tickets/urgent') }}" class="urgent partial"> العاجلة ({{ $urgent_count }}) </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ url('admin/support/tickets/normal') }}" class="normal processing"> العادية  ({{ $normal_count }}) </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ url('admin/support/tickets/answered') }}" class="answered complete"> تم الرد عليها   ({{ $answered_count }}) </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ url('admin/support/tickets/closed') }}" class="closed cancelled"> المغلقة  ({{ $closed_count }}) </a>
+                                        </li>
+                                    </ul>
+
+                                </form>
+                            </div>
                             <div>
                                 <div class="table-responsive">
                                     <table id="table-search"
