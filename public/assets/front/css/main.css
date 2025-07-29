@@ -11013,7 +11013,7 @@ margin-bottom: 20px;
     position: fixed;
     bottom: 30px;
     left: 30px;
-    background-color: #025789;
+    background-color: #5353B6;
     color: #fff;
     z-index: 99999;
     width: 45px;
@@ -11024,8 +11024,8 @@ margin-bottom: 20px;
     /* تأثير النبض */
 }
 
-.news_button i {
-    font-size: 20px;
+.news_button img {
+    width:26px
 }
 
 

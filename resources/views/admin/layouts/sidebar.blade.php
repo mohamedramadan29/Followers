@@ -103,20 +103,23 @@
 
             @can('reports')
                 <li class="nav-item">
-                    <a class="nav-link menu-arrow" href="#sidebarReports" data-bs-toggle="collapse" role="button"
+                    <a class="nav-link menu-arrow @yield('reports-active')" href="#sidebarReports" data-bs-toggle="collapse" role="button"
                         aria-expanded="false" aria-controls="sidebarReports">
                         <span class="nav-icon">
                             <i class="bi bi-bar-chart-line"></i>
                         </span>
                         <span class="nav-text"> التقارير </span>
                     </a>
-                    <div class="collapse" id="sidebarReports">
+                    <div class="collapse @yield('reports-collapse')" id="sidebarReports">
                         <ul class="nav sub-navbar-nav">
-                            <li class="sub-nav-item">
+                            <li class="sub-nav-item @yield('reports-active')">
                                 <a class="sub-nav-link" href="{{ url('admin/reports/index') }}"> جميع التقارير </a>
                             </li>
-                            <li class="sub-nav-item">
-                                <a class="sub-nav-link" href="{{ url('admin/reports/index') }}"> تقارير المنتجات </a>
+                            <li class="sub-nav-item @yield('reports-active')">
+                                <a class="sub-nav-link" href="{{ url('admin/reports/sales') }}"> تقارير المبعات  </a>
+                            </li>
+                            <li class="sub-nav-item @yield('reports-active')">
+                                <a class="sub-nav-link" href="{{ url('admin/reports/products') }}"> تقارير المنتجات </a>
                             </li>
                         </ul>
                     </div>

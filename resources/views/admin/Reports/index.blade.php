@@ -1,5 +1,7 @@
 @extends('admin.layouts.master')
-@section('title', 'التقارير  ')
+@section('title', 'التقارير ')
+@section('reports-active', 'active')
+@section('reports-collapse', 'show')
 @section('content')
     <!-- ==================================================== -->
     <div class="page-content">
@@ -9,13 +11,14 @@
                 <form action="#" method="get" class="d-flex" style="justify-content: space-between;align-items: center">
                     <ul class="list-unstyled orders-tabs" style="widows: 90%">
                         <li>
-                            <a href="" class="all active"> المبيعات </a>
+                            <a href="{{ url('admin/reports/sales') }}"
+                                class="all"> المبيعات </a>
                         </li>
                         <li>
-                            <a href="#" class="complete"> المنتجات  </a>
+                            <a href="{{ url('admin/reports/products') }}" class="complete"> المنتجات </a>
                         </li>
                         <li>
-                            <a href="#" class="pending">   الزيارات  </a>
+                            <a href="{{ url('admin/reports/visits') }}" class="pending"> الزيارات </a>
                         </li>
                     </ul>
 
@@ -24,18 +27,40 @@
             <!-- Top Row -->
             <div class="mb-4 row">
                 <!-- Best Products -->
-                <div class="col-md-4">
+                <div class="col-md-6 col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">أفضل المنتجات</h5>
-                            <div class="product-list">
-                                <!-- Product items will be populated dynamically -->
+                            <h5 class="card-title"> تقرير الطلبات الشهرية </h5>
+                            <div class="product-list" style="height: 300px;">
+                                <canvas id="monthlyOrdersChart"></canvas>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <div class="col-md-6 col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"> تقرير الطلبات حسب الحالة </h5>
+                            <div class="product-list" style="height: 300px; margin-top: 20px;">
+                                <canvas id="statusDistributionChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"> تقرير أفضل المنتجات </h5>
+                            <div class="product-list" style="height: 300px; margin-top: 20px;">
+                                <canvas id="bestSellingProductsChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Revenue by Visitor -->
-                <div class="col-md-4">
+                <div class="col-md-6 col-12">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">الهدف مقابل الواقع</h5>
@@ -44,7 +69,7 @@
                     </div>
                 </div>
                 <!-- Service Level -->
-                <div class="col-md-4">
+                <div class="col-md-6 col-12">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">الحجم مقابل مستوى الخدمة</h5>
@@ -52,12 +77,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Middle Row -->
-            <div class="mb-4 row">
-                <!-- Customer Trends -->
-                <div class="col-md-4">
+                 <!-- Customer Trends -->
+                 <div class="col-md-6 col-12">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">رضا العملاء</h5>
@@ -66,7 +87,7 @@
                     </div>
                 </div>
                 <!-- Visitor Trends -->
-                <div class="col-md-4">
+                <div class="col-md-6 col-12">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">مشاهدة الزوار</h5>
@@ -74,12 +95,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Bottom Row -->
-            <div class="mb-4 row">
                 <!-- Marketing Campaigns -->
-                <div class="col-md-4">
+                <div class="col-md-6 col-12">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">أداء الحملات التسويقية</h5>
@@ -88,7 +106,7 @@
                     </div>
                 </div>
                 <!-- Revenue Sources -->
-                <div class="col-md-4">
+                <div class="col-md-6 col-12">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">تحليل مصادر الزيارات</h5>
@@ -97,7 +115,7 @@
                     </div>
                 </div>
                 <!-- Annual Report -->
-                <div class="col-md-4">
+                <div class="col-md-6 col-12">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">تقرير الأداء العام</h5>
@@ -143,9 +161,230 @@
 @endsection
 
 @section('js')
+
+
+
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+
+            /************** Report For Order Monthly  ********/
+            const dataFromServer = @json($monthlyOrders);
+            const ctx = document.getElementById('monthlyOrdersChart').getContext('2d');
+
+            const chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: dataFromServer.labels,
+                    datasets: [{
+                        label: 'عدد الطلبات',
+                        data: dataFromServer.data,
+                        backgroundColor: [
+                            'rgba(54, 162, 235, 0.6)',
+                            'rgba(75, 192, 192, 0.6)',
+                            'rgba(255, 206, 86, 0.6)',
+                            'rgba(153, 102, 255, 0.6)',
+                            'rgba(255, 159, 64, 0.6)',
+                            'rgba(54, 162, 235, 0.6)',
+                            'rgba(75, 192, 192, 0.6)'
+                        ],
+                        borderColor: [
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(75, 192, 192, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'عدد الطلبات'
+                            },
+                            ticks: {
+                                stepSize: 1,
+                                precision: 0
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 10
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'الشهر'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                            text: 'عدد الطلبات الشهرية (2025)'
+                        },
+                        tooltip: {
+                            enabled: true
+                        }
+                    }
+                }
+            });
+
+            /********** Report For Order Status  ********/
+
+            const statusData = @json($statusDistribution);
+            const statusCtx = document.getElementById('statusDistributionChart').getContext('2d');
+            new Chart(statusCtx, {
+                type: 'pie',
+                data: {
+                    labels: statusData.labels,
+                    datasets: [{
+                        data: statusData.data,
+                        backgroundColor: [
+                            'rgba(54, 162, 235, 0.6)',
+                            'rgba(75, 192, 192, 0.6)',
+                            'rgba(255, 206, 86, 0.6)',
+                            'rgba(153, 102, 255, 0.6)',
+                            'rgba(255, 159, 64, 0.6)',
+                            'rgba(255, 99, 132, 0.6)',
+                            'rgba(201, 203, 207, 0.6)'
+                        ],
+                        borderColor: [
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(201, 203, 207, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'right'
+                        },
+                        title: {
+                            display: true,
+                            text: 'توزيع الطلبات حسب الحالة'
+                        }
+                    }
+                }
+            });
+
+            /****************** Report For Best Products ***************/
+
+
+            // الرسم البياني الثالث: أفضل المنتجات مبيعًا
+            const productData = @json($bestSellingProducts);
+            console.log('Best Selling Products Data:', productData);
+
+            const canvas = document.getElementById('bestSellingProductsChart');
+            if (!canvas) {
+                console.error('Canvas element not found!');
+                return;
+            }
+
+            const productCtx = canvas.getContext('2d');
+
+            new Chart(productCtx, {
+                type: 'bar',
+                data: {
+                    labels: productData.labels,
+                    datasets: [{
+                        label: 'عدد المبيعات',
+                        data: productData.data,
+                        backgroundColor: [
+                            'rgba(54, 162, 235, 0.6)',
+                            'rgba(75, 192, 192, 0.6)',
+                            'rgba(255, 206, 86, 0.6)',
+                            'rgba(153, 102, 255, 0.6)',
+                            'rgba(255, 159, 64, 0.6)'
+                        ],
+                        borderColor: [
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'عدد المبيعات'
+                            },
+                            ticks: {
+                                stepSize: 1,
+                                precision: 0
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: Math.max(...productData.data) + 1 || 5
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'المنتجات'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        },
+                        title: {
+                            display: true,
+                            text: 'أفضل المنتجات مبيعًا'
+                        }
+                    }
+                }
+            });
+
+
+            console.log('Charts created');
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+    <!---------------------------------------------------------------------->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+
+
             // Helper function to initialize chart with error handling
             function initChart(id, config) {
                 const canvas = document.getElementById(id);

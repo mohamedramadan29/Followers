@@ -1,7 +1,8 @@
 <div class="last_news_section">
     <button class="news_button" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
         aria-controls="offcanvasExample">
-        <i class="bi bi-exclamation-triangle-fill"></i>
+        
+        <img src="{{ asset('assets/front/images/notification.svg') }}" alt="">
     </button>
 </div>
 

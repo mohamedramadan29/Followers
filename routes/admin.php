@@ -240,6 +240,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::group(['prefix' => 'reports', 'as' => 'reports.', 'can' => 'reports'], function () {
             Route::controller(ReportController::class)->group(function () {
                 Route::get('index', 'index');
+                Route::get('sales','sales')->name('sales');
+                Route::get('products','products')->name('products');
+                Route::get('visits','visits');
             });
         });
         ################### End Reports Controller #########################
