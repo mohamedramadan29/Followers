@@ -19,21 +19,9 @@ class AdminController extends Controller
     // Use Trait For Success Or Error Messages
     use Message_Trait;
 
-
     public function dashboard()
     {
-        //dd(Auth::guard('admin')->user());
-        // if (Gate::allows('admins')) {
-        //     dd('لديك الصلاحية');
-        // } else {
-        //     dd('لا تملك الصلاحية');
-        // }
-        // Gate::define('admins', function ($auth) {
-        //     return $auth->hasAccess('admins'); // تحقق من أن المستخدم لديه صلاحية "admins"
-        // });
-        $publicsetting = PublicSetting::first();
-        $lastUsers = User::latest()->take(10)->get();
-        return view('admin.dashboard', compact('publicsetting','lastUsers'));
+
     }
 
     ////////////////////// Login Admin //////////////

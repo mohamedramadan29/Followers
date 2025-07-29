@@ -28,7 +28,7 @@
                                                 data-choices-groups data-placeholder="Select Categories" name="service_id">
                                                 <option value=""> -- حدد الخدمة --</option>
                                                 @foreach ($products as $product)
-                                                    <option @if ($product['id'] == $review['service_id']) selected @endif
+                                                    <option @if ($product['id'] == $review['product_id']) selected @endif
                                                         value="{{ $product['id'] }}">{{ $product['name'] }}</option>
                                                 @endforeach
                                             </select>
@@ -36,11 +36,16 @@
                                     </div>
                                     <div class="col-lg-4 col-12">
                                         <div class="mb-3">
-                                            <label for="name" class="form-label"> الاسم <span class="star"
+                                            <label for="name" class="form-label"> العميل <span class="star"
                                                     style="color: red"> * </span>
                                             </label>
-                                            <input required type="text" id="name" class="form-control"
-                                                name="name" value="{{ $review['name'] }}">
+                                            <select required class="form-control" id="user_id" data-choices
+                                                data-choices-groups data-placeholder="Select Categories" name="user_id">
+                                                <option value=""> -- حدد العميل --</option>
+                                                @foreach ($users as $user)
+                                                    <option {{ $user['id'] == $review['user_id'] ? 'selected' : '' }} value="{{ $user['id'] }}">{{ $user['name'] }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-12">

@@ -12,7 +12,8 @@
 
     <!-- Bootstrap -->
     {{-- <link rel="stylesheet" href="{{ asset('assets/front/') }}/css/bootstrap.min.css"> --}}
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
     <!-- Fontawesome -->
     <link rel="stylesheet" href="{{ asset('assets/front/') }}/css/fontawesome-all.min.css">
     <!-- Slick -->
@@ -25,6 +26,18 @@
     <!-- Main css -->
     <link rel="stylesheet" href="{{ asset('assets/front/') }}/css/main.css">
     <link rel="stylesheet" href="{{ asset('assets/front/') }}/css/new-custome.css">
+
+    <!--########################### Start Add Google Analytics################## -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_TRACKING_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', 'YOUR_TRACKING_ID');
+    </script>
+    <!-- ##########################   End Add Google Analytics ###################### -->
     @yield('css')
     @toastifyCss
 </head>

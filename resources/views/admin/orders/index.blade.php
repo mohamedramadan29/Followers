@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
-@section('title')
-    سجل الطلبات
-@endsection
+@section('title', 'سجل الطلبات')
+@section('orders-active', 'active')
+@section('orders-collapse', 'show')
 @section('css')
     {{--    <!-- DataTables CSS --> --}}
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
@@ -9,23 +9,10 @@
 @section('content')
     <!-- ==================================================== -->
     <div class="page-content">
-
         <!-- Start Container Fluid -->
         <div class="container-xxl">
             <div class="row">
-                @if (Session::has('Success_message'))
-                    @php
-                        toastify()->success(\Illuminate\Support\Facades\Session::get('Success_message'));
-                    @endphp
-                @endif
-                @if ($errors->any())
-                    @foreach ($errors->all() as $error)
-                        @php
-                            toastify()->error($error);
-                        @endphp
-                    @endforeach
-                @endif
-                @if ($orders_with_status->isEmpty())
+                @if ($orders_with_status->isEmpty() && !isset($orders_with_status_new))
                     <div class="empty-data">
                         <div class="row">
                             <div class="empty-image">
@@ -39,25 +26,26 @@
                             </div>
                         </div>
                     </div>
-                    {{-- @else --}}
+                     @else
                     <div class="col-xl-12">
                         <div class="card">
                             <div class="gap-1">
                                 <form action="#" method="get" class="d-flex" style="justify-content: space-between;align-items: center">
                                     <ul class="list-unstyled orders-tabs" style="widows: 90%">
                                         <li>
-                                            <a href="" class="all active"> جميع الطلبات </a>
+                                            <a href="{{ url('admin/orders') }}" class="all {{ request()->is('admin/orders') ? 'active' : '' }}"> جميع الطلبات </a>
                                         </li>
                                         <li>
-                                            <a href="#" class="complete"> المكتملة </a>
+                                            <a href="{{ url('admin/orders/status/Completed') }}" class="complete {{ request()->route('status') == 'Completed' ? 'active' : '' }} "> المكتملة </a>
                                         </li>
+                                        <li> <a href="{{ url('admin/orders/status/Pending') }}" class="inprogress {{ request()->route('status') == 'Pending' ? 'active' : '' }} "> قيد التنفيذ </a> </li>
+                                        <li> <a href="{{ url('admin/orders/status/Partial') }}" class="partial {{ request()->route('status') == 'Partial' ? 'active' : '' }} "> مكتملة جزئيا </a> </li>
+                                        <li> <a href="{{ url('admin/orders/status/Processing') }}" class="processing {{ request()->route('status') == 'Processing' ? 'active' : '' }} "> قيد المعالجة </a> </li>
                                         <li>
-                                            <a href="#" class="pending"> قيد الانتظار </a>
+                                            <a href="{{ url('admin/orders/status/Refunded') }}" class="pending {{ request()->route('status') == 'Refunded' ? 'active' : '' }} ">  تم الاسترداد  </a>
                                         </li>
-                                        <li> <a href="#" class="inprogress"> قيد التنفيذ </a> </li>
-                                        <li> <a href="#" class="partial"> مكتملة جزئيا </a> </li>
-                                        <li> <a href="#" class="processing"> قيد المعالجة </a> </li>
-                                        <li> <a href="#" class="cancelled"> الملغية </a> </li>
+                                        <li> <a href="{{ url('admin/orders/status/Canceled') }}" class="cancelled {{ request()->route('status') == 'Canceled' ? 'active' : '' }} "> الملغية </a> </li>
+
                                     </ul>
                                     <select name="period" class="form-select" id="" style="width: 10%">
                                         <option value="1"> اليوم </option>
@@ -66,8 +54,6 @@
                                         <option value="4"> السنة </option>
                                     </select>
                                 </form>
-
-
                             </div>
                             <div>
                                 <div class="table-responsive">
@@ -75,6 +61,7 @@
                                         class="table mb-0 align-middle table-bordered gridjs-table table-hover table-centered">
                                         <thead class="bg-light-subtle table-primary-custome">
                                             <tr>
+                                                <th> # </th>
                                                 <th> رقم الطلب عند المزود</th>
                                                 <th> رقم الخدمة عند المزود </th>
                                                 <th> رقم الطلب </th>
@@ -92,14 +79,16 @@
                                         <tbody>
                                             @foreach ($orders_with_status as $order)
                                                 <tr>
-                                                    <td data-label="Order ID"># {{ $order['order_number'] }} </td>
-                                                    <td data-label="Order ID"># {{ $order['order_number'] }} </td>
-                                                    <td data-label="Order ID"># {{ $order['order_number'] }} </td>
-                                                    <td data-label="Price"> {{ $order['total_price'] }} $ </td>
-                                                    <td data-label="Date"> {{ $order['created_at'] }} </td>
-                                                    <td data-label="Type"> {{ $order['name'] }} </td>
-                                                    <td data-label="Date"> {{ $order['quantity'] }} </td>
-                                                    <td data-label="Date">
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td> {{ $order['order_number'] }} </td>
+                                                    <td> {{ $order['main_service_id'] }} </td>
+                                                    <td> {{ $order['id'] }} </td>
+                                                    <td> {{ number_format($order['total_price'], 5) }} $ </td>
+                                                    <td> {{ $order['created_at']->format('Y-m-d H:i A') }} </td>
+                                                    <td> {{ str()->limit($order['name'], 40 , '...') }} </td>
+                                                    <td> <a href="{{ $order['page_link'] }}" target="_blank"> {{ str()->limit($order['page_link'], 10 , '...') }} </a> </td>
+                                                    <td> {{ $order['quantity'] }} </td>
+                                                    <td>
                                                         {{ $order->provider_details->start_count }} </td>
                                                     <td data-label="Date"> {{ $order->provider_details->remains }}
                                                     </td>
@@ -147,21 +136,19 @@
                                                     </td>
                                                     <td>
                                                         <div class="gap-2 d-flex">
-                                                            <a href="{{ url('admin/provider/update/' . $order['id']) }}"
+                                                            <a href="{{ url('admin/order/show/' . $order['id']) }}"
                                                                 class="btn-sm color-success">
-                                                                <iconify-icon icon="solar:pen-2-broken"
-                                                                    class="align-middle fs-18"></iconify-icon>
+                                                                <i class="bi bi-eye"></i>
                                                             </a>
                                                             <button type="button" class="btn-sm color-danger"
                                                                 data-bs-toggle="modal"
-                                                                data-bs-target="#delete_category_{{ $order['id'] }}">
-                                                                <iconify-icon icon="solar:trash-bin-minimalistic-2-broken"
-                                                                    class="align-middle fs-18"></iconify-icon>
+                                                                data-bs-target="#delete_order_{{ $order['id'] }}">
+                                                                <i class="bi bi-trash"></i>
                                                             </button>
                                                         </div>
                                                     </td>
-
                                                 </tr>
+                                                @include('admin.orders.delete')
                                             @endforeach
                                         </tbody>
                                     </table>
@@ -185,32 +172,33 @@
 @endsection
 
 @section('js')
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    {{--    <!-- DataTables JS --> --}}
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{{--    <!-- DataTables JS --> --}}
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 
-    <script>
-        $(document).ready(function() {
-            // تحقق ما إذا كان الجدول قد تم تهيئته من قبل
-            if ($.fn.DataTable.isDataTable('#table-search')) {
-                $('#table-search').DataTable().destroy(); // تدمير التهيئة السابقة
-            }
+<script>
+    $(document).ready(function() {
+        // تحقق ما إذا كان الجدول قد تم تهيئته من قبل
+        if ($.fn.DataTable.isDataTable('#table-search')) {
+            $('#table-search').DataTable().destroy(); // تدمير التهيئة السابقة
+        }
 
-            // تهيئة DataTables من جديد
-            $('#table-search').DataTable({
-                "language": {
-                    "search": "بحث:",
-                    "lengthMenu": "عرض _MENU_ عناصر لكل صفحة",
-                    "zeroRecords": "لم يتم العثور على سجلات",
-                    "info": "عرض _PAGE_ من _PAGES_",
-                    "infoEmpty": "لا توجد سجلات متاحة",
-                    "infoFiltered": "(تمت التصفية من إجمالي _MAX_ سجلات)",
-                    "paginate": {
-                        "previous": "السابق",
-                        "next": "التالي"
-                    }
+        // تهيئة DataTables من جديد
+        $('#table-search').DataTable({
+            "ordering":false,
+            "language": {
+                "search": "بحث:",
+                "lengthMenu": "عرض _MENU_ عناصر لكل صفحة",
+                "zeroRecords": "لم يتم العثور على سجلات",
+                "info": "عرض _PAGE_ من _PAGES_",
+                "infoEmpty": "لا توجد سجلات متاحة",
+                "infoFiltered": "(تمت التصفية من إجمالي _MAX_ سجلات)",
+                "paginate": {
+                    "previous": "السابق",
+                    "next": "التالي"
                 }
-            });
+            }
         });
-    </script>
+    });
+</script>
 @endsection

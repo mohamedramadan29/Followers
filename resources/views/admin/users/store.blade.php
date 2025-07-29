@@ -1,25 +1,13 @@
 @extends('admin.layouts.master')
-@section('title')
-    المستخدمين
-@endsection
+@section('title','اضافة مستخدم جديد')
+@section('users-active','active')
+@section('add-users-active','active')
 @section('css')
 @endsection
 @section('content')
     <div class="page-content">
         <!-- Start Container Fluid -->
         <div class="container-xxl">
-            @if (Session::has('Success_message'))
-                @php
-                    toastify()->success(\Illuminate\Support\Facades\Session::get('Success_message'));
-                @endphp
-            @endif
-            @if ($errors->any())
-                @foreach ($errors->all() as $error)
-                    @php
-                        toastify()->error($error);
-                    @endphp
-                @endforeach
-            @endif
             <form method="post" action="{{ url('admin/user/add') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="row">

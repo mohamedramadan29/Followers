@@ -77,12 +77,6 @@ class User extends Authenticatable
      ->count();
     }
 
-
-
-    public function LastSeen(){
-
-    }
-
     public function isOnline(){
         return $this->last_seen && Carbon::now()->diffInMinutes($this->last_seen) < 5;
     }

@@ -173,6 +173,7 @@
 
             // تهيئة DataTables من جديد
             $('#table-search').DataTable({
+                'ordering':false,
                 "language": {
                     "search": "بحث:",
                     "lengthMenu": "عرض _MENU_ عناصر لكل صفحة",

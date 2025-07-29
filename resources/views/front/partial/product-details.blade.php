@@ -18,9 +18,12 @@
             @endfor
         </span>
     </div>
+    @if(isset($service->getServiceDataFromProvider($service->Provider, $service->service_id)->rate))
     <div class="most-ordered-price"> <span style="color: #5D5FED">
-            {{ $service->getServiceDataFromProvider($service->Provider, $service->service_id)->rate + ($service->profit_percentage / 100) * $service->getServiceDataFromProvider($service->Provider, $service->service_id)->rate }}
-            $ </span> <img src="{{ asset('assets/front/uploads/sar-price.svg') }}" alt=""> /
-        {{ $service->getServiceDataFromProvider($service->Provider, $service->service_id)->min }}
-    </div>
+        {{ $service->getServiceDataFromProvider($service->Provider, $service->service_id)->rate + ($service->profit_percentage / 100) * $service->getServiceDataFromProvider($service->Provider, $service->service_id)->rate }}
+        $ </span> <img src="{{ asset('assets/front/uploads/sar-price.svg') }}" alt=""> /
+    {{ $service->getServiceDataFromProvider($service->Provider, $service->service_id)->min }}
+</div>
+    @endif
+
 </div>

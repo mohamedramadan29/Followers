@@ -16,6 +16,7 @@
         "parsecvpn/heleket-laravel-integrate": "^1.0",
         "pgrimaud/instagram-user-feed": "^7.0",
         "redot/laravel-toastify": "^1.0",
+        "spatie/laravel-analytics": "^5.5",
         "srmklive/paypal": "^3.0"
     },
     "require-dev": {

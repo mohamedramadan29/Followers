@@ -142,15 +142,24 @@
                                             <a class="dropdown-item"
                                                 href="{{ url('admin/user/show/' . $ticket->user->id) }}"><i
                                                     class="bx bx-user-circle me-2"></i> البروفايل </a>
-                                            <a class="dropdown-item" href="javascript: void(0);"><i
-                                                    class="bx bx-music me-2"></i> سجل الطلبات </a>
-                                            <a class="dropdown-item" href="javascript: void(0);"><i
-                                                    class="bx bx-search me-2"></i> زيادة رصيد </a>
-                                            <a class="dropdown-item" href="javascript: void(0);"><i
-                                                    class="bx bx-image me-2"></i> خصم رصيد </a>
-                                            <a class="dropdown-item" href="javascript: void(0);"><i
+                                            <a class="dropdown-item"
+                                                href="{{ url('admin/user/show/' . $ticket->user->id) }}"><i
+                                                    class="bi bi-list me-2"></i> سجل الطلبات </a>
+
+                                            <button data-bs-toggle="modal"
+                                                data-bs-target="#add_balance_{{ $ticket->user->id }}" class="dropdown-item"
+                                                href="javascript: void(0);"><i class="bx bx-plus me-2"></i> زيادة رصيد
+                                            </button>
+                                            <button data-bs-toggle="modal"
+                                                data-bs-target="#delete_balance_{{ $ticket->user->id }}"
+                                                class="dropdown-item" href="javascript: void(0);"><i
+                                                    class="bx bx-minus me-2"></i> خصم رصيد </button>
+                                            <a class="dropdown-item"
+                                                href="{{ url('admin/user/show/' . $ticket->user->id) }}"><i
                                                     class="bx bx-right-arrow-circle me-2"></i>حالة المستخدم </a>
                                         </div>
+                                        @include('admin.users.add_balance', ['user' => $ticket->user])
+                                        @include('admin.users.delete_balance', ['user' => $ticket->user])
                                     </li>
                                 </ul>
                             </div>

@@ -1,8 +1,6 @@
 @extends('admin.layouts.master')
 @section('title', ' التقيمات ')
 @section('reviews-active', 'active')
-@section('css')
-@endsection
 @section('content')
     <!-- ==================================================== -->
     <div class="page-content">
@@ -38,8 +36,13 @@
                                             <label for="name" class="form-label"> العميل <span class="star"
                                                     style="color: red"> * </span>
                                             </label>
-                                            <input required type="text" id="title" class="form-control"
-                                                name="name" value="{{ old('name') }}">
+                                            <select required class="form-control" id="user_id" data-choices
+                                                data-choices-groups data-placeholder="Select Categories" name="user_id">
+                                                <option value=""> -- حدد العميل --</option>
+                                                @foreach ($users as $user)
+                                                    <option {{ old('user_id') == $user['id'] ? 'selected' : '' }} value="{{ $user['id'] }}">{{ $user['name'] }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-12">

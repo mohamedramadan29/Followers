@@ -36,14 +36,14 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link menu-arrow" href="#sidebarorders" data-bs-toggle="collapse" role="button"
+                <a class="nav-link menu-arrow @yield('orders-active')" href="#sidebarorders" data-bs-toggle="collapse" role="button"
                     aria-expanded="false" aria-controls="sidebarorders">
                     <span class="nav-icon">
                         <i class="bi bi-list-check"></i>
                     </span>
                     <span class="nav-text"> سجل الطلبات </span>
                 </a>
-                <div class="collapse" id="sidebarorders">
+                <div class="collapse @yield('orders-collapse')" id="sidebarorders">
                     <ul class="nav sub-navbar-nav">
 
                         <li class="sub-nav-item">
@@ -54,20 +54,20 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link menu-arrow" href="#sidebarCustomers" data-bs-toggle="collapse" role="button"
+                <a class="nav-link menu-arrow @yield('users-active')" href="#sidebarCustomers" data-bs-toggle="collapse" role="button"
                     aria-expanded="false" aria-controls="sidebarCustomers">
                     <span class="nav-icon">
                         <i class="bi bi-people"></i>
                     </span>
                     <span class="nav-text"> المستخدمين </span>
                 </a>
-                <div class="collapse" id="sidebarCustomers">
+                <div class="collapse @yield('users-collapse')" id="sidebarCustomers">
                     <ul class="nav sub-navbar-nav">
                         <li class="sub-nav-item">
-                            <a class="sub-nav-link" href="{{ url('admin/users') }}"> جميع المستخدمين </a>
+                            <a class="sub-nav-link @yield('users-active')" href="{{ url('admin/users') }}"> جميع المستخدمين </a>
                         </li>
                         <li class="sub-nav-item">
-                            <a class="sub-nav-link" href="{{ url('admin/user/add') }}"> اضافة مستخدم </a>
+                            <a class="sub-nav-link @yield('add-users-active')" href="{{ url('admin/user/add') }}"> اضافة مستخدم </a>
                         </li>
                     </ul>
                 </div>

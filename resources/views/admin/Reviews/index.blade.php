@@ -52,7 +52,7 @@
                                                 <th> رقم الطلب </th>
                                                 <th> التقيم </th>
                                                 <th> محتوي التقيم </th>
-                                                <th> تاريخ النشر </th>
+                                                <th> تاريخ الانشاء  </th>
                                                 <th> الحالة </th>
                                                 <th> إجراءات متقدمة </th>
                                             </tr>
@@ -64,10 +64,21 @@
                                                         {{ $loop->iteration }}
                                                     </td>
                                                     <td> {{ $review['name'] }} </td>
-                                                    <td> {{ $review['service']['name'] }} </td>
-                                                    <td> {{ $review['order_id'] }} </td>
-                                                    <td> {{ $review['rate'] }} </td>
-                                                    <td> {!! $review['description'] !!} </td>
+                                                    <td>
+                                                        <img width="40px" src="{{ asset('assets/uploads/product_images/'.$review['service']['image']) }}" alt="">
+                                                         {{ Str::limit($review['service']['name'], 20,'...') }} </td>
+                                                    <td> <a href="{{ url('admin/order/show/'.$review['order_id']) }}"> {{ $review['order_id'] }} </a> </td>
+                                                    <td>
+                                                        <span class="stars ms-1">
+                                                            @for ($i = 0; $i < 5; $i++)
+                                                                @if ($i < $review['rate'])
+                                                                    <i class="fa fa-star text-warning"></i>
+                                                                @else
+                                                                    <i class="fa fa-star text-gray" style="color: #bcbbbb"></i>
+                                                                @endif
+                                                            @endfor
+                                                        </span>  </td>
+                                                    <td> {!! Str::limit($review['description'], 20,'...') !!} </td>
                                                     <td> {{ $review['created_at']->format('Y-m-d') }} </td>
                                                     <td>
                                                         @if ($review['status'] == 1)

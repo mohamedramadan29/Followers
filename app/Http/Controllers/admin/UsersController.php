@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Models\admin\UserStep;
+use App\Services\Api;
 use App\Models\front\User;
+use App\Models\front\Order;
 use Illuminate\Http\Request;
+use App\Models\admin\UserStep;
 use App\Http\Traits\Message_Trait;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\front\Order;
+use App\Models\front\Transaction;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller
@@ -69,9 +73,46 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::find($id);
-        $orders = Order::where('user_id', '=', $id)->get();
-        return view('admin.users.show', compact('user', 'orders'));
-    }
+        $transactions = Transaction::where('user_id',$id)->latest()->get();
+
+        // إنشاء مفتاح الكاش بناءً على معرف المستخدم
+        $cacheKey = 'user_orders_' . $id;
+
+        // جلب الطلبات من الكاش أو من قاعدة البيانات
+        $orders_with_status = Cache::remember($cacheKey, 3600, function () use ($id) {
+            // استرجاع الطلبات مع بيانات المزود
+            $orders = Order::with('provider')
+                ->where('user_id', $id)
+                ->orderBy('id', 'desc')
+                ->get();
+
+            // إذا لم يكن هناك طلبات، إرجاع 404
+            if ($orders->isEmpty()) {
+                abort(404);
+            }
+
+            // إضافة بيانات الحالة من المزود
+            $orders_with_status = $orders->map(function ($order) {
+                try {
+                    // التأكد من وجود بيانات المزود
+                    if ($order->provider) {
+                        $api = new Api($order->provider->api_url, $order->provider->api_key);
+                        $provider_order_data = $api->status($order->order_number);
+                        // إضافة جميع البيانات المسترجعة من المزود إلى الطلب
+                        $order->provider_details = $provider_order_data;
+                    } else {
+                        $order->provider_details = null;
+                    }
+                } catch (\Exception $e) {
+                    $order->provider_details = null; // في حالة حدوث خطأ
+                }
+                return $order;
+            });
+
+            return $orders_with_status;
+        });
+        return view('admin.users.show', compact('user', 'orders_with_status','transactions'));
+    } 
     ######### Add Balance To User
 
     public function AddBalance(Request $request, $id)

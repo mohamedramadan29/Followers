@@ -49,7 +49,6 @@ class UserOrdersController extends Controller
                 } catch (\Exception $e) {
                     $order->provider_details = null; // في حالة حدوث خطأ
                 }
-
                 return $order;
             });
 

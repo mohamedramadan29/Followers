@@ -10,22 +10,9 @@
 @section('content')
     <!-- ==================================================== -->
     <div class="page-content">
-
         <!-- Start Container Fluid -->
         <div class="container-xxl">
             <div class="row">
-                @if (Session::has('Success_message'))
-                    @php
-                        toastify()->success(\Illuminate\Support\Facades\Session::get('Success_message'));
-                    @endphp
-                @endif
-                @if ($errors->any())
-                    @foreach ($errors->all() as $error)
-                        @php
-                            toastify()->error($error);
-                        @endphp
-                    @endforeach
-                @endif
                 @if ($news->isEmpty())
                     <div class="empty-data">
                         <div class="row">
@@ -63,30 +50,29 @@
                             <div class="table-responsive">
                                 <table id="table-search"
                                        class="table mb-0 align-middle table-bordered gridjs-table table-hover table-centered">
-                                    <thead class="bg-light-subtle">
+                                       <thead class="bg-light-subtle table-primary-custome">
                                     <tr>
                                         <th>
                                              #
                                         </th>
                                         <th> عنوان الخبر  </th>
-                                        <th> التاريخ   </th>
                                         <th> الصورة    </th>
+                                        <th> تاريخ الانشاء    </th>
+                                        <th>  تاريخ النشر    </th>
                                         <th> التصنيف    </th>
                                         <th> العمليات</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @php
-                                        $i = 1;
-                                    @endphp
                                     @foreach($news as $new)
                                         <tr>
                                             <td>
                                                 {{ $loop->iteration }}
                                             </td>
                                             <td> {{$new['title']}} </td>
-                                            <td> {{ $new->created_at->format('y-m-d') }} </td>
                                             <td> <img width="60" height="60" src="{{ $new->Image() }}" alt=""> </td>
+                                            <td> {{ $new->created_at->format('y-m-d') }} </td>
+                                            <td> {{ $new->publish_date }} </td>
                                             <td>
                                                 {{$new['category']}}
                                             </td>
@@ -102,7 +88,7 @@
                                                         <i class="ti ti-trash"></i>
                                                     </button>
                                                 </div>
-                                            </td> 
+                                            </td>
                                         </tr>
                                         <!-- Modal -->
                                         @include('admin.News.delete')
@@ -129,32 +115,33 @@
 @endsection
 
 @section('js')
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    {{--    <!-- DataTables JS -->--}}
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{{--    <!-- DataTables JS --> --}}
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 
-    <script>
-        $(document).ready(function () {
-            // تحقق ما إذا كان الجدول قد تم تهيئته من قبل
-            if ($.fn.DataTable.isDataTable('#table-search')) {
-                $('#table-search').DataTable().destroy(); // تدمير التهيئة السابقة
-            }
+<script>
+    $(document).ready(function() {
+        // تحقق ما إذا كان الجدول قد تم تهيئته من قبل
+        if ($.fn.DataTable.isDataTable('#table-search')) {
+            $('#table-search').DataTable().destroy(); // تدمير التهيئة السابقة
+        }
 
-            // تهيئة DataTables من جديد
-            $('#table-search').DataTable({
-                "language": {
-                    "search": "بحث:",
-                    "lengthMenu": "عرض _MENU_ عناصر لكل صفحة",
-                    "zeroRecords": "لم يتم العثور على سجلات",
-                    "info": "عرض _PAGE_ من _PAGES_",
-                    "infoEmpty": "لا توجد سجلات متاحة",
-                    "infoFiltered": "(تمت التصفية من إجمالي _MAX_ سجلات)",
-                    "paginate": {
-                        "previous": "السابق",
-                        "next": "التالي"
-                    }
+        // تهيئة DataTables من جديد
+        $('#table-search').DataTable({
+            'ordering': false,
+            "language": {
+                "search": "بحث:",
+                "lengthMenu": "عرض _MENU_ عناصر لكل صفحة",
+                "zeroRecords": "لم يتم العثور على سجلات",
+                "info": "عرض _PAGE_ من _PAGES_",
+                "infoEmpty": "لا توجد سجلات متاحة",
+                "infoFiltered": "(تمت التصفية من إجمالي _MAX_ سجلات)",
+                "paginate": {
+                    "previous": "السابق",
+                    "next": "التالي"
                 }
-            });
+            }
         });
-    </script>
+    });
+</script>
 @endsection

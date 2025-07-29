@@ -13,18 +13,6 @@
         <!-- Start Container Fluid -->
         <div class="container-xxl">
             <div class="row">
-                @if (Session::has('Success_message'))
-                    @php
-                        toastify()->success(\Illuminate\Support\Facades\Session::get('Success_message'));
-                    @endphp
-                @endif
-                @if ($errors->any())
-                    @foreach ($errors->all() as $error)
-                        @php
-                            toastify()->error($error);
-                        @endphp
-                    @endforeach
-                @endif
                 @if ($faqs->isEmpty())
                     <div class="empty-data">
                         <div class="row">
@@ -77,7 +65,18 @@
                                                     <td> {{ $loop->iteration }} </td>
                                                     <td> {{ $faq['question'] }} </td>
                                                     <td> {!! $faq['answer'] !!} </td>
-                                                    <td> {!! $faq['keywords'] !!} </td>
+                                                    <td>
+                                                        @if ($faq['keywords'] == null)
+                                                            <span class="badge badge-danger">لا يوجد</span>
+                                                        @else
+                                                        @php
+                                                            $keywords = explode(',', $faq['keywords']);
+                                                        @endphp
+                                                            @foreach ($keywords as $keyword)
+                                                                <span class="badge badge-primary bg-success">{{ $keyword }}</span>
+                                                            @endforeach
+                                                        @endif
+                                                    </td>
                                                     <td> {!! $faq['usage_count'] !!} </td>
                                                     <td>
                                                         <div class="gap-2 d-flex">

@@ -23,6 +23,7 @@ use App\Http\Controllers\admin\MainCategoryController;
 use App\Http\Controllers\admin\NotificationController;
 use App\Http\Controllers\admin\PaymentCardsController;
 use \App\Http\Controllers\admin\BlogCategoryController;
+use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\PagesController;
 use App\Http\Controllers\admin\PublicSettingController;
 use App\Http\Controllers\admin\PaymentMethodsController;
@@ -35,7 +36,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::match(['post', 'get'], 'login', 'login')->name('admin_login');
         // Admin Dashboard
         Route::group(['middleware' => 'auth:admin'], function () {
-            Route::get('dashboard', 'dashboard')->name('dashboard.welcome');
             // update admin password
             Route::match(['post', 'get'], 'update_admin_password', 'update_admin_password');
             // check Admin Password
@@ -45,6 +45,13 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
             Route::get('logout', 'logout')->name('logout');
         });
     });
+
+    Route::controller(DashboardController::class)->group(function () {
+        Route::group(['middleware' => 'auth:admin'], function () {
+            Route::get('dashboard', 'dashboard')->name('dashboard.welcome');
+        });
+    });
+
     Route::group(['middleware' => 'auth:admin'], function () {
 
         ///////////////// Start Public Settings
@@ -148,6 +155,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         ########################## Start Orders #######################
         Route::controller(OrdersController::class)->group(function () {
             Route::get('orders', 'index');
+            Route::get('order/show/{id}', 'show')->name('order.show');
+            Route::post('order/delete/{id}','delete')->name('order.delete');
+            Route::get('orders/status/{status}','OrdersStatus');
         });
         ########################### End Orders #######################
 
@@ -156,7 +166,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::controller(UsersController::class)->group(function () {
             Route::get('users', 'index');
             Route::match(['post', 'get'], 'user/add', 'store');
-            Route::get('user/show/{id}', 'show');
+            Route::get('user/show/{id}', 'show')->name('user.show');
+            Route::get('user/show/transactions/{id}', 'show')->name('user.show.transactions');
             Route::post('user/addbalance/{id}', 'AddBalance');
             Route::post('user/deletebalance/{id}', 'DeleteBalance');
             Route::match(['post', 'get'], 'user/ban/{id}', 'Ban')->name('user.ban');
