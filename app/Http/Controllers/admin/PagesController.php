@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Traits\Message_Trait;
+use App\Http\Traits\Slug_Trait;
 use App\Models\admin\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Validator;
 class PagesController extends Controller
 {
     use Message_Trait;
+    use Slug_Trait;
 
     public function index(){
         $pages = Page::orderBY('id','desc')->get();
@@ -22,12 +24,13 @@ class PagesController extends Controller
             try{
                 $data = $request->all();
                 $rules = [
-                    'title'=>'required|string',
+                    'title'=>'required|string|unique:pages,title',
                     'content'=>'required',
                 ];
                 $messages = [
                     'title.required'=>' من فضلك ادخل عنوان الصفحة  ',
                     'title.string'=>' من فضلك ادخل العنوان بشكل صحيح  ',
+                    'title.unique'=>' عنوان الصفحة موجود من قبل  ',
                     'content.required'=>' من فضلك ادخل محتوي الصفحة  ',
                 ];
                 $validator = Validator::make($data,$rules,$messages);
@@ -36,6 +39,7 @@ class PagesController extends Controller
                 }
                 $page = new Page();
                 $page->title = $data['title'];
+                $page->slug = $this->CustomeSlug($data['title']);
                 $page->content = $data['content'];
                 $page->page_show = $data['page_show'];
                 $page->status = 1;
@@ -52,12 +56,13 @@ class PagesController extends Controller
             try{
                 $data = $request->all();
                 $rules = [
-                    'title'=>'required|string',
+                    'title'=>'required|string|unique:pages,title,'.$id,
                     'content'=>'required',
                 ];
                 $messages = [
                     'title.required'=>' من فضلك ادخل عنوان الصفحة  ',
                     'title.string'=>' من فضلك ادخل العنوان بشكل صحيح  ',
+                    'title.unique'=>'عنوان الصفحة موجود من قبل',
                     'content.required'=>' من فضلك ادخل محتوي الصفحة  ',
                 ];
                 $validator = Validator::make($data,$rules,$messages);
@@ -66,6 +71,7 @@ class PagesController extends Controller
                 }
                 $page = Page::find($id);
                 $page->title = $data['title'];
+                $page->slug = $this->CustomeSlug($data['title']);
                 $page->content = $data['content'];
                 $page->page_show = $data['page_show'];
                 $page->status = $data['status'];

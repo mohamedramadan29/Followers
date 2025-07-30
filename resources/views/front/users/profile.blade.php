@@ -4,7 +4,7 @@
 
 
     <!-- ======================== Breadcrumb Three Section Start ===================== -->
-    <section class="breadcrumb-three section-bg position-relative z-index-1 overflow-hidden">
+    <section class="overflow-hidden breadcrumb-three section-bg position-relative z-index-1">
 
         <img src="{{ asset('assets/front/') }}/images/gradients/breadcrumb-gradient-bg.png" alt=""
             class="bg--gradient">
@@ -16,31 +16,31 @@
             <div class="breadcrumb-three-content border-bottom border-color">
                 <div class="breadcrumb-three-content__inner">
                     <div class="breadcrumb-three-content__left">
-                        <div class="flx-between align-items-end gap-3">
-                            <div class="author-profile d-flex gap-2 flex-column">
-                                <div class="author-profile__thumb flex-shrink-0">
+                        <div class="gap-3 flx-between align-items-end">
+                            <div class="gap-2 author-profile d-flex flex-column">
+                                <div class="flex-shrink-0 author-profile__thumb">
                                     <img src="{{ asset('assets/front/') }}/images/thumbs/author-profile.png" alt="">
                                 </div>
 
-                                <div class="d-flex align-items-end flex-wrap gap-4">
+                                <div class="flex-wrap gap-4 d-flex align-items-end">
                                     <div class="author-profile__info">
-                                        <h5 class="author-profile__name mb-2"> محمد رمضان </h5>
+                                        <h5 class="mb-2 author-profile__name"> محمد رمضان </h5>
                                         <span class="author-profile__membership font-14"> عضو منذ اسبوع </span>
                                     </div>
                                 </div>
                             </div>
                             <div
-                                class="breadcrumb-three-content__right flex-shrink-0  d-flex align-items-center gap-4 gap-lg-5">
+                                class="flex-shrink-0 gap-4 breadcrumb-three-content__right d-flex align-items-center gap-lg-5">
 
                                 <div class="sales">
-                                    <span class="sales__text mb-1 text-heading fw-500">الرصيد الحالي </span>
-                                    <h5 class="sales__amount mb-0">15,830 ر.س</h5>
+                                    <span class="mb-1 sales__text text-heading fw-500">الرصيد الحالي </span>
+                                    <h5 class="mb-0 sales__amount">15,830 ر.س</h5>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <ul class="nav tab-bordered nav-pills mt-4" id="pills-tabbs" role="tablist">
+                <ul class="mt-4 nav tab-bordered nav-pills" id="pills-tabbs" role="tablist">
 
                     <li class="nav-item" role="presentation">
                         <a href="{{ url('user/orders') }}" class="nav-link"> طلباتي </a>
@@ -66,7 +66,7 @@
     <!-- ======================== Breadcrumb Three Section End ===================== -->
 
     <!-- ===================== orders Section Start ============================== -->
-    <section class="profile pt-5 padding-b-120">
+    <section class="pt-5 profile padding-b-120">
         <div class="container container-two">
             <div class="tab-content" id="pills-tabb">
 
@@ -75,15 +75,15 @@
                     <!-- ========================= Orders section start =========================== -->
                     <div class="row gy-4">
                         <div class="col-lg-6">
-                            <div class="statement-item card common-card border border-gray-five">
+                            <div class="border statement-item card common-card border-gray-five">
                                 <div class="card-body">
                                     <div class="statement-item__header">
                                         <h6 class="statement-item__title"> الرصيد الحالي </h6>
                                     </div>
                                     <ul class="statement-list">
-                                        <li class="statement-list__item text-center">
+                                        <li class="text-center statement-list__item">
 
-                                            <h6 class="statement-list__amount mb-0 mt-1 fw-600">
+                                            <h6 class="mt-1 mb-0 statement-list__amount fw-600">
                                                 $50.00
                                             </h6>
                                         </li>
@@ -93,14 +93,14 @@
                             </div>
                         </div>
                         <div class="col-lg-6">
-                            <div class="statement-item card common-card border border-gray-five">
+                            <div class="border statement-item card common-card border-gray-five">
                                 <div class="card-body">
                                     <div class="statement-item__header">
                                         <h6 class="statement-item__title"> انفقت معنا </h6>
                                     </div>
                                     <ul class="statement-list">
-                                        <li class="statement-list__item text-center">
-                                            <h6 class="statement-list__amount mb-0 mt-1 fw-600">
+                                        <li class="text-center statement-list__item">
+                                            <h6 class="mt-1 mb-0 statement-list__amount fw-600">
                                                 $100.00
                                             </h6>
                                         </li>
@@ -110,7 +110,7 @@
                             </div>
                         </div>
                         <div class="col-12">
-                            <div class="card common-card border border-gray-five">
+                            <div class="border card common-card border-gray-five">
                                 <div class="card-body">
                                     <div class="table-responsive">
                                         <table class="table text-body mt--24">
@@ -187,12 +187,12 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <div class="flx-between gap-2">
-                                            <div class="paginate-content flx-align flex-nowrap gap-3">
+                                        <div class="gap-2 flx-between">
+                                            <div class="flex-nowrap gap-3 paginate-content flx-align">
 
                                             </div>
                                             <nav aria-label="Page navigation example">
-                                                <ul class="pagination common-pagination mt-0">
+                                                <ul class="mt-0 pagination common-pagination">
                                                     <li class="page-item">
                                                         <a class="page-link" href="#">1</a>
                                                     </li>
@@ -206,7 +206,7 @@
                                                         <a class="page-link" href="#">4</a>
                                                     </li>
                                                     <li class="page-item">
-                                                        <a class="page-link flx-align gap-2 flex-nowrap"
+                                                        <a class="flex-nowrap gap-2 page-link flx-align"
                                                             href="#">التالي
                                                             <span class="icon line-height-1 font-20"><i
                                                                     class="las la-arrow-left"></i></span>
@@ -228,22 +228,22 @@
                     <!-- Profile Portfolio Content Star -->
 
                     <div class="row gy-4">
-                        <div class="text-center mt-64">
+                        <div class="mt-64 text-center">
                             <a href="#" class="btn btn-main btn-lg pill fw-300">
                                 شحن الرصيد
                             </a>
                         </div>
 
                         <div class="col-lg-6">
-                            <div class="statement-item card common-card border border-gray-five">
+                            <div class="border statement-item card common-card border-gray-five">
                                 <div class="card-body">
                                     <div class="statement-item__header">
                                         <h6 class="statement-item__title"> الرصيد الحالي </h6>
                                     </div>
                                     <ul class="statement-list">
-                                        <li class="statement-list__item text-center">
+                                        <li class="text-center statement-list__item">
 
-                                            <h6 class="statement-list__amount mb-0 mt-1 fw-600">
+                                            <h6 class="mt-1 mb-0 statement-list__amount fw-600">
                                                 $50.00
                                             </h6>
                                         </li>
@@ -253,14 +253,14 @@
                             </div>
                         </div>
                         <div class="col-lg-6">
-                            <div class="statement-item card common-card border border-gray-five">
+                            <div class="border statement-item card common-card border-gray-five">
                                 <div class="card-body">
                                     <div class="statement-item__header">
                                         <h6 class="statement-item__title"> انفقت معنا </h6>
                                     </div>
                                     <ul class="statement-list">
-                                        <li class="statement-list__item text-center">
-                                            <h6 class="statement-list__amount mb-0 mt-1 fw-600">
+                                        <li class="text-center statement-list__item">
+                                            <h6 class="mt-1 mb-0 statement-list__amount fw-600">
                                                 $100.00
                                             </h6>
                                         </li>
@@ -270,7 +270,7 @@
                             </div>
                         </div>
                         <div class="col-12">
-                            <div class="card common-card border border-gray-five">
+                            <div class="border card common-card border-gray-five">
                                 <div class="card-body">
                                     <div class="table-responsive">
                                         <table class="table text-body mt--24">
@@ -295,12 +295,12 @@
 
                                             </tbody>
                                         </table>
-                                        {{-- <div class="flx-between gap-2">
-                                            <div class="paginate-content flx-align flex-nowrap gap-3">
+                                        {{-- <div class="gap-2 flx-between">
+                                            <div class="flex-nowrap gap-3 paginate-content flx-align">
 
                                             </div>
                                             <nav aria-label="Page navigation example">
-                                                <ul class="pagination common-pagination mt-0">
+                                                <ul class="mt-0 pagination common-pagination">
                                                     <li class="page-item">
                                                         <a class="page-link" href="#">1</a>
                                                     </li>
@@ -314,7 +314,7 @@
                                                         <a class="page-link" href="#">4</a>
                                                     </li>
                                                     <li class="page-item">
-                                                        <a class="page-link flx-align gap-2 flex-nowrap"
+                                                        <a class="flex-nowrap gap-2 page-link flx-align"
                                                             href="#">التالي
                                                             <span class="icon line-height-1 font-20"><i
                                                                     class="las la-arrow-left"></i></span>
@@ -355,7 +355,7 @@
                             </form>
                         </div>
                         <div class="col-12">
-                            <div class="card common-card border border-gray-five">
+                            <div class="border card common-card border-gray-five">
                                 <div class="card-body">
                                     <div class="no_tickets">
                                         <i class="fa fa-comments"></i>
@@ -379,7 +379,7 @@
                     <!-- ================== Setting Section Start ====================== -->
                     <div class="row gy-4">
                         <div class="col-lg-4 pe-xl-5">
-                            <div class="setting-sidebar ">
+                            <div class="setting-sidebar">
                                 <h6 class="setting-sidebar__title">Your Details</h6>
                                 <ul class="setting-sidebar-list">
                                     <li class="setting-sidebar-list__item"><a href="#personalInfo"
@@ -400,7 +400,7 @@
                         <div class="col-lg-8">
                             <!-- <form action="#"> -->
                             <div class="setting-content" data-bs-spy="scroll" data-bs-target="#sidebar-scroll-spy">
-                                <div class="card common-card border border-gray-five overflow-hidden mb-24"
+                                <div class="overflow-hidden mb-24 border card common-card border-gray-five"
                                     id="personalInfo">
                                     <div class="card-header">
                                         <h6 class="title">Personal Information</h6>
@@ -446,7 +446,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card common-card border border-gray-five overflow-hidden mb-24"
+                                <div class="overflow-hidden mb-24 border card common-card border-gray-five"
                                     id="profile">
                                     <div class="card-header">
                                         <h6 class="title">Personal Information</h6>
@@ -474,13 +474,13 @@
                                             </div>
                                             <div class="col-sm-6 col-xs-6">
                                                 <label class="form-label">Show Country on Your</label>
-                                                <div class="flx-align gap-3 mt-2">
-                                                    <div class="common-check common-radio mb-0">
+                                                <div class="gap-3 mt-2 flx-align">
+                                                    <div class="mb-0 common-check common-radio">
                                                         <input class="form-check-input" type="radio" name="showCountry"
                                                             id="yes">
                                                         <label class="form-check-label ps-2" for="yes">Yes</label>
                                                     </div>
-                                                    <div class="common-check common-radio mb-0">
+                                                    <div class="mb-0 common-check common-radio">
                                                         <input class="form-check-input" type="radio" name="showCountry"
                                                             id="no">
                                                         <label class="form-check-label ps-2" for="no">No</label>
@@ -496,13 +496,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card common-card border border-gray-five overflow-hidden mb-24"
+                                <div class="overflow-hidden mb-24 border card common-card border-gray-five"
                                     id="paymentSystem">
                                     <div class="card-header">
                                         <h6 class="title">Payment Method</h6>
                                     </div>
                                     <div class="card-body">
-                                        <div class="payment-method mb-0">
+                                        <div class="mb-0 payment-method">
                                             <div class="payment-method__wrapper arrow-sm">
                                                 <div class="payment-method__item">
                                                     <input class="form-check-input" type="radio" name="payment"
@@ -612,7 +612,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card common-card border border-gray-five overflow-hidden mb-24"
+                                <div class="overflow-hidden mb-24 border card common-card border-gray-five"
                                     id="emailSetting">
                                     <div class="card-header">
                                         <h6 class="title">Email Settings</h6>
@@ -669,7 +669,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card common-card border border-gray-five overflow-hidden mb-24"
+                                <div class="overflow-hidden mb-24 border card common-card border-gray-five"
                                     id="socialNetwork">
                                     <div class="card-header">
                                         <h6 class="title">Social Network Settings</h6>
@@ -735,8 +735,8 @@
     <!-- ===================== Profile Section End ============================== -->
 
     <!-- ======================== Brand Section Start ========================= -->
-    <div class="brand ">
-        <div class="container container">
+    <div class="brand">
+        <div class="container">
             <div class="brand-slider">
                 <div class="brand-item d-flex align-items-center justify-content-center">
                     <img src="{{ asset('assets/front/') }}/images/thumbs/brand-img1.png" alt=""

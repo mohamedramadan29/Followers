@@ -48,12 +48,6 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
@@ -84,6 +78,11 @@ class User extends Authenticatable
     public function getTotalSpendAttribute(){
         return Order::where('user_id', $this->id)
         ->where('status', 'Completed')
+        ->sum('total_price');
+    }
+    public function getTotalUsedNowAttribute(){
+        return Order::where('user_id', $this->id)
+        ->where('status', 'Partial')->orWhere('status','Pending')->orWhere('status','Processing')
         ->sum('total_price');
     }
 }

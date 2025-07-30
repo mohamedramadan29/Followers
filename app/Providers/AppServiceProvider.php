@@ -31,12 +31,12 @@ class AppServiceProvider extends ServiceProvider
                 return $auth->hasAccess($config_permission);
             });
         }
-
         ########### Share Setting
         View::composer('*', function ($view) {
             $setting = PublicSetting::first();
             $view->with('setting', $setting);
         });
+
         ########### Share Setting
     }
 }

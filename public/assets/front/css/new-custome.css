@@ -560,7 +560,7 @@
 .faq-item {
     background: #f8fafd;
     border-radius: 12px;
-    padding: 18px 20px;
+    padding: 5px 18px;
     margin-bottom: 12px;
     box-shadow: 0 2px 8px #6a7cff0d;
 }
@@ -660,12 +660,19 @@
     }
 
     .faq-list .accordion-button {
-        padding: 12px 8px;
-        font-size: 0.98rem;
+
+        padding: 7px 0px;
+        font-size: 14px;
+        text-align: right;
+        line-height: 1.7;
     }
 
     .faq-list .accordion-body {
         padding: 8px 8px 12px 8px;
+    }
+
+    .accordion-button::after {
+        left: -10px;
     }
 }
 
@@ -1054,6 +1061,52 @@
     justify-content: center;
 }
 
+.nav.tab-bordered {
+    display: flex;
+    gap: 10px; /* Reduced gap for small screens */
+    border-bottom: none;
+    position: relative;
+    margin-top: 20px;
+    justify-content: flex-start; /* Align items to start for scrolling */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    flex-wrap: nowrap; /* Prevent wrapping to keep items side by side */
+    scroll-behavior: smooth; /* Smooth scrolling behavior */
+    padding-bottom: 10px; /* Add padding to avoid scrollbar overlap */
+    white-space: nowrap; /* Ensure text doesn't wrap */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS devices */
+}
+
+@media (max-width: 991px) {
+    .nav.tab-bordered {
+        gap: 8px; /* Further reduce gap for small screens */
+        padding: 0 15px; /* Add padding for better touch area */
+    }
+
+    .nav.tab-bordered .nav-item {
+        flex: 0 0 auto; /* Prevent items from shrinking */
+    }
+
+    .nav.tab-bordered .nav-link {
+        font-size: 14px; /* Slightly smaller font for small screens */
+        padding: 8px 10px; /* Adjust padding for better fit */
+    }
+
+    /* Hide scrollbar for aesthetics but keep functionality */
+    .nav.tab-bordered::-webkit-scrollbar {
+        display: none; /* Hide scrollbar in WebKit browsers */
+    }
+
+    .nav.tab-bordered {
+        -ms-overflow-style: none; /* Hide scrollbar in Edge */
+        scrollbar-width: none; /* Hide scrollbar in Firefox */
+    }
+}
+
+@media(max-width:991px){
+    .nav.tab-bordered {
+        gap: 10px;
+    }
+}
 .nav.tab-bordered .nav-item {
     margin: 0;
 }
@@ -1535,29 +1588,31 @@
     font-size: 16px;
     cursor: pointer;
 }
-.add-new-balance{
-text-align: left;
+
+.add-new-balance {
+    text-align: left;
 }
-.add-new-balance .add-new-balance-buttom{
+
+.add-new-balance .add-new-balance-buttom {
     border-radius: 5px !important;
     background: #5c5eeb;
     color: #fff;
     padding: 10px;
     margin-bottom: 5px;
 }
+
 /******************** End Payment Methods Page **********************/
 
 /******************* Start Notification Section **********************/
-.notification-section{
+.notification-section {}
 
-}
-.notification-section h5{
+.notification-section h5 {
     text-align: right;
     border-bottom: 1px solid #ccc;
     padding-bottom: 20px;
 }
 
-.notification-section .notifications-header{
+.notification-section .notifications-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -1566,42 +1621,45 @@ text-align: left;
     padding-bottom: 20px;
 }
 
-.notification-section .notifications-header .right-section{
+.notification-section .notifications-header .right-section {
     display: flex;
     justify-content: flex-start;
     align-items: center;
     gap: 20px;
 }
 
-.notification-section .notifications-header .left-section{
+.notification-section .notifications-header .left-section {
     display: flex;
     justify-content: flex-end;
     align-items: center;
 }
 
-.notification-section .notifications-header .right-section a{
+.notification-section .notifications-header .right-section a {
     text-align: right;
     font-size: 16px;
     color: #A1A1A1;
     text-decoration: none;
 }
+
 .notification-section .notifications-header .right-section a.active,
-.notification-section .notifications-header .right-section a:hover{
+.notification-section .notifications-header .right-section a:hover {
     color: #000;
 }
-.notification-section .notifications-header .left-section a{
+
+.notification-section .notifications-header .left-section a {
     text-align: right;
     font-size: 16px;
     color: #5D5FED;
     text-decoration: none;
     font-weight: bold;
 }
+
 .notification-section .notifications-header .left-section a.active,
-.notification-section .notifications-header .left-section a:hover{
+.notification-section .notifications-header .left-section a:hover {
     color: #000;
 }
 
-.notification-section .notifications-body{
+.notification-section .notifications-body {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -1610,11 +1668,13 @@ text-align: left;
     padding: 15px 3px;
     border-radius: 10px;
 }
+
 .notification-section .notifications-body.no-read,
-.notification-section .notifications-body:hover{
+.notification-section .notifications-body:hover {
     background: #476CFF0A;
 }
-.notification-section .notifications-body i{
+
+.notification-section .notifications-body i {
     background: #F2F5F8;
     font-size: 15px;
     color: #5D5FED;
@@ -1626,7 +1686,7 @@ text-align: left;
     line-height: 30px;
 }
 
-.notification-section .notifications-body h3{
+.notification-section .notifications-body h3 {
     text-align: right;
     font-size: 18px;
     margin: 0;
@@ -1634,12 +1694,12 @@ text-align: left;
 
 }
 
-.notification-section .notifications-body p{
+.notification-section .notifications-body p {
     text-align: right;
     color: #2e2e2e;
 }
 
-.notification-section .notifications-body span{
+.notification-section .notifications-body span {
     text-align: right;
     color: #777777;
 }
@@ -1647,7 +1707,7 @@ text-align: left;
 /********************** End Notification Section **********************/
 
 /******************* Start Tickets Section **********************/
-.ticket-header{
+.ticket-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -1655,13 +1715,15 @@ text-align: left;
     border-bottom: 1px solid #ccc;
     padding-bottom: 20px;
 }
-.ticket-header h2{
+
+.ticket-header h2 {
     text-align: right;
     font-size: 20px;
     margin: 0;
     color: #393939;
 }
-.ticket-header a{
+
+.ticket-header a {
     text-align: right;
     font-size: 16px;
     color: #5D5FED;
@@ -1671,59 +1733,66 @@ text-align: left;
     padding: 8px 12px;
 }
 
-.add-support-section{
+.add-support-section {}
 
-}
-.add-support-section .support-type{
+.add-support-section .support-type {
     display: flex;
     justify-content: flex-start;
     gap: 10px;
 }
-.add-support-section .support-type input{
+
+.add-support-section .support-type input {
     opacity: 0;
 
 }
-.add-support-section .support-type input:checked{
+
+.add-support-section .support-type input:checked {
     background-color: #5D5FED;
 
 }
-.add-support-section .support-type label{
+
+.add-support-section .support-type label {
     background-color: #F3F3F3;
     padding: 7px 20px;
     border-radius: 7px;
     color: #5D5FED;
     cursor: pointer;
 }
-.add-support-section .support-type input:checked + label{
+
+.add-support-section .support-type input:checked+label {
     color: #fff;
     background-color: #5D5FED;
 }
+
 .add-support-section input,
-.add-support-section textarea{
+.add-support-section textarea {
     background-color: #28356A0A !important;
     border-color: #28356A0A !important;
 }
+
 .send-ticket,
-.send-ticket:hover{
+.send-ticket:hover {
     background-color: #5D5FED;
     border-radius: 7px;
     padding: 13px 12px;
     width: 150px;
 }
 
-.index-ticket-header{
+.index-ticket-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.index-ticket-header h2{
+
+.index-ticket-header h2 {
     text-align: right;
     font-size: 20px;
     margin: 0;
     color: #393939;
 }
+
 .index-ticket-header a,
-.index-ticket-header a:hover{
+.index-ticket-header a:hover {
     border-radius: 5px !important;
     background: #5c5eeb;
     color: #fff;
@@ -1731,47 +1800,51 @@ text-align: left;
     margin-bottom: 5px;
 }
 
-.index-ticket-header a i{
+.index-ticket-header a i {
     margin: 5px;
     font-weight: bold;
 }
 
-.messages-container{
+.messages-container {}
 
-}
-.messages-container .messages-headline {
+.messages-container .messages-headline {}
 
-}
-.messages-container .messages-headline h4{
+.messages-container .messages-headline h4 {
     font-size: 20px;
     margin: 0;
     color: #252525;
     margin-bottom: 11px;
 }
+
 /****************************** Start Chat Design **********************/
 
-.message-plunch.me .dash-msg-text{
+.message-plunch.me .dash-msg-text {
     background-color: #5D5FED;
     color: #fff;
     border-radius: 10px 0px 10px 10px;
 }
-.message-plunch.me .dash-msg-text h6{
+
+.message-plunch.me .dash-msg-text h6 {
     color: #fff;
     margin: 3px;
 }
-.message-plunch .dash-msg-text h6{
+
+.message-plunch .dash-msg-text h6 {
     margin: 3px;
 }
-.message-plunch.me .dash-msg-text span{
+
+.message-plunch.me .dash-msg-text span {
     color: #c5c5c5;
     margin: 3px;
     font-size: 12px;
 }
-.message-plunch.me .dash-msg-text p{
+
+.message-plunch.me .dash-msg-text p {
     color: #fff;
     margin: 3px;
 }
-.message-plunch .dash-msg-text{
+
+.message-plunch .dash-msg-text {
     margin-left: 70px;
     background-color: #f4f5f7;
     border-radius: 4px;
@@ -1780,4 +1853,276 @@ text-align: left;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
     border-radius: 0px 20px 20px 20px;
 }
+
 /****************************** End Chat Design ************************/
+/********************* Start Instagrame Count Page **************/
+
+
+.card-custom-insta {
+    /* max-width: 500px; */
+    margin: 50px auto;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgb(0 0 0 / 0.10) !important;
+    background: #fff;
+    padding: 2rem 2.5rem 3rem;
+    position: relative;
+    max-width: 80%;
+}
+
+.card-custom-insta h4 {
+    font-weight: 600;
+    font-size: 1.375rem;
+    margin-bottom: 1.5rem;
+    color: #454545;
+    text-align: center;
+}
+
+.card-custom-insta .divider {
+    border-top: 1px solid #d1d5db;
+    margin-bottom: 2rem;
+}
+
+.card-custom-insta .icon-center {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+    margin-top: 10rem;
+}
+
+.card-custom-insta .icon-center img {
+    width: 80px;
+}
+
+.card-custom-insta .icon-center img {
+    width: 72px;
+    height: 72px;
+    background: linear-gradient(135deg, #36c2ff 0%, #6f42c1 100%);
+    border-radius: 18px 4px 18px 4px;
+    padding: 12px 10px;
+    fill: #fff;
+    filter: drop-shadow(0 2px 8px #6480ef80);
+    box-shadow:
+        inset 8px 8px 15px rgb(255 255 255 / 0.7),
+        inset -8px -8px 15px rgb(0 0 0 / 0.1);
+    transition: transform 0.3s ease;
+}
+
+.card-custom-insta .icon-center svg:hover {
+    transform: scale(1.1);
+}
+
+/* Instagram faded side icons */
+.card-custom-insta .side-icon {
+    position: absolute;
+    top: 50%;
+    height: 60px;
+    /* filter: drop-shadow(0 0 6px #ff004399); */
+    opacity: 0.4;
+    transition: opacity 0.3s ease;
+    user-select: none;
+    pointer-events: none;
+    /* background: linear-gradient(135deg, #ff8a00 0%, #e52e71 100%); */
+    border-radius: 28% / 32%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* filter: blur(8px) brightness(0.75) opacity(0.15); */
+}
+
+.card-custom-insta .side-icon.left img,
+.card-custom-insta .side-icon.right img {
+    width: 120px;
+}
+
+.card-custom-insta .side-icon.left {
+    left: 20%;
+    transform: translateY(-170%) rotate(-12deg);
+}
+
+.card-custom-insta .side-icon.right {
+    right: 20%;
+    transform: translateY(-50%) rotate(12deg);
+}
+
+.card-custom-insta .form-label-custom {
+    font-weight: 500;
+    font-size: 1rem;
+    color: #606060;
+    margin-bottom: 0.4rem;
+    border-top: 1px solid #e1e1e1;
+    padding-top: 0.8rem;
+}
+
+.card-custom-insta .form-control-custom {
+    border-radius: 12px;
+    box-shadow:
+        2px 2px 5px #d1d5db,
+        inset 2px 2px 6px #f8f9fa;
+    border: 1px solid #d1d5db;
+    height: 50px;
+    font-size: 0.9rem;
+    color: #6b6b6b;
+}
+
+.card-custom-insta .form-control-custom::placeholder {
+    color: #c7c7c7;
+    font-weight: 400;
+}
+
+.card-custom-insta .btn-custom {
+    background-color: #555fbd;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 1.05rem;
+    padding: 12px 0;
+    width: 100%;
+    color: white;
+    box-shadow: 0 7px 10px rgb(86 93 173 / 0.42);
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.card-custom-insta .btn-custom:hover {
+    background-color: #424d99;
+}
+
+.card-custom-insta form {
+    width: 60%;
+    margin: auto;
+    margin-top: 6em;
+}
+
+.card-custom-insta .user_image {
+    width: 100%;
+    margin: auto;
+    text-align: center;
+}
+
+.card-custom-insta .user_image img {
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    border: 1px solid #fbfbfb;
+    padding: 2px;
+}
+
+.card-custom-insta .user_profile {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.card-custom-insta .user_profile .name {
+    color: #5353b6;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.card-custom-insta .user_profile .username {
+    font-size: 15px;
+    color: #5f5d5d;
+}
+
+.card-custom-insta .counter-data {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.card-custom-insta .counter-data .followers {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    background: #F3F3F3;
+    margin: 10px;
+    border-radius: 10px;
+    border-bottom: 3px solid #5353b6;
+    padding: 15px;
+}
+
+.card-custom-insta .counter-data .followers img {
+    width: 50px;
+    height: 50px;
+}
+
+.card-custom-insta .counter-data .followers p {
+    font-size: 18px;
+    font-weight: bold;
+    color: #5353b6;
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+.card-custom-insta .counter-data .followers p:last-child {
+    font-size: 15px;
+    color: #5353b6;
+    margin-top: 0;
+}
+
+/* Responsive scale for mobile */
+@media (max-width: 576px) {
+    .card-custom-insta {
+        margin: 10px 5px;
+        padding: 0.5rem 0.5rem 1rem;
+        max-width: 100%;
+    }
+
+    .card-custom-insta .icon-center svg {
+        width: 56px;
+        height: 56px;
+        padding: 10px 8px;
+    }
+
+    .card-custom-insta .side-icon.left {
+        left: 0%;
+    }
+
+    .card-custom-insta .side-icon.right {
+        right: 0%;
+        transform: translateY(-80%) rotate(12deg);
+    }
+
+    .card-custom-insta .side-icon.left img, .card-custom-insta .side-icon.right img {
+        width: 60px;
+    }
+
+    .card-custom-insta .icon-center {
+        margin-top: 2rem;
+    }
+
+    .card-custom-insta .icon-center img {
+        width: 55px;
+        height: 55px;
+    }
+
+    .card-custom-insta .side-icon {}
+
+    .card-custom-insta form {
+        width: 100%;
+    }
+    .card-custom-insta .counter-data{
+        flex-direction: column;
+    }
+    .card-custom-insta .counter-data .followers{
+        width: 95%;
+    }
+    .card-custom-insta form{
+        margin-top: 0;
+    }
+}
+
+
+/************************ End Instagrame Count Page ******************/
+
+
+/************* Start Blog Details ********************/
+
+.blog-breadcrump{
+    margin-top: 30px;
+    background: #EFEFEF;
+    padding: 10px;
+    border-radius: 5px;
+    padding: 10px 40px;
+}
+/**************** End Blog Details *****************/

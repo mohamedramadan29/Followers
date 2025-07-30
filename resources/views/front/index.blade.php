@@ -1,5 +1,6 @@
 @extends('front.layouts.master')
 @section('title', 'الرئيسية ')
+@section('index-active', 'active')
 @section('css')
     <link rel="stylesheet" href="{{ asset('assets/front/css/new-custome.css') }}">
 @endsection

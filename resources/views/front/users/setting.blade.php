@@ -3,56 +3,60 @@
 @section('content')
 
 <!-- ======================== Dashboard Cards Section Start ===================== -->
-    <section class="dashboard-cards-section">
-        <div class="dashboard-cards-row">
-            <div class="dashboard-card-item active">
-                <div class="">
-                    <img src="{{ asset('assets/front/uploads/balance-now.png') }}" alt="الرصيد الحالي"
-                        class="dashboard-card-img">
-                </div>
-                <div class="dashboard-card-info">
-                    <div class="dashboard-card-value">{{ number_format(Auth::user()->balance, 2) }} <img
-                            src="{{ asset('assets/front/images/icons/riyal-white.svg') }}" alt=""> </div>
-                    <div class="dashboard-card-label">رصيدك الآن</div>
-                    <i class="bi bi-arrow-left"></i>
-                </div>
+<section class="dashboard-cards-section">
+    <div class="dashboard-cards-row">
+        <div class="dashboard-card-item active">
+            <div class="">
+                <img src="{{ asset('assets/front/uploads/balance-now.png') }}" alt="الرصيد الحالي"
+                    class="dashboard-card-img">
             </div>
-            <div class="dashboard-card-item">
-                <div class="">
-                    <img src="{{ asset('assets/front/uploads/current-used.png') }}" alt=" جار استخدامه "
-                        class="dashboard-card-img">
-                </div>
-                <div class="dashboard-card-info">
-                    <div class="dashboard-card-value">{{ number_format(Auth::user()->balance, 2) }} <img
-                            src="{{ asset('assets/front/images/icons/riyal-maincolor.svg') }}" alt=""> </div>
-                    <div class="dashboard-card-label"> جار استخدامه </div>
-                    <i class="bi bi-arrow-left"></i>
-                </div>
-            </div>
-            <div class="dashboard-card-item">
-                <div class="">
-                    <img src="{{ asset('assets/front/uploads/spend.png') }}" alt=" أنفقت معنا  "
-                        class="dashboard-card-img">
-                </div>
-                <div class="dashboard-card-info">
-                    <div class="dashboard-card-value">{{ number_format(Auth::user()->balance, 2) }} <img
-                            src="{{ asset('assets/front/images/icons/riyal-maincolor.svg') }}" alt=""> </div>
-                    <div class="dashboard-card-label"> أنفقت معنا </div>
-                    <i class="bi bi-arrow-left"></i>
-                </div>
-            </div>
-            <div class="dashboard-card-item">
-                <div class="">
-                    <img src="{{ asset('assets/front/uploads/add-balance.png') }}" alt=" شحن رصيد الآن  "
-                        class="dashboard-card-img">
-                </div>
-                <div class="dashboard-card-info">
-                    <i class="bi bi-plus"></i>
-                    <div class="dashboard-card-label"> شحن رصيد الآن </div>
-                </div>
+            <div class="dashboard-card-info">
+                <div class="dashboard-card-value">{{ number_format(Auth::user()->balance, 4) }}
+                     {{-- <img
+                        src="{{ asset('assets/front/images/icons/riyal-white.svg') }}" alt=""> --}}
+                     $ </div>
+                <div class="dashboard-card-label">رصيدك الآن</div>
+                <i class="bi bi-arrow-left"></i>
             </div>
         </div>
-    </section>
+        <div class="dashboard-card-item">
+            <div class="">
+                <img src="{{ asset('assets/front/uploads/current-used.png') }}" alt=" جار استخدامه "
+                    class="dashboard-card-img">
+            </div>
+            <div class="dashboard-card-info">
+                <div class="dashboard-card-value">{{ number_format(Auth::user()->getTotalUsedNowAttribute(), 4) }}
+                     {{-- <img  src="{{ asset('assets/front/images/icons/riyal-maincolor.svg') }}" alt=""> --}}
+                        $ </div>
+                <div class="dashboard-card-label"> جار استخدامه </div>
+                <i class="bi bi-arrow-left"></i>
+            </div>
+        </div>
+        <div class="dashboard-card-item">
+            <div class="">
+                <img src="{{ asset('assets/front/uploads/spend.png') }}" alt=" أنفقت معنا  " class="dashboard-card-img">
+            </div>
+            <div class="dashboard-card-info">
+                <div class="dashboard-card-value">{{ number_format(Auth::user()->getTotalSpendAttribute(), 4) }}
+                    {{-- <img  src="{{ asset('assets/front/images/icons/riyal-maincolor.svg') }}" alt="">  --}}
+               $
+                </div>
+                <div class="dashboard-card-label"> أنفقت معنا </div>
+                <i class="bi bi-arrow-left"></i>
+            </div>
+        </div>
+        <div class="dashboard-card-item">
+            <div class="">
+                <img src="{{ asset('assets/front/uploads/add-balance.png') }}" alt=" شحن رصيد الآن  "
+                    class="dashboard-card-img">
+            </div>
+            <div class="dashboard-card-info">
+                <i class="bi bi-plus"></i>
+                <div class="dashboard-card-label"> شحن رصيد الآن </div>
+            </div>
+        </div>
+    </div>
+</section>
     <!-- ======================== Dashboard Cards Section End ===================== -->
     <!-- ======================== Breadcrumb Three Section Start ===================== -->
     <section class="overflow-hidden position-relative z-index-1">
@@ -127,8 +131,8 @@
                                                             <label for="gender">الجنس</label>
                                                         </div>
                                                         <select id="gender" name="gender" class="form-select">
-                                                            <option value="male" {{ Auth::user()->gender == 'male' ? 'selected' : '' }}>ذكر</option>
-                                                            <option value="female" {{ Auth::user()->gender == 'female' ? 'selected' : '' }}>أنثى</option>
+                                                            <option value="male" {{ Auth::user()->sex == 'male' ? 'selected' : '' }}>ذكر</option>
+                                                            <option value="female" {{ Auth::user()->sex == 'female' ? 'selected' : '' }}>أنثى</option>
                                                         </select>
                                                     </div>
 
@@ -145,7 +149,7 @@
                                                             <label for="birth_date">تاريخ الميلاد</label>
                                                         </div>
                                                         <input type="date" id="birth_date" name="birth_date" class="form-control"
-                                                            value="{{ Auth::user()->birth_date }}">
+                                                            value="{{ Auth::user()->birthday }}">
                                                     </div>
 
                                                     <div class="form-group full-width">
@@ -153,7 +157,7 @@
                                                             <label for="bio">النبذة</label>
                                                         </div>
                                                         <textarea id="bio" name="bio" class="form-control"
-                                                            placeholder="اكتب النبذة هنا...." rows="4">{{ Auth::user()->bio }}</textarea>
+                                                            placeholder="اكتب النبذة هنا...." rows="4">{{ Auth::user()->person_info }}</textarea>
                                                     </div>
                                                 </div>
 

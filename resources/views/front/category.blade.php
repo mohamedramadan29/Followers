@@ -3,6 +3,7 @@
 @section('title')
     {{ $category->name }}
 @endsection
+@section('category-active', 'active')
 @section('content')
     <!-- ======================== Breadcrumb one Section Start ===================== -->
     <div class="container container-two" style="margin-top: 30px;">

@@ -1,7 +1,6 @@
 <div class="last_news_section">
     <button class="news_button" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
         aria-controls="offcanvasExample">
-        
         <img src="{{ asset('assets/front/images/notification.svg') }}" alt="">
     </button>
 </div>
@@ -11,7 +10,7 @@
 <!--###################### Start Chatt Faq #######################-->
 <div class="robot-chat">
     <button class="robot-chat-button">
-        اسالني سوالا <i class="bi bi-android2"></i>
+        <img src="{{ asset('assets/front/images/robot.svg') }}" alt="">
     </button>
     <div class="hidden chat-body">
         <div class="chat-header">
@@ -98,14 +97,6 @@
 </script>
 
 @include('front.layouts.chat')
-
-@php
-    use App\Models\admin\PublicSetting;
-
-    $setting = PublicSetting::first();
-
-@endphp
-
 <!--###################### End Chatt Faq #######################-->
 <!-- ==================== Footer Start Here ==================== -->
 <footer class="footer-section custom-purple-footer">
@@ -154,9 +145,12 @@
                     <h5 class="text-white footer-widget__title">روابط تهمك</h5>
                     <ul class="footer-lists">
                         <li class="footer-lists__item"> <a href="{{ url('blog') }}"> المدونة </a> </li>
-                        <li class="footer-lists__item"> <a href="{{ url('terms') }}"> الشروط والأحكام </a> </li>
-                        <li class="footer-lists__item">سياسة الإرجاع</li>
-                        <li class="footer-lists__item">سياسة الإستخدام والخصوصية</li>
+                        @php
+                        $pages = App\Models\admin\Page::where('status',1)->where('page_show','footer')->get();
+                        @endphp
+                        @foreach ($pages as $page)
+                        <li class="footer-lists__item">  <a href="{{ url('page/'.$page->slug) }}"> {{ $page->title }} </a> </li>
+                        @endforeach
                     </ul>
                 </div>
             </div>

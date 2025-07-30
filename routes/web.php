@@ -23,6 +23,7 @@ use App\Http\Controllers\front\TikTokCounterController;
 use App\Http\Controllers\front\InstagramCounterContoller;
 use App\Http\Controllers\front\User\UserOrdersController;
 use App\Http\Controllers\front\Auth\SocialLoginController;
+use App\Http\Controllers\front\PageController;
 use App\Http\Controllers\front\Payments\PaypalPaymentController;
 
 Route::controller(LoginController::class)->group(function () {
@@ -179,3 +180,8 @@ Route::get('/search', function (Request $request) {
 
     return response()->json($results);
 });
+
+
+################### Page Controller #########
+Route::get('page/{slug}',[PageController::class, 'page']);
+############### End Page Controller########

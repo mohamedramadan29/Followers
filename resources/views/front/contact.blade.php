@@ -3,7 +3,7 @@
 @section('content')
 
     <!-- ======================== Breadcrumb Two Section Start ===================== -->
-    <section class="breadcrumb border-bottom p-0 d-block section-bg position-relative z-index-1">
+    <section class="p-0 breadcrumb border-bottom d-block section-bg position-relative z-index-1">
 
         <div class="breadcrumb-two">
             <img src="{{ asset('assets/front/') }}/images/gradients/breadcrumb-gradient-bg.png" alt=""
@@ -11,9 +11,9 @@
             <div class="container container-two">
                 <div class="row justify-content-center">
                     <div class="col-lg-12">
-                        <div class="breadcrumb-two-content text-center">
+                        <div class="text-center breadcrumb-two-content">
 
-                            <ul class="breadcrumb-list flx-align gap-2 mb-2 justify-content-center">
+                            <ul class="gap-2 mb-2 breadcrumb-list flx-align justify-content-center">
                                 <li class="breadcrumb-list__item font-14 text-body">
                                     <a href="index.html" class="breadcrumb-list__link text-body hover-text-main">الرئيسية
                                     </a>
@@ -26,7 +26,7 @@
                                 </li>
                             </ul>
 
-                            <h3 class="breadcrumb-two-content__title mb-0 text-capitalize"> تواصل معنا </h3>
+                            <h3 class="mb-0 breadcrumb-two-content__title text-capitalize"> تواصل معنا </h3>
                         </div>
                     </div>
                 </div>
@@ -36,11 +36,11 @@
     <!-- ======================== Breadcrumb Two Section End ===================== -->
 
     <!-- =========================== Contact Section Start ========================== -->
-    <section class="contact padding-t-120 padding-b-60 section-bg position-relative z-index-1 overflow-hidden">
+    <section class="overflow-hidden contact padding-t-120 padding-b-60 section-bg position-relative z-index-1">
         <img src="{{ asset('assets/front/') }}/images/gradients/banner-two-gradient.png" alt=""
             class="bg--gradient">
         <img src="{{ asset('assets/front/') }}/images/shapes/pattern-five.png"
-            class="position-absolute end-0 top-0 z-index--1" alt="">
+            class="top-0 position-absolute end-0 z-index--1" alt="">
 
         <div class="container container-two">
             <div class="row gy-4">
@@ -49,14 +49,14 @@
                         <h3 class="contact-info__title"> تواصل معنا </h3>
                         <p class="contact-info__desc"> نتشرف بتواصلكم معنا وسيتم الرد على استفساراتكم في أقرب وقت ممكن. </p>
 
-                        <div class="contact-info__item-wrapper flx-between gap-4">
+                        <div class="gap-4 contact-info__item-wrapper flx-between">
                             <div class="contact-info__item">
-                                <span class="contact-info__text text-capitalize d-block mb-1"> رقم الهاتف </span>
+                                <span class="mb-1 contact-info__text text-capitalize d-block"> رقم الهاتف </span>
                                 <a href="tel:01812345678"
                                     class="contact-info__link font-24 fw-500 text-heading hover-text-main">{{ $setting['phone'] }}</a>
                             </div>
                             <div class="contact-info__item">
-                                <span class="contact-info__text text-capitalize d-block mb-1"> البريد الالكتروني </span>
+                                <span class="mb-1 contact-info__text text-capitalize d-block"> البريد الالكتروني </span>
                                 <a href="tel:dpmarket@gmail.com"
                                     class="contact-info__link font-24 fw-500 text-heading hover-text-main">
                                     {{ $setting['email'] }} </a>
@@ -134,23 +134,23 @@
                                 @csrf
                                 <div class="row gy-4">
                                     <div class="col-sm-6 col-xs-6">
-                                        <label for="name" class="form-label mb-2 font-18 font-heading fw-600"> الاسم
+                                        <label for="name" class="mb-2 form-label font-18 font-heading fw-600"> الاسم
                                         </label>
                                         <input type="text" name="name" required
-                                            class="common-input common-input--grayBg border" id="name"
+                                            class="border common-input common-input--grayBg" id="name"
                                             placeholder="اكتب الاسم " value="{{ old('name') }}">
                                     </div>
                                     <div class="col-sm-6 col-xs-6">
-                                        <label for="email" class="form-label mb-2 font-18 font-heading fw-600">البريد
+                                        <label for="email" class="mb-2 form-label font-18 font-heading fw-600">البريد
                                             الالكتروني </label>
                                         <input type="email" name="email" required
-                                            class="common-input common-input--grayBg border" id="email"
+                                            class="border common-input common-input--grayBg" id="email"
                                             placeholder=" ادخل البريد الالكتروني " value="{{ old('email') }}">
                                     </div>
                                     <div class="col-sm-12">
-                                        <label for="message" class="form-label mb-2 font-18 font-heading fw-600">رسالتك
+                                        <label for="message" class="mb-2 form-label font-18 font-heading fw-600">رسالتك
                                         </label>
-                                        <textarea name="message" required class="common-input common-input--grayBg border" id="message"
+                                        <textarea name="message" required class="border common-input common-input--grayBg" id="message"
                                             placeholder=" اكتب رسالتك  ">{{ old('message') }}</textarea>
                                     </div>
                                     <div class="col-12">

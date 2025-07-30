@@ -2,8 +2,38 @@
 @section('title', ' عدّاد متابعين التيك توك ')
 @section('content')
 
+
+    <!-- ########################## Start New Design ######################### -->
+    <div class="container">
+        @if (!isset($username))
+        <main class="shadow-sm card-custom-insta">
+            <h4>عداد متابعين التيك توك</h4>
+            <div class="divider"></div>
+            <div class="side-icon left" aria-hidden="true">
+                <img src="{{ asset('assets/front/images/tiktok.png') }}" alt="">
+            </div>
+            <div class="side-icon right" aria-hidden="true">
+                <img src="{{ asset('assets/front/images/tiktok.png') }}" alt="">
+            </div>
+            <div class="icon-center" aria-hidden="true" title="Instagram followers icon">
+                <img src="{{ asset('assets/front/images/insta-counter-icon.png') }}" alt="">
+            </div>
+            <form action="{{ url('tiktokCounter') }}" method="post">
+                @csrf
+                <div class="form-group">
+                    <label class="form-label-custom" for="username">إدخال اسم المستخدم</label>
+                    <input type="text" id="username" required value="{{ $username ?? old('username') }}" name="username" class="form-control form-control-custom"
+                        placeholder="أدخل اسم المستخدم هنا" aria-label="أدخل اسم المستخدم هنا" />
+                    <button type="submit" class="mt-4 btn btn-custom">تحقق الآن</button>
+                </div>
+            </form>
+        </main>
+    </div>
+    @endif
+    <!-- ########################## End New Design ########################### -->
+
     <!--========================== Banner Section Start ==========================-->
-    <section class="hero section-bg z-index-1">
+    {{-- <section class="hero section-bg z-index-1">
         <div class="container container-two">
             <div class="row align-items-center gy-sm-5 gy-4">
                 <div class="col-lg-6">
@@ -18,9 +48,9 @@
                                     @csrf
                                     <div class="search-box">
                                         <input type="text" required
-                                            class="common-input common-input--lg pill shadow-sm auto-suggestion-input"
+                                            class="shadow-sm common-input common-input--lg pill auto-suggestion-input"
                                             placeholder="  ادخل اسم المستخدم في تيك توك  " name="username" value="{{ old('username') }}">
-                                        <button type="submit" class="btn btn-main btn-icon icon border-0"><img
+                                        <button type="submit" class="border-0 btn btn-main btn-icon icon"><img
                                                 src="{{ asset('assets/front/') }}/images/icons/search.svg" alt="">
                                         </button>
                                     </div>
@@ -43,7 +73,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     <!--========================== Banner Section End ==========================-->
     @if (isset($username))
         <!--==========================  Start Counter Result  ==========================-->
@@ -85,413 +115,7 @@
         </div>
     @endif
     <!--========================== End Counter Result  ==========================-->
-    <!--========================= Start The Instagrame Serveice  ================-->
-    <!-- =========================== Arrival Product Section Start ========================== -->
-    <section class="arrival-product padding-y-120 section-bg position-relative z-index-1" id="instagram-services">
-        <img src="{{ asset('assets/front/') }}/images/gradients/product-gradient.png" alt=""
-            class="bg--gradient white-version">
-
-        <img src="{{ asset('assets/front/') }}/images/shapes/element2.png" alt="" class="element one">
-
-        <div class="container container-two">
-            <div class="section-heading">
-                <h3 class="section-heading__title"> خدمات التيك توك </h3>
-            </div>
-            <div class="tab-content" id="pills-tabContent">
-                <div class="tab-pane fade show active" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab"
-                    tabindex="0">
-                    <div class="row gy-4">
-                        <div class="col-xl-3 col-lg-4 col-sm-6">
-                            <div class="product-item ">
-                                <div class="product-item__thumb d-flex">
-                                    <a href="{{ url('product/') }}" class="link w-100">
-                                        <img src="{{ asset('assets/front/') }}/images/serv.webp" alt=""
-                                            class="cover-img">
-                                    </a>
-                                    <button type="button" class="product-item__wishlist"><i
-                                            class="fas fa-heart"></i></button>
-                                </div>
-                                <div class="product-item__content">
-                                    <h6 class="product-item__title">
-                                        <a href="{{ url('product/') }}" class="link"> زيادة لايكات انستقرام سريعة
-                                            جداً
-                                            (الأرخص على الاطلاق) + ضمان </a>
-                                    </h6>
-                                    <div class="product-item__info flx-between gap-2">
-
-                                        <div class="flx-align gap-2">
-                                            <h6 class="product-item__price mb-0">$120</h6>
-                                            <span class="product-item__prevPrice text-decoration-line-through">$259</span>
-                                        </div>
-                                    </div>
-                                    <div class="product-item__bottom flx-between gap-2">
-                                        <div>
-                                            <span class="product-item__sales font-14 mb-2">1200 مبيعة</span>
-                                            <div class="d-flex align-items-center gap-1">
-                                                <ul class="star-rating">
-                                                    <li class="star-rating__item font-11"><i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="star-rating__item font-11"><i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="star-rating__item font-11"><i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="star-rating__item font-11"><i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="star-rating__item font-11"><i class="fas fa-star"></i>
-                                                    </li>
-                                                </ul>
-                                                <span class="star-rating__text text-heading fw-500 font-14">
-                                                    (16)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-sm-6">
-                            <div class="product-item ">
-                                <div class="product-item__thumb d-flex">
-                                    <a href="{{ url('product/') }}" class="link w-100">
-                                        <img src="{{ asset('assets/front/') }}/images/serv.webp" alt=""
-                                            class="cover-img">
-                                    </a>
-                                    <button type="button" class="product-item__wishlist"><i
-                                            class="fas fa-heart"></i></button>
-                                </div>
-                                <div class="product-item__content">
-                                    <h6 class="product-item__title">
-                                        <a href="{{ url('product/') }}" class="link"> زيادة لايكات انستقرام سريعة
-                                            جداً
-                                            (الأرخص على الاطلاق) + ضمان </a>
-                                    </h6>
-                                    <div class="product-item__info flx-between gap-2">
-
-                                        <div class="flx-align gap-2">
-                                            <h6 class="product-item__price mb-0">$120</h6>
-                                            <span class="product-item__prevPrice text-decoration-line-through">$259</span>
-                                        </div>
-                                    </div>
-                                    <div class="product-item__bottom flx-between gap-2">
-                                        <div>
-                                            <span class="product-item__sales font-14 mb-2">1200 مبيعة</span>
-                                            <div class="d-flex align-items-center gap-1">
-                                                <ul class="star-rating">
-                                                    <li class="star-rating__item font-11"><i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="star-rating__item font-11"><i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="star-rating__item font-11"><i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="star-rating__item font-11"><i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="star-rating__item font-11"><i class="fas fa-star"></i>
-                                                    </li>
-                                                </ul>
-                                                <span class="star-rating__text text-heading fw-500 font-14">
-                                                    (16)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-sm-6">
-                            <div class="product-item ">
-                                <div class="product-item__thumb d-flex">
-                                    <a href="{{ url('product/') }}" class="link w-100">
-                                        <img src="{{ asset('assets/front/') }}/images/serv.webp" alt=""
-                                            class="cover-img">
-                                    </a>
-                                    <button type="button" class="product-item__wishlist"><i
-                                            class="fas fa-heart"></i></button>
-                                </div>
-                                <div class="product-item__content">
-                                    <h6 class="product-item__title">
-                                        <a href="{{ url('product/') }}" class="link"> زيادة لايكات انستقرام سريعة
-                                            جداً
-                                            (الأرخص على الاطلاق) + ضمان </a>
-                                    </h6>
-                                    <div class="product-item__info flx-between gap-2">
-
-                                        <div class="flx-align gap-2">
-                                            <h6 class="product-item__price mb-0">$120</h6>
-                                            <span class="product-item__prevPrice text-decoration-line-through">$259</span>
-                                        </div>
-                                    </div>
-                                    <div class="product-item__bottom flx-between gap-2">
-                                        <div>
-                                            <span class="product-item__sales font-14 mb-2">1200 مبيعة</span>
-                                            <div class="d-flex align-items-center gap-1">
-                                                <ul class="star-rating">
-                                                    <li class="star-rating__item font-11"><i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="star-rating__item font-11"><i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="star-rating__item font-11"><i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="star-rating__item font-11"><i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="star-rating__item font-11"><i class="fas fa-star"></i>
-                                                    </li>
-                                                </ul>
-                                                <span class="star-rating__text text-heading fw-500 font-14">
-                                                    (16)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-sm-6">
-                            <div class="product-item ">
-                                <div class="product-item__thumb d-flex">
-                                    <a href="{{ url('product/') }}" class="link w-100">
-                                        <img src="{{ asset('assets/front/') }}/images/serv.webp" alt=""
-                                            class="cover-img">
-                                    </a>
-                                    <button type="button" class="product-item__wishlist"><i
-                                            class="fas fa-heart"></i></button>
-                                </div>
-                                <div class="product-item__content">
-                                    <h6 class="product-item__title">
-                                        <a href="{{ url('product/') }}" class="link"> زيادة لايكات انستقرام سريعة
-                                            جداً
-                                            (الأرخص على الاطلاق) + ضمان </a>
-                                    </h6>
-                                    <div class="product-item__info flx-between gap-2">
-
-                                        <div class="flx-align gap-2">
-                                            <h6 class="product-item__price mb-0">$120</h6>
-                                            <span class="product-item__prevPrice text-decoration-line-through">$259</span>
-                                        </div>
-                                    </div>
-                                    <div class="product-item__bottom flx-between gap-2">
-                                        <div>
-                                            <span class="product-item__sales font-14 mb-2">1200 مبيعة</span>
-                                            <div class="d-flex align-items-center gap-1">
-                                                <ul class="star-rating">
-                                                    <li class="star-rating__item font-11"><i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="star-rating__item font-11"><i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="star-rating__item font-11"><i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="star-rating__item font-11"><i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="star-rating__item font-11"><i class="fas fa-star"></i>
-                                                    </li>
-                                                </ul>
-                                                <span class="star-rating__text text-heading fw-500 font-14">
-                                                    (16)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-sm-6">
-                            <div class="product-item ">
-                                <div class="product-item__thumb d-flex">
-                                    <a href="{{ url('product/') }}" class="link w-100">
-                                        <img src="{{ asset('assets/front/') }}/images/serv.webp" alt=""
-                                            class="cover-img">
-                                    </a>
-                                    <button type="button" class="product-item__wishlist"><i
-                                            class="fas fa-heart"></i></button>
-                                </div>
-                                <div class="product-item__content">
-                                    <h6 class="product-item__title">
-                                        <a href="{{ url('product/') }}" class="link"> زيادة لايكات انستقرام سريعة
-                                            جداً
-                                            (الأرخص على الاطلاق) + ضمان </a>
-                                    </h6>
-                                    <div class="product-item__info flx-between gap-2">
-
-                                        <div class="flx-align gap-2">
-                                            <h6 class="product-item__price mb-0">$120</h6>
-                                            <span class="product-item__prevPrice text-decoration-line-through">$259</span>
-                                        </div>
-                                    </div>
-                                    <div class="product-item__bottom flx-between gap-2">
-                                        <div>
-                                            <span class="product-item__sales font-14 mb-2">1200 مبيعة</span>
-                                            <div class="d-flex align-items-center gap-1">
-                                                <ul class="star-rating">
-                                                    <li class="star-rating__item font-11"><i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="star-rating__item font-11"><i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="star-rating__item font-11"><i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="star-rating__item font-11"><i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="star-rating__item font-11"><i class="fas fa-star"></i>
-                                                    </li>
-                                                </ul>
-                                                <span class="star-rating__text text-heading fw-500 font-14">
-                                                    (16)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-sm-6">
-                            <div class="product-item ">
-                                <div class="product-item__thumb d-flex">
-                                    <a href="{{ url('product/') }}" class="link w-100">
-                                        <img src="{{ asset('assets/front/') }}/images/serv.webp" alt=""
-                                            class="cover-img">
-                                    </a>
-                                    <button type="button" class="product-item__wishlist"><i
-                                            class="fas fa-heart"></i></button>
-                                </div>
-                                <div class="product-item__content">
-                                    <h6 class="product-item__title">
-                                        <a href="{{ url('product/') }}" class="link"> زيادة لايكات انستقرام سريعة
-                                            جداً
-                                            (الأرخص على الاطلاق) + ضمان </a>
-                                    </h6>
-                                    <div class="product-item__info flx-between gap-2">
-
-                                        <div class="flx-align gap-2">
-                                            <h6 class="product-item__price mb-0">$120</h6>
-                                            <span class="product-item__prevPrice text-decoration-line-through">$259</span>
-                                        </div>
-                                    </div>
-                                    <div class="product-item__bottom flx-between gap-2">
-                                        <div>
-                                            <span class="product-item__sales font-14 mb-2">1200 مبيعة</span>
-                                            <div class="d-flex align-items-center gap-1">
-                                                <ul class="star-rating">
-                                                    <li class="star-rating__item font-11"><i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="star-rating__item font-11"><i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="star-rating__item font-11"><i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="star-rating__item font-11"><i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="star-rating__item font-11"><i class="fas fa-star"></i>
-                                                    </li>
-                                                </ul>
-                                                <span class="star-rating__text text-heading fw-500 font-14">
-                                                    (16)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-sm-6">
-                            <div class="product-item ">
-                                <div class="product-item__thumb d-flex">
-                                    <a href="{{ url('product/') }}" class="link w-100">
-                                        <img src="{{ asset('assets/front/') }}/images/serv.webp" alt=""
-                                            class="cover-img">
-                                    </a>
-                                    <button type="button" class="product-item__wishlist"><i
-                                            class="fas fa-heart"></i></button>
-                                </div>
-                                <div class="product-item__content">
-                                    <h6 class="product-item__title">
-                                        <a href="{{ url('product/') }}" class="link"> زيادة لايكات انستقرام سريعة
-                                            جداً
-                                            (الأرخص على الاطلاق) + ضمان </a>
-                                    </h6>
-                                    <div class="product-item__info flx-between gap-2">
-
-                                        <div class="flx-align gap-2">
-                                            <h6 class="product-item__price mb-0">$120</h6>
-                                            <span class="product-item__prevPrice text-decoration-line-through">$259</span>
-                                        </div>
-                                    </div>
-                                    <div class="product-item__bottom flx-between gap-2">
-                                        <div>
-                                            <span class="product-item__sales font-14 mb-2">1200 مبيعة</span>
-                                            <div class="d-flex align-items-center gap-1">
-                                                <ul class="star-rating">
-                                                    <li class="star-rating__item font-11"><i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="star-rating__item font-11"><i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="star-rating__item font-11"><i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="star-rating__item font-11"><i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="star-rating__item font-11"><i class="fas fa-star"></i>
-                                                    </li>
-                                                </ul>
-                                                <span class="star-rating__text text-heading fw-500 font-14">
-                                                    (16)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-sm-6">
-                            <div class="product-item ">
-                                <div class="product-item__thumb d-flex">
-                                    <a href="{{ url('product/') }}" class="link w-100">
-                                        <img src="{{ asset('assets/front/') }}/images/serv.webp" alt=""
-                                            class="cover-img">
-                                    </a>
-                                    <button type="button" class="product-item__wishlist"><i
-                                            class="fas fa-heart"></i></button>
-                                </div>
-                                <div class="product-item__content">
-                                    <h6 class="product-item__title">
-                                        <a href="{{ url('product/') }}" class="link"> زيادة لايكات انستقرام سريعة
-                                            جداً
-                                            (الأرخص على الاطلاق) + ضمان </a>
-                                    </h6>
-                                    <div class="product-item__info flx-between gap-2">
-
-                                        <div class="flx-align gap-2">
-                                            <h6 class="product-item__price mb-0">$120</h6>
-                                            <span class="product-item__prevPrice text-decoration-line-through">$259</span>
-                                        </div>
-                                    </div>
-                                    <div class="product-item__bottom flx-between gap-2">
-                                        <div>
-                                            <span class="product-item__sales font-14 mb-2">1200 مبيعة</span>
-                                            <div class="d-flex align-items-center gap-1">
-                                                <ul class="star-rating">
-                                                    <li class="star-rating__item font-11"><i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="star-rating__item font-11"><i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="star-rating__item font-11"><i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="star-rating__item font-11"><i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="star-rating__item font-11"><i class="fas fa-star"></i>
-                                                    </li>
-                                                </ul>
-                                                <span class="star-rating__text text-heading fw-500 font-14">
-                                                    (16)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="text-center mt-64">
-                <a href="all-product.html" class="btn btn-main btn-lg pill fw-300">
-                    جميع الخدمات
-                </a>
-            </div>
-
-        </div>
-    </section>
-    <!-- =========================== Arrival Product Section End ========================== -->
-
-
+ 
     <!-- ======================== End The Instagrame Serveice =================== -->
 
 @endsection

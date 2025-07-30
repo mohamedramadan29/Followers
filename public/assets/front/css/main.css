@@ -64,7 +64,7 @@
     --box-shadow-lg: 0 1rem 3rem rgba(0, 0, 0, .1);
     /* Color Variables Start */
     --main-gradient: linear-gradient(312deg, hsl(var(--main)) 5.38%, hsl(var(--main-two)) 113.21%);
-    --main-gradient-rev: linear-gradient(312deg, hsl(var(--main-two)) 5.38%, hsl(var(--main)) 113.21%);
+    --main-gradient-rev: #5D5FED;
     --main-gradient-two: linear-gradient(305deg, hsl(var(--main)) 0%, hsl(var(--main-three)) 100%);
     /* ========================= Main Color ============================= */
     --main-h: 202;
@@ -2044,12 +2044,13 @@ button:focus {
     background: #5D5FED;
     z-index: -1;
     transition: 0.2s linear;
+    border-radius: 5px;
 }
 .btn-main::before:hover, .btn-main::after:hover {
      background: #5D5FED;
 }
 .btn-main::after {
-    background: var(--main-gradient-rev);
+    background: #5D5FED;
     visibility: hidden;
     opacity: 0;
 }
@@ -3126,8 +3127,11 @@ input[type=number] {
 /* Language Select */
 .toggle-mobileMenu {
     line-height: 1;
-    font-size: 36px;
-    color: hsl(var(--heading-color));
+    font-size: 30px;
+    color: #242588;
+    background: #E5E5E5;
+    border-radius: 12px;
+    padding: 4px 7px;
 }
 
 .contact-number {
@@ -3194,6 +3198,10 @@ input[type=number] {
     width: 100%;
     padding: 38px 0;
     width: 100%;
+}
+.nav-menu__link.active,
+.nav-menu__link:hover{
+    color:#5D5FED;
 }
 
 @media screen and (max-width: 1199px) {
@@ -3642,7 +3650,7 @@ input[type=number] {
 @media screen and (max-width: 1199px) {
     .footer-section {
         padding: 120px 0;
-        background-color: hsl(var(--black)) !important;
+        background-color: #595bb3 !important;
         background-image: none;
     }
 }
@@ -11011,8 +11019,8 @@ margin-bottom: 20px;
 
 .news_button {
     position: fixed;
-    bottom: 30px;
-    left: 30px;
+    bottom: 10px;
+    left: 10px;
     background-color: #5353B6;
     color: #fff;
     z-index: 99999;
@@ -11081,18 +11089,20 @@ margin-bottom: 20px;
     position: fixed;
     bottom: 10px;
     right: 10px;
-    background-color: #0586b6;
+    background-color: #5353B6;
     color: #fff;
     z-index: 99999;
-    padding: 6px 15px;
-    border-radius: 3px;
+    width: 45px;
+    height: 45px;
+    line-height: 50px;
+    border-radius: 100%;
+    animation: pulse 1.5s ease-in-out infinite;
+    /* تأثير النبض */
 }
 
-.robot-chat .robot-chat-button i {
-    font-size: 18px;
-    margin-right: 10px;
-    position: relative;
-    top: 2px;
+
+.robot-chat .robot-chat-button img {
+    width:26px
 }
 
 .robot-chat .chat-body {
@@ -11112,7 +11122,7 @@ margin-bottom: 20px;
 }
 
 .robot-chat .chat-body .chat-header {
-    background-color: #0586b6;
+    background-color: #5353B6;
     color: #fff;
     padding: 10px;
     display: flex;
@@ -11176,7 +11186,7 @@ margin-bottom: 20px;
 }
 
 .robot-chat .chat-body .chat-input button {
-    background-color: #0586b6;
+    background-color: #5353B6;
     color: #fff;
     border: none;
     border-radius: 5px;

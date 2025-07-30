@@ -92,7 +92,7 @@ class BlogController extends Controller
                 $rules = [
                     'name' => 'required',
                     'desc' => 'required',
-                    'publish_date'=>'required|date|after_or_equal:today',
+                    'publish_date'=>'required|date',
                     'status'=>'required',
                 ];
                 $messages = [
@@ -100,7 +100,6 @@ class BlogController extends Controller
                     'desc.required' => ' من فضلك ادخل الوصف    ',
                     'publish_date.required' => ' من فضلك ادخل تاريخ النشر  ',
                     'publish_date.date' => ' من فضلك ادخل تاريخ صحيح  ',
-                    'publish_date.after_or_equal' => ' من فضلك ادخل تاريخ صحيح  ',
                     'status'=>'من فضلك حدد حالة المقال  ',
                 ];
 

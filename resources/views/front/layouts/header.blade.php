@@ -6,9 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Title -->
-    <title> @yield('title') </title>
+    <title> {{ $setting['website_name'] }} - @yield('title')  </title>
     <!-- Favicon -->
-    <link rel="shortcut icon" href="{{ $setting['website_logo'] }}">
+    <link rel="shortcut icon" href="{{ asset('assets/uploads/PublicSetting/' . $setting['website_favicon']) }}">
+    <meta content="{{ $setting['website_description'] }}" name="description">
+    <meta content="{{ $setting['meta_keywords'] }}" name="keywords">
+    <meta content="{{ $setting['meta_author'] }}" name="author">
 
     <!-- Bootstrap -->
     {{-- <link rel="stylesheet" href="{{ asset('assets/front/') }}/css/bootstrap.min.css"> --}}

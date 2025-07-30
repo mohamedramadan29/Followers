@@ -69,7 +69,10 @@ class ProfileController extends Controller
             }
             $user->name = $data['name'];
             $user->phone = $data['phone'];
-            $user->person_info = $data['person_info'];
+            $user->sex = $data['gender'];
+            $user->city = $data['city'];
+            $user->birthday = $data['birth_date'];
+            $user->person_info = $data['bio'];
             $user->save();
 
             return $this->success_message(' تم تعديل البيانات بنجاح  ');

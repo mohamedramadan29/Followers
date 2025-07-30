@@ -10,16 +10,17 @@ class BlogController extends Controller
 {
     public function index()
     {
-        $blogs = Blog::where('status',1)->orderBy('id','desc')->paginate(10);
+        $blogs = Blog::where('status',1)->with('Category')->orderBy('id','desc')->paginate(10);
         return view('front.blog.blog',compact('blogs'));
     }
     public function show($slug)
     {
         $blog = Blog::where('slug',$slug)->first();
-        $lastest_blogs = Blog::where('status',1)->where('id','!=',$blog->id)->orderBy('id','desc')->limit(3)->get();
+        //$lastest_blogs = Blog::where('status',1)->where('id','!=',$blog->id)->orderBy('id','desc')->limit(3)->get();
+        $relates_blogs = Blog::where('status',1)->where('category_id',$blog->category_id)->where('id','!=',$blog->id)->orderBy('id','desc')->limit(3)->get();
         if(!$blog){
             abort(404);
         }
-        return view('front.blog.blog_details',compact('blog','lastest_blogs'));
+        return view('front.blog.blog_details',compact('blog','relates_blogs'));
     }
 }

@@ -7,35 +7,32 @@
     <button type="button" class="close-button"> <i class="las la-times"></i> </button>
     <div class="mobile-menu__inner">
         <a href="{{ url('/') }}" class="mobile-menu__logo">
-            <img width="60px" src="{{ $setting['website_logo'] }}" alt="{{ $setting['website_name'] }}"
+            <img width="60px" src="{{ asset('assets/uploads/PublicSetting/' . $setting['website_logo']) }}" alt="{{ $setting['website_name'] }}"
                 class="white-version">
-            <img width="60px" src="{{ $setting['website_logo'] }}" alt="{{ $setting['website_name'] }}"
+            <img width="60px" src="{{ asset('assets/uploads/PublicSetting/' . $setting['website_logo']) }}" alt="{{ $setting['website_name'] }}"
                 class="dark-version">
         </a>
         <div class="mobile-menu__menu">
             <ul class="nav-menu flx-align nav-menu--mobile">
                 <li class="nav-menu__item">
-                    <a href="{{ url('/') }}" class="nav-menu__link">الرئيسية </a>
-                </li>
-                <li class="nav-menu__item">
-                    <a href="{{ url('category') }}" class="nav-menu__link"> الاكثر مبيعا </a>
+                    <a href="{{ url('/') }}" class="nav-menu__link {{ request()->is('/') ? 'active' : '' }}">الرئيسية </a>
                 </li>
                 @foreach ($maincategories as $category)
                     <li class="nav-menu__item">
-                        <a href="{{ url('category/' . $category['slug']) }}" class="nav-menu__link">
+                        <a href="{{ url('category/' . $category['slug']) }}" class="nav-menu__link {{ request()->is('category/'.$category['slug']) ? 'active' : '' }}">
                             {{ $category->name }}
                         </a>
                     </li>
                 @endforeach
                 <li class="nav-menu__item">
-                    <a href="{{ url('instagram-followers-counter') }}" class="nav-menu__link"> عدّاد متابعين انستقرام
+                    <a href="{{ url('instagram-followers-counter') }}" class="nav-menu__link {{ request()->is('instagram-followers-counter') ? 'active' : '' }} {{ request()->is('instagramCounter') ? 'active' : '' }}"> عدّاد متابعين انستقرام
                     </a>
                 </li>
                 <li class="nav-menu__item">
-                    <a href="{{ url('tiktok-followers-counter') }}" class="nav-menu__link"> عدّاد متابعين تيك توك </a>
+                    <a href="{{ url('tiktok-followers-counter') }}" class="nav-menu__link {{ request()->is('tiktok-followers-counter') ? 'active' : '' }}"> عدّاد متابعين تيك توك </a>
                 </li>
                 <li class="nav-menu__item">
-                    <a href="{{ url('contact') }}" class="nav-menu__link"> اتصل بنا </a>
+                    <a href="{{ url('contact') }}" class="nav-menu__link {{ request()->is('contact') ? 'active' : '' }}"> اتصل بنا </a>
                 </li>
 
             </ul>
@@ -60,10 +57,10 @@
                 <!-- Logo Start -->
                 <div class="logo">
                     <a href="{{ url('/') }}" class="link white-version">
-                        <img src="{{ $setting['website_logo'] }}" alt="{{ $setting['website_name'] }}">
+                        <img src="{{ asset('assets/uploads/PublicSetting/' . $setting['website_logo']) }}" alt="{{ $setting['website_name'] }}">
                     </a>
                     <a href="{{ url('/') }}" class="link dark-version">
-                        <img src="{{ $setting['website_logo'] }}" alt="{{ $setting['website_name'] }}">
+                        <img src="{{ asset('assets/uploads/PublicSetting/' . $setting['website_logo']) }}" alt="{{ $setting['website_name'] }}">
                     </a>
                 </div>
                 <!-- Logo End  -->
@@ -73,24 +70,24 @@
 
                     <ul class="nav-menu flx-align">
                         <li class="nav-menu__item">
-                            <a href="{{ url('/') }}" class="nav-menu__link">الرئيسية </a>
+                            <a href="{{ url('/') }}" class="nav-menu__link {{ request()->is('/') ? 'active' : '' }}">الرئيسية </a>
                         </li>
                         @foreach ($maincategories as $category)
                             <li class="nav-menu__item">
-                                <a href="{{ url('category/' . $category['slug']) }}" class="nav-menu__link">
+                                <a  href="{{ url('category/' . $category['slug']) }}" class="nav-menu__link {{ request()->is('category/'.$category['slug']) ? 'active' : '' }}">
                                     {{ $category['name'] }} </a>
                             </li>
                         @endforeach
                         <li class="nav-menu__item">
-                            <a href="{{ url('instagram-followers-counter') }}" class="nav-menu__link"> عدّاد متابعين
+                            <a href="{{ url('instagram-followers-counter') }}" class="nav-menu__link {{ request()->is('instagram-followers-counter') ? 'active' : '' }} {{ request()->is('instagramCounter') ? 'active' : '' }}"> عدّاد متابعين
                                 انستقرام </a>
                         </li>
                         <li class="nav-menu__item">
-                            <a href="{{ url('tiktok-followers-counter') }}" class="nav-menu__link"> عدّاد متابعين تيك
+                            <a href="{{ url('tiktok-followers-counter') }}" class="nav-menu__link {{ request()->is('tiktok-followers-counter') ? 'active' : '' }}"> عدّاد متابعين تيك
                                 توك </a>
                         </li>
                         <li class="nav-menu__item">
-                            <a href="{{ url('contact') }}" class="nav-menu__link"> اتصل بنا </a>
+                            <a href="{{ url('contact') }}" class="nav-menu__link {{ request()->is('contact') ? 'active' : '' }}"> اتصل بنا </a>
                         </li>
                     </ul>
                 </div>

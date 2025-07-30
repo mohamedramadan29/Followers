@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
 @endsection
 @section('content')
+
     <!-- ======================== Dashboard Cards Section Start ===================== -->
     <section class="dashboard-cards-section">
         <div class="dashboard-cards-row">
@@ -14,8 +15,10 @@
                         class="dashboard-card-img">
                 </div>
                 <div class="dashboard-card-info">
-                    <div class="dashboard-card-value">{{ number_format(Auth::user()->balance, 2) }} <img
-                            src="{{ asset('assets/front/images/icons/riyal-white.svg') }}" alt=""> </div>
+                    <div class="dashboard-card-value">{{ number_format(Auth::user()->balance, 4) }}
+                         {{-- <img
+                            src="{{ asset('assets/front/images/icons/riyal-white.svg') }}" alt=""> --}}
+                         $ </div>
                     <div class="dashboard-card-label">رصيدك الآن</div>
                     <i class="bi bi-arrow-left"></i>
                 </div>
@@ -26,8 +29,9 @@
                         class="dashboard-card-img">
                 </div>
                 <div class="dashboard-card-info">
-                    <div class="dashboard-card-value">{{ number_format(Auth::user()->balance, 2) }} <img
-                            src="{{ asset('assets/front/images/icons/riyal-maincolor.svg') }}" alt=""> </div>
+                    <div class="dashboard-card-value">{{ number_format(Auth::user()->getTotalUsedNowAttribute(), 4) }}
+                         {{-- <img  src="{{ asset('assets/front/images/icons/riyal-maincolor.svg') }}" alt=""> --}}
+                            $ </div>
                     <div class="dashboard-card-label"> جار استخدامه </div>
                     <i class="bi bi-arrow-left"></i>
                 </div>
@@ -37,8 +41,10 @@
                     <img src="{{ asset('assets/front/uploads/spend.png') }}" alt=" أنفقت معنا  " class="dashboard-card-img">
                 </div>
                 <div class="dashboard-card-info">
-                    <div class="dashboard-card-value">{{ number_format(Auth::user()->balance, 2) }} <img
-                            src="{{ asset('assets/front/images/icons/riyal-maincolor.svg') }}" alt=""> </div>
+                    <div class="dashboard-card-value">{{ number_format(Auth::user()->getTotalSpendAttribute(), 4) }}
+                        {{-- <img  src="{{ asset('assets/front/images/icons/riyal-maincolor.svg') }}" alt="">  --}}
+                   $
+                    </div>
                     <div class="dashboard-card-label"> أنفقت معنا </div>
                     <i class="bi bi-arrow-left"></i>
                 </div>

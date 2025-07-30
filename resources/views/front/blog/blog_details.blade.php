@@ -4,7 +4,7 @@
 @endsection
 @section('content')
     <!-- ======================== Breadcrumb one Section Start ===================== -->
-    <div class="container container-two" style="margin-top: 30px;">
+    <div class="blog-breadcrump" style="margin-top: 30px;">
         <div class="row">
             <div class="col-12">
                 <h4> {{ $blog->name }} </h4>
@@ -33,7 +33,7 @@
     <!-- ======================== Breadcrumb one Section End ===================== -->
 
     <!-- ======================= Blog Details Section Start ========================= -->
-    <section class="mt-40 overflow-hidden blog-details position-relative">
+    <section class="overflow-hidden mt-40 blog-details position-relative">
         <div class="container container-two">
             <!-- blog details top End -->
             <div class="row gy-4">
@@ -77,6 +77,7 @@
             </div>
         </div>
     </section>
+    @if($relates_blogs->count() > 0)
      <!-- ========================  Start New Blog  ====================== -->
     <section class="all-product">
         <div class="container container-two">
@@ -89,69 +90,25 @@
                                 <div class="most-ordered-title-line flex-grow-1"></div>
                                 <h4 class="mx-3 mb-0 most-ordered-title-text"> مقالات ذات صلة </h4>
                                 <div class="most-ordered-title-line flex-grow-1"></div>
-                            </div> 
+                            </div>
                             <br>
                             <div class="row g-4 justify-content-center">
+                                @foreach ($relates_blogs as $blog)
                                 <div class="col-lg-3 col-md-4 col-sm-6">
-                                    <div class="text-center most-ordered-card">
-                                        <img src="{{ asset('assets/front/images/icons/insta.png') }}"
-                                            class="mb-2 most-ordered-img" alt="اسم الخدمة">
-                                        <div class="most-ordered-title"> اسم الخدمة </div>
-                                        <div class="most-ordered-desc-card" style="color: #5D5FED"> تيك توك </div>
-                                        <div class="time text-muted" style="color: #9C9C9C;font-size: 12px"> <i class="bi bi-alarm"></i> منذ سنتين </div>
+                                    <div class="text-center most-ordered-card" style="min-height: 200px">
+                                        <a href="{{ url('blog/' . $blog['slug']) }}">
+                                        <img src="{{ asset('assets/uploads/Blogs/' . $blog->image) }}"
+                                            class="mb-2 most-ordered-img" alt="{{ $blog->name }}">
+                                        </a>
+                                        <a href="{{ url('blog/' . $blog['slug']) }}">
+                                        <div class="most-ordered-title"> {{ $blog->name }} </div>
+                                        </a>
+                                        <div class="most-ordered-desc-card" style="color: #5D5FED"> {{ $blog->Category->name }} </div>
+                                        <div class="time text-muted" style="color: #9C9C9C;font-size: 12px"> <i class="bi bi-alarm"></i> {{ $blog->created_at->diffForHumans() }} </div>
+
                                     </div>
                                 </div>
-                                <div class="col-lg-3 col-md-4 col-sm-6">
-                                    <div class="text-center most-ordered-card">
-                                        <img src="{{ asset('assets/front/images/icons/insta.png') }}"
-                                            class="mb-2 most-ordered-img" alt="اسم الخدمة">
-                                        <div class="most-ordered-title"> اسم الخدمة </div>
-                                        <div class="most-ordered-desc-card">وصف </div>
-                                        <div class="mt-2 mb-1 most-ordered-rating">
-                                            <span>(10)</span>
-                                            <span class="stars ms-1">
-                                                @for ($i = 0; $i < 5; $i++)
-                                                    <i class="fa fa-star text-warning"></i>
-                                                @endfor
-                                            </span>
-                                        </div>
-                                        <div class="most-ordered-price">100 / <span class="text-primary">$</span></div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-4 col-sm-6">
-                                    <div class="text-center most-ordered-card">
-                                        <img src="{{ asset('assets/front/images/icons/insta.png') }}"
-                                            class="mb-2 most-ordered-img" alt="اسم الخدمة">
-                                        <div class="most-ordered-title"> اسم الخدمة </div>
-                                        <div class="most-ordered-desc-card">وصف </div>
-                                        <div class="mt-2 mb-1 most-ordered-rating">
-                                            <span>(10)</span>
-                                            <span class="stars ms-1">
-                                                @for ($i = 0; $i < 5; $i++)
-                                                    <i class="fa fa-star text-warning"></i>
-                                                @endfor
-                                            </span>
-                                        </div>
-                                        <div class="most-ordered-price">100 / <span class="text-primary">$</span></div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-4 col-sm-6">
-                                    <div class="text-center most-ordered-card">
-                                        <img src="{{ asset('assets/front/images/icons/insta.png') }}"
-                                            class="mb-2 most-ordered-img" alt="اسم الخدمة">
-                                        <div class="most-ordered-title"> اسم الخدمة </div>
-                                        <div class="most-ordered-desc-card">وصف </div>
-                                        <div class="mt-2 mb-1 most-ordered-rating">
-                                            <span>(10)</span>
-                                            <span class="stars ms-1">
-                                                @for ($i = 0; $i < 5; $i++)
-                                                    <i class="fa fa-star text-warning"></i>
-                                                @endfor
-                                            </span>
-                                        </div>
-                                        <div class="most-ordered-price">100 / <span class="text-primary">$</span></div>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </section>
@@ -159,6 +116,7 @@
             </div>
         </div>
     </section>
+    @endif
     <!-- ===========================  End New Blog  ========================== -->
     <!-- ======================= Blog Details Section End ========================= -->
 @endsection
