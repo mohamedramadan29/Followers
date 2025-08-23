@@ -73,8 +73,14 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::find($id);
+        $userOrders = Order::where('user_id', $id)
+        ->orderBy('id', 'desc')
+        ->get();
+
         $transactions = Transaction::where('user_id',$id)->latest()->get();
 
+        $orders_with_status = [];
+        if(count($userOrders) > 0) {
         // إنشاء مفتاح الكاش بناءً على معرف المستخدم
         $cacheKey = 'user_orders_' . $id;
 
@@ -111,8 +117,9 @@ class UsersController extends Controller
 
             return $orders_with_status;
         });
+    }
         return view('admin.users.show', compact('user', 'orders_with_status','transactions'));
-    } 
+    }
     ######### Add Balance To User
 
     public function AddBalance(Request $request, $id)

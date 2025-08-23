@@ -1,7 +1,7 @@
 @extends('front.layouts.master')
-@section('title')
-    {{ $service['name'] }}
-@endsection
+@section('title', $meta['title'])
+@section('description', $meta['description'])
+@section('keywords', $meta['keywords'])
 @section('content')
     <!-- ======================== Breadcrumb one Section Start ===================== -->
     <div class="container container-two" style="margin-top: 30px;">
@@ -24,7 +24,7 @@
                         <span class="breadcrumb-list__icon font-10"><i class="fas fa-chevron-right"></i></span>
                     </li>
                     <li class="breadcrumb-list__item font-14 text-body breadcrumb-item active">
-                        <span class="breadcrumb-list__text"> {{ $service['name'] }} </span>
+                        <span class="breadcrumb-list__text"> {{ $service['main_title'] }} </span>
                     </li>
                 </ul>
             </div>
@@ -43,7 +43,7 @@
                 <div class="col-lg-7">
                     <!-- ======================= Product Sidebar Start ========================= -->
                     <div class="product-details-section">
-                        <h4> {{ $service['name'] }} </h4>
+                        <h4> {{ $service['main_title'] }} </h4>
                         <div class="product-sidebar section-bg">
                             <div class="container container-two">
                                 <div class="wishlist">

@@ -86,7 +86,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
             Route::controller(ProductController::class)->group(function () {
                 Route::get('products', 'index');
                 Route::match(['post', 'get'], 'product/add', 'store');
-                Route::match(['post', 'get'], 'product/update/{slug}', 'update')->name('product.update');
+                Route::match(['post', 'get'], 'product/update/{id}', 'update')->name('product.update');
                 Route::post('product/delete/{id}', 'delete');
                 Route::get('/get-attribute-values/{attributeId}', 'getAttributeValues');
                 Route::get('/get-subcategories', 'getSubCategories')->name('get.subcategories');
@@ -254,6 +254,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
                    ############## Payments Report ###########
                    Route::get('payments','WalletPayments');
                    Route::get('payment/show/{id}','PaymentShow');
+                   Route::post('payment/active/{id}','PaymentActive');
             });
         });
         ################### End Wallet Controller #########################

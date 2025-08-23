@@ -1,5 +1,5 @@
 @extends('front.layouts.master')
-@section('title', ' تذاكر الدعم ')
+@section('title', $meta['title'])
 @section('content')
 
     <!-- ======================== Dashboard Cards Section Start ===================== -->

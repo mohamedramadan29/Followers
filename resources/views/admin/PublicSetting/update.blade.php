@@ -89,7 +89,7 @@
                                 <div class="col-lg-4 col-12">
                                     <div class="mb-3">
                                         <label for="autentication_number" class="form-label"> رقم التوثيق </label>
-                                        <input required type="text" id="autentication_number" class="form-control"
+                                        <input  type="text" id="autentication_number" class="form-control"
                                             name="autentication_number"
                                             value="{{ $public_setting['autentication_number'] }}">
                                     </div>
@@ -97,14 +97,14 @@
                                 <div class="col-lg-4 col-12">
                                     <div class="mb-3">
                                         <label for="commercial_number" class="form-label"> السجل التجاري </label>
-                                        <input required type="text" id="commercial_number" class="form-control"
+                                        <input  type="text" id="commercial_number" class="form-control"
                                             name="commercial_number" value="{{ $public_setting['commercial_number'] }}">
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-12">
                                     <div class="mb-3">
                                         <label for="tax_number" class="form-label"> رقم الضريبة </label>
-                                        <input required type="text" id="tax_number" class="form-control"
+                                        <input  type="text" id="tax_number" class="form-control"
                                             name="tax_number" value="{{ $public_setting['tax_number'] }}">
                                     </div>
                                 </div>
@@ -120,14 +120,14 @@
                                 <div class="col-lg-4">
                                     <div class="mb-3">
                                         <label for="phone" class="form-label"> رقم الهاتف </label>
-                                        <input required type="text" id="phone" class="form-control"
+                                        <input type="text" id="phone" class="form-control"
                                             name="phone" value="{{ $public_setting['phone'] }}">
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="mb-3">
                                         <label for="email" class="form-label"> البريد الالكتروني </label>
-                                        <input required type="text" id="email" class="form-control"
+                                        <input type="text" id="email" class="form-control"
                                             name="email" value="{{ $public_setting['email'] }}">
                                     </div>
                                 </div>

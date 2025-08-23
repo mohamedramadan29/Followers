@@ -14,6 +14,10 @@ return new class extends Migration
         Schema::create('hand_payments', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
+            $table->string('account_name');
+            $table->string('account_number');
+            $table->string('iban');
+            $table->string('swift_code')->nullable();
             $table->text('description')->nullable();
             $table->tinyInteger('status')->default(1);
 

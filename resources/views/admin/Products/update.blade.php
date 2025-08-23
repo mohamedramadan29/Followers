@@ -131,6 +131,13 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            <label for="main_title" class="form-label"> العنوان الرئيسي للخدمة  </label>
+                                            <input required type="text" id="main_title" name="main_title"
+                                                class="form-control" placeholder="" value="{{ $product['main_title'] }}">
+                                        </div>
+                                    </div>
                                     <div class="col-lg-3 col-6">
                                         <div class="mb-3">
                                             <label for="name" class="form-label"> اسم الخدمة </label>

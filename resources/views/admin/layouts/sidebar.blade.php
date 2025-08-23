@@ -36,58 +36,29 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link menu-arrow @yield('orders-active')" href="#sidebarorders" data-bs-toggle="collapse" role="button"
-                    aria-expanded="false" aria-controls="sidebarorders">
+                <a class="nav-link @yield('orders-active')" href="{{ url('admin/orders') }}">
                     <span class="nav-icon">
                         <i class="bi bi-list-check"></i>
                     </span>
                     <span class="nav-text"> سجل الطلبات </span>
                 </a>
-                <div class="collapse @yield('orders-collapse')" id="sidebarorders">
-                    <ul class="nav sub-navbar-nav">
-
-                        <li class="sub-nav-item">
-                            <a class="sub-nav-link" href="{{ url('admin/orders') }}"> جميع الطلبات </a>
-                        </li>
-
-                    </ul>
-                </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link menu-arrow @yield('users-active')" href="#sidebarCustomers" data-bs-toggle="collapse" role="button"
-                    aria-expanded="false" aria-controls="sidebarCustomers">
+                <a class="nav-link @yield('users-active')" href="{{ url('admin/users') }}">
                     <span class="nav-icon">
                         <i class="bi bi-people"></i>
                     </span>
                     <span class="nav-text"> المستخدمين </span>
                 </a>
-                <div class="collapse @yield('users-collapse')" id="sidebarCustomers">
-                    <ul class="nav sub-navbar-nav">
-                        <li class="sub-nav-item">
-                            <a class="sub-nav-link @yield('users-active')" href="{{ url('admin/users') }}"> جميع المستخدمين </a>
-                        </li>
-                        <li class="sub-nav-item">
-                            <a class="sub-nav-link @yield('add-users-active')" href="{{ url('admin/user/add') }}"> اضافة مستخدم </a>
-                        </li>
-                    </ul>
-                </div>
             </li>
             @can('support')
                 <li class="nav-item">
-                    <a class="nav-link @yield('support-active')" href="#sidebarSupport" data-bs-toggle="collapse" role="button"
-                        aria-expanded="false" aria-controls="sidebarSupport">
+                    <a class="nav-link @yield('support-active')" href="{{ url('admin/support/tickets') }}">
                         <span class="nav-icon">
                             <i class="bi bi-people"></i>
                         </span>
                         <span class="nav-text"> خدمة العملاء </span>
                     </a>
-                    <div class="collapse" id="sidebarSupport">
-                        <ul class="nav sub-navbar-nav">
-                            <li class="sub-nav-item">
-                                <a class="sub-nav-link @yield('tickets-active')" href="{{ url('admin/support/tickets') }}"> جميع التذاكر </a>
-                            </li>
-                        </ul>
-                    </div>
                 </li>
             @endcan
             @can('reviews')
@@ -103,174 +74,87 @@
 
             @can('reports')
                 <li class="nav-item">
-                    <a class="nav-link menu-arrow @yield('reports-active')" href="#sidebarReports" data-bs-toggle="collapse" role="button"
-                        aria-expanded="false" aria-controls="sidebarReports">
+                    <a class="nav-link @yield('reports-active')" href="{{ url('admin/reports/index') }}">
                         <span class="nav-icon">
                             <i class="bi bi-bar-chart-line"></i>
                         </span>
                         <span class="nav-text"> التقارير </span>
                     </a>
-                    <div class="collapse @yield('reports-collapse')" id="sidebarReports">
-                        <ul class="nav sub-navbar-nav">
-                            <li class="sub-nav-item @yield('reports-active')">
-                                <a class="sub-nav-link" href="{{ url('admin/reports/index') }}"> جميع التقارير </a>
-                            </li>
-                            <li class="sub-nav-item @yield('reports-active')">
-                                <a class="sub-nav-link" href="{{ url('admin/reports/sales') }}"> تقارير المبعات  </a>
-                            </li>
-                            <li class="sub-nav-item @yield('reports-active')">
-                                <a class="sub-nav-link" href="{{ url('admin/reports/products') }}"> تقارير المنتجات </a>
-                            </li>
-                        </ul>
-                    </div>
+
                 </li>
             @endcan
             {{-- @can('products') --}}
             <li class="nav-item">
-                <a class="nav-link menu-arrow @yield('products-active')" href="#sidebarProducts" data-bs-toggle="collapse" role="button"
-                    aria-expanded="false" aria-controls="sidebarProducts">
+                <a class="nav-link @yield('products-active')" href="{{ url('admin/products') }}">
                     <span class="nav-icon">
                         <i class="bi bi-hdd-stack-fill"></i>
                     </span>
                     <span class="nav-text"> الخدمات </span>
                 </a>
-                <div class="collapse @yield('products-collapse')" id="sidebarProducts">
-                    <ul class="nav sub-navbar-nav">
-
-                        <li class="sub-nav-item">
-                            <a class="sub-nav-link @yield('products-active')" href="{{ url('admin/products') }}"> جميع الخدمات </a>
-                        </li>
-                        <li class="sub-nav-item">
-                            <a class="sub-nav-link @yield('products-active')" href="{{ url('admin/product/add') }}"> اضف خدمة جديدة </a>
-                        </li>
-                        <li class="sub-nav-item">
-                            <a class="sub-nav-link @yield('products-active')" href="{{ url('admin/main-categories') }}"> جميع الأقسام </a>
-                        </li>
-                    </ul>
-                </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link menu-arrow @yield('providers-active')" href="#sidebarProviders" data-bs-toggle="collapse"
-                    role="button" aria-expanded="false" aria-controls="sidebarProviders">
+                <a class="nav-link @yield('providers-active')" href="{{ url('admin/providers') }}">
                     <span class="nav-icon">
                         <i class="bi bi-server"></i>
                     </span>
                     <span class="nav-text"> مزودي الخدمات </span>
                 </a>
-                <div class="collapse @yield('providers-collapse')" id="sidebarProviders">
-                    <ul class="nav sub-navbar-nav">
-                        <li class="sub-nav-item">
-                            <a class="sub-nav-link" href="{{ url('admin/providers') }}"> مزودي الخدمات </a>
-                        </li>
-                        <li class="sub-nav-item">
-                            <a class="sub-nav-link" href="{{ url('admin/provider/add') }}"> اضافة مزود جديد </a>
-                        </li>
-                    </ul>
-                </div>
             </li>
             {{-- @endcan --}}
 
             {{-- @can('blog') --}}
             <li class="nav-item">
-                <a class="nav-link menu-arrow @yield('blog-active')" href="#sidebaradvs" data-bs-toggle="collapse"
-                    role="button" aria-expanded="false" aria-controls="sidebarBrands">
+                <a class="nav-link @yield('blog-active')" href="{{ url('admin/blogs') }}"">
                     <span class="nav-icon">
                         <i class="bi bi-brush"></i>
                     </span>
                     <span class="nav-text"> المدونة </span>
                 </a>
-                <div class="collapse @yield('blog-collapse')" id="sidebaradvs">
-                    <ul class="nav sub-navbar-nav">
-                        <li class="sub-nav-item">
-                            <a class="sub-nav-link" href="{{ url('admin/blog_category') }}"> اقسام المدونة </a>
-                        </li>
-                        <li class="sub-nav-item">
-                            <a class="sub-nav-link" href="{{ url('admin/blogs') }}"> التدوينات </a>
-                        </li>
-
-                    </ul>
-                </div>
             </li>
             {{-- @endcan --}}
             {{-- @can('boot') --}}
             <li class="nav-item">
-                <a class="nav-link menu-arrow @yield('chatboot-active')" href="#sidebarchatboot" data-bs-toggle="collapse"
-                    role="button" aria-expanded="false" aria-controls="sidebarchatboot">
+                <a class="nav-link @yield('chatboot-active')" href="{{ url('admin/bootfaqs') }}">
                     <span class="nav-icon">
                         <i class="bi bi-robot"></i>
                     </span>
                     <span class="nav-text"> تدريب البوت </span>
                 </a>
-                <div class="collapse @yield('chatboot-collapse')" id="sidebarchatboot">
-                    <ul class="nav sub-navbar-nav">
-                        <li class="sub-nav-item">
-                            <a class="sub-nav-link" href="{{ url('admin/bootfaqs') }}"> الاسئلة </a>
-                        </li>
-                    </ul>
-                </div>
+
             </li>
             {{-- @endcan --}}
 
             {{-- @can('news') --}}
             <li class="nav-item">
-                <a class="nav-link menu-arrow @yield('lastnews-active')" href="#sidebarlastnews" data-bs-toggle="collapse"
-                    role="button" aria-expanded="false" aria-controls="sidebarlastnews">
+                <a class="nav-link @yield('lastnews-active')" href="{{ url('admin/news') }}">
                     <span class="nav-icon">
                         <i class="bi bi-book-half"></i>
                     </span>
                     <span class="nav-text"> احدث الاخبار </span>
                 </a>
-                <div class="collapse @yield('lastnews-collapse')" id="sidebarlastnews">
-                    <ul class="nav sub-navbar-nav">
-                        <li class="sub-nav-item">
-                            <a class="sub-nav-link" href="{{ url('admin/news') }}"> احدث الاخبار </a>
-                        </li>
-                        <li class="sub-nav-item">
-                            <a class="sub-nav-link" href="{{ url('admin/news/add') }}"> اضافة خبر جديد </a>
-                        </li>
-                    </ul>
-                </div>
+
             </li>
             {{-- @endcan --}}
 
             {{-- @can('faqs') --}}
             <li class="nav-item">
-                <a class="nav-link menu-arrow @yield('faqs-active')" href="#sidebarfaqs" data-bs-toggle="collapse"
-                    role="button" aria-expanded="false" aria-controls="sidebarfaqs">
+                <a class="nav-link @yield('faqs-active')" href="{{ url('admin/faqs') }}">
                     <span class="nav-icon">
                         <i class="bi bi-info-square"></i>
                     </span>
                     <span class="nav-text">الاسئلة الشائعة </span>
                 </a>
-                <div class="collapse @yield('faqs-collapse')" id="sidebarfaqs">
-                    <ul class="nav sub-navbar-nav">
-                        <li class="sub-nav-item">
-                            <a class="sub-nav-link" href="{{ url('admin/faqs') }}"> الاسئلة الشائعة </a>
-                        </li>
-                        <li class="sub-nav-item">
-                            <a class="sub-nav-link" href="{{ url('admin/faq/add') }}"> اضافة سوال جديد </a>
-                        </li>
-                    </ul>
-                </div>
             </li>
             {{-- @endcan --}}
 
             {{-- @can('employees') --}}
             <li class="nav-item">
-                <a class="nav-link menu-arrow @yield('employees-active')" href="#sidebarEmployess" data-bs-toggle="collapse" role="button"
-                    aria-expanded="false" aria-controls="sidebarEmployess">
+                <a class="nav-link @yield('employees-active')" href="{{ url('admin/employees') }}">
                     <span class="nav-icon">
                         <i class="bi bi-people"></i>
                     </span>
                     <span class="nav-text"> الادراين  </span>
                 </a>
-                <div class="collapse @yield('employees-collapse')" id="sidebarEmployess">
-                    <ul class="nav sub-navbar-nav">
-                        <li class="sub-nav-item">
-                            <a class="sub-nav-link" href="{{ url('admin/employees') }}"> جميع الادراين </a>
-                        </li>
-                    </ul>
-                </div>
             </li>
             {{-- @endcan --}}
 
@@ -278,27 +162,19 @@
 
             {{-- @can('roles') --}}
             <li class="nav-item">
-                <a class="nav-link menu-arrow @yield('roles-active')" href="#sidebarPermissions" data-bs-toggle="collapse" role="button"
-                    aria-expanded="false" aria-controls="sidebarPermissions">
+                <a class="nav-link @yield('roles-active')" href="{{ url('admin/roles') }}">
                     <span class="nav-icon">
                         <i class="bi bi-ui-checks"></i>
                     </span>
                     <span class="nav-text"> الصلاحيات </span>
                 </a>
-                <div class="collapse @yield('roles-collapse')" id="sidebarPermissions">
-                    <ul class="nav sub-navbar-nav">
-                        <li class="sub-nav-item">
-                            <a class="sub-nav-link" href="{{ url('admin/roles') }}"> جميع الصلاحيات
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+
             </li>
             {{-- @endcan --}}
 
              {{-- @can('wallet') --}}
              <li class="nav-item">
-                <a class="nav-link menu-arrow @yield('wallet-active')" href="{{ url('admin/wallet/index') }}">
+                <a class="nav-link @yield('wallet-active')" href="{{ url('admin/wallet/index') }}">
                     <span class="nav-icon">
                         <i class="bi bi-wallet2"></i>
                     </span>
@@ -309,7 +185,7 @@
 
              {{-- @can('wallet') --}}
              <li class="nav-item">
-                <a class="nav-link menu-arrow @yield('page-active')" href="{{ url('admin/pages') }}">
+                <a class="nav-link @yield('page-active')" href="{{ url('admin/pages') }}">
                     <span class="nav-icon">
                         <i class="bi bi-browser-edge"></i>
                     </span>

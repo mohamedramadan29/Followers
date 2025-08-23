@@ -11,7 +11,10 @@ class FavoriteController extends Controller
 {
     public function index()
     {
+        $meta = [
+            'title' => 'المفضلة',
+        ];
         $wishlist = Wishlist::where('user_id',Auth::user()->id)->latest()->get();
-        return view('front.users.favourite.index',compact('wishlist'));
+        return view('front.users.favourite.index',compact('wishlist','meta'));
     }
 }

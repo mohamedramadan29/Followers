@@ -52,8 +52,8 @@ class ProductController extends Controller
         if ($request->isMethod('post')) {
             try {
                 $data = $request->all();
-                // dd($data);
                 $rules = [
+                    'main_title' => 'required',
                     'name' => 'required',
                     'category_id' => 'required',
                     'description' => 'required',
@@ -67,6 +67,7 @@ class ProductController extends Controller
                     $rules['image'] = 'image|mimes:jpg,png,jpeg,webp,svg';
                 }
                 $messages = [
+                    'main_title.required' => ' من فضلك ادخل العنوان الرئيسي للخدمة  ',
                     'name.required' => ' من فضلك ادخل اسم المنتج  ',
                     'category_id.required' => ' من فضلك حدد القسم الرئيسي للمنتج  ',
                     'description.required' => ' من فضلك ادخل الوصف الخاص بالمنتج ',
@@ -93,10 +94,11 @@ class ProductController extends Controller
                 if ($count_old_product > 0) {
                     return Redirect::back()->withInput()->withErrors(' اسم المنتج متواجد من قبل من فضلك ادخل منتج جديد  ');
                 }
-                $slug = $this->CustomeSlug($data['name']);
+                $slug = $this->CustomeSlug($data['main_title']);
                 DB::beginTransaction();
 
                 $product = new Product();
+                $product->main_title = $data['main_title'];
                 $product->category_id = $data['category_id'];
                 $product->sub_category_id = $data['sub_category_id'];
                 $product->best_services = $data['best_services'];
@@ -152,25 +154,25 @@ class ProductController extends Controller
                 return $this->exception_message($e);
             }
         }
-        return view('admin.products.add', compact('MainCategories', 'SubCategories', 'providers'));
+        return view('admin.Products.add', compact('MainCategories', 'SubCategories', 'providers'));
 
     }
 
-    public function update(Request $request, $slug)
+    public function update(Request $request, $id)
     {
         // جلب الفئات الرئيسية والفرعية والعلامات التجارية والسمات
         $MainCategories = MainCategory::where('status', '1')->get();
         $SubCategories = SubCategory::where('status', '1')->get();
         $providers = Provider::where('status', '1')->get();
-
         // جلب المنتج مع الفئة الفرعية والمتغيرات المرتبطة به
-        $product = Product::with('Sub_Category', 'SubServices')->where('slug', $slug)->first();
-
+        $product = Product::with('Sub_Category', 'SubServices')->where('id', $id)->first();
         if ($request->isMethod('post')) {
+         //   dd($request->all());
             // التحقق من صحة المدخلات
             //dd($request->all());
 
             $rules = [
+                'main_title' => 'required',
                 'name' => 'required',
                 'category_id' => 'required',
                 'description' => 'required',
@@ -184,6 +186,7 @@ class ProductController extends Controller
                 $rules['image'] = 'image|mimes:jpg,png,jpeg,webp';
             }
             $messages = [
+                'main_title.required' => ' من فضلك ادخل العنوان الرئيسي للخدمة  ',
                 'name.required' => ' من فضلك ادخل اسم المنتج  ',
                 'category_id.required' => ' من فضلك حدد القسم الرئيسي للمنتج  ',
                 'description.required' => ' من فضلك ادخل الوصف الخاص بالمنتج ',
@@ -211,7 +214,9 @@ class ProductController extends Controller
                     ]);
                 }
                 // تحديث معلومات المنتج
-                $slug = $this->CustomeSlug($data['name']);
+                $slug = $this->CustomeSlug($data['main_title']);
+                //dd($data['main_title']);
+                $product->main_title = $data['main_title'];
                 $product->category_id = $data['category_id'];
                 $product->sub_category_id = $data['sub_category_id'];
                 $product->best_services = $data['best_services'];
@@ -270,6 +275,7 @@ class ProductController extends Controller
                 return $this->exception_message($e);
             }
         }
+
         // عرض صفحة التعديل
         return view('admin.Products.update', compact('product', 'MainCategories', 'SubCategories', 'providers'));
     }

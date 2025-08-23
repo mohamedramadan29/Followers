@@ -6,7 +6,7 @@
     <!-- ==================================================== -->
     <div class="page-content">
         <div class="container-xxl">
-            <div class="row"> 
+            <div class="row">
                 <form action="#" method="get" class="d-flex" style="justify-content: space-between;align-items: center">
                     <ul class="list-unstyled orders-tabs" style="widows: 90%">
                         <li>
@@ -26,21 +26,21 @@
                     <div class="col-lg-4 col-12">
                         <div class="wallet-main-info wallet-payments-success">
                             <h4> ايداع ناجح <i class="bi bi-check-circle"></i> </h4>
-                            <p style="color: green;"> 12,1212123 <img src="{{ asset('assets/admin/images/SAR.svg') }}"
+                            <p style="color: green;"> {{ number_format($totalSuccessAmount,2) }} <img src="{{ asset('assets/admin/images/SAR.svg') }}"
                                     alt=""> </p>
                         </div>
                     </div>
                     <div class="col-lg-4 col-12">
                         <div class="wallet-main-info wallet-payments-warning">
                             <h4> ايداع معلق <i class="bi bi-clock-history"></i> </h4>
-                            <p style="color: orange;"> 12,1212123 <img src="{{ asset('assets/admin/images/SAR.svg') }}"
+                            <p style="color: orange;"> {{ number_format($totalPendingAmount,2) }} <img src="{{ asset('assets/admin/images/SAR.svg') }}"
                                     alt=""> </p>
                         </div>
                     </div>
                     <div class="col-lg-4 col-12">
                         <div class="wallet-main-info wallet-payments-danger">
                             <h4> ايداع لم يتم <i class="bi bi-ban"></i> </h4>
-                            <p style="color: red;"> 12,1212123 <img src="{{ asset('assets/admin/images/SAR.svg') }}"
+                            <p style="color: red;"> {{ number_format($totalFailedAmount,2) }} <img src="{{ asset('assets/admin/images/SAR.svg') }}"
                                     alt=""> </p>
                         </div>
                     </div>
@@ -54,7 +54,6 @@
                                 class="table mb-0 align-middle table-bordered gridjs-table table-hover table-centered">
                                 <thead class="bg-light-subtle table-primary-custome">
                                     <tr>
-                                        <th>#</th>
                                         <th> رقم الحوالة </th>
                                         <th> بوابة الدفع </th>
                                         <th> المستخدم </th>
@@ -66,56 +65,51 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th> 1 </th>
-                                        <th> محمد </th>
-                                        <th> محمد </th>
-                                        <th> محمد </th>
-                                        <th> محمد </th>
-                                        <th> محمد </th>
-                                        <th> محمد </th>
-                                        <th> <span class="badge bg-success"> ناجحة </span> </th>
-                                        <td>
-                                            <div class="gap-2 d-flex">
-                                                <button type="button" class="color-success" data-bs-toggle="modal"
-                                                    data-bs-target="#show_invoice_details">
-                                                    <i class="ti ti-eye"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    @include('admin.wallet._show_invoice_details')
-                                    {{-- @foreach ($wallets as $wallet)
+                                    @foreach ($transactions as $transaction)
                                         <tr>
-                                            <th>
-                                                {{ $loop->iteration }}
-                                            </th>
-                                            <th> {{ $wallet->user->name }} </th>
+                                            <td> {{ $transaction->id }} </td>
+                                            <td> {{ $transaction->payment_method }} </td>
+                                            <td> <a href="{{ url('admin/user/show/' . $transaction->user->id) }}">
+                                                    {{ $transaction->user->name }} </a> </td>
+                                            <td> {{ $transaction->amount }} دولار </td>
+                                            <td> 2 % </td>
+                                            <td> {{ $transaction->created_at->format('Y-m-d H:i A') }} </td>
                                             <td>
-                                                @foreach (json_decode($role->permissions) as $permission)
-                                                    @foreach (Config::get('permissions') as $key => $value)
-                                                        @if ($key == $permission)
-                                                            <span class="px-2 py-1 badge bg-light text-dark fs-11">
-                                                                {{ $value }}
-                                                            </span>
-                                                        @endif
-                                                    @endforeach
-                                                @endforeach
+                                                @if ($transaction->payment_status == 'pending')
+                                                    <span class="badge badge-warning bg-warning">
+                                                        {{ $transaction->payment_status }} </span>
+                                                @else
+                                                    <span class="badge badge-success bg-success">
+                                                        {{ $transaction->payment_status == 'completed' ? 'مكتملة' : 'قيد الانتظار' }}
+                                                    </span>
+                                                @endif
                                             </td>
                                             <td>
                                                 <div class="gap-2 d-flex">
-                                                    <a href="{{ url('admin/role/update/' . $role->id) }}"
-                                                        class="color-primary">
-                                                        <i class="ti ti-edit"></i>
-                                                    </a>
-                                                    <button type="button" class="color-danger" data-bs-toggle="modal"
-                                                        data-bs-target="#delete_permision_{{ $role->id }}">
-                                                        <i class="ti ti-trash"></i>
+                                                    <button style="background: transparent;border:none" type="button"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#show_invoice_details_{{ $transaction->id }}">
+                                                        <i style="color: #3CD856" class="fa fa-eye"></i>
                                                     </button>
+                                                    <!-- Active Payment Status  -->
+                                                    @if ($transaction->payment_status == 'pending')
+                                                        <form
+                                                            action="{{ url('admin/wallet/payment/active', $transaction->id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            <button
+                                                                onclick="return confirm('هل أنت متأكد من تفعيل الحوالة وإضافة الرصيد إلى العميل؟')"
+                                                                type="submit" style="background: transparent;border:none">
+                                                                <i style="color: #3CD856" class="fa fa-check"></i>
+                                                            </button>
+                                                        </form>
+                                                    @endif
+                                                    <!-- Deactive Payment Status  -->
                                                 </div>
                                             </td>
                                         </tr>
-                                    @endforeach --}}
+                                        @include('admin.wallet._show_invoice_details')
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

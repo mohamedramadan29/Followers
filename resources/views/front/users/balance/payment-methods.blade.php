@@ -1,5 +1,5 @@
 @extends('front.layouts.master')
-@section('title', ' وسائل الدفع ')
+@section('title', $meta['title'])
 @section('css')
     {{--    <!-- DataTables CSS --> --}}
     <script

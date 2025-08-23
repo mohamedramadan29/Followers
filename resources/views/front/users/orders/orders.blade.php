@@ -1,7 +1,6 @@
 @extends('front.layouts.master')
-@section('title', ' طلباتي ')
+@section('title', $meta['title'])
 @section('css')
-    {{--    <!-- DataTables CSS --> --}}
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
 @endsection
 @section('content')
@@ -108,7 +107,7 @@
                         <div class="col-12">
                             <div class="border card">
                                 <div class="card-body">
-                                    @if ($orders_with_status->count() > 0)
+                                    @if ($userOrders->count() > 0)
                                         <div class="table-responsive">
                                             <table id="table-search" class="table table-bordered">
                                                 <thead class="table-primary-custome">

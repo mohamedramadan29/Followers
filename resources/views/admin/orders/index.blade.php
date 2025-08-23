@@ -62,15 +62,16 @@
                                         <thead class="bg-light-subtle table-primary-custome">
                                             <tr>
                                                 <th> # </th>
+                                                <th> اسم العميل  </th>
                                                 <th> رقم الطلب عند المزود</th>
                                                 <th> رقم الخدمة عند المزود </th>
                                                 <th> رقم الطلب </th>
-                                                <th>السعر </th>
+                                                <th> السعر </th>
                                                 <th> التاريخ / الوقت </th>
                                                 <th> الخدمة </th>
                                                 <th> الرابط </th>
                                                 <th> الكمية </th>
-                                                <th>عدد البدء </th>
+                                                <th> عدد البدء </th>
                                                 <th> العدد المتبقي </th>
                                                 <th>حالة الطلب </th>
                                                 <th> إجراءات </th>
@@ -80,13 +81,14 @@
                                             @foreach ($orders_with_status as $order)
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
+                                                    <td> <a href="{{ url('admin/user/show/'.$order->user_id) }}"> {{ $order['user']['name'] }} </a></td>
                                                     <td> {{ $order['order_number'] }} </td>
                                                     <td> {{ $order['main_service_id'] }} </td>
                                                     <td> {{ $order['id'] }} </td>
                                                     <td> {{ number_format($order['total_price'], 5) }} $ </td>
                                                     <td> {{ $order['created_at']->format('Y-m-d H:i A') }} </td>
                                                     <td> {{ str()->limit($order['name'], 40 , '...') }} </td>
-                                                    <td> <a href="{{ $order['page_link'] }}" target="_blank"> {{ str()->limit($order['page_link'], 10 , '...') }} </a> </td>
+                                                    <td> <input class="form-control" style="padding: 2px;width:100px" type="text" value="{{ str()->limit($order['page_link']) }}"> </td>
                                                     <td> {{ $order['quantity'] }} </td>
                                                     <td>
                                                         {{ $order->provider_details->start_count }} </td>

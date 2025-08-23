@@ -29,6 +29,13 @@
                 @else
                     <div class="col-xl-12">
                         <div class="card">
+                            <div class="gap-1 card-header d-flex justify-content-between align-items-center">
+                                <h4 class="card-title flex-grow-1"> المستخدمين </h4>
+
+                                <a href="{{ url('admin/user/add') }}" class="btn btn-sm btn-primary">
+                                    اضافة مستخدم جديد <i class="ti ti-plus"></i>
+                                </a>
+                            </div>
                             <div>
                                 <div class="table-responsive">
                                     <table id="table-search"

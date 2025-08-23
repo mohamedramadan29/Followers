@@ -18,19 +18,13 @@
                     <a href="{{ url('/') }}" class="nav-menu__link {{ request()->is('/') ? 'active' : '' }}">الرئيسية </a>
                 </li>
                 @foreach ($maincategories as $category)
-                    <li class="nav-menu__item">
-                        <a href="{{ url('category/' . $category['slug']) }}" class="nav-menu__link {{ request()->is('category/'.$category['slug']) ? 'active' : '' }}">
-                            {{ $category->name }}
-                        </a>
-                    </li>
-                @endforeach
                 <li class="nav-menu__item">
-                    <a href="{{ url('instagram-followers-counter') }}" class="nav-menu__link {{ request()->is('instagram-followers-counter') ? 'active' : '' }} {{ request()->is('instagramCounter') ? 'active' : '' }}"> عدّاد متابعين انستقرام
+                    <a href="{{ route('category', $category->meta_url ?: $category->slug) }}"
+                       class="nav-menu__link {{ request()->route('url') == ($category->meta_url ?: $category->slug) ? 'active' : '' }}">
+                        {{ $category->name }}
                     </a>
                 </li>
-                <li class="nav-menu__item">
-                    <a href="{{ url('tiktok-followers-counter') }}" class="nav-menu__link {{ request()->is('tiktok-followers-counter') ? 'active' : '' }}"> عدّاد متابعين تيك توك </a>
-                </li>
+            @endforeach
                 <li class="nav-menu__item">
                     <a href="{{ url('contact') }}" class="nav-menu__link {{ request()->is('contact') ? 'active' : '' }}"> اتصل بنا </a>
                 </li>
@@ -74,18 +68,10 @@
                         </li>
                         @foreach ($maincategories as $category)
                             <li class="nav-menu__item">
-                                <a  href="{{ url('category/' . $category['slug']) }}" class="nav-menu__link {{ request()->is('category/'.$category['slug']) ? 'active' : '' }}">
+                                <a  href="{{ route('category', $category->meta_url ?: $category->slug) }}" class="nav-menu__link {{ request()->route('url') == ($category->meta_url ?: $category->slug) ? 'active' : '' }}">
                                     {{ $category['name'] }} </a>
                             </li>
                         @endforeach
-                        <li class="nav-menu__item">
-                            <a href="{{ url('instagram-followers-counter') }}" class="nav-menu__link {{ request()->is('instagram-followers-counter') ? 'active' : '' }} {{ request()->is('instagramCounter') ? 'active' : '' }}"> عدّاد متابعين
-                                انستقرام </a>
-                        </li>
-                        <li class="nav-menu__item">
-                            <a href="{{ url('tiktok-followers-counter') }}" class="nav-menu__link {{ request()->is('tiktok-followers-counter') ? 'active' : '' }}"> عدّاد متابعين تيك
-                                توك </a>
-                        </li>
                         <li class="nav-menu__item">
                             <a href="{{ url('contact') }}" class="nav-menu__link {{ request()->is('contact') ? 'active' : '' }}"> اتصل بنا </a>
                         </li>

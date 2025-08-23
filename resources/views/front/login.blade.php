@@ -8,7 +8,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-10">
-                    <div class="flex-row overflow-hidden border-0 shadow-lg card" style="border-radius: 20px;">
+                    <div class="overflow-hidden flex-row border-0 shadow-lg card" style="border-radius: 20px;">
                         <!-- القسم الأيمن: صورة ونص -->
                         <div class="text-center col-md-6 d-none d-md-flex flex-column align-items-center justify-content-center"
                             style="background: #6a7cff; color: #fff; width: 40%;">

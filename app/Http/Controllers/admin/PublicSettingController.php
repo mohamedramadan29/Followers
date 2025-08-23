@@ -107,7 +107,7 @@ class PublicSettingController extends Controller
             $public_setting->update([
                 'website_name' => $data['website_name'],
                 'website_description'=>$data['website_description'],
-                'website_keywords'=>$data['meta_keywords'],
+                'meta_keywords'=>$data['meta_keywords'],
             ]);
             return $this->success_message('تم تعديل الاعدادات العامة للموقع بنجاح');
         }

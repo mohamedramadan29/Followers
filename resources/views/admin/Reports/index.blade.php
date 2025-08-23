@@ -11,8 +11,11 @@
                 <form action="#" method="get" class="d-flex" style="justify-content: space-between;align-items: center">
                     <ul class="list-unstyled orders-tabs" style="widows: 90%">
                         <li>
-                            <a href="{{ url('admin/reports/sales') }}"
-                                class="all"> المبيعات </a>
+                            <a href="{{ url('admin/reports/index') }}"
+                                class="all"> الكل </a>
+                        </li>
+                        <li>
+                            <a href="{{ url('admin/reports/sales') }}"> المبيعات </a>
                         </li>
                         <li>
                             <a href="{{ url('admin/reports/products') }}" class="complete"> المنتجات </a>

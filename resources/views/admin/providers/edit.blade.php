@@ -38,7 +38,7 @@
                                     <div class="col-lg-6">
                                         <div class="mb-3">
                                             <label for="api_key" class="form-label"> Api Key </label>
-                                            <input required type="text" id="api_key" name="api_key"
+                                            <input required type="password" id="api_key" name="api_key"
                                                 class="form-control" placeholder="" value="{{ $provider->api_key }}">
                                         </div>
                                     </div>

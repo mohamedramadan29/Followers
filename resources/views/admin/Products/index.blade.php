@@ -95,11 +95,11 @@
                                                 <td> {{ $product['profit_percentage'] }} % </td>
                                                 <td>
                                                     <div class="gap-2 d-flex">
-                                                        <a href="{{ url('admin/product/update/' . $product['slug']) }}"
+                                                        <a href="{{ url('admin/product/update/' . $product['id']) }}"
                                                             class="color-success">
                                                             <i class="ti ti-eye"></i>
                                                         </a>
-                                                        <a href="{{ url('admin/product/update/' . $product['slug']) }}"
+                                                        <a href="{{ url('admin/product/update/' . $product['id']) }}"
                                                             class="color-primary">
                                                             <i class="ti ti-edit"></i>
                                                         </a>

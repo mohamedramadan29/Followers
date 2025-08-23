@@ -18,6 +18,15 @@ class UserOrdersController extends Controller
 
     public function index()
     {
+        if (!Auth::user()) {
+            return redirect()->route('login');
+        }
+        $userOrders = Order::where('user_id', Auth::id())
+        ->orderBy('id', 'desc')
+        ->get();
+        $orders_with_status = [];
+        if(count($userOrders) > 0) {
+
         // إنشاء مفتاح الكاش بناءً على معرف المستخدم
         $cacheKey = 'user_orders_' . Auth::id();
 
@@ -54,9 +63,13 @@ class UserOrdersController extends Controller
 
             return $orders_with_status;
         });
+    }
 
+        $meta = [
+            'title' => 'طلباتي',
+        ];
         // إرجاع العرض مع البيانات المخزنة في الكاش
-        return view('front.users.orders.orders', compact('orders_with_status'));
+        return view('front.users.orders.orders', compact('orders_with_status','userOrders','meta'));
     }
 
     ############################### start Refill Order ###################

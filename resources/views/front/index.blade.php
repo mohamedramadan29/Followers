@@ -1,5 +1,8 @@
 @extends('front.layouts.master')
-@section('title', 'الرئيسية ')
+{{-- @section('title', 'الرئيسية ') --}}
+@section('title', $meta['title'])
+@section('description', $meta['description'])
+@section('keywords', $meta['keywords'])
 @section('index-active', 'active')
 @section('css')
     <link rel="stylesheet" href="{{ asset('assets/front/css/new-custome.css') }}">
@@ -88,7 +91,7 @@
                                 <img src="{{ $category->Image() }}" alt="{{ $category->name }}" class="service-icon-img">
                             </div>
                             <h6 class="mb-2 service-card__title">{{ $category->name }}</h6>
-                            <a href="{{ url('category/' . $category['slug']) }}" class="service-card__btn">اطلب الآن ←</a>
+                            <a href="{{ route('category', $category->meta_url ?: $category->slug) }}" class="service-card__btn">اطلب الآن ←</a>
                         </div>
                     </div>
                 @endforeach

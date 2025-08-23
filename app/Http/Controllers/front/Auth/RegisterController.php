@@ -75,7 +75,8 @@ class RegisterController extends Controller
                 //     $message->to($email)->subject(' تفعيل الحساب الخاص بك  ');
                 // });
                 DB::commit();
-                return $this->success_message('تم انشاء الحساب بنجاح من فضلك فعل حسابك من خلال البريد المرسل  ⚡️');
+                return Redirect()->route('login')->with(['Success_message' => 'تم انشاء الحساب بنجاح من فضلك فعل حسابك من خلال البريد المرسل  ⚡️']);
+              //  return $this->success_message('تم انشاء الحساب بنجاح من فضلك فعل حسابك من خلال البريد المرسل  ⚡️');
             } catch (\Exception $e) {
                 return $this->exception_message($e);
             }

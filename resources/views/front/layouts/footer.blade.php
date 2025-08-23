@@ -108,9 +108,7 @@
                     <img src="{{ asset('assets/front/uploads/logo-login.svg') }}" alt="شعار منصة الأعمال السعودي"
                         style="max-width: 120px; margin-bottom: 15px;">
                     <p class="text-white footer-widget__desc" style="font-size: 15px;">
-                        متجر زيادة التفاعل خدمات سوشيال ميديا محترف في زيادة متابعين تيك توك ودعمها بمشاهدات ولايكات
-                        ومشاركات بجودة مضمونة. كما يوفر هذه الخدمة لمختلف المنصات مثل تيك توك، انستقرام، فيسبوك، بأفضل
-                        الأسعار.
+                       {{ $setting['about_website'] }}
                     </p>
                     <ul class="mt-3 footer-social-icons list-inline">
                         @if ($setting['facebook'] != '')
@@ -158,8 +156,8 @@
                 <div class="footer-widget">
                     <h5 class="text-white footer-widget__title">أخرى</h5>
                     <ul class="footer-lists">
-                        <li class="footer-lists__item">عدد متابعين تيك توك</li>
-                        <li class="footer-lists__item">عدد متابعين انستقرام</li>
+                        <li class="footer-lists__item"> <a href="{{ url('tiktok-followers-counter') }}"> عدد متابعين تيك توك </a></li>
+                        <li class="footer-lists__item"> <a href="{{ url('instagram-followers-counter') }}"> عدد متابعين انستقرام </a></li>
                     </ul>
                 </div>
             </div>

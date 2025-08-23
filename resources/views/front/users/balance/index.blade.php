@@ -1,5 +1,5 @@
 @extends('front.layouts.master')
-@section('title', ' رصيدي ')
+@section('title', $meta['title'])
 @section('content')
 
     <!-- ======================== Dashboard Cards Section Start ===================== -->
@@ -179,8 +179,8 @@
                         <h1 style="font-size: 20px" class="modal-title fs-5" id="exampleModalLabel">
                             شحن رصيد </h1>
                     </div>
-                    <form action="{{ route('store_balance') }}" method="POST">
-                        @csrf
+                    <form action="{{ route('store_balance') }}" method="get">
+                     
                         <div class="modal-body">
                             <div class="row gy-3">
                                 <div class="col-sm-12 col-xs-12">

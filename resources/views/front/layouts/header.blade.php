@@ -6,12 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Title -->
-    <title> {{ $setting['website_name'] }} - @yield('title')  </title>
+    <title> {{ $meta['title'] ??  $setting['website_name'] }} </title>
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/uploads/PublicSetting/' . $setting['website_favicon']) }}">
-    <meta content="{{ $setting['website_description'] }}" name="description">
-    <meta content="{{ $setting['meta_keywords'] }}" name="keywords">
-    <meta content="{{ $setting['meta_author'] }}" name="author">
+
+    <!-- Meta Tags -->
+    <meta name="description" content="{{ $meta['description'] ?? $setting['website_description'] }}">
+    <meta name="keywords" content="{{ $meta['keywords'] ?? $setting['meta_keywords'] }}">
+    <meta name="author" content="{{ $setting['meta_author'] }}">
+
+    <!-- Canonical URL -->
+    @if (request()->routeIs('index'))
+        <link rel="canonical" href="{{ url('/') }}">
+    @elseif (request()->routeIs('category'))
+        <link rel="canonical" href="{{ route('category', $meta['url'] ?? $setting['website_url']) }}">
+    @endif
 
     <!-- Bootstrap -->
     {{-- <link rel="stylesheet" href="{{ asset('assets/front/') }}/css/bootstrap.min.css"> --}}
@@ -34,6 +43,7 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_TRACKING_ID"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
+
         function gtag() {
             dataLayer.push(arguments);
         }

@@ -8,8 +8,8 @@ use App\Services\Api;
 use Illuminate\Support\Facades\Cache;
 class Product extends Model
 {
-    protected $guarded = [];
     use HasFactory;
+    protected $guarded = [];
     // علاقة مع الفئة الرئيسية
     public function Main_Category()
     {

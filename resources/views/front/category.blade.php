@@ -1,8 +1,8 @@
 @extends('front.layouts.master')
 
-@section('title')
-    {{ $category->name }}
-@endsection
+@section('title', $meta['title'])
+@section('description', $meta['description'])
+@section('keywords', $meta['keywords'])
 @section('category-active', 'active')
 @section('content')
     <!-- ======================== Breadcrumb one Section Start ===================== -->

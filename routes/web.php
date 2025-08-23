@@ -26,6 +26,16 @@ use App\Http\Controllers\front\Auth\SocialLoginController;
 use App\Http\Controllers\front\PageController;
 use App\Http\Controllers\front\Payments\PaypalPaymentController;
 
+################### Start Main And Front Controller #########################
+Route::controller(FrontController::class)->group(function () {
+
+    Route::get('/', 'index')->name('index');
+    Route::get('category/{url}', 'category')->name('category');
+});
+
+
+###################### Start Login Controller ###############################
+
 Route::controller(LoginController::class)->group(function () {
 
     Route::get('login', action: 'show_login')->name('login');
@@ -38,12 +48,16 @@ Route::controller(LoginController::class)->group(function () {
     Route::post('user/update_forget_password', 'update_forget_password');
 });
 
+########################### Start Register Controller ###########################
+
 Route::controller(RegisterController::class)->group(function () {
 
     Route::get('register', action: 'show_register')->name('register');
     Route::post('register', 'register')->name('register.post');
     Route::get('user/confirm/{code}', 'UserConfirm');
 });
+
+########################## Start User Profile ..... Controller #####################
 
 Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
     Route::controller(ProfileController::class)->group(function () {
@@ -56,15 +70,17 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
         Route::get('/notifications/mark-all-read','markAllRead')->name('notifications.markAllRead');
         Route::get('balance', 'balance');
     });
+    ######################## Start User Balance Controller ###############################
     Route::controller(UserBalanceController::class)->group(function () {
         Route::get('balance', 'index')->name('user.balance');
-        Route::post('balance/store', 'store')->name('store_balance');
+        Route::get('balance/store', 'store')->name('store_balance');
         Route::post('/payment/callback', 'handleCallback')->name('crepto.payment.callback');
         Route::get('/payment/success', 'paymentSuccess')->name('payment.success');
         Route::get('/payment/cancel', 'paymentCancel')->name('payment.cancel');
         Route::get('/paypal/success', 'paypalSuccess')->name('paypal.success');
         Route::get('/paypal/cancel', 'paypalCancel')->name('paypal.cancel');
     });
+    ########################### Start Ticket Controller #####################################
     Route::controller(TicketController::class)->group(function () {
         Route::get('tickets', 'tickets')->name('tickets');
         Route::get('ticket/add', 'create');
@@ -74,11 +90,13 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
         Route::get('ticket/{id}', 'index');
         Route::post('message/create/{ticket_id}', 'store');
     });
+    ################################ Start User Orders Controller #############################
     Route::controller(UserOrdersController::class)->group(function () {
         Route::get('orders', 'index')->name('orders');
         Route::match(['post','get'],'order/refill/{order_number}', 'refill');
         Route::match(['post','get'],'order/cancel/{order_number}', 'cancel');
     });
+    ########################### Start Wishlist Controller #################################
     Route::controller(FavoriteController::class)->group(function () {
         Route::get('wishlist', 'index');
     });
@@ -110,12 +128,9 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
         });
 Route::post('/heleket/notify', [HeleketController::class, 'notify'])->name('heleket.notify');
 });
-Route::controller(FrontController::class)->group(function () {
-    Route::get('/', 'index')->name('index');
-    Route::get('category/{slug}', 'category');
-});
+
 Route::controller(ProductController::class)->group(function () {
-    Route::get('product/{slug}', 'index');
+    Route::get('product/{url}', 'index');
     Route::get('product_details/{id}', 'showServiceDetails');
     Route::get('/get-sub-service-details/{product_id}/{subServiceId}', 'getSubServiceDetails');
 });

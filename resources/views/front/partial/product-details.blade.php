@@ -1,8 +1,8 @@
 <div class="text-center most-ordered-card">
     <img src="{{ $service->Image() }}" class="mb-2 most-ordered-img" alt="{{ $service->name }}">
     <div class="most-ordered-title">
-        <a href="{{ url('product/' . $service['slug']) }}" class="link">
-            {{ $service->name }}
+        <a href="{{ url('product/' . $service['meta_url'] ?: $service['slug']) }}" class="link">
+            {{ $service->main_title }}
         </a>
     </div>
     <div class="most-ordered-desc-card">{!! str($service->description)->limit(50) !!}</div>

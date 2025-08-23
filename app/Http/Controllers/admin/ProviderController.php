@@ -15,7 +15,7 @@ class ProviderController extends Controller
     public function index()
     {
         $providers = Provider::all();
-        return view('admin.Providers.index', compact('providers'));
+        return view('admin.providers.index', compact('providers'));
     }
 
     public function store(Request $request)
@@ -50,7 +50,7 @@ class ProviderController extends Controller
             $provider->save();
             return $this->success_message('تم اضافة مزود بنجاح');
         }
-        return view('admin.Providers.add');
+        return view('admin.providers.add');
     }
 
     public function update(Request $request, $id)
@@ -85,7 +85,7 @@ class ProviderController extends Controller
             $provider->save();
             return $this->success_message('تم تعديل مزود بنجاح');
         }
-        return view('admin.Providers.edit', compact('provider'));
+        return view('admin.providers.edit', compact('provider'));
     }
 
     public function delete($id)

@@ -14,13 +14,14 @@ use Illuminate\Support\Facades\Cache;
 class ProductController extends Controller
 {
 
-    public function index($slug)
+    public function index($url)
     {
-        $service = Product::with('Main_Category', 'SubServices')->where('slug', $slug)->first();
+        $service = Product::with('Main_Category', 'SubServices')->where('meta_url', $url)->orWhere('slug', $url)->firstOrFail();
+
         $samservices = Product::where('category_id', $service['category_id'])->where('status', '1')->where('id', '!=', $service['id'])->get();
         $service_id = $service['service_id'];
         $provider_id = $service['provider_id'];
-        $provider = Provider::where('id', $provider_id)->first();
+        $provider = Provider::where('id', $provider_id)->firstOrFail();
         $cacheKey = "provider_service_{$provider_id}_{$service_id}";
         ######################### Get Service Details From Provider #####################################
         // $api = new Api($provider->api_url, $provider->api_key);
@@ -54,7 +55,13 @@ class ProductController extends Controller
         }
         //dd($service_from_provider);
         #######################################################################################################
-        return view("front.product", compact('service', 'service_from_provider', 'samservices'));
+        $meta = [
+            'title' => $service->meta_title,
+            'description' => $service->meta_description,
+            'keywords' => $service->meta_keywords,
+            'url' => $service->meta_url,
+        ];
+        return view("front.product", compact('service', 'service_from_provider', 'samservices','meta'));
     }
     public function getSubServiceDetails($product_id, $provider_service_id)
     {
@@ -76,7 +83,7 @@ class ProductController extends Controller
             return response()->json(['error' => 'SubService not found'], 404);
         }
         ######## If SubService Is The Main Service
-        
+
 
         // مفتاح الكاش
         $cacheKey = "provider_service_{$provider->id}_{$provider_service_id}";

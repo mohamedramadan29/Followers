@@ -19,14 +19,20 @@ class TicketController extends Controller
     use Upload_Images;
     public function tickets()
     {
+        $meta = [
+            'title' => 'تذاكر الدعم',
+        ];
         $tickets = Ticket::where('user_id', Auth::id())->orderBy('id', 'desc')->get();
 
-        return view('front.users.tickets.index', compact('tickets'));
+        return view('front.users.tickets.index', compact('tickets','meta'));
     }
 
     public function create()
     {
-        return view('front.users.tickets.add');
+        $meta = [
+            'title' => ' اضافة تذكرة',
+        ];
+        return view('front.users.tickets.add', compact('meta'));
     }
 
     public function store(Request $request)

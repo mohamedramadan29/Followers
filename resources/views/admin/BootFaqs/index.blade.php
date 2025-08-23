@@ -93,7 +93,7 @@
                                                     </td>
                                                 </tr>
                                                 <!-- Modal -->
-                                                @include('admin.bootfaqs.delete')
+                                                @include('admin.BootFaqs.delete')
                                             @endforeach
 
                                         </tbody>

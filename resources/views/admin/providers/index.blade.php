@@ -43,7 +43,7 @@
                                                 </td>
                                                 <td> {{ $provider['name'] }} </td>
                                                 <td> {{ $provider['api_url']  }} </td>
-                                                <td> {{ $provider['api_key'] }} </td>
+                                                <td>  ******************* </td>
                                                 <td>
                                                     @if($provider['status'] == 1)
                                                         <span class="badge bg-success"> مفعل </span>
@@ -68,7 +68,7 @@
                                                 </td>
                                             </tr>
                                             <!-- Modal -->
-                                            @include('admin.Providers.delete')
+                                            @include('admin.providers.delete')
                                         @endforeach
 
                                     </tbody>

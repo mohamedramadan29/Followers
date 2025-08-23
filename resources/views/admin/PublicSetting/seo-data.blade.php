@@ -78,11 +78,11 @@
                                                     placeholder="أدخل الكلمات المفتاحية">
                                                 <!-- حقل مخفي لتخزين الكلمات -->
                                                 <input type="hidden" name="meta_keywords" id="hidden_keywords"
-                                                    value="{{ $public_setting['website_keywords'] }}">
+                                                    value="{{ $public_setting['meta_keywords'] }}">
                                             </div>
                                             <div id="keywordList" class="mt-2">
-                                                @if ($public_setting['website_keywords'])
-                                                    @foreach (explode(',', $public_setting['website_keywords']) as $keyword)
+                                                @if ($public_setting['meta_keywords'])
+                                                    @foreach (explode(',', $public_setting['meta_keywords']) as $keyword)
                                                         <span class="mb-2 text-white badge bg-primary me-2"
                                                             data-keyword="{{ $keyword }}">
                                                             {{ $keyword }} <span class="ms-2 text-danger"

@@ -23,7 +23,10 @@ class ProfileController extends Controller
     }
     public function setting()
     {
-        return view('front.users.setting');
+        $meta = [
+            'title' => 'الاعدادات',
+        ];
+        return view('front.users.setting',compact('meta'));
     }
 
     public function orders()
@@ -124,14 +127,20 @@ class ProfileController extends Controller
     }
 
     public function alerts(){
+        $meta = [
+            'title' => 'الإشعارات',
+        ];
         $notifications = Auth::user()->notifications;
         $unreadNotifications = Auth::user()->unreadNotifications;
-        return view('front.users.alerts',compact('notifications','unreadNotifications'));
+        return view('front.users.alerts',compact('notifications','unreadNotifications','meta'));
     }
     public function alertsUnread(){
         $notifications = Auth::user()->notifications;
         $unreadNotifications = Auth::user()->unreadNotifications;
-        return view('front.users.alerts',compact('notifications','unreadNotifications'));
+        $meta = [
+            'title' => 'الإشعارات',
+        ];
+        return view('front.users.alerts',compact('notifications','unreadNotifications','meta'));
     }
 
 
